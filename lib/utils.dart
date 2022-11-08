@@ -9,12 +9,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: Colors.white,
       leading: const Padding(
-        padding: EdgeInsets.only(left: 15.0),
-        child: (Icon(
-          Icons.logo_dev_outlined,
-          color: const Color.fromRGBO(74, 78, 105, 1.0),
-        )),
-      ),
+          padding: EdgeInsets.only(left: 15.0),
+          child:
+              // ImageIcon(
+              //   AssetImage('assets/Schoolables.png'),
+              // ),
+              Icon(
+            Icons.logo_dev_outlined,
+            color: const Color.fromRGBO(74, 78, 105, 1.0),
+          )),
       centerTitle: true,
       title: Row(
         mainAxisSize: MainAxisSize.min,
