@@ -7,4 +7,5 @@ class MyColors {
   static final subtitleColor = Color.fromRGBO(0, 0, 0, 0.56);
   static final startColor = Color.fromRGBO(154, 140, 152, 1);
   static final textFieldColor = Color.fromRGBO(191, 189, 189, 0.33);
+  static final textFieldLabelColor = Color.fromARGB(255, 42, 42, 42);
 }

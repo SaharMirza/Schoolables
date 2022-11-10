@@ -37,4 +37,8 @@ class MyStyles {
     color: MyColors.subtitleColor,
     decoration: TextDecoration.underline,
   );
+  static final googleTextFieldLabelStyle = GoogleFonts.poppins(
+    color: MyColors.buttonColor,
+    fontWeight: FontWeight.w600,
+  );
 }
