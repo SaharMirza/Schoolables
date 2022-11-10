@@ -1,10 +1,8 @@
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/delivery_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/seller_products.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/favourites_page.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -14,14 +12,29 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIndex = 0;
-  List<Widget> screens = [
-    const HomeScreen(),
-    const ScanningList(),
-    const Seller_Products(),
-    const Favourites_Page(),
-    const DeliveryOrders()
+ int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
+    Text(
+      'Index 2: Scan List',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Seller',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Favourites',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Orders',
+      style: optionStyle,
+    ),
   ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -32,16 +45,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const MyAppBar(),
-      body: Column(
-        children: [
-          Center(
-            child: IndexedStack(
-              index: _selectedIndex,
-              children: screens,
+      appBar:const MyAppBar(), 
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -82,4 +94,5 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
     );
   }
+
 }
