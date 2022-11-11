@@ -18,9 +18,9 @@ class SearchBar extends StatelessWidget {
       height: screenHeight * 0.08,
       child: TextField(
         decoration: InputDecoration(
+          prefixIcon: Icon(Icons.search_outlined),
           filled: true,
           fillColor: Color.fromRGBO(242, 233, 228, 1.0),
-          icon: const Icon(Icons.search_outlined),
           labelText: "What are you looking for?",
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(

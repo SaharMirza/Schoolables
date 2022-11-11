@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CatergoryListBuilder extends StatelessWidget {
+  
   const CatergoryListBuilder({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+     final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     List<Categories> Category = [
       Categories(name: "Books", image: "images/book.gif"),
       Categories(name: "Stationary", image: "images/stationary.gif"),
@@ -35,8 +39,8 @@ class CatergoryListBuilder extends StatelessWidget {
                 children: [
                   Image.asset(
                     Category[index].image,
-                    height: 100,
-                    width: 30,
+                    height: screenHeight*0.2,
+                    width: screenWidth*0.1,
                   ),
                   Text(Category[index].name),
                 ],

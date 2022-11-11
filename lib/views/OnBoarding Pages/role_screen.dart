@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 
 class RoleScreen extends StatefulWidget {
   const RoleScreen({super.key});
@@ -93,7 +94,7 @@ class PageDetails extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
           ),
           const Padding(
-            padding: EdgeInsets.only(left: 100.0, right: 100.0, top: 20.0),
+            padding: EdgeInsets.only(left: 60.0, right: 60.0, top: 20.0),
             child: Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incid",
               textAlign: TextAlign.center,
@@ -123,7 +124,7 @@ class ChoiceButton extends StatelessWidget {
             if (title == "Student") {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const BottomNavBar()),
+                MaterialPageRoute(builder: (context) => const MainLoginScreen()),
               );
             }
           },
@@ -133,6 +134,7 @@ class ChoiceButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0)),
             minimumSize: const Size(120, 50),
+            foregroundColor: Colors.white
           ),
           child: Text(title)),
     );

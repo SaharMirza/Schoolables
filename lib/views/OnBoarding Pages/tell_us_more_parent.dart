@@ -5,45 +5,23 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.d
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 
-class TellUsMore extends StatefulWidget {
-  const TellUsMore({super.key});
+class TellUsMoreParent extends StatefulWidget {
+  const TellUsMoreParent({super.key});
 
   @override
-  State<TellUsMore> createState() => _TellUsMoreState();
+  State<TellUsMoreParent> createState() => _TellUsMoreParentState();
 }
 
-class _TellUsMoreState extends State<TellUsMore> {
+class _TellUsMoreParentState extends State<TellUsMoreParent> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final List<String> SchoolNames = <String>[
-    'City School',
-    'Beacon House',
-    'Generation School',
-    'Nixor',
-    "Others"
-  ];
-  final List<String> Grade = <String>[
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10'
-  ];
 
-  var dropdownValue = "One";
-  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -69,7 +47,7 @@ class _TellUsMoreState extends State<TellUsMore> {
 
   Widget Inputs() {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height * 0.3,
       child: Padding(
         padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
         child: Column(
@@ -87,27 +65,6 @@ class _TellUsMoreState extends State<TellUsMore> {
                 control: _phoneController,
                 textType: TextInputType.number,
               ),
-              //Schoolname dropdown
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TextFieldLabel(text: "School Name"),
-                  DropDownButton(
-                    list: SchoolNames,
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TextFieldLabel(text: "Grade"),
-                  DropDownButton(
-                    list: Grade,
-                  )
-                ],
-              ),
-
-              //grade dropdown
             ]),
       ),
     );
@@ -132,52 +89,5 @@ class _TellUsMoreState extends State<TellUsMore> {
                         builder: (context) => const BottomNavBar()));
               })
         ]);
-  }
-}
-
-class DropDownButton extends StatefulWidget {
-  const DropDownButton({Key? key, required this.list}) : super(key: key);
-
-  final List<String> list;
-
-  @override
-  State<DropDownButton> createState() => _DropDownButtonState();
-}
-
-class _DropDownButtonState extends State<DropDownButton> {
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    var dropdownValue = widget.list[0];
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        //color: Colors.white,
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: StatefulBuilder(builder: ((context, setState) {
-          return DropdownButton(
-            value: dropdownValue,
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            icon: const Icon(Icons.arrow_downward_sharp),
-            isExpanded: true,
-            items: widget.list.map((String items) {
-              return DropdownMenuItem(
-                value: items,
-                child: Text(items),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedIndex = widget.list.indexOf(newValue!);
-                dropdownValue = newValue!;
-              });
-            },
-          );
-        })),
-      ),
-    );
   }
 }

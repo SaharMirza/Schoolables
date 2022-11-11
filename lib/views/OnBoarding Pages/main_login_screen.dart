@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
 
 class MainLoginScreen extends StatelessWidget {
   const MainLoginScreen({super.key});
@@ -8,18 +8,27 @@ class MainLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Icon(Icons.close_outlined),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            children: const [
-              Continer1(),
-              Text(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.close_outlined),
+                    onPressed: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const BottomNavBar()),
+                      );
+                    }),
+                  ),
+                ],
+              ),
+              const Continer1(),
+              const Text(
                 "If you continue, you are accepting Schoolables Terms and Conditions and Privacy Policy",
                 textAlign: TextAlign.center,
               ),
@@ -74,18 +83,14 @@ class Continer1 extends StatelessWidget {
             children: const [
               //continue with email button
               LoginChoiceButton(
-                optionIcon: 'images/email.png',
-                title: 'Continue with Email',
-              ),
-              //continue with phone number
-              LoginChoiceButton(
-                optionIcon: 'images/call.png',
-                title: 'Continue with Phone Number',
-              ),
+                  optionIcon: 'images/email.png',
+                  title: 'Continue with Email',
+                  choice: "Email"),
               //continue with google
               LoginChoiceButton(
                 optionIcon: 'images/google.png',
                 title: 'Continue with Google',
+                choice: "Google",
               ),
             ],
           ),
@@ -97,11 +102,15 @@ class Continer1 extends StatelessWidget {
 
 class LoginChoiceButton extends StatelessWidget {
   const LoginChoiceButton(
-      {Key? key, required this.optionIcon, required this.title})
+      {Key? key,
+      required this.optionIcon,
+      required this.title,
+      required this.choice})
       : super(key: key);
 
   final String optionIcon;
   final String title;
+  final String choice;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +121,15 @@ class LoginChoiceButton extends StatelessWidget {
               backgroundColor: Colors.white,
               minimumSize: const Size(120, 50),
               side: const BorderSide(width: 2)),
-          onPressed: () {},
+          onPressed: () {
+            if (choice == "Email") {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ContinueWithEmail()),
+              );
+            }
+          },
           child: Row(
             children: [
               Image.asset(
