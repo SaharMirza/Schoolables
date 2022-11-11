@@ -3,6 +3,8 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/utils.dart';
 
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:const MyHomePage(title: 'Flutter Demo Home Page'),
       // const EditDetailsPage(),
     );
   }
@@ -40,8 +42,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(),
+    return const Scaffold(
       body: Center(
         child: LogoWidget(),
       ),
