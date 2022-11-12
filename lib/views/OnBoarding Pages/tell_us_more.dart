@@ -40,6 +40,7 @@ class _TellUsMoreState extends State<TellUsMore> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -52,7 +53,7 @@ class _TellUsMoreState extends State<TellUsMore> {
               SizedBox(height: screenHeight * 0.05),
               Text(
                 "Tell Us More",
-                style: MyStyles.googleTitleText,
+                style: MyStyles.googleTitleText(screenWidth * 0.07),
               ),
               SizedBox(height: screenHeight * 0.04),
               Inputs(),

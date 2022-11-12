@@ -35,7 +35,7 @@ class _SignupPageState extends State<SignupPage> {
             children: [
               Text(
                 "Register",
-                style: MyStyles.googleTitleText,
+                style: MyStyles.googleTitleText(MediaQuery.of(context).size.width*0.07),
               ),
               registerInputs(),
               const Buttons(ButtonName: "Register"),
