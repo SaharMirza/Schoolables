@@ -30,7 +30,8 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
               SizedBox(height: screenHeight * 0.05),
               Text(
                 "Tell Us More",
-                style: MyStyles.googleTitleText,
+                style: MyStyles.googleTitleText(
+                    MediaQuery.of(context).size.width * 0.07),
               ),
               SizedBox(height: screenHeight * 0.04),
               Inputs(),

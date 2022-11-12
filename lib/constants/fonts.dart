@@ -9,34 +9,46 @@ class MyStyles {
     color: Color.fromRGBO(34, 34, 59, 1),
   );
 
-  static final googleTextListTile = GoogleFonts.poppins(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-    color: MyColors.textColor,
-  );
+  static googleTextListTile(double size) {
+    return GoogleFonts.poppins(
+      fontSize: size,
+      fontWeight: FontWeight.bold,
+      color: MyColors.textColor,
+    );
+  }
 
-  static final googleTextSubtitleListTile = GoogleFonts.poppins(
-    color: MyColors.subtitleColor,
-    fontWeight: FontWeight.w600,
-  );
+  static googleTextSubtitleListTile(double size) {
+    return GoogleFonts.poppins(
+      fontSize: size,
+      color: MyColors.subtitleColor,
+      fontWeight: FontWeight.w600,
+    );
+  }
 
-  static final googleTitleText = GoogleFonts.poppins(
-    fontSize: 25,
-    fontWeight: FontWeight.bold,
-    color: MyColors.textColor,
-  );
+  static googleTitleText(double size) {
+    return GoogleFonts.poppins(
+      fontSize: size,
+      fontWeight: FontWeight.bold,
+      color: MyColors.textColor,
+    );
+  }
 
-  static final googleSecondTitleText = GoogleFonts.poppins(
-    fontSize: 22,
-    fontWeight: FontWeight.bold,
-    color: MyColors.textColor,
-  );
-  static final underlinedGreyText = GoogleFonts.poppins(
-    fontSize: 20,
-    // fontWeight: FontWeight.bold,
-    color: MyColors.subtitleColor,
-    decoration: TextDecoration.underline,
-  );
+  static googleSecondTitleText(double size) {
+    return GoogleFonts.poppins(
+      fontSize: size,
+      fontWeight: FontWeight.bold,
+      color: MyColors.textColor,
+    );
+  }
+
+  static underlinedGreyText(double size) {
+    return GoogleFonts.poppins(
+      fontSize: size,
+      color: MyColors.subtitleColor,
+      decoration: TextDecoration.underline,
+    );
+  }
+
   static final googleTextFieldLabelStyle = GoogleFonts.poppins(
     color: MyColors.buttonColor,
     fontWeight: FontWeight.w600,

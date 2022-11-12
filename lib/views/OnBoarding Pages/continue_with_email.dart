@@ -35,7 +35,7 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
             children: [
               Text(
                 "Login",
-                style: MyStyles.googleTitleText,
+                style: MyStyles.googleTitleText(MediaQuery.of(context).size.width * 0.07),
               ),
               loginInputs(),
               const Buttons(ButtonName: "Login"),

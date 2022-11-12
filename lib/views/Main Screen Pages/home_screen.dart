@@ -37,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Hi Tooba!', style: MyStyles.googleTitleText),
+          Text('Hi Tooba!',
+              style: MyStyles.googleTitleText(screenWidth * 0.07)),
           SizedBox(height: screenHeight * 0.02),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +87,7 @@ class CategoryContainer extends StatelessWidget {
         const SubHeading(leading: "Categories", trailing: ''),
         Container(
             alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height*0.08,
+            height: MediaQuery.of(context).size.height * 0.08,
             child: const CatergoryListBuilder())
       ],
     );
