@@ -9,8 +9,11 @@ import '../../../constants/colors.dart';
 class MyProfileListView extends StatelessWidget {
   const MyProfileListView({
     Key? key,
+    required this.screenHeight,
+    required this.screenWidth,
   }) : super(key: key);
-
+  final double screenHeight;
+  final double screenWidth;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,16 +23,25 @@ class MyProfileListView extends StatelessWidget {
           MyProfileListTile(
               icon: Icons.wallet,
               title: "My Orders and Products",
-              subtitle: "Your Products, Orders, billing and invoices"),
+              subtitle: "Your Products, Orders, billing and invoices",
+              screenHeight: screenHeight,
+              screenWidth: screenHeight),
           MyProfileListTile(
-              icon: Icons.settings,
-              title: "Settings",
-              subtitle: "Privacy and manage accounts"),
+            icon: Icons.settings,
+            title: "Settings",
+            subtitle: "Privacy and manage accounts",
+            screenHeight: screenHeight,
+            screenWidth: screenHeight,
+          ),
           MyProfileListTile(
+              screenHeight: screenHeight,
+              screenWidth: screenHeight,
               icon: Icons.help,
               title: "Help and Support",
               subtitle: "Help Center and Legal Terms "),
           MyProfileListTile(
+              screenHeight: screenHeight,
+              screenWidth: screenHeight,
               icon: Icons.person,
               title: "Switch Accounts",
               subtitle: "Switch between profiles"),
@@ -46,8 +58,12 @@ class MyProfileListTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.screenHeight,
+    required this.screenWidth,
   }) : super(key: key);
 
+  final double screenHeight;
+  final double screenWidth;
   final IconData icon;
   final String title;
   final String subtitle;
@@ -55,7 +71,7 @@ class MyProfileListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      // height: screenHeight * 0.125,
       decoration:
           BoxDecoration(color: Colors.white, // Your desired background color
               // borderRadius: BorderRadius.circular(15),
@@ -67,13 +83,15 @@ class MyProfileListTile extends StatelessWidget {
           icon,
           color: MyColors.textColor,
         ),
-        title: Text(
-          title,
-          style: MyStyles.googleTextListTile,
+        title: Container(
+          child: Text(
+            title,
+            style: MyStyles.googleTextListTile(screenWidth * 0.025),
+          ),
         ),
         subtitle: Text(
           subtitle,
-          style: MyStyles.googleTextSubtitleListTile,
+          style: MyStyles.googleTextSubtitleListTile(screenWidth * 0.015),
         ),
         trailing: Icon(
           Icons.navigate_next,
@@ -88,13 +106,16 @@ class MyProfileTextWidget extends StatelessWidget {
   const MyProfileTextWidget({
     Key? key,
     required this.text,
+    required this.screenWidth,
   }) : super(key: key);
   final String text;
+  final double screenWidth;
+
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: MyStyles.googleTitleText,
+      style: MyStyles.googleTitleText(screenWidth * 0.07),
     );
   }
 }
@@ -123,7 +144,11 @@ class LogoutBtnWidget extends StatelessWidget {
 class MyProfileNameCard extends StatelessWidget {
   const MyProfileNameCard({
     Key? key,
+    required this.screenHeight,
+    required this.screenWidth,
   }) : super(key: key);
+  final double screenHeight;
+  final double screenWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -131,22 +156,29 @@ class MyProfileNameCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 60,
-            backgroundColor: Colors.white,
-            child: Image.network(
-                "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="),
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: ProfileIcon(
+                img:
+                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
+                radius: screenWidth * 0.15),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Tooba Nadeem",
-                style: MyStyles.googleTextListTile,
-              ),
-              Text("View Profile and Edit Profile",
-                  style: MyStyles.googleTextSubtitleListTile),
-            ],
+          Container(
+            // height: screenHeight * 0.165,
+            width: screenWidth * 0.49,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Tooba Nadeem",
+                  style: MyStyles.googleTextListTile(screenWidth * 0.06),
+                ),
+                Text("View Profile and Edit Profile",
+                    style: MyStyles.googleTextSubtitleListTile(
+                        screenWidth * 0.033)),
+              ],
+            ),
           )
         ],
       ),
@@ -157,13 +189,17 @@ class MyProfileNameCard extends StatelessWidget {
 class NavigateBackWidget extends StatelessWidget {
   const NavigateBackWidget({
     Key? key,
+    required this.screenWidth,
+    required this.screenHeight,
   }) : super(key: key);
-
+  final double screenWidth;
+  final double screenHeight;
   @override
   Widget build(BuildContext context) {
     return Icon(
       Icons.navigate_before,
       color: Colors.black,
+      size: screenWidth * 0.07,
     );
   }
 }
@@ -172,15 +208,21 @@ class NavigateBackWidget extends StatelessWidget {
 class EditProfileCard extends StatelessWidget {
   const EditProfileCard({
     Key? key,
+    required this.screenHeight,
+    required this.screenWidth,
   }) : super(key: key);
-
+  final double screenHeight;
+  final double screenWidth;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MyProfileTextWidget(text: "Edit Profile"),
-        SaveBtn(),
+        MyProfileTextWidget(
+          text: "Edit Profile",
+          screenWidth: screenWidth,
+        ),
+        SaveBtn(screenHeight: screenHeight, screenWidth: screenWidth),
       ],
     );
   }
@@ -188,7 +230,10 @@ class EditProfileCard extends StatelessWidget {
 
 // Change Profile picture widget
 class EditProfileIcon extends StatefulWidget {
-  const EditProfileIcon({super.key});
+  const EditProfileIcon(
+      {super.key, required this.screenHeight, required this.screenWidth});
+  final double screenHeight;
+  final double screenWidth;
 
   @override
   State<EditProfileIcon> createState() => _EditProfileIconState();
@@ -201,15 +246,14 @@ class _EditProfileIconState extends State<EditProfileIcon> {
       child: Badge(
         badgeContent: Icon(
           Icons.add_a_photo_outlined,
+          size: widget.screenWidth * 0.06,
         ),
-        child: CircleAvatar(
-          radius: 60,
-          backgroundColor: Colors.white,
-          child: Image.network(
-              "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="),
-        ),
+        child: ProfileIcon(
+            img:
+                "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
+            radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
         badgeColor: MyColors.startColor,
-        position: BadgePosition.bottomEnd(bottom: 15, end: 9),
+        position: BadgePosition.bottomEnd(bottom: 3, end: 6),
       ),
     );
   }
@@ -219,8 +263,11 @@ class _EditProfileIconState extends State<EditProfileIcon> {
 class ContactInformationSection extends StatelessWidget {
   const ContactInformationSection({
     Key? key,
+    required this.screenHeight,
+    required this.screenWidth,
   }) : super(key: key);
-
+  final double screenHeight;
+  final double screenWidth;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -229,10 +276,17 @@ class ContactInformationSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 10, right: 10, bottom: 10),
           child: Text("Contact Information",
-              style: MyStyles.googleSecondTitleText),
+              style: MyStyles.googleSecondTitleText(
+                  screenWidth * 0.07 - screenHeight * 0.008)),
         ),
-        FormTextField(FieldLabel: "Phone Number", hintText: "Number"),
-        FormTextField(FieldLabel: "Email", hintText: "User Email"),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: FormTextField(FieldLabel: "Phone Number", hintText: "Number"),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: FormTextField(FieldLabel: "Email", hintText: "User Email"),
+        ),
       ],
     );
   }
@@ -242,8 +296,11 @@ class ContactInformationSection extends StatelessWidget {
 class BasicInformationSection extends StatelessWidget {
   const BasicInformationSection({
     Key? key,
+    required this.screenHeight,
+    required this.screenWidth,
   }) : super(key: key);
-
+  final double screenHeight;
+  final double screenWidth;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -251,14 +308,24 @@ class BasicInformationSection extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(top: 10, right: 10, bottom: 10),
-          child:
-              Text("Basic Information", style: MyStyles.googleSecondTitleText),
+          child: Text("Basic Information",
+              style: MyStyles.googleSecondTitleText(
+                  screenWidth * 0.07 - screenHeight * 0.008)),
         ),
-        FormTextField(FieldLabel: "User Name", hintText: "Name"),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: FormTextField(FieldLabel: "User Name", hintText: "Name"),
+        ),
         // FormTextField(FieldLabel: "Gender", hintText: "Choose Gender"),
-        DropDown(dropdownLabel: "Gender"),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: DropDown(dropdownLabel: "Gender"),
+        ),
         // FormTextField(FieldLabel: "Date Of Birth", hintText: "DOB"),
-        DatePickerTextField(),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: DatePickerTextField(),
+        ),
       ],
     );
   }
@@ -317,6 +384,7 @@ class TextFieldLabel extends StatelessWidget {
     return Text(text, style: MyStyles.googleTextFieldLabelStyle);
   }
 }
+
 // Custom dropdown
 class DropDown extends StatefulWidget {
   const DropDown({super.key, required this.dropdownLabel});
@@ -370,10 +438,13 @@ class _DropDownState extends State<DropDown> {
     );
   }
 }
+
 // Save button
 class SaveBtn extends StatefulWidget {
-  const SaveBtn({super.key});
-
+  const SaveBtn(
+      {super.key, required this.screenHeight, required this.screenWidth});
+  final double screenHeight;
+  final double screenWidth;
   @override
   State<SaveBtn> createState() => _SaveBtnState();
 }
@@ -383,11 +454,13 @@ class _SaveBtnState extends State<SaveBtn> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (() {}),
-      child: Text("Save", style: MyStyles.underlinedGreyText),
+      child: Text("Save",
+          style: MyStyles.underlinedGreyText(widget.screenWidth * 0.05)),
     );
   }
 }
-// Custom DatePicker 
+
+// Custom DatePicker
 class DatePickerTextField extends StatefulWidget {
   const DatePickerTextField({super.key});
 
@@ -481,6 +554,25 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
           },
         ))),
       ],
+    );
+  }
+}
+
+class ProfileIcon extends StatefulWidget {
+  const ProfileIcon({super.key, required this.img, required this.radius});
+  final String img;
+  final double radius;
+  @override
+  State<ProfileIcon> createState() => _ProfileIconState();
+}
+
+class _ProfileIconState extends State<ProfileIcon> {
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: widget.radius,
+      backgroundColor: Colors.white,
+      child: Image.network(widget.img),
     );
   }
 }

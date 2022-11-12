@@ -17,9 +17,13 @@ class EditProfileInformation extends StatefulWidget {
 class _EditProfileInformationState extends State<EditProfileInformation> {
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
-        leading: NavigateBackWidget(),
+        leading: NavigateBackWidget(
+            screenHeight: screenHeight, screenWidth: screenWidth),
         elevation: 0,
         backgroundColor: Colors.white,
       ),
@@ -32,22 +36,26 @@ class _EditProfileInformationState extends State<EditProfileInformation> {
               // includes Title, Upload profile picture and save button.
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: EditProfileCard(),
+                child: EditProfileCard(
+                    screenHeight: screenHeight, screenWidth: screenWidth),
               ),
               //Edit Profile Picture Section
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: EditProfileIcon(),
+                child: EditProfileIcon(
+                    screenHeight: screenHeight, screenWidth: screenWidth),
               ),
               // Basic Information Fields Section
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: BasicInformationSection(),
+                child: BasicInformationSection(
+                    screenHeight: screenHeight, screenWidth: screenWidth),
               ),
               // Contact Information Fields Section
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ContactInformationSection(),
+                child: ContactInformationSection(
+                    screenHeight: screenHeight, screenWidth: screenWidth),
               ),
             ],
           ),
