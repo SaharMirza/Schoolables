@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -17,10 +19,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    Text(
-      'Index 2: Scan List',
-      style: optionStyle,
-    ),
+    ScanningList(),
+    ScanList(),
+
     Text(
       'Index 2: Seller',
       style: optionStyle,
@@ -38,7 +39,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-    });
+    },
+    );
   }
 
   @override
@@ -47,12 +49,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
       backgroundColor: Colors.white,
       appBar:const MyAppBar(), 
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-          ],
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -78,9 +76,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'Seller',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.document_scanner_outlined,
+            icon: Icon(Icons.favorite_border_outlined,
                 color: Color.fromRGBO(74, 78, 105, 1.0)),
-            label: 'Scan List',
+            label: 'Favourites',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag_outlined,
@@ -94,5 +92,4 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
     );
   }
-
 }
