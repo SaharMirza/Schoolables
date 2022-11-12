@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/sub_heading.dart';
@@ -36,13 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Hi Tooba!',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Color.fromRGBO(74, 78, 105, 1.0),
-              )),
-          const SizedBox(height: 10.0),
+          Text('Hi Tooba!', style: MyStyles.googleTitleText),
+          SizedBox(height: screenHeight * 0.02),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -52,14 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
               const FilterWidget()
             ],
           ),
-          const SizedBox(height: 30.0),
+          SizedBox(height: screenHeight * 0.04),
           const CategoryContainer(),
-          const SizedBox(height: 20.0),
+          SizedBox(height: screenHeight * 0.02),
           const SubHeading(
             leading: 'Nearby Products',
             trailing: 'See all',
           ),
-          const SizedBox(height: 10.0),
+          SizedBox(height: screenHeight * 0.01),
           GridView.count(
               childAspectRatio: screenWidth / (screenHeight * 0.8),
               shrinkWrap: true,
@@ -90,7 +86,7 @@ class CategoryContainer extends StatelessWidget {
         const SubHeading(leading: "Categories", trailing: ''),
         Container(
             alignment: Alignment.center,
-            height: 50,
+            height: MediaQuery.of(context).size.height*0.08,
             child: const CatergoryListBuilder())
       ],
     );

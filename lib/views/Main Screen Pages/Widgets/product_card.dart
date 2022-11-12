@@ -33,38 +33,42 @@ class _ProductCardState extends State<ProductCard> {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            Stack(
               children: [
-                FavouriteWidget(
-                  isFav: myFav,
-                  onTap: () {
-                    myFav = !myFav;
-                    setState(() {});
-                  },
+                Container(
+                  height: screenHeight * 0.23,
+                  width: screenWidth,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  child: Image.asset(widget.image),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FavouriteWidget(
+                      isFav: myFav,
+                      onTap: () {
+                        myFav = !myFav;
+                        setState(() {});
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: screenHeight * 0.02, top: 2.0),
-              child: Container(
-                height: screenHeight * 0.17,
-                width: screenWidth * 0.35,
-                color: Colors.grey,
-                child: Image.asset(widget.image),
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(widget.name),
+                      Text(widget.price),
+                    ],
+                  ),
+                ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.name),
-                    Text(widget.price),
-                  ],
-                ),
-              ],
             ),
           ],
         ),
