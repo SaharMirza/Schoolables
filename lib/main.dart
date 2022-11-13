@@ -33,10 +33,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: BottomNavBar(),
+      //home: BottomNavBar(),
       // EditProfileInformation()
       // const EditDetailsPage(),
-      // const MyHomePage(title: 'Flutter Demo Home Page'),
+       //const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title:' ' ),
     );
   }
 }

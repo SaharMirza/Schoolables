@@ -39,7 +39,7 @@ class _ProductCardState extends State<ProductCard> {
                   height: screenHeight * 0.23,
                   width: screenWidth,
                   color: Color.fromARGB(255, 255, 255, 255),
-                  child: Image.asset(widget.image),
+                  child: widget.image.isEmpty ? Image.asset('assets/images/call.png'): Image.asset(widget.image),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
