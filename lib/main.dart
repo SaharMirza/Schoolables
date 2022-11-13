@@ -4,6 +4,7 @@ import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
@@ -32,11 +33,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      //home: const AddProductPage(),
+      //home: BottomNavBar(),
       // EditProfileInformation()
       // const EditDetailsPage(),
        //const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: MyHomePage(title:' ' ),
+      home: BottomNavBar(),
     );
   }
 }

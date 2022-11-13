@@ -48,7 +48,7 @@ class _ScanningListState extends State<ScanningList> {
               SizedBox(
                 width: 10,
               ),
-              Text('Scanned Lists', style: MyStyles.googleTitleText(screenWidth * 0.07)),
+              Text('Scanned Lists', style: MyStyles.googleTitleText(20)),
               SizedBox(height: screenHeight * 0.02),
             ],
           ),

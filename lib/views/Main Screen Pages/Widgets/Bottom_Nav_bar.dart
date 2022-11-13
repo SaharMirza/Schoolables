@@ -2,9 +2,13 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
+// import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
+
+import '../../../constants/fonts.dart';
+import 'my_profile.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -14,13 +18,13 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
- int _selectedIndex = 0;
+  int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     ScanningList(),
-    ScanList(),
+    // ScanList(),
 
     Text(
       'Index 2: Seller',
@@ -30,10 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       'Index 2: Favourites',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: Orders',
-      style: optionStyle,
-    ),
+    YourOrders(), // Your Orders will come here
   ];
 
   void _onItemTapped(int index) {
@@ -45,9 +46,36 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    print(_selectedIndex);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:const MyAppBar(), 
+      appBar: _selectedIndex == 4
+          ? AppBar(
+              centerTitle: true,
+              title: Text("Delivery Orders",
+                  style: MyStyles.googleSecondTitleText(
+                      screenWidth * 0.02 + screenHeight * 0.02)),
+              leading: NavigateBackWidget(
+                  screenHeight: screenHeight, screenWidth: screenWidth),
+              elevation: 0,
+              backgroundColor: Colors.white,
+              actions: [
+                IconButton(
+                    iconSize: 50,
+                    onPressed: (() {}),
+                    icon: ProfileIcon(
+                      img:
+                          "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
+                      radius: screenWidth * 0.03 + screenHeight * 0.01,
+                    )
+                    // Icon(Icons.account_circle_outlined)
+                    ),
+              ],
+            )
+          : MyAppBar(),
       body: SingleChildScrollView(
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

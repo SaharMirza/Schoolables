@@ -6,7 +6,8 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.d
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
+// import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Buttons extends StatefulWidget {
@@ -43,7 +44,7 @@ class _ButtonsState extends State<Buttons> {
            if (widget.ButtonName == "Scan New List") {
              Navigator.push(
                context,
-               MaterialPageRoute(builder: (context) => ScanList()),
+               MaterialPageRoute(builder: (context) => ScanningList()),
              );
            }
         },
