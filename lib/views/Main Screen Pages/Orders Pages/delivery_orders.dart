@@ -13,7 +13,7 @@ class _DeliveryOrdersState extends State<DeliveryOrders> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("DeliveryOrder"),
+      child: Text("DeliveryOrder")
     );
   }
 }
