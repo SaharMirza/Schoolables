@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/colors.dart';
 
-class FilterWidget extends StatelessWidget {
-  const FilterWidget({
+class MapWidget extends StatelessWidget {
+  const MapWidget({
     Key? key,
   }) : super(key: key);
 
@@ -9,12 +10,11 @@ class FilterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-
     return CircleAvatar(
       radius: screenHeight * 0.04 - screenWidth * 0.02,
-      backgroundColor: Color.fromRGBO(74, 78, 105, 1.0),
+      backgroundColor: Color.fromRGBO(178, 5, 4, 0.65),
       child: Icon(
-        Icons.tune_outlined,
+        Icons.location_on_outlined,
       ),
     );
   }
