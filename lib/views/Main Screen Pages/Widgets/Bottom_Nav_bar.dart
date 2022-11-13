@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
+// import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -20,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     ScanningList(),
-    ScanList(),
+    // ScanList(),
 
     Text(
       'Index 2: Seller',

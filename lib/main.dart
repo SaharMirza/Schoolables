@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       // EditProfileInformation()
       // const EditDetailsPage(),
        //const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: MyHomePage(title:' ' ),
+      home: BottomNavBar(),
     );
   }
 }
