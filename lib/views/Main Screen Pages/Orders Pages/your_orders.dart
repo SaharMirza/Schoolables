@@ -18,19 +18,30 @@ class _YourOrdersState extends State<YourOrders> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Column(
-      children: [
-        HeaderBar(title: "Delivery Orders")
-,        ListView(
-          children: [
-            MyProfileListTile(
-                icon: Icons.shopping_bag_outlined,
-                title: "Selling Orders",
-                subtitle: "See your active or archived buying orders",
-                screenHeight: screenHeight,
-                screenWidth: screenWidth)
-          ],
-        ),
-      ],
-    );
+      
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 70,
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: [
+              MyProfileListTile(
+                  icon: Icons.shopping_bag_outlined,
+                  title: "Selling Orders",
+                  subtitle: "See your active or archived buying orders",
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth),
+              MyProfileListTile(
+                  icon: Icons.shopping_bag_outlined,
+                  title: "Buying Orders",
+                  subtitle: "See your active or archived buying orders",
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth)
+            ],
+          ),
+        ]);
   }
 }

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    child: const MyApp(),
-    create: (_) => TabNotifier(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +25,7 @@ class MyApp extends StatelessWidget {
       // EditProfileInformation()
       // const EditDetailsPage(),
        //const MyHomePage(title: 'Flutter Demo Home Page'),
-      home:const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BottomNavBar(),
     );
   }
 }

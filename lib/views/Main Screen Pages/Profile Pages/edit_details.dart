@@ -33,7 +33,7 @@ class _EditDetailsPageState extends State<EditDetailsPage> {
           screenWidth: screenWidth,
           screenHeight: screenHeight,
         ),
-        elevation: 0,
+        elevation: 2,
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(

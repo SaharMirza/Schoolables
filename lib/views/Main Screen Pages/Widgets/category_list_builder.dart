@@ -90,7 +90,8 @@ class CatergoryListBuilder extends StatelessWidget {
                   fontSize: 16,
                 ),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
               ),
               child: Row(
                 children: [

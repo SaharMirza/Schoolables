@@ -29,7 +29,7 @@ class SearchBar extends StatelessWidget {
                 const BorderSide(color: Color.fromRGBO(242, 233, 228, 1.0)),
             borderRadius: BorderRadius.circular(50.0),
           ),
-        ),
+        ),  
       ),
     );
   }
