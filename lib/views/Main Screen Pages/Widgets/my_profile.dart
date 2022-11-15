@@ -72,30 +72,34 @@ class MyProfileListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: screenHeight * 0.125,
+      height: screenWidth < 300 ? 70 : 90,
       decoration:
           BoxDecoration(color: Colors.white, // Your desired background color
               // borderRadius: BorderRadius.circular(15),
               boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 5),
           ]),
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: MyColors.textColor,
-        ),
-        title: Container(
-          child: Text(
-            title,
-            style: MyStyles.googleTextListTile(screenWidth * 0.025),
+      child: Center(
+        child: ListTile(
+          leading: Icon(
+            icon,
+            color: MyColors.textColor,
           ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: MyStyles.googleTextSubtitleListTile(screenWidth * 0.015),
-        ),
-        trailing: Icon(
-          Icons.navigate_next,
-          color: MyColors.textColor,
+          title: Container(
+            child: Text(
+              title,
+              style: MyStyles.googleTextListTile(screenWidth < 300 ? 15 : 18),
+            ),
+          ),
+          subtitle: Text(
+            subtitle,
+            style: MyStyles.googleTextSubtitleListTile(
+                screenWidth < 300 ? 10 : 13),
+          ),
+          trailing: Icon(
+            Icons.navigate_next,
+            color: MyColors.textColor,
+          ),
         ),
       ),
     );

@@ -13,7 +13,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: screenWidth * 0.62,
+      width: screenWidth * 0.75,
       height: 2 * (screenHeight * 0.04 - screenWidth * 0.02),
       child: TextField(
         decoration: InputDecoration(
@@ -27,7 +27,7 @@ class SearchBar extends StatelessWidget {
                 const BorderSide(color: Color.fromRGBO(242, 233, 228, 1.0)),
             borderRadius: BorderRadius.circular(50.0),
           ),
-        ),
+        ),  
       ),
     );
   }

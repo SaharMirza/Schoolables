@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/controllers/progress_type_provider.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/delivery_orders.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
@@ -16,9 +20,13 @@ import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more_parent.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+   runApp(ChangeNotifierProvider(
+    child: const MyApp(),
+    create: (_) => ProgressProvider(),
+  ),);
 }
 
 class MyApp extends StatelessWidget {
@@ -36,8 +44,8 @@ class MyApp extends StatelessWidget {
       //home: BottomNavBar(),
       // EditProfileInformation()
       // const EditDetailsPage(),
-       //const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: BottomNavBar(),
+      //const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BuyingOrders(),
     );
   }
 }

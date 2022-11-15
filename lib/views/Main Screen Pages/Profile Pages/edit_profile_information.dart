@@ -22,9 +22,7 @@ class _EditProfileInformationState extends State<EditProfileInformation> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: NavigateBackWidget(
-            screenHeight: screenHeight, screenWidth: screenWidth),
-        elevation: 0,
+        elevation: 2,
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(

@@ -38,9 +38,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    },
+    setState(
+      () {
+        _selectedIndex = index;
+      },
     );
   }
 
@@ -60,7 +61,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       screenWidth * 0.02 + screenHeight * 0.02)),
               leading: NavigateBackWidget(
                   screenHeight: screenHeight, screenWidth: screenWidth),
-              elevation: 0,
+              elevation: 2,
               backgroundColor: Colors.white,
               actions: [
                 IconButton(
