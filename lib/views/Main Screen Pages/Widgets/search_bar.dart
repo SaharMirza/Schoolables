@@ -6,7 +6,7 @@ class SearchBar extends StatelessWidget {
   const SearchBar({
     Key? key,
     required this.width,
-    required this.screenHeight,
+    required this.screenHeight, 
   }) : super(key: key);
 
   final double width;

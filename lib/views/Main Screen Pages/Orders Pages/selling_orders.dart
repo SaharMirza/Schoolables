@@ -100,7 +100,7 @@ class _SellingOrdersState extends State<SellingOrders> {
               ),
               Center(
                 child: SearchBar(
-                    screenWidth: screenWidth, screenHeight: screenHeight),
+                    width: screenWidth, screenHeight: screenHeight),
               ),
               SizedBox(
                 height: 20,

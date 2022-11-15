@@ -50,29 +50,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _selectedIndex == 4
-          ? AppBar(
-              centerTitle: true,
-              title: Text("Delivery Orders",
-                  style: MyStyles.googleSecondTitleText(
-                      screenWidth * 0.02 + screenHeight * 0.02)),
-              leading: NavigateBackWidget(
-                  screenHeight: screenHeight, screenWidth: screenWidth),
-              elevation: 0,
-              backgroundColor: Colors.white,
-              actions: [
-                IconButton(
-                    iconSize: 50,
-                    onPressed: (() {}),
-                    icon: ProfileIcon(
-                      img:
-                          "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                      radius: screenWidth * 0.03 + screenHeight * 0.01,
-                    )
-                    // Icon(Icons.account_circle_outlined)
-                    ),
-              ],
-            )
+      appBar: _selectedIndex != 0
+          ? null
           : MyAppBar(),
       body: SingleChildScrollView(
         child: Center(
