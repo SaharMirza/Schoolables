@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/favourites_page.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
@@ -30,52 +31,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
       'Index 2: Seller',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: Favourites',
-      style: optionStyle,
-    ),
+    CustomTabBarWidget(),
+    // Favourites_Page(),
     YourOrders(), // Your Orders will come here
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    },
+    setState(
+      () {
+        _selectedIndex = index;
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
-
-    print(_selectedIndex);
+    
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _selectedIndex == 4
-          ? AppBar(
-              centerTitle: true,
-              title: Text("Delivery Orders",
-                  style: MyStyles.googleSecondTitleText(
-                      screenWidth * 0.02 + screenHeight * 0.02)),
-              leading: NavigateBackWidget(
-                  screenHeight: screenHeight, screenWidth: screenWidth),
-              elevation: 0,
-              backgroundColor: Colors.white,
-              actions: [
-                IconButton(
-                    iconSize: 50,
-                    onPressed: (() {}),
-                    icon: ProfileIcon(
-                      img:
-                          "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                      radius: screenWidth * 0.03 + screenHeight * 0.01,
-                    )
-                    // Icon(Icons.account_circle_outlined)
-                    ),
-              ],
-            )
-          : MyAppBar(),
+      appBar: _selectedIndex != 0 ? null : MyAppBar(),
       body: SingleChildScrollView(
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

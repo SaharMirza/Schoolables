@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //searchbar
-              SearchBar(screenWidth: screenWidth, screenHeight: screenHeight),
+              SearchBar(width: screenWidth*0.70, screenHeight: screenHeight),
               //filtericon
               const FilterWidget()
             ],
