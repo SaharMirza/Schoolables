@@ -27,8 +27,6 @@ class _AddProductPageState extends State<AddProductPage> {
           title: Text("New Product",
               style: MyStyles.googleSecondTitleText(
                   screenWidth * 0.04 + screenHeight * 0.02)),
-          leading: NavigateBackWidget(
-              screenHeight: screenHeight, screenWidth: screenWidth),
           elevation: 0,
           backgroundColor: Colors.white,
           actions: [
