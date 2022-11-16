@@ -84,7 +84,7 @@ class PageDetails extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Image.asset(
-              'images/logo.png',
+              'assets/images/logo.png',
               height: 200,
               width: 200,
             ),

@@ -6,6 +6,7 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_or
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/CameraScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -28,11 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      //home: BottomNavBar(),
-      // EditProfileInformation()
-      // const EditDetailsPage(),
-       //const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: BuyingOrders(),
+      home: MyHomePage(title: "title")
     );
   }
 }
@@ -68,7 +65,7 @@ class LogoWidget extends StatelessWidget {
       splash: Column(
         children: [
           Image.asset(
-            'images/logo.png',
+            'assets/images/logo.png',
             height: 300,
             width: 300,
           ),

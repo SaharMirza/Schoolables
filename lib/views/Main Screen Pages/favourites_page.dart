@@ -14,9 +14,9 @@ class CustomTabBarWidget extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     List<Categories> Category = [
-      Categories(name: "Books", image: "images/book.gif"),
-      Categories(name: "Stationary", image: "images/stationary.gif"),
-      Categories(name: "Bags", image: "images/bag.gif"),
+      Categories(name: "Books", image: "assets/images/book.gif"),
+      Categories(name: "Stationary", image: "assets/images/stationary.gif"),
+      Categories(name: "Bags", image: "assets/images/bag.gif"),
     ];
 
     TabNotifier tabNotifier({required bool renderUI}) =>
