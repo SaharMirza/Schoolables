@@ -1,6 +1,8 @@
 //Seperate List View widget for Edit Profile Screen
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
@@ -81,6 +83,21 @@ class MyProfileListTile extends StatelessWidget {
           ]),
       child: Center(
         child: ListTile(
+          onTap: () async {
+            if (title == "Selling Orders") {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => SellingOrders(),
+                ),
+              );
+            } else if (title == "Buying Orders") {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => BuyingOrders(),
+                ),
+              );
+            }
+          },
           leading: Icon(
             icon,
             color: MyColors.textColor,

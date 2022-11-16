@@ -5,14 +5,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 
-class YourOrders extends StatefulWidget {
-  const YourOrders({super.key});
+class YourOrdersPage extends StatefulWidget {
+  const YourOrdersPage({super.key});
 
   @override
-  State<YourOrders> createState() => _YourOrdersState();
+  State<YourOrdersPage> createState() => _YourOrdersPageState();
 }
 
-class _YourOrdersState extends State<YourOrders> {
+class _YourOrdersPageState extends State<YourOrdersPage> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;

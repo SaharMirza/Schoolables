@@ -53,4 +53,7 @@ class MyStyles {
     color: MyColors.buttonColor,
     fontWeight: FontWeight.w600,
   );
+  static final btnTextStyle = GoogleFonts.poppins(
+    color: Colors.white,
+  );
 }

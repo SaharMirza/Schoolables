@@ -33,25 +33,50 @@ class _BottomNavBarState extends State<BottomNavBar> {
     ),
     CustomTabBarWidget(),
     // Favourites_Page(),
-    YourOrders(), // Your Orders will come here
+    //YourOrders(), // Your Orders will come here
+    Text(
+      'Index 2: Favourites',
+      style: optionStyle,
+    ),
+    YourOrdersPage(), // Your Orders will come here
   ];
 
   void _onItemTapped(int index) {
     setState(
-      
       () {
-          _selectedIndex = index;
-        },
+        _selectedIndex = index;
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _selectedIndex != 0
-          ? null
+      appBar: _selectedIndex == 4
+          ? AppBar(
+              centerTitle: true,
+              title: Text("Delivery Orders",
+                  style: MyStyles.googleSecondTitleText(
+                      screenWidth * 0.02 + screenHeight * 0.02)),
+              elevation: 2,
+              backgroundColor: Colors.white,
+              actions: [
+                IconButton(
+                    iconSize: 50,
+                    onPressed: (() {}),
+                    icon: ProfileIcon(
+                      img:
+                          "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
+                      radius: screenWidth * 0.03 + screenHeight * 0.01,
+                    )
+                    // Icon(Icons.account_circle_outlined)
+                    ),
+              ],
+            )
           : MyAppBar(),
       body: SingleChildScrollView(
         child: Center(
