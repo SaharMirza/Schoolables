@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
@@ -24,83 +25,73 @@ class _YourProductsPageState extends State<YourProductsPage> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Seller",
-            style: MyStyles.googleSecondTitleText(
-                screenWidth * 0.04 + screenHeight * 0.02)),
-        leading: NavigateBackWidget(
-            screenHeight: screenHeight, screenWidth: screenWidth),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-              iconSize: 50,
-              onPressed: (() {}),
-              icon: ProfileIcon(
-                img:
-                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                radius: screenWidth * 0.03 + screenHeight * 0.01,
-              )
-              // Icon(Icons.account_circle_outlined)
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          HeaderBar(title: "Seller"),
+          SizedBox(
+            height: screenHeight * 0.88,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                          width: 300,
+                          child: SearchBar(
+                              width: screenWidth, screenHeight: screenHeight)),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      FilterWidget(),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      MapWidget(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Your Products",
+                                style: MyStyles.googleSecondTitleText(
+                                    screenWidth * 0.04 + screenHeight * 0.01),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          YourProductCard(),
+                          YourProductCard(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          AddProductBtn(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
+            ),
+          ),
         ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SearchBar(width: screenWidth, screenHeight: screenHeight),
-                SizedBox(
-                  width: 10,
-                ),
-                FilterWidget(),
-                SizedBox(
-                  width: 5,
-                ),
-                MapWidget(),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Your Products",
-                          style: MyStyles.googleSecondTitleText(
-                              screenWidth * 0.04 + screenHeight * 0.01),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    YourProductCard(),
-                    YourProductCard(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    AddProductBtn(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -37,7 +38,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 15.0),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => EditDetailsPage(),
+                ),
+              );
+            },
             icon: const Icon(Icons.account_circle_outlined,
                 size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
           ),
@@ -71,7 +78,13 @@ class HeaderBar extends StatelessWidget {
         actions: [
           IconButton(
               iconSize: 50,
-              onPressed: (() {}),
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => EditDetailsPage(),
+                  ),
+                );
+              },
               icon: ProfileIcon(
                 img:
                     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",

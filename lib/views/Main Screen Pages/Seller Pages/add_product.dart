@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/colors.dart';
@@ -22,45 +23,35 @@ class _AddProductPageState extends State<AddProductPage> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("New Product",
-              style: MyStyles.googleSecondTitleText(
-                  screenWidth * 0.04 + screenHeight * 0.02)),
-          leading: NavigateBackWidget(
-              screenHeight: screenHeight, screenWidth: screenWidth),
-          elevation: 0,
-          backgroundColor: Colors.white,
-          actions: [
-            IconButton(
-                iconSize: 50,
-                onPressed: (() {}),
-                icon: ProfileIcon(
-                  img:
-                      "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                  radius: screenWidth * 0.03 + screenHeight * 0.01,
-                )
-                // Icon(Icons.account_circle_outlined)
+      
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              HeaderBar(title: "New Product"),
+              SizedBox(
+                height: screenHeight * 0.88,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: UploadPictureCard(
+                              screenWidth: screenWidth, screenHeight: screenHeight),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AddProductFields(
+                              screenWidth: screenWidth, screenHeight: screenHeight),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: UploadPictureCard(
-                      screenWidth: screenWidth, screenHeight: screenHeight),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AddProductFields(
-                      screenWidth: screenWidth, screenHeight: screenHeight),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ));
   }

@@ -29,7 +29,7 @@ class CustomTabBarWidget extends StatelessWidget {
     Widget tabHolder() {
       return Container(
         alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width*0.9,
         height: MediaQuery.of(context).size.height * 0.08,
         child: ListView.builder(
             shrinkWrap: true,
@@ -121,18 +121,21 @@ class CustomTabBarWidget extends StatelessWidget {
         return subWidget( fav: fav);
     }
 
-    return Column(
-      children: [
-        const HeaderBar(title: "Favourites"),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [tabHolder()],
-        ),
-        const SizedBox(height: 10),
-        mainWidget(),
-        const SizedBox(height: 20),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          const HeaderBar(title: "Favourites"),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [tabHolder()],
+          ),
+          const SizedBox(height: 10),
+          mainWidget(),
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 }

@@ -29,11 +29,7 @@ class _EditDetailsPageState extends State<EditDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: NavigateBackWidget(
-          screenWidth: screenWidth,
-          screenHeight: screenHeight,
-        ),
-        elevation: 2,
+        elevation: 0,
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
