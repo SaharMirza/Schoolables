@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
@@ -195,9 +196,18 @@ class MyProfileNameCard extends StatelessWidget {
                   "Tooba Nadeem",
                   style: MyStyles.googleTextListTile(screenWidth * 0.06),
                 ),
-                Text("View Profile and Edit Profile",
-                    style: MyStyles.googleTextSubtitleListTile(
-                        screenWidth * 0.033)),
+                InkWell(
+                  onTap: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => EditProfileInformation(),
+                      ),
+                    );
+                  },
+                  child: Text("View Profile and Edit Profile",
+                      style: MyStyles.googleTextSubtitleListTile(
+                          screenWidth * 0.033)),
+                ),
               ],
             ),
           )
@@ -474,7 +484,9 @@ class _SaveBtnState extends State<SaveBtn> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (() {}),
+      onTap: () {
+        Navigator.of(context).pop();
+      },
       child: Text("Save",
           style: MyStyles.underlinedGreyText(widget.screenWidth * 0.05)),
     );

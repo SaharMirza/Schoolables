@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
 import 'package:flutterdemo/controllers/progress_type_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
@@ -19,7 +20,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       child: const MyApp(),
-      create: (_) => ProgressProvider(),
+      create: (_) => TabNotifier(),
     ),
   );
 }
