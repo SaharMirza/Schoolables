@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutterdemo/Classes/ScannedList.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
-
-import 'ScannedList.dart';
 
 class ScanningList extends StatefulWidget {
   const ScanningList({super.key});
