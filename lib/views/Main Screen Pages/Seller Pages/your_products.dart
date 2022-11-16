@@ -57,7 +57,7 @@ class _YourProductsPageState extends State<YourProductsPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SearchBar(screenWidth: screenWidth, screenHeight: screenHeight),
+                SearchBar(width: screenWidth, screenHeight: screenHeight),
                 SizedBox(
                   width: 10,
                 ),

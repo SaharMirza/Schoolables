@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -47,4 +49,38 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(60);
+}
+
+class HeaderBar extends StatelessWidget {
+  const HeaderBar({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return SizedBox(
+      child: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        // centerTitle: true,
+        title: Text(title,
+            style: MyStyles.googleSecondTitleText(
+                screenWidth * 0.02 + screenHeight * 0.02)),
+        actions: [
+          IconButton(
+              iconSize: 50,
+              onPressed: (() {}),
+              icon: ProfileIcon(
+                img:
+                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
+                radius: screenWidth * 0.03 + screenHeight * 0.01,
+              )
+              // Icon(Icons.account_circle_outlined)
+              ),
+        ],
+      ),
+    );
+  }
 }

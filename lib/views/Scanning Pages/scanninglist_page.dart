@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
@@ -39,23 +40,11 @@ class _ScanningListState extends State<ScanningList> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Row(
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              Icon(Icons.arrow_back_ios_new),
-              SizedBox(
-                width: 10,
-              ),
-              Text('Scanned Lists', style: MyStyles.googleTitleText(20)),
-              SizedBox(height: screenHeight * 0.02),
-            ],
-          ),
+          HeaderBar(title: "Scanned List"),
           SizedBox(
             height: screenHeight * 0.02,
           ),
-          SearchBar(screenWidth: screenWidth, screenHeight: screenHeight),
+          SearchBar(width: screenWidth, screenHeight: screenHeight),
           SizedBox(height: 10),
           Flexible(
             child: ListView.separated(
