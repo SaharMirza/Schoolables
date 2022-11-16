@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildrenProfileScreen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
@@ -23,9 +24,13 @@ import 'package:flutterdemo/views/Scanning%20Pages/Loading_screen.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    child: const MyApp(),
+    create: (_) => TabNotifier(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(title: "title")
+      home: BottomNavBar()
     );
   }
 }

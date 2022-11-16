@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/models/Favourites.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/favourites_widget.dart';
 import 'package:provider/provider.dart';
 
 class CustomTabBarWidget extends StatelessWidget {
@@ -18,6 +20,8 @@ class CustomTabBarWidget extends StatelessWidget {
       Categories(name: "Stationary", image: "assets/images/stationary.gif"),
       Categories(name: "Bags", image: "assets/images/bag.gif"),
     ];
+
+    List <favouritesClass> fav=[];
 
     TabNotifier tabNotifier({required bool renderUI}) =>
         Provider.of<TabNotifier>(context, listen: renderUI);
@@ -40,9 +44,10 @@ class CustomTabBarWidget extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 8,
-                    foregroundColor:tabNotifier(renderUI: true).tabIndex == index
+                    foregroundColor:
+                        tabNotifier(renderUI: true).tabIndex == index
                             ? Colors.white
-                            : Colors.black ,
+                            : Colors.black,
                     backgroundColor:
                         tabNotifier(renderUI: true).tabIndex == index
                             ? MyColors.buttonColor
@@ -68,29 +73,52 @@ class CustomTabBarWidget extends StatelessWidget {
             }),
       );
     }
-    
 
     int kIndex = tabNotifier(renderUI: true).tabIndex;
 
     Widget mainWidget() {
-      subWidget({required String title}) {
-        return Container(
-          height: 300,
-          width: 400,
-          decoration: BoxDecoration(
-              border: Border.all(width: 0.2, color: Colors.white),
-              borderRadius: BorderRadius.circular(25)),
-          child: Center(child: Text(title)),
+      subWidget({required List fav}) {
+        return SizedBox(
+          height: screenHeight * 0.86,
+          child: ListView(
+              shrinkWrap: true,
+              children: fav.map((products) => favouritesCard(
+                  name: products.name,
+                  price: products.price,
+                  condition: products.condition,
+                  img: products.image,
+                  sellerIMG: products.sellerImg,
+                  sellerName: products.sellerName,
+                  sellerNum: products.sellerNum)).toList()),
         );
       }
 
       if (kIndex == 0) {
-        return subWidget(title: "Content for home");
+        
+        for(int i=0;i<Favourites.length;i++){
+          if(Favourites[i].category=="Books"){
+            fav.add(Favourites[i]);
+          }
+        }
+        print(fav);
+        return subWidget( fav: fav);
       }
       if (kIndex == 1) {
-        return subWidget(title: "Content for profile");
+        for(int i=0;i<Favourites.length;i++){
+          if(Favourites[i].category=="Stationary"){
+            fav.add(Favourites[i]);
+          }
+        }
+        print(fav);
+        return subWidget( fav: fav);
       }
-      return subWidget(title: "Content for settings");
+      for(int i=0;i<Favourites.length;i++){
+          if(Favourites[i].category=="Bags"){
+            fav.add(Favourites[i]);
+          }
+        }
+        print(fav);
+        return subWidget( fav: fav);
     }
 
     return Column(
