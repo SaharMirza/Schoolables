@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: MyHomePage(title: "title")
+        home: BottomNavBar()
         //home: BottomNavBar(),
         // EditProfileInformation()
         // const EditDetailsPage(),

@@ -34,11 +34,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
     CustomTabBarWidget(),
     // Favourites_Page(),
     //YourOrders(), // Your Orders will come here
+    YourOrdersPage(),
     Text(
       'Index 2: Favourites',
       style: optionStyle,
     ),
-    YourOrdersPage(), // Your Orders will come here
+    // Your Orders will come here
   ];
 
   void _onItemTapped(int index) {
