@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../constants/colors.dart';
@@ -252,14 +253,19 @@ class _AddProductBtnState extends State<AddProductBtn> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AddProductPage(),
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text("Add Product", style: TextStyle(color: Colors.white)),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: MyColors.buttonColor,
-        
       ),
     );
   }

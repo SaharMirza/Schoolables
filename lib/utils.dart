@@ -78,7 +78,13 @@ class HeaderBar extends StatelessWidget {
         actions: [
           IconButton(
               iconSize: 50,
-              onPressed: (() {}),
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => EditDetailsPage(),
+                  ),
+                );
+              },
               icon: ProfileIcon(
                 img:
                     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",

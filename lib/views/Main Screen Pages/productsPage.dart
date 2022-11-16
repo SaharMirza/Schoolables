@@ -20,11 +20,14 @@ class _ProductsPageState extends State<ProductsPage> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          HeaderBar(title: widget.title),
-          MainBody(screenHeight, screenWidth),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            HeaderBar(title: widget.title),
+            MainBody(screenHeight, screenWidth),
+          ],
+        ),
       ),
     );
   }

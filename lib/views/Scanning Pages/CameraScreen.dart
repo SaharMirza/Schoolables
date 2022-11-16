@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/Loading_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -86,6 +87,10 @@ class _CameraScreenState extends State<CameraScreen> {
                   if (mounted) {
                     if (file != null) {
                       print("Picture saved to ${file.path}");
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const LoadingScreen()),
+                      );
                     }
                   }
                 });
