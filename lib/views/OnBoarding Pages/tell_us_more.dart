@@ -44,6 +44,10 @@ class _TellUsMoreState extends State<TellUsMore> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
 
       body: Center(
         child: SingleChildScrollView(

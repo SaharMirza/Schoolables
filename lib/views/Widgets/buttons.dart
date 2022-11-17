@@ -56,10 +56,19 @@ class _ButtonsState extends State<Buttons> {
             }
           }
           if (widget.ButtonName == "Next") {
-            Navigator.push(
+            if (widget.role == "Parent") {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChildernProfileScreen()),
+              );
+            } else {
+              Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => BottomNavBar()),
-            );
+            
+              );
+            }
+            
           }
           if (widget.ButtonName == "Scan New List") {
             Navigator.push(

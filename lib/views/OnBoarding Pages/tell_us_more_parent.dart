@@ -21,6 +21,11 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
@@ -35,7 +40,7 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
               ),
               SizedBox(height: screenHeight * 0.04),
               Inputs(),
-              const Buttons(ButtonName: "Next"),
+              const Buttons(ButtonName: "Next", role: "Parent"),
               SizedBox(height: screenHeight * 0.02),
               // Fill Details Later?
               Skip()

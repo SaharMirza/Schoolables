@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/main.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../Classes/Children.dart';
@@ -25,23 +29,23 @@ class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
     // TODO: implement build
     return Scaffold(
-      body: Container(
-        height: screenHeight,
-        width: screenWidth,
-        child: Column(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+        ),
+        body: Column(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                NavigateBackWidget(
-                  screenWidth: screenWidth,
-                  screenHeight: screenHeight,
-                ),
-              ],
+            Image.asset(
+              'assets/images/logo.png',
+              height: 100,
+              width: 100,
             ),
-            Container3(),
-            SizedBox(
-              height: screenHeight * 0.05,
+            const Text("Schoolables",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                )),
+                 SizedBox(
+              height: screenHeight * 0.04,
             ),
             MyProfileTextWidget(
                 text: "Children Profiles", screenWidth: screenWidth),
@@ -91,9 +95,8 @@ class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
               ],
             ),
           ],
-        ),
-      ),
-    );
+        )
+        );
   }
 }
 
@@ -174,6 +177,10 @@ class ListCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 1.0, right: 9.0),
                 child: InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>BottomNavBar()));
+                  },
                   child: Icon(
                     Icons.arrow_forward_ios,
                     size: 18,
@@ -206,7 +213,7 @@ class Container3 extends StatelessWidget {
         children: [
           //logo
           Image.asset(
-            'assets/images/logo.png',
+            'images/logo.png',
             height: 100,
             width: 100,
           ),
