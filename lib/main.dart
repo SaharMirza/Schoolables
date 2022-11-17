@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-    //    home: MyHomePage(title: "title"));
-    home:ScanHistory(),
+        home: MyHomePage(title: "title"),
     );
+
   }
 }
 
