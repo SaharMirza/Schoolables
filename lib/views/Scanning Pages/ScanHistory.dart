@@ -37,70 +37,70 @@ class _ScanHistoryState extends State<ScanHistory> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
         height: screenHeight * 0.9,
         child: Center(
-            child: Column(
-              children: [
-                HeaderBar(title: "Scanned Lists"),
-                //search bar
+          child: Column(
+            children: [
+              HeaderBar(title: "Scanned Lists"),
+              //search bar
 
-               Padding(
-                 padding: const EdgeInsets.only(
-                     top: 20, bottom: 0, left: 10, right: 10),
-                 child: SearchBar(
-                      width: screenWidth * 0.9,
-                      screenHeight: screenHeight,
-                    ),
-               ),
-                // list
-                Expanded(
-                  child: ListView.builder(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    itemBuilder: (context, index) =>
-                        scanListTile(scanItem: scannedList[index]),
-                    itemCount: scannedList.length,
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, bottom: 0, left: 10, right: 10),
+                child: SearchBar(
+                  width: screenWidth * 0.9,
+                  screenHeight: screenHeight,
                 ),
+              ),
+              // list
+              Expanded(
+                child: ListView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  itemBuilder: (context, index) =>
+                      scanListTile(scanItem: scannedList[index]),
+                  itemCount: scannedList.length,
+                ),
+              ),
 
-                // button
-                  // child: ElevatedButton(
-                  //   onPressed: () {
-                  //     Navigator.of(context).push(
-                  //       MaterialPageRoute(
-                  //         builder: (context) => const CameraScreen(),
-                  //       ),
-                  //     );
-                  //   },
-                  //   style: ButtonStyle(
-                  //     backgroundColor:
-                  //         MaterialStateProperty.all<Color>(MyColors.buttonColor),
-                  //     foregroundColor: MaterialStateProperty.all<Color>(
-                  //         MyColors.buttonTextColor),
-                  //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  //       RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(10.0),
-                  //         side: BorderSide(color: MyColors.buttonColor),
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.symmetric(vertical: 5),
-                  //     child: Text(
-                  //       'Scan New List',
-                  //       style: GoogleFonts.poppins(
-                  //         color: MyColors.buttonTextColor,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  const Buttons(ButtonName: "Scan New List"),
-              ],
-            ),
+              // button
+              // child: ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (context) => const CameraScreen(),
+              //       ),
+              //     );
+              //   },
+              //   style: ButtonStyle(
+              //     backgroundColor:
+              //         MaterialStateProperty.all<Color>(MyColors.buttonColor),
+              //     foregroundColor: MaterialStateProperty.all<Color>(
+              //         MyColors.buttonTextColor),
+              //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(10.0),
+              //         side: BorderSide(color: MyColors.buttonColor),
+              //       ),
+              //     ),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(vertical: 5),
+              //     child: Text(
+              //       'Scan New List',
+              //       style: GoogleFonts.poppins(
+              //         color: MyColors.buttonTextColor,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              const Buttons(ButtonName: "Scan New List"),
+            ],
           ),
+        ),
       ),
     );
   }
@@ -126,6 +126,13 @@ class _scanListTileState extends State<scanListTile> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: ListTile(
+        onTap: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SyllabusList(scannedList: widget.scanItem),
+            ),
+          );
+        },
         title: Padding(
           padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: Text(
