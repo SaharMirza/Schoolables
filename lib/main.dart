@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutterdemo/Classes/ScannedList.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/MapScreen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildrenProfileScreen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
@@ -20,6 +22,8 @@ import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more_parent.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/Loading_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/ScannedLists.dart';
+// import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,12 +48,14 @@ class MyApp extends StatelessWidget {
       // const EditDetailsPage(),
        //const MyHomePage(title: 'Flutter Demo Home Page'),
       //home: BottomNavBar(),
-    home: CreateChildrenProfile(),
+    //home: CreateChildrenProfile(),
     // home:ChildProfileScreen(),
      //home: ChildernProfileScreen(),
     //home: ScannedBookList(),
     // home: ScanningList(),
     //home:ChildProfileScreen(),
+    //   home:MapScreen(),
+      home: ScannedLists(),
     );
   }
 }
