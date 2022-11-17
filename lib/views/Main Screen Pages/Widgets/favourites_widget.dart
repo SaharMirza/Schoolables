@@ -93,7 +93,7 @@ class _favouritesCardState extends State<favouritesCard> {
                               // screenWidth * 0.025 - screenHeight * 0.025),
                             ),
                           ),
-                          Icon(Icons.favorite_outline)
+                          Icon(Icons.favorite,color: Colors.red,)
                         ],
                       ),
                       Text("Rs " + widget.price,

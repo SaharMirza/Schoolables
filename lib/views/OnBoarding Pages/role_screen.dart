@@ -124,7 +124,13 @@ class ChoiceButton extends StatelessWidget {
             if (title == "Student") {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MainLoginScreen()),
+                MaterialPageRoute(builder: (context) => const MainLoginScreen(role:"Student")),
+              );
+            }
+            if (title == "Parent") {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MainLoginScreen(role:"Parent")),
               );
             }
           },

@@ -21,7 +21,7 @@ class CustomTabBarWidget extends StatelessWidget {
       Categories(name: "Bags", image: "assets/images/bag.gif"),
     ];
 
-    List <favouritesClass> fav=[];
+    List<favouritesClass> fav = [];
 
     TabNotifier tabNotifier({required bool renderUI}) =>
         Provider.of<TabNotifier>(context, listen: renderUI);
@@ -29,7 +29,7 @@ class CustomTabBarWidget extends StatelessWidget {
     Widget tabHolder() {
       return Container(
         alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width*0.9,
+        width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.08,
         child: ListView.builder(
             shrinkWrap: true,
@@ -78,47 +78,55 @@ class CustomTabBarWidget extends StatelessWidget {
 
     Widget mainWidget() {
       subWidget({required List fav}) {
-        return SizedBox(
-          height: screenHeight * 0.86,
-          child: ListView(
-              shrinkWrap: true,
-              children: fav.map((products) => favouritesCard(
-                  name: products.name,
-                  price: products.price,
-                  condition: products.condition,
-                  img: products.image,
-                  sellerIMG: products.sellerImg,
-                  sellerName: products.sellerName,
-                  sellerNum: products.sellerNum)).toList()),
-        );
+        if (fav.isEmpty) {
+          return SizedBox(
+            height: screenHeight*0.7,
+            child: Center(child: Text("You haven't liked anything yet.")),
+          );
+        } else {
+          return SizedBox(
+            height: screenHeight * 0.86,
+            child: ListView(
+                shrinkWrap: true,
+                children: fav
+                    .map((products) => favouritesCard(
+                        name: products.name,
+                        price: products.price,
+                        condition: products.condition,
+                        img: products.image,
+                        sellerIMG: products.sellerImg,
+                        sellerName: products.sellerName,
+                        sellerNum: products.sellerNum))
+                    .toList()),
+          );
+        }
       }
 
       if (kIndex == 0) {
-        
-        for(int i=0;i<Favourites.length;i++){
-          if(Favourites[i].category=="Books"){
+        for (int i = 0; i < Favourites.length; i++) {
+          if (Favourites[i].category == "Books") {
             fav.add(Favourites[i]);
           }
         }
         print(fav);
-        return subWidget( fav: fav);
+        return subWidget(fav: fav);
       }
       if (kIndex == 1) {
-        for(int i=0;i<Favourites.length;i++){
-          if(Favourites[i].category=="Stationary"){
+        for (int i = 0; i < Favourites.length; i++) {
+          if (Favourites[i].category == "Stationary") {
             fav.add(Favourites[i]);
           }
         }
         print(fav);
-        return subWidget( fav: fav);
+        return subWidget(fav: fav);
       }
-      for(int i=0;i<Favourites.length;i++){
-          if(Favourites[i].category=="Bags"){
-            fav.add(Favourites[i]);
-          }
+      for (int i = 0; i < Favourites.length; i++) {
+        if (Favourites[i].category == "Bags") {
+          fav.add(Favourites[i]);
         }
-        print(fav);
-        return subWidget( fav: fav);
+      }
+      print(fav);
+      return subWidget(fav: fav);
     }
 
     return Padding(

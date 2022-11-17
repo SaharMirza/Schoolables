@@ -34,16 +34,17 @@ class _ProductsPageState extends State<ProductsPage> {
 
   SizedBox MainBody(double screenHeight, double screenWidth) {
     return SizedBox(
-      height: screenHeight * 0.88,
+      height: screenHeight * 0.85,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               SearchfilterMapWidget(
-                  screenWidth: screenWidth, screenHeight: screenHeight),
-              SizedBox(height: screenHeight * 0.04),
-              ProdutGridView(screenWidth, screenHeight),
+                  screenWidth: screenWidth*0.9, screenHeight: screenHeight),
+              SizedBox(height: screenHeight * 0.01),
+              SizedBox(
+                child: ProdutGridView(screenWidth, screenHeight)),
             ],
           ),
         ),

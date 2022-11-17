@@ -206,7 +206,7 @@ class Container3 extends StatelessWidget {
         children: [
           //logo
           Image.asset(
-            'images/logo.png',
+            'assets/images/logo.png',
             height: 100,
             width: 100,
           ),
