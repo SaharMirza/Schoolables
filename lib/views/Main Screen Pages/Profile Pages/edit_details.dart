@@ -6,7 +6,6 @@ import 'package:flutterdemo/constants/fonts.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils.dart';
-import '../../Scanning Pages/scanninglist_page.dart';
 import '../Orders Pages/delivery_orders.dart';
 import '../Seller Pages/seller_products.dart';
 import '../Widgets/Bottom_Nav_bar.dart';

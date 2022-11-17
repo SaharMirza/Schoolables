@@ -8,9 +8,8 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/seller_pr
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/favourites_page.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/ScanHistory.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
-
 import '../../../constants/fonts.dart';
 import 'my_profile.dart';
 
@@ -27,7 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    ScanningList(),
+    ScanHistory(),
     YourProductsPage(),
     CustomTabBarWidget(),
     YourOrdersPage(),
