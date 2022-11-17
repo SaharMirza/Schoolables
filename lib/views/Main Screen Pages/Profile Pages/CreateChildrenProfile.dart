@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo_text.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -57,51 +59,24 @@ class Container2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'images/logo.png',
-              height: screenHeight * 0.2,
-              width: screenWidth * 0.2,
-            ),
-            Text(
-              "Schoolables",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-                color: Colors.black,
-              ),
-            ),
+            SchoolablesLogoText(),
             SizedBox(height: screenHeight * 0.04),
-            Text(
-              'Create Children Profiles',
-              style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenHeight * 0.030,
-                  fontWeight: FontWeight.bold),
-            ),
+            Text('Create Children Profiles',
+                style: MyStyles.googleTitleText(screenHeight * 0.03)),
             SizedBox(height: screenHeight * 0.01),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                "Schoolables require you to make different profiles for your children so it makes tracking your children’s progress easier and smooth.",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    color: const Color.fromARGB(255, 59, 59, 61),
-                    fontSize: screenHeight * 0.025,
-                    fontWeight: FontWeight.w500),
-              ),
+                  "Schoolables require you to make different profiles for your children so it makes tracking your children’s progress easier and smooth.",
+                  textAlign: TextAlign.center,
+                  style: MyStyles.googleTextSubtitleListTile(
+                      screenHeight * 0.025)),
             ),
-            SizedBox(
-              height: screenHeight * 0.06,
-            ),
-            Text(
-              "Click to start adding children profiles",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenHeight * 0.025,
-                  fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: screenHeight * 0.03),
+            SizedBox(height: screenHeight * 0.07),
+            Text("Click to start adding children profiles",
+                style:
+                    MyStyles.googleTextSubtitleListTile(screenHeight * 0.02)),
+            SizedBox(height: screenHeight * 0.025),
             InkWell(
               child: Image.asset(
                 'images/Vector.png',
