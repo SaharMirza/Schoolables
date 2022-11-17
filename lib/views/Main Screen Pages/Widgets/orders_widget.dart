@@ -253,12 +253,37 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
                                 children: [
                                   Row(
                                     children: [
-                                      CircleAvatar(
-                                        radius: (20),
-                                        backgroundColor: Colors.white,
-                                        backgroundImage:
-                                            NetworkImage(widget.sellerIMG),
-                                      ),
+                                      widget.isSell == true
+                                          ? Expanded(
+                                              child: ElevatedButton(
+                                                onPressed: () {},
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    "Update",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  shape:
+                                                      new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        new BorderRadius
+                                                            .circular(15.0),
+                                                  ),
+                                                  backgroundColor:
+                                                      MyColors.buttonColor,
+                                                ),
+                                              ),
+                                            )
+                                          : CircleAvatar(
+                                              radius: (20),
+                                              backgroundColor: Colors.white,
+                                              backgroundImage: NetworkImage(
+                                                  widget.sellerIMG),
+                                            ),
                                       SizedBox(
                                         width: 10,
                                       ),

@@ -73,13 +73,11 @@ class _SellingOrdersState extends State<SellingOrders> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
-          
           children: [
             HeaderBar(title: "Selling Orders"),
             SizedBox(
               height: screenHeight * 0.88,
               child: SingleChildScrollView(
-                
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -140,7 +138,7 @@ class _SellingOrdersState extends State<SellingOrders> {
                                     sellerIMG: "",
                                     sellerName: "",
                                     sellerNum: "",
-                                    isSell: false,
+                                    isSell: true,
                                   ),
                                 )
                                 .toList()
@@ -156,7 +154,7 @@ class _SellingOrdersState extends State<SellingOrders> {
                                         sellerIMG: "",
                                         sellerName: "",
                                         sellerNum: "",
-                                        isSell: false,
+                                        isSell: true,
                                       ),
                                     )
                                     .toList()
@@ -172,7 +170,7 @@ class _SellingOrdersState extends State<SellingOrders> {
                                             sellerIMG: "",
                                             sellerName: "",
                                             sellerNum: "",
-                                            isSell: false,
+                                            isSell: true,
                                           ),
                                         )
                                         .toList()
@@ -187,7 +185,7 @@ class _SellingOrdersState extends State<SellingOrders> {
                                             sellerIMG: "",
                                             sellerName: "",
                                             sellerNum: "",
-                                            isSell: false,
+                                            isSell: true,
                                           ),
                                         )
                                         .toList(),

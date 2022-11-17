@@ -46,7 +46,7 @@ List<BuyingOrdersClass> buyingOrders = [
   BuyingOrdersClass(
       condition: "8/10",
       progress: "Completed",
-      name: "Cambridge Science",
+      name: "Cambridge Sci",
       image:
           "https://images.unsplash.com/photo-1565022536102-f7645c84354a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZW5nbGlzaCUyMGdyYW1tYXJ8ZW58MHx8MHx8&w=1000&q=80",
       price: "1000",

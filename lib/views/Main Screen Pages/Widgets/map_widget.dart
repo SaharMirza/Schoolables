@@ -11,11 +11,11 @@ class MapWidget extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return CircleAvatar(
-      radius: screenHeight * 0.04 - screenWidth * 0.02,
-      backgroundColor: Color.fromRGBO(178, 5, 4, 0.65),
-      child: Icon(
-        Icons.location_on_outlined,
-      ),
+        radius: screenHeight * 0.04 - screenWidth * 0.02,
+        backgroundColor: Color.fromRGBO(178, 5, 4, 0.65),
+        child: Icon(
+          Icons.location_on_outlined,
+        ),
     );
   }
 }
