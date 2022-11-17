@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/BookList.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -29,36 +31,27 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        // leading: const Padding(
-        //   padding: EdgeInsets.only(left: 15.0),
-        //   child: Icon(
-        //     Icons.arrow_back_ios,
-        //     size: 24,
-        //     color: Colors.black,
-        //   ),
-        // ),
-      ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: Text(
-              'Analyzing Book List ',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 24,
-                color: Color(0xff22223B),
-              ),
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: screenHeight*0.4),
+               SubtitleText(
+                  text: "Analyzing Book List",
+                  align: TextAlign.center,
+                  size: screenHeight * 0.03,
+                ),
+
+            ],
           ),
           SizedBox(
-            height: 40,
+            height: screenHeight * 0.025,
           ),
           Center(
               child: CircularProgressIndicator(
