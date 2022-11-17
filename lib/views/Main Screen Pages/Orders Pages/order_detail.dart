@@ -99,7 +99,7 @@ class _OrderDetailState extends State<OrderDetail> {
             Center(
               child: Text(
                 "Started",
-                style: MyStyles.googleSecondTitleText(30),
+                style: MyStyles.googleSecondTitleText(22),
               ),
             ),
             SizedBox(
@@ -108,7 +108,7 @@ class _OrderDetailState extends State<OrderDetail> {
             Center(
               child: ImageSlider(),
             ),
-            OrderDetailsCard(),
+            OrderDetailsCard(isProduct: false),
           ],
         ),
       ),

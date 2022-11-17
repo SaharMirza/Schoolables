@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildrenProfileScreen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
@@ -38,9 +41,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: MyHomePage(title: "title"),
-    );
-
+        home: BottomNavBar()
+        // MyHomePage(title: "title"),
+        );
   }
 }
 

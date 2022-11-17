@@ -4,6 +4,7 @@ import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
@@ -75,48 +76,51 @@ class MyProfileListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: screenHeight * 0.125,
-      height: screenWidth < 300 ? 70 : 90,
+      // height: screenWidth < 300 ? 70 : 90,
       decoration:
           BoxDecoration(color: Colors.white, // Your desired background color
               // borderRadius: BorderRadius.circular(15),
               boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 5),
           ]),
-      child: Center(
-        child: ListTile(
-          onTap: () async {
-            if (title == "Selling Orders") {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => SellingOrders(),
-                ),
-              );
-            } else if (title == "Buying Orders") {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => BuyingOrders(),
-                ),
-              );
-            }
-          },
-          leading: Icon(
-            icon,
-            color: MyColors.textColor,
-          ),
-          title: Container(
-            child: Text(
-              title,
-              style: MyStyles.googleTextListTile(screenWidth < 300 ? 15 : 18),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8, bottom: 8),
+        child: Center(
+          child: ListTile(
+            onTap: () async {
+              if (title == "Selling Orders") {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SellingOrders(),
+                  ),
+                );
+              } else if (title == "Buying Orders") {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BuyingOrders(),
+                  ),
+                );
+              }
+            },
+            leading: Icon(
+              icon,
+              color: MyColors.textColor,
             ),
-          ),
-          subtitle: Text(
-            subtitle,
-            style: MyStyles.googleTextSubtitleListTile(
-                screenWidth < 300 ? 10 : 13),
-          ),
-          trailing: Icon(
-            Icons.navigate_next,
-            color: MyColors.textColor,
+            title: Container(
+              child: Text(
+                title,
+                style: MyStyles.googleTextListTile(screenWidth < 300 ? 15 : 18),
+              ),
+            ),
+            subtitle: Text(
+              subtitle,
+              style: MyStyles.googleTextSubtitleListTile(
+                  screenWidth < 300 ? 10 : 13),
+            ),
+            trailing: Icon(
+              Icons.navigate_next,
+              color: MyColors.textColor,
+            ),
           ),
         ),
       ),
@@ -150,15 +154,19 @@ class LogoutBtnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
-      child: Text("Logout"),
-      style: ElevatedButton.styleFrom(
-          backgroundColor: MyColors.buttonColor,
-          textStyle: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+      onPressed: () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MainLoginScreen(),
           ),
-          shadowColor: Colors.grey),
+        );
+      },
+      child: Text(
+        "Logout",
+        style: MyStyles.btnTextStyle,
+      ),
+      style: ElevatedButton.styleFrom(
+          backgroundColor: MyColors.buttonColor, shadowColor: Colors.grey),
     );
   }
 }

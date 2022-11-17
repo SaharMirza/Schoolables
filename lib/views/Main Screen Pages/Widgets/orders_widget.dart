@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -74,6 +75,8 @@ class _ProgressWidget2State extends State<ProgressWidget2> {
 
   Widget build(BuildContext context) {
     int selectedIndex = -1;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
       padding: const EdgeInsets.only(right: 10, left: 10),
@@ -85,8 +88,8 @@ class _ProgressWidget2State extends State<ProgressWidget2> {
           widget.onValueChanged(selectedIndex);
         },
         child: Container(
-          height: 25,
-          width: 100,
+          height: screenWidth < 400 ? 18 : 25,
+          width: screenWidth < 400 ? 80 : 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
             color: widget.selected != widget.index
@@ -97,7 +100,7 @@ class _ProgressWidget2State extends State<ProgressWidget2> {
             child: Text(
               widget.text,
               style: GoogleFonts.poppins(
-                fontSize: 12,
+                fontSize: screenWidth < 400 ? 10 : 12,
                 color: widget.selected != widget.index
                     ? MyColors.textColor
                     : Colors.white,
@@ -139,6 +142,9 @@ class SellingOrdersCard extends StatefulWidget {
 class _SellingOrdersCardState extends State<SellingOrdersCard> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: InkWell(
@@ -150,67 +156,127 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
           );
         },
         child: Container(
-          height: 150,
+          // height: 100,
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: MyColors.startColor,
-                blurRadius: 20.0,
-                spreadRadius: 0,
+                color: Color.fromARGB(83, 158, 158, 158),
+                blurRadius: 5.0,
+                spreadRadius: 1,
                 offset: Offset(
-                  10, // Move to right 10  horizontally
-                  8.0, // Move to bottom 10 Vertically
+                  5, // Move to right 10  horizontally
+                  5, // Move to bottom 10 Vertically
                 ),
               ),
             ],
           ),
-          child: Card(
-            elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25.0),
-              // side: BorderSide(color: MyColors.borderColor),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                width: 800,
-                child: Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          // border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(widget.img),
-                          )),
-                      width: 90,
-                      height: 90,
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+
+          child: Expanded(
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                // side: BorderSide(color: MyColors.borderColor),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 9.0, right: 9, top: 8, bottom: 8),
+                child: Container(
+                  width: screenWidth < 400 ? 600 : 800,
+                  // height: screenWidth < 400 ? 45 : 250,
+                  child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                // border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(widget.img),
+                                )),
+                            width: screenWidth < 300 ? 60 : 90,
+                            height: screenWidth < 300 ? 80 : 90,
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
                                 widget.name,
                                 style: GoogleFonts.poppins(
                                   color: MyColors.textColor,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 15,
+                                  fontSize: screenWidth < 400 ? 11 : 15,
                                 ),
                                 // screenWidth * 0.025 - screenHeight * 0.025),
                               ),
-                            ),
+                              Text("Accepted Bid: Rs " + widget.price,
+                                  style: MyStyles.googleTextSubtitleListTile(
+                                      screenWidth < 400 ? 8 : 12)),
+                              Text(
+                                "Book Condition : " + widget.condition,
+                                style: MyStyles.googleTextSubtitleListTile(
+                                    screenWidth < 400 ? 8 : 12),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              widget.isSell == false
+                                  ? Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: (screenWidth < 400 ? 15 : 20),
+                                          backgroundColor: Colors.white,
+                                          backgroundImage:
+                                              NetworkImage(widget.sellerIMG),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              widget.sellerName,
+                                              style: GoogleFonts.poppins(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: screenWidth < 400
+                                                      ? 8
+                                                      : 10),
+                                            ),
+                                            Text(
+                                              widget.sellerNum,
+                                              style: GoogleFonts.poppins(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: screenWidth < 400
+                                                      ? 8
+                                                      : 10),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Text(""),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
                             Text(
                               widget.progress,
                               style: GoogleFonts.poppins(
+                                fontSize: screenWidth < 400 ? 10 : null,
                                 color: widget.progress == "In Progress"
                                     ? Colors.green
                                     : widget.progress == "Cancelled"
@@ -220,101 +286,30 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                          ],
-                        ),
-                        Text("Accepted Bid: Rs " + widget.price,
-                            style: MyStyles.googleTextSubtitleListTile(12)),
-                        Text(
-                          "Book Condition : " + widget.condition,
-                          style: MyStyles.googleTextSubtitleListTile(12),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        widget.isSell == true
-                            ? Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text("Update",
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(15.0),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            widget.isSell == true
+                                ? ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      "Update",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white, fontSize: 12),
                                     ),
-                                    backgroundColor: MyColors.buttonColor,
-                                  ),
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      widget.isSell == true
-                                          ? Expanded(
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    "Update",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  shape:
-                                                      new RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        new BorderRadius
-                                                            .circular(15.0),
-                                                  ),
-                                                  backgroundColor:
-                                                      MyColors.buttonColor,
-                                                ),
-                                              ),
-                                            )
-                                          : CircleAvatar(
-                                              radius: (20),
-                                              backgroundColor: Colors.white,
-                                              backgroundImage: NetworkImage(
-                                                  widget.sellerIMG),
-                                            ),
-                                      SizedBox(
-                                        width: 10,
+                                    style: ElevatedButton.styleFrom(
+                                      shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(15.0),
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            widget.sellerName,
-                                            style: GoogleFonts.poppins(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          Text(
-                                            widget.sellerNum,
-                                            style: GoogleFonts.poppins(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
-                  ),
-                ]),
+                                      backgroundColor: MyColors.buttonColor,
+                                    ),
+                                  )
+                                : Text("")
+                          ],
+                        )
+                      ]),
+                ),
               ),
             ),
           ),
@@ -386,7 +381,8 @@ class _ContactSellerBtnState extends State<ContactSellerBtn> {
 }
 
 class OrderDetailsCard extends StatefulWidget {
-  const OrderDetailsCard({super.key});
+  const OrderDetailsCard({super.key, required this.isProduct});
+  final bool isProduct;
 
   @override
   State<OrderDetailsCard> createState() => _OrderDetailsCardState();
@@ -407,7 +403,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
               children: [
                 Text(
                   "Karwan e Urdu",
-                  style: MyStyles.googleTitleText(35),
+                  style: MyStyles.googleTitleText(30),
                 ),
                 Text(
                   "Rs 500",
@@ -426,18 +422,20 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                       fontSize: 21,
                       fontWeight: FontWeight.w500),
                 ),
-                Row(
-                  children: [
-                    Icon(Icons.star_rounded, color: Colors.amber),
-                    Text(
-                      "4.0",
-                      style: GoogleFonts.poppins(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.amber),
-                    ),
-                  ],
-                ),
+                (widget.isProduct == false)
+                    ? Row(
+                        children: [
+                          Icon(Icons.star_rounded, color: Colors.amber),
+                          Text(
+                            "4.0",
+                            style: GoogleFonts.poppins(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.amber),
+                          ),
+                        ],
+                      )
+                    : Text(""),
               ],
             ),
             SizedBox(
@@ -493,19 +491,71 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                         ),
                       ],
                     ),
-                    MapWidget(),
+                    widget.isProduct == true
+                        ? Row(
+                            children: [
+                              Icon(Icons.star_rounded, color: Colors.amber),
+                              Text(
+                                "4.0",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.amber),
+                              ),
+                            ],
+                          )
+                        : MapWidget(),
                   ],
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CancelOrderBtn(),
-                    ContactSellerBtn(),
-                  ],
-                ),
+                widget.isProduct == true
+                    ? Container(
+                        child: Column(children: [
+                          Container(
+                            height: 45,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(50, 0, 0, 0),
+                                  offset: const Offset(
+                                    5.0,
+                                    5.0,
+                                  ),
+                                  blurRadius: 10.0,
+                                  spreadRadius: 1.0,
+                                ), //BoxShadow
+                                //BoxShadow
+                              ],
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("View Location on Map",
+                                    style: MyStyles.googleTextListTile(15)),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                side: BorderSide(
+                                    color: MyColors.textColor, width: 2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                            ),
+                          )
+                        ]),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CancelOrderBtn(),
+                          ContactSellerBtn(),
+                        ],
+                      ),
+                widget.isProduct == true ? Container() : Text(""),
               ],
             ),
           ],
@@ -527,7 +577,7 @@ class _ImageSliderState extends State<ImageSlider> {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
-      height: 250,
+      height: 180,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
           boxShadow: [
