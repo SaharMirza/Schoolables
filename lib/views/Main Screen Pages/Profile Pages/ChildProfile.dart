@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildrenProfileScreen.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/circle_avatar_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,8 +21,6 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    final TextEditingController _namecontroller = TextEditingController();
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -28,16 +28,12 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 10),
+                child: NavigateBackWidget(
+                    screenWidth: screenWidth, screenHeight: screenHeight),
               ),
-              NavigateBackWidget(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-              ),
-              SizedBox(
-                height: screenHeight * 0.03,
-              ),
+              SizedBox(height: screenHeight * 0.03),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 26),
                 child: Column(
@@ -45,41 +41,31 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          "Child Profile",
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: screenHeight * 0.030,
-                              fontWeight: FontWeight.w600),
+                        TitleText(
+                          text: "Child Profile",
+                          align: TextAlign.left,
+                          size: screenHeight * 0.03,
                         ),
                         Spacer(),
-                        CircleAvatar(
-                          radius: 34,
-                          backgroundImage:
-                              AssetImage('assets/images/profile.png'),
+                        CircleAvatarWidget(
+                          image: 'assets/images/profile.png',
+                          size: 34,
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: screenHeight * 0.03,
-                    ),
-                    _reuseableColumn('Name'),
                     SizedBox(height: screenHeight * 0.03),
-                    _reuseableColumn('School'),
+                    NameAndTextField('Name', screenHeight),
                     SizedBox(height: screenHeight * 0.03),
-                    _reuseableColumn('Grade'),
+                    NameAndTextField('School', screenHeight),
+                    SizedBox(height: screenHeight * 0.03),
+                    NameAndTextField('Grade', screenHeight),
                     SizedBox(height: screenHeight * 0.03),
                     Row(
                       children: [
-                        Text(
-                          "Add Child",
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.poppins(
-                              color: const Color.fromARGB(255, 59, 59, 61),
-                              fontSize: screenHeight * 0.025,
-                              fontWeight: FontWeight.w600),
-                        ),
+                        SecondTitleText(
+                            text: "Add Child",
+                            align: TextAlign.left,
+                            size: screenHeight * 0.025),
                         Spacer(),
                         InkWell(
                           child: Icon(
@@ -107,15 +93,12 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
     );
   }
 
-  Widget _reuseableColumn(String title) {
+  Widget NameAndTextField(String title, double screenHeight) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 12),
-          textAlign: TextAlign.left,
-        ),
+        SubtitleText(
+            text: title, align: TextAlign.left, size: screenHeight * 0.019),
         TextField(
           decoration: InputDecoration(contentPadding: EdgeInsets.only(top: 10)),
         ),
