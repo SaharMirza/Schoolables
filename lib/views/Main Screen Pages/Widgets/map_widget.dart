@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/MapScreen.dart';
 
 class MapWidget extends StatelessWidget {
   const MapWidget({
@@ -13,8 +14,18 @@ class MapWidget extends StatelessWidget {
     return CircleAvatar(
         radius: screenHeight * 0.04 - screenWidth * 0.02,
         backgroundColor: Color.fromRGBO(178, 5, 4, 0.65),
-        child: Icon(
-          Icons.location_on_outlined,
+        child: InkWell(
+          onTap: (){
+             Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) =>
+                        MapScreen()),
+              );
+          },
+          child: Icon(
+            
+            Icons.location_on_outlined,
+          ),
         ),
     );
   }

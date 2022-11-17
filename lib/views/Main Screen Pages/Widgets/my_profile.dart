@@ -155,11 +155,11 @@ class LogoutBtnWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => MainLoginScreen(),
-          ),
-        );
+        // await Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => MainLoginScreen(),
+        //   ),
+        // );
       },
       child: Text(
         "Logout",

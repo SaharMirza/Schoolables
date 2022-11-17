@@ -30,7 +30,7 @@ class _AddProductPageState extends State<AddProductPage> {
             children: [
               HeaderBar(title: "New Product"),
               SizedBox(
-                height: screenHeight * 0.88,
+                height: screenHeight * 0.85,
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),

@@ -18,7 +18,6 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     startCamera();
     super.initState();
   }
@@ -71,10 +70,13 @@ class _CameraScreenState extends State<CameraScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoadingScreen()),
+              );
+            },
             child: Text("SCAN"),
             style: ElevatedButton.styleFrom(
-                // elevation: 10,
                 backgroundColor: MyColors.subtitleColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)),
@@ -87,10 +89,6 @@ class _CameraScreenState extends State<CameraScreen> {
                   if (mounted) {
                     if (file != null) {
                       print("Picture saved to ${file.path}");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const LoadingScreen()),
-                      );
                     }
                   }
                 });

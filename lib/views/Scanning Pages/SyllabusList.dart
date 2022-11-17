@@ -22,15 +22,15 @@ class _SyllabusListState extends State<SyllabusList> {
   List<SyllabusBook> syllabusBooks = [
     SyllabusBook(
       book_name: "Cambridge Check Point English Book 3",
-      image: "images/image-placeholder.png",
+      image: "assets/images/image-placeholder.png",
     ),
     SyllabusBook(
       book_name: "Karwaan-e-Urdu 8",
-      image: "images/image-placeholder.png",
+      image: "assets/images/image-placeholder.png",
     ),
     SyllabusBook(
       book_name: "Graph Book MVP-29",
-      image: "images/image-placeholder.png",
+      image: "assets/images/image-placeholder.png",
     ),
   ];
 
@@ -126,7 +126,7 @@ class _syllabusListTileState extends State<syllabusListTile> {
               style: GoogleFonts.poppins(
                 color: MyColors.textColor,
                 fontWeight: FontWeight.w700,
-                fontSize: 15,
+                fontSize: 12,
               ),
             ),
           ),

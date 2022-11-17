@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
+
+import '../Product Pages/product_detail.dart';
 
 class ProductCard extends StatefulWidget {
   ProductCard({

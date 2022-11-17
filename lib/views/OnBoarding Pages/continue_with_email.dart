@@ -4,11 +4,13 @@ import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/forget_pass.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 
 class ContinueWithEmail extends StatefulWidget {
-  const ContinueWithEmail({super.key});
+  const ContinueWithEmail({Key? key, required this.role}) : super(key: key);
+  final String role;
 
   @override
   State<ContinueWithEmail> createState() => _ContinueWithEmailState();
@@ -38,8 +40,8 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
                 style: MyStyles.googleTitleText(MediaQuery.of(context).size.width * 0.07),
               ),
               loginInputs(),
-              const Buttons(ButtonName: "Login"),
-              signUpRedirect(),
+             Buttons(ButtonName: "Login",role: widget.role,),
+              signUpRedirect(widget.role),
             ],
           ),
         ),
@@ -47,7 +49,7 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
     );
   }
 
-  Widget signUpRedirect() {
+  Widget signUpRedirect(String role) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,7 +69,7 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SignupPage()));
+                        builder: (context) =>  SignupPage(role: role,)));
               })
         ]);
   }

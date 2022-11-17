@@ -38,24 +38,7 @@ class _YourProductsPageState extends State<YourProductsPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          width: 300,
-                          child: SearchBar(
-                              width: screenWidth, screenHeight: screenHeight)),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      FilterWidget(),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      MapWidget(),
-                    ],
-                  ),
+                  SearchfilterMapWidget(screenWidth: screenWidth, screenHeight: screenHeight),
                   SizedBox(
                     height: 20,
                   ),

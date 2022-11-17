@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
 
 class MainLoginScreen extends StatelessWidget {
-  const MainLoginScreen({super.key});
-
+  const MainLoginScreen({Key? key, required this.role}) : super(key: key);
+  final String role;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,18 +17,30 @@ class MainLoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.close_outlined),
-                    onPressed: (() {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const BottomNavBar()),
-                      );
-                    }),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: IconButton(
+                      icon: const Icon(Icons.close_outlined),
+                      onPressed: (() {
+                        if (role == "Parent") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateChildrenProfile()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BottomNavBar()),
+                          );
+                        }
+                      }),
+                    ),
                   ),
                 ],
               ),
-              const Continer1(),
+              Continer1(role: role),
               const Text(
                 "If you continue, you are accepting Schoolables Terms and Conditions and Privacy Policy",
                 textAlign: TextAlign.center,
@@ -41,9 +54,9 @@ class MainLoginScreen extends StatelessWidget {
 }
 
 class Continer1 extends StatelessWidget {
-  const Continer1({
-    Key? key,
-  }) : super(key: key);
+  const Continer1({Key? key, required this.role}) : super(key: key);
+
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -80,18 +93,19 @@ class Continer1 extends StatelessWidget {
           ),
           const SizedBox(height: 40.0),
           Column(
-            children: const [
+            children: [
               //continue with email button
               LoginChoiceButton(
                   optionIcon: 'assets/images/email.png',
                   title: 'Continue with Email',
-                  choice: "Email"),
+                  choice: "Email",
+                  role: role),
               //continue with google
               LoginChoiceButton(
-                optionIcon: 'assets/images/google.png',
-                title: 'Continue with Google',
-                choice: "Google",
-              ),
+                  optionIcon: 'assets/images/google.png',
+                  title: 'Continue with Google',
+                  choice: "Google",
+                  role: role),
             ],
           ),
         ],
@@ -105,12 +119,14 @@ class LoginChoiceButton extends StatelessWidget {
       {Key? key,
       required this.optionIcon,
       required this.title,
-      required this.choice})
+      required this.choice,
+      required this.role})
       : super(key: key);
 
   final String optionIcon;
   final String title;
   final String choice;
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -123,11 +139,13 @@ class LoginChoiceButton extends StatelessWidget {
               side: const BorderSide(width: 2)),
           onPressed: () {
             if (choice == "Email") {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ContinueWithEmail()),
-              );
+           
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>ContinueWithEmail(role: role,)),
+                );
+              
             }
           },
           child: Row(

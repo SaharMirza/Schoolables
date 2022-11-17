@@ -6,7 +6,8 @@ import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+  const SignupPage({Key? key, required this.role}) : super(key: key);
+  final String role;
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -38,7 +39,7 @@ class _SignupPageState extends State<SignupPage> {
                 style: MyStyles.googleTitleText(MediaQuery.of(context).size.width*0.07),
               ),
               registerInputs(),
-              const Buttons(ButtonName: "Register"),
+              Buttons(ButtonName: "Register",role: widget.role,),
             ],
           ),
         ),
