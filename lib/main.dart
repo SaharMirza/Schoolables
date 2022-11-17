@@ -16,7 +16,6 @@ import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more_parent.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/Loading_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/ScanHistory.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
