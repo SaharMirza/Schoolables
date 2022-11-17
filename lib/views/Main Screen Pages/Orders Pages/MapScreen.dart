@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
@@ -28,18 +29,13 @@ class _MapScreenState extends State<MapScreen> {
             Row(
               children: [
                 Expanded(
-                  child:
-                      SearchBar(screenHeight: screenHeight, width: screenWidth),
-                ),
-                const SizedBox(
-                  width: 7,
-                ),
+                    child: SearchBar(
+                        screenHeight: screenHeight, width: screenWidth)),
+                const SizedBox(width: 7),
                 const FilterWidget(),
                 const SizedBox(width: 7),
                 const MapWidget(),
-                const SizedBox(
-                  width: 7,
-                ),
+                const SizedBox(width: 7),
               ],
             ),
             SizedBox(height: screenHeight * 0.02),
@@ -55,39 +51,8 @@ class _MapScreenState extends State<MapScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      width: screenWidth * 0.80,
-                      height: screenWidth * 0.2,
-                      color: Colors.black26,
-                      child: const ListTile(
-                        leading: Padding(
-                          padding: EdgeInsets.only(top: 5),
-                          child: Icon(Icons.info_outline, size: 35,),
-                        ),
-                        subtitle: Text(
-                          'You can go through book by scrolling the cards'
-                          'horizontally and get the location of each book using locate button',
-                          textAlign: TextAlign.start,
-                          softWrap: true,
-                        ),
-                      ),
-                    ),
-
-                    Container(
-                      height: screenHeight * 0.18,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        padding:
-                        const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        itemBuilder: (context, index) =>
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: BookLocationCard(screenWidth: screenWidth, title: 'Karwan-e-urdu'),
-                            ),
-                        itemCount: 2,
-                      ),
-                    ),
-
+                    Container1(screenHeight: screenHeight, screenWidth: screenWidth),
+                    Container2(screenHeight: screenHeight, screenWidth: screenWidth),
                   ],
                 ),
               ),
@@ -99,11 +64,76 @@ class _MapScreenState extends State<MapScreen> {
   }
 }
 
+
+class Container2 extends StatelessWidget {
+  Container2({ required this.screenHeight,
+    required this.screenWidth,
+    Key? key
+  }) : super(key: key);
+
+  final double screenWidth, screenHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      height: screenHeight * 0.18,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(
+            vertical: 15, horizontal: 20),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: BookLocationCard(
+              screenWidth: screenWidth, title: 'Karwan-e-urdu'),
+        ),
+        itemCount: 2,
+      ),
+    );
+  }
+}
+
+class Container1 extends StatelessWidget {
+  Container1({required this.screenHeight, required this.screenWidth, Key? key})
+      : super(key: key);
+
+  final double screenWidth, screenHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      width: screenWidth * 0.80,
+      height: screenWidth * 0.23,
+      color: Colors.black26,
+      child: ListTile(
+        leading: Padding(
+          padding: EdgeInsets.only(top: 5),
+          child: Icon(
+            Icons.info_outline,
+            size: 35,
+          ),
+        ),
+        subtitle: Text(
+          'You can go through book by scrolling the cards'
+              'horizontally and get the location of each book using locate button',
+          textAlign: TextAlign.start,
+          softWrap: true,
+          style: MyStyles.googleTextSubtitleListTile(screenHeight*0.020),
+        ),
+      ),
+    );
+  }
+}
 class BookLocationCard extends StatelessWidget {
   final double screenWidth;
   final String title;
 
-  const BookLocationCard({Key? key, required this.screenWidth, required this.title,}) : super(key: key);
+  const BookLocationCard({
+    Key? key,
+    required this.screenWidth,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -121,24 +151,15 @@ class BookLocationCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-
+          Text(title, style: MyStyles.googleTextListTile(16)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: () {  },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold
-                  ),
+                  textStyle: const TextStyle(fontWeight: FontWeight.bold),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0)),
                   minimumSize: const Size(30, 40),
@@ -146,12 +167,10 @@ class BookLocationCard extends StatelessWidget {
                 child: Text('Locate'),
               ),
               ElevatedButton(
-                onPressed: () {  },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold
-                  ),
+                  textStyle: const TextStyle(fontWeight: FontWeight.bold),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0)),
                   minimumSize: const Size(30, 40),
@@ -165,4 +184,3 @@ class BookLocationCard extends StatelessWidget {
     );
   }
 }
-
