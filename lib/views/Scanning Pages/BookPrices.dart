@@ -72,55 +72,39 @@ class _BookPricesState extends State<BookPrices> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          HeaderBar(title: widget.bookname),
-          SizedBox(
-            height: screenHeight * 0.85,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    SearchfilterMapWidget(
-                        screenHeight: screenHeight, screenWidth: screenWidth * 0.9),
-                    GridView.count(
-                        childAspectRatio: screenWidth / (screenHeight * 0.8),
-                        shrinkWrap: true,
-                        crossAxisCount: 2,
-                        children: [
-                          for (var i = 0; i < 6; i++)
-                            ProductCard(
-                                name: products[i].name,
-                                price: products[i].price,
-                                image: products[i].image,
-                                isFav: products[i].isFav),
-                        ]),
-                  ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HeaderBar(title: widget.bookname),
+            SizedBox(
+              height: screenHeight * 0.85,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      SearchfilterMapWidget(
+                          screenHeight: screenHeight,
+                          screenWidth: screenWidth * 0.9),
+                      GridView.count(
+                          childAspectRatio: screenWidth / (screenHeight * 0.8),
+                          shrinkWrap: true,
+                          crossAxisCount: 2,
+                          children: [
+                            for (var i = 0; i < 6; i++)
+                              ProductCard(
+                                  name: products[i].name,
+                                  price: products[i].price,
+                                  image: products[i].image,
+                                  isFav: products[i].isFav),
+                          ]),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-
-          //grid view books
-          // Expanded(
-          //   child: GridView.builder(
-          //     padding: EdgeInsets.all(15),
-          //     itemCount: books.length,
-          //     itemBuilder: (context, index) => Padding(
-          //       padding: EdgeInsets.all(5),
-          //       child: ProductCard(
-          //         name: books[index].name,
-          //         price: books[index].price,
-          //         image: books[index].image,
-          //         isFav: books[index].isFav,
-          //       ),
-          //     ),
-          //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 2,
-          //     ),
-          //   ),
-          // ),
-        ]),
+          ],
+        ),
       ),
     );
   }
