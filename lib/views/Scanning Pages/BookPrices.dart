@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
@@ -20,31 +21,31 @@ class _BookPricesState extends State<BookPrices> {
   List<Product> books = [
     Product(
       name: 'Karwaan-e-Urdu',
-      image: 'images/image-placeholder.png',
+      image: 'assets/images/image-placeholder.png',
       price: '200',
       isFav: false,
     ),
     Product(
       name: 'Karwaan-e-Urdu',
-      image: 'images/image-placeholder.png',
+      image: 'assets/images/image-placeholder.png',
       price: '250',
       isFav: false,
     ),
     Product(
       name: 'Karwaan-e-Urdu',
-      image: 'images/image-placeholder.png',
+      image: 'assets/images/image-placeholder.png',
       price: '300',
       isFav: false,
     ),
     Product(
       name: 'Karwaan-e-Urdu',
-      image: 'images/image-placeholder.png',
+      image: 'assets/images/image-placeholder.png',
       price: '250',
       isFav: false,
     ),
     Product(
       name: 'Karwaan-e-Urdu',
-      image: 'images/image-placeholder.png',
+      image: 'assets/images/image-placeholder.png',
       price: '300',
       isFav: false,
     ),
@@ -52,60 +53,73 @@ class _BookPricesState extends State<BookPrices> {
 
   @override
   Widget build(BuildContext context) {
+    List<Product> products = [
+      Product(name: "O'Levels Math", image: "", price: "500", isFav: false),
+      Product(name: "O'Levels Science", image: "", price: "500", isFav: false),
+      Product(name: "O'Levels English", image: "", price: "500", isFav: false),
+      Product(name: "O'Levels ", image: "", price: "500", isFav: false),
+      Product(name: "O'Levels Physics", image: "", price: "500", isFav: false),
+      Product(
+          name: "O'Levels Chemistry", image: "", price: "500", isFav: false),
+      Product(name: "O'Levels Bio", image: "", price: "500", isFav: false),
+      Product(name: "O'Levels Eco", image: "", price: "500", isFav: false),
+      Product(name: "O'Levels Computer", image: "", price: "500", isFav: false),
+    ];
+
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.bookname,
-          style: MyStyles.googleSecondTitleText(
-              screenWidth * 0.02 + screenHeight * 0.02),
-        ),
-        elevation: 2,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-              iconSize: 50,
-              onPressed: (() {}),
-              icon: ProfileIcon(
-                img:
-                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                radius: screenWidth * 0.03 + screenHeight * 0.01,
-              )
-              // Icon(Icons.account_circle_outlined)
-              ),
-        ],
-      ),
-      body: Center(
-        child: Column(children: [
-          //search bar
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: SearchfilterMapWidget(
-                screenHeight: screenHeight, screenWidth: screenWidth),
-          ),
-
-          //grid view books
-          Expanded(
-            child: GridView.builder(
-              padding: EdgeInsets.all(15),
-              itemCount: books.length,
-              itemBuilder: (context, index) => Padding(
-                padding: EdgeInsets.all(5),
-                child: ProductCard(
-                  name: books[index].name,
-                  price: books[index].price,
-                  image: books[index].image,
-                  isFav: books[index].isFav,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          HeaderBar(title: widget.bookname),
+          SizedBox(
+            height: screenHeight * 0.85,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    SearchfilterMapWidget(
+                        screenHeight: screenHeight, screenWidth: screenWidth * 0.9),
+                    GridView.count(
+                        childAspectRatio: screenWidth / (screenHeight * 0.8),
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        children: [
+                          for (var i = 0; i < 6; i++)
+                            ProductCard(
+                                name: products[i].name,
+                                price: products[i].price,
+                                image: products[i].image,
+                                isFav: products[i].isFav),
+                        ]),
+                  ],
                 ),
-              ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
               ),
             ),
           ),
+
+          //grid view books
+          // Expanded(
+          //   child: GridView.builder(
+          //     padding: EdgeInsets.all(15),
+          //     itemCount: books.length,
+          //     itemBuilder: (context, index) => Padding(
+          //       padding: EdgeInsets.all(5),
+          //       child: ProductCard(
+          //         name: books[index].name,
+          //         price: books[index].price,
+          //         image: books[index].image,
+          //         isFav: books[index].isFav,
+          //       ),
+          //     ),
+          //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 2,
+          //     ),
+          //   ),
+          // ),
         ]),
       ),
     );

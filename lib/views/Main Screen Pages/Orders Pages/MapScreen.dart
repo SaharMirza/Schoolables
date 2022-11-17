@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
@@ -22,53 +23,34 @@ class _MapScreenState extends State<MapScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top:10, left: 8),
-
-
-              child: Row(
-                children: [
-                  NavigateBackWidget(
-                    screenWidth: screenWidth,
-                    screenHeight: screenHeight,
-                  ),
-                  Text('Books',
-                    style:
-                    GoogleFonts.poppins(
-                        color: const Color.fromARGB(255, 59, 59, 61),
-                        fontSize: screenHeight * 0.030,
-                        fontWeight: FontWeight.bold
-                    ),
-          ),
-        ],),
-            ),
-            SizedBox(height: screenHeight*0.03),
+            HeaderBar(title: "Books"),
+            SizedBox(height: screenHeight * 0.03),
             Row(
-                children: [
-                  Expanded(child:SearchBar(screenHeight: screenHeight, width: screenWidth),
-                  ),
-                  SizedBox(
-                    width: 7,
-                  ),
-                  const FilterWidget(),
-                  SizedBox(width: 7),
-                  const MapWidget(),
-                  SizedBox(
-                    width: 7,
-                  ),
-                ],
-              ),
-            SizedBox(height:screenHeight*0.02),
-            
+              children: [
+                Expanded(
+                  child:
+                      SearchBar(screenHeight: screenHeight, width: screenWidth),
+                ),
+                const SizedBox(
+                  width: 7,
+                ),
+                const FilterWidget(),
+                const SizedBox(width: 7),
+                const MapWidget(),
+                const SizedBox(
+                  width: 7,
+                ),
+              ],
+            ),
+            SizedBox(height: screenHeight * 0.02),
             Expanded(
               child: Container(
-                height: screenHeight*0.8,
+                height: screenHeight * 0.8,
                 width: screenWidth,
-                decoration: BoxDecoration(
-                  image:DecorationImage(
-                    image: AssetImage('images/map_image.png'),
-                  fit: BoxFit.fill
-                  ),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/map_image.png'),
+                      fit: BoxFit.fill),
                 ),
               ),
             ),
@@ -78,5 +60,3 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
-
-
