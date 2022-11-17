@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/Classes/SyllabusBook.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/SyllabusList.dart';
@@ -36,32 +38,10 @@ class _BookListState extends State<BookList> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Book List",
-          style: MyStyles.googleSecondTitleText(
-              screenWidth * 0.02 + screenHeight * 0.02),
-        ),
-        elevation: 2,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-              iconSize: 50,
-              onPressed: (() {}),
-              icon: ProfileIcon(
-                img:
-                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                radius: screenWidth * 0.03 + screenHeight * 0.01,
-              )
-              // Icon(Icons.account_circle_outlined)
-              ),
-        ],
-      ),
       body: Center(
         child: Column(
           children: [
-            //search bar
+            HeaderBar(title: "BookList"),
             Padding(
               padding: const EdgeInsets.only(
                   top: 20, bottom: 0, left: 10, right: 10),
@@ -70,7 +50,6 @@ class _BookListState extends State<BookList> {
                 screenHeight: screenHeight,
               ),
             ),
-
             // list
             Expanded(
               child: ListView.builder(
