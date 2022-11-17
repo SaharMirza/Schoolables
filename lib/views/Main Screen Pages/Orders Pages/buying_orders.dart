@@ -69,81 +69,66 @@ class _BuyingOrdersState extends State<BuyingOrders> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          HeaderBar(title: "Buying Orders"),
-          SizedBox(
-            height: screenHeight * 0.88,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: SearchBar(
-                          width: screenWidth, screenHeight: screenHeight),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              HeaderBar(title: "Buying Orders"),
+              SizedBox(
+                height: screenHeight * 0.88,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: 50,
-                            alignment: Alignment.center,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: progress.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return ProgressWidget2(
-                                  text: progress[index].name,
-                                  index: index,
-                                  selected: selectedIndex,
-                                  onValueChanged: (int value) {
-                                    selectedIndex = value;
-                                    refresh();
-
-                                    filter(value);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    ListView(
-                      shrinkWrap: true,
-                      children: selectedIndex == 0 || selectedIndex == -1
-                          ? buyingOrders
-                              .map(
-                                (book) => SellingOrdersCard(
-                                  name: book.name,
-                                  price: book.price,
-                                  condition: book.condition,
-                                  progress: book.progress,
-                                  img: book.image,
-                                  sellerIMG: book.sellerImg,
-                                  sellerName: book.sellerName,
-                                  sellerNum: book.sellerNum,
-                                  isSell: false,
+                        Center(
+                          child: SearchBar(
+                              width: screenWidth, screenHeight: screenHeight),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 50,
+                                alignment: Alignment.center,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: progress.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ProgressWidget2(
+                                      text: progress[index].name,
+                                      index: index,
+                                      selected: selectedIndex,
+                                      onValueChanged: (int value) {
+                                        selectedIndex = value;
+                                        refresh();
+
+                                        filter(value);
+                                      },
+                                    );
+                                  },
                                 ),
-                              )
-                              .toList()
-                          : selectedIndex == 1
-                              ? filteredItems0
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        ListView(
+                          shrinkWrap: true,
+                          children: selectedIndex == 0 || selectedIndex == -1
+                              ? buyingOrders
                                   .map(
                                     (book) => SellingOrdersCard(
                                       name: book.name,
@@ -158,8 +143,8 @@ class _BuyingOrdersState extends State<BuyingOrders> {
                                     ),
                                   )
                                   .toList()
-                              : selectedIndex == 2
-                                  ? filteredItems1
+                              : selectedIndex == 1
+                                  ? filteredItems0
                                       .map(
                                         (book) => SellingOrdersCard(
                                           name: book.name,
@@ -174,29 +159,45 @@ class _BuyingOrdersState extends State<BuyingOrders> {
                                         ),
                                       )
                                       .toList()
-                                  : filteredItems2
-                                      .map(
-                                        (book) => SellingOrdersCard(
-                                          name: book.name,
-                                          price: book.price,
-                                          condition: book.condition,
-                                          progress: book.progress,
-                                          img: book.image,
-                                          sellerIMG: book.sellerImg,
-                                          sellerName: book.sellerName,
-                                          sellerNum: book.sellerNum,
-                                          isSell: false,
-                                        ),
-                                      )
-                                      .toList(),
+                                  : selectedIndex == 2
+                                      ? filteredItems1
+                                          .map(
+                                            (book) => SellingOrdersCard(
+                                              name: book.name,
+                                              price: book.price,
+                                              condition: book.condition,
+                                              progress: book.progress,
+                                              img: book.image,
+                                              sellerIMG: book.sellerImg,
+                                              sellerName: book.sellerName,
+                                              sellerNum: book.sellerNum,
+                                              isSell: false,
+                                            ),
+                                          )
+                                          .toList()
+                                      : filteredItems2
+                                          .map(
+                                            (book) => SellingOrdersCard(
+                                              name: book.name,
+                                              price: book.price,
+                                              condition: book.condition,
+                                              progress: book.progress,
+                                              img: book.image,
+                                              sellerIMG: book.sellerImg,
+                                              sellerName: book.sellerName,
+                                              sellerNum: book.sellerNum,
+                                              isSell: false,
+                                            ),
+                                          )
+                                          .toList(),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }

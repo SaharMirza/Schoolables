@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
+
+import '../Product Pages/product_detail.dart';
 
 class ProductCard extends StatefulWidget {
   ProductCard({
@@ -26,13 +27,13 @@ class _ProductCardState extends State<ProductCard> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return InkWell(
-     onTap: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => OrderDetail(),
-            ),
-          );
-        },
+      onTap: (() async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ProductDetail(),
+          ),
+        );
+      }),
       child: Card(
         elevation: 10,
         shape: RoundedRectangleBorder(
@@ -48,7 +49,9 @@ class _ProductCardState extends State<ProductCard> {
                     height: screenHeight * 0.23,
                     width: screenWidth,
                     color: Color.fromARGB(255, 255, 255, 255),
-                    child: widget.image.isEmpty ? Image.asset('assets/images/call.png'): Image.asset(widget.image),
+                    child: widget.image.isEmpty
+                        ? Image.asset('assets/images/call.png')
+                        : Image.asset(widget.image),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

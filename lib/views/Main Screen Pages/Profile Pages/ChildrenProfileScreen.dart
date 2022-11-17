@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
+<<<<<<< HEAD
 import 'package:flutterdemo/main.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+=======
+>>>>>>> a342881b7ca08fe3990e2df49a050b2aee2cfc77
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../Classes/Children.dart';
+import 'ChildProfile.dart';
 
 class ChildernProfileScreen extends StatefulWidget {
   const ChildernProfileScreen({Key? key}) : super(key: key);
@@ -77,22 +81,31 @@ class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
             SizedBox(
               height: screenHeight * 0.05,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.add_circle,
-                  size: 20,
-                  color: MyColors.buttonColor,
-                ),
-                Text(
-                  'Add More',
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                )
-              ],
+            InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.add_circle,
+                    size: 20,
+                    color: MyColors.buttonColor,
+                  ),
+                  Text(
+                    'Add More',
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ChildProfileScreen(),
+                  ),
+                );
+              },
             ),
           ],
         )
@@ -186,6 +199,8 @@ class ListCard extends StatelessWidget {
                     size: 18,
                     color: Colors.blueGrey,
                   ),
+                  onTap: () {
+                  },
                 ),
               ),
             ],

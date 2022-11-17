@@ -52,6 +52,44 @@ class _MapScreenState extends State<MapScreen> {
                       image: AssetImage('assets/images/map_image.png'),
                       fit: BoxFit.fill),
                 ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: screenWidth * 0.80,
+                      height: screenWidth * 0.2,
+                      color: Colors.black26,
+                      child: const ListTile(
+                        leading: Padding(
+                          padding: EdgeInsets.only(top: 5),
+                          child: Icon(Icons.info_outline, size: 35,),
+                        ),
+                        subtitle: Text(
+                          'You can go through book by scrolling the cards'
+                          'horizontally and get the location of each book using locate button',
+                          textAlign: TextAlign.start,
+                          softWrap: true,
+                        ),
+                      ),
+                    ),
+
+                    Container(
+                      height: screenHeight * 0.18,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        itemBuilder: (context, index) =>
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: BookLocationCard(screenWidth: screenWidth, title: 'Karwan-e-urdu'),
+                            ),
+                        itemCount: 2,
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
             ),
           ],
@@ -60,3 +98,71 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
+
+class BookLocationCard extends StatelessWidget {
+  final double screenWidth;
+  final String title;
+
+  const BookLocationCard({Key? key, required this.screenWidth, required this.title,}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: screenWidth * 0.45,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: Colors.grey,
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {  },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                  minimumSize: const Size(30, 40),
+                ),
+                child: Text('Locate'),
+              ),
+              ElevatedButton(
+                onPressed: () {  },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                  minimumSize: const Size(30, 40),
+                ),
+                child: Text('View'),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+

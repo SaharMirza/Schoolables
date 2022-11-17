@@ -61,43 +61,6 @@ class _EditDetailsPageState extends State<EditDetailsPage> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home_outlined,
-      //           color: Color.fromRGBO(74, 78, 105, 1.0)),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.document_scanner_outlined,
-      //           color: Color.fromRGBO(74, 78, 105, 1.0)),
-      //       label: 'Scan List',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: CircleAvatar(
-      //         backgroundColor: Color.fromRGBO(74, 78, 105, 1.0),
-      //         child: Icon(
-      //           Icons.add,
-      //           color: Colors.white,
-      //         ),
-      //       ),
-      //       label: 'Seller',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.document_scanner_outlined,
-      //           color: Color.fromRGBO(74, 78, 105, 1.0)),
-      //       label: 'Scan List',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.shopping_bag_outlined,
-      //           color: Color.fromRGBO(74, 78, 105, 1.0)),
-      //       label: 'Orders',
-      //     ),
-      //   ],
-      //   currentIndex: 1,
-      //   selectedItemColor: const Color.fromRGBO(74, 78, 105, 1.0),
-      //   onTap: ((value) {}),
-      // ),
     );
   }
 }

@@ -71,7 +71,7 @@ class _SellingOrdersState extends State<SellingOrders> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             HeaderBar(title: "Selling Orders"),
