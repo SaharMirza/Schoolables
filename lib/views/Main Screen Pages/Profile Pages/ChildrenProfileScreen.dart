@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
-<<<<<<< HEAD
 import 'package:flutterdemo/main.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
-=======
->>>>>>> a342881b7ca08fe3990e2df49a050b2aee2cfc77
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -199,8 +196,7 @@ class ListCard extends StatelessWidget {
                     size: 18,
                     color: Colors.blueGrey,
                   ),
-                  onTap: () {
-                  },
+                  
                 ),
               ),
             ],

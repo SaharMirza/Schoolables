@@ -41,8 +41,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: BottomNavBar()
-        // MyHomePage(title: "title"),
+        home: MyHomePage(title: "title"),
         );
   }
 }

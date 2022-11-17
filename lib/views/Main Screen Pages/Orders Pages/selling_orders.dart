@@ -76,7 +76,7 @@ class _SellingOrdersState extends State<SellingOrders> {
           children: [
             HeaderBar(title: "Selling Orders"),
             SizedBox(
-              height: screenHeight * 0.88,
+              height: screenHeight * 0.86,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
