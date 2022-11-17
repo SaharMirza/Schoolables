@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:flutterdemo/Classes/ScannedList.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/MapScreen.dart';
+import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildrenProfileScreen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
+import 'package:flutterdemo/controllers/progress_type_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/forget_pass.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/CameraScreen.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more_parent.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/Loading_screen.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/ScannedLists.dart';
-// import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/ScanHistory.dart';
+// import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scanninglist_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    child: const MyApp(),
+    create: (_) => TabNotifier(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,25 +33,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      //home: BottomNavBar(),
-      // EditProfileInformation()
-      // const EditDetailsPage(),
-       //const MyHomePage(title: 'Flutter Demo Home Page'),
-      //home: BottomNavBar(),
-    //home: CreateChildrenProfile(),
-    // home:ChildProfileScreen(),
-     //home: ChildernProfileScreen(),
-    //home: ScannedBookList(),
-    // home: ScanningList(),
-    //home:ChildProfileScreen(),
-    //   home:MapScreen(),
-      home: ScannedLists(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: MyHomePage(title: "title"));
   }
 }
 
@@ -91,7 +73,7 @@ class LogoWidget extends StatelessWidget {
       splash: Column(
         children: [
           Image.asset(
-            'images/logo.png',
+            'assets/images/logo.png',
             height: 300,
             width: 300,
           ),

@@ -54,7 +54,7 @@ class Continer1 extends StatelessWidget {
         children: [
           //logo
           Image.asset(
-            'images/logo.png',
+            'assets/images/logo.png',
             height: 100,
             width: 100,
           ),
@@ -83,12 +83,12 @@ class Continer1 extends StatelessWidget {
             children: const [
               //continue with email button
               LoginChoiceButton(
-                  optionIcon: 'images/email.png',
+                  optionIcon: 'assets/images/email.png',
                   title: 'Continue with Email',
                   choice: "Email"),
               //continue with google
               LoginChoiceButton(
-                optionIcon: 'images/google.png',
+                optionIcon: 'assets/images/google.png',
                 title: 'Continue with Google',
                 choice: "Google",
               ),

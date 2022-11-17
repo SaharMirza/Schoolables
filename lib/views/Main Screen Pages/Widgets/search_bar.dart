@@ -6,7 +6,7 @@ class SearchBar extends StatelessWidget {
   const SearchBar({
     Key? key,
     required this.width,
-    required this.screenHeight, 
+    required this.screenHeight,
   }) : super(key: key);
 
   final double width;
@@ -16,7 +16,8 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 2 * (screenHeight * 0.04 - width * 0.02),
+      // height: 2 * (screenHeight * 0.04 - width * 0.02),
+      height: 50,
       child: TextField(
         decoration: InputDecoration(
           // labelStyle: TextStyle(fontSize: screenWidth * 0.05),
@@ -29,7 +30,7 @@ class SearchBar extends StatelessWidget {
                 const BorderSide(color: Color.fromRGBO(242, 233, 228, 1.0)),
             borderRadius: BorderRadius.circular(50.0),
           ),
-        ),  
+        ),
       ),
     );
   }
@@ -50,9 +51,7 @@ class SearchfilterMapWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SearchBar(
-            width: screenWidth * 0.65,
-            screenHeight: screenHeight),
+        SearchBar(width: screenWidth * 0.65, screenHeight: screenHeight),
         FilterWidget(),
         MapWidget()
       ],
@@ -75,9 +74,7 @@ class SearchfilterWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SearchBar(
-            width: screenWidth * 0.76,
-            screenHeight: screenHeight),
+        SearchBar(width: screenWidth * 0.76, screenHeight: screenHeight),
         FilterWidget(),
         // MapWidget()
       ],
