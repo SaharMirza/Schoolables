@@ -14,9 +14,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: const Padding(
           padding: EdgeInsets.only(left: 15.0),
           child:
-              // ImageIcon(
-              //   AssetImage('assets/Schoolables.png'),
-              // ),
               Icon(
             Icons.logo_dev_outlined,
             color: const Color.fromRGBO(74, 78, 105, 1.0),
@@ -90,7 +87,6 @@ class HeaderBar extends StatelessWidget {
                     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
                 radius: screenWidth * 0.03 + screenHeight * 0.01,
               )
-              // Icon(Icons.account_circle_outlined)
               ),
         ],
       ),

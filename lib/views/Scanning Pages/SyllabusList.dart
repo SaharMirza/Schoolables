@@ -4,8 +4,10 @@ import 'package:flutterdemo/Classes/ScannedList.dart';
 import 'package:flutterdemo/Classes/SyllabusBook.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/BookPrices.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,32 +42,10 @@ class _SyllabusListState extends State<SyllabusList> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "${widget.scannedList.school_name} Grade ${widget.scannedList.grade}",
-          style: MyStyles.googleSecondTitleText(
-              screenWidth * 0.02 + screenHeight * 0.02),
-        ),
-        elevation: 2,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-              iconSize: 50,
-              onPressed: (() {}),
-              icon: ProfileIcon(
-                img:
-                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                radius: screenWidth * 0.03 + screenHeight * 0.01,
-              )
-              // Icon(Icons.account_circle_outlined)
-              ),
-        ],
-      ),
       body: Center(
         child: Column(
           children: [
-            //search bar
+            HeaderBar(title: "Scanned Lists"),
             Padding(
               padding: const EdgeInsets.only(
                   top: 20, bottom: 0, left: 10, right: 10),
@@ -106,6 +86,7 @@ class syllabusListTile extends StatefulWidget {
 class _syllabusListTileState extends State<syllabusListTile> {
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
       height: 80,
       child: Card(
@@ -121,13 +102,11 @@ class _syllabusListTileState extends State<syllabusListTile> {
           ),
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Text(
-              widget.syllabusItem.book_name,
-              style: GoogleFonts.poppins(
-                color: MyColors.textColor,
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-              ),
+            child:
+            ListtitleText(
+              text: widget.syllabusItem.book_name,
+              align: TextAlign.left,
+              size: screenHeight * 0.022,
             ),
           ),
           trailing: IconButton(
