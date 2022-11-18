@@ -1,10 +1,6 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/seller_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/favourites_page.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
@@ -47,9 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _selectedIndex != 0
-          ? null
-              : MyAppBar(),
+      appBar: _selectedIndex != 0 ? null : MyAppBar(),
       body: SingleChildScrollView(
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

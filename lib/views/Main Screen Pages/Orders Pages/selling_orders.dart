@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/models/SellingOrders.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-
-import '../../../constants/fonts.dart';
-import '../../../controllers/progress_type_provider.dart';
 import '../../../models/Progress.dart';
-import '../Widgets/my_profile.dart';
 import '../Widgets/orders_widget.dart';
 
 class SellingOrders extends StatefulWidget {
@@ -126,69 +117,7 @@ class _SellingOrdersState extends State<SellingOrders> {
                       ),
                       ListView(
                         shrinkWrap: true,
-                        children: selectedIndex == -1 || selectedIndex == 0
-                            ? sellingOrders
-                                .map(
-                                  (book) => SellingOrdersCard(
-                                    name: book.name,
-                                    price: book.price,
-                                    condition: book.condition,
-                                    progress: book.progress,
-                                    img: book.image,
-                                    sellerIMG: "",
-                                    sellerName: "",
-                                    sellerNum: "",
-                                    isSell: true,
-                                  ),
-                                )
-                                .toList()
-                            : selectedIndex == 1
-                                ? filteredItems0
-                                    .map(
-                                      (book) => SellingOrdersCard(
-                                        name: book.name,
-                                        price: book.price,
-                                        condition: book.condition,
-                                        progress: book.progress,
-                                        img: book.image,
-                                        sellerIMG: "",
-                                        sellerName: "",
-                                        sellerNum: "",
-                                        isSell: true,
-                                      ),
-                                    )
-                                    .toList()
-                                : selectedIndex == 2
-                                    ? filteredItems1
-                                        .map(
-                                          (book) => SellingOrdersCard(
-                                            name: book.name,
-                                            price: book.price,
-                                            condition: book.condition,
-                                            progress: book.progress,
-                                            img: book.image,
-                                            sellerIMG: "",
-                                            sellerName: "",
-                                            sellerNum: "",
-                                            isSell: true,
-                                          ),
-                                        )
-                                        .toList()
-                                    : filteredItems2
-                                        .map(
-                                          (book) => SellingOrdersCard(
-                                            name: book.name,
-                                            price: book.price,
-                                            condition: book.condition,
-                                            progress: book.progress,
-                                            img: book.image,
-                                            sellerIMG: "",
-                                            sellerName: "",
-                                            sellerNum: "",
-                                            isSell: true,
-                                          ),
-                                        )
-                                        .toList(),
+                        children: checkProgress(selectedIndex, true, filteredItems0, filteredItems1, filteredItems2),
                       ),
                     ],
                   ),

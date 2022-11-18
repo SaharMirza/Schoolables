@@ -1,52 +1,223 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/utils.dart';
+
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
-import '../../../controllers/progress_type_provider.dart';
+import '../../../models/BuyingOrders.dart';
+import '../../../models/SellingOrders.dart';
 import 'map_widget.dart';
 
-class ProgressWidget extends StatelessWidget {
-  const ProgressWidget({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-  final String text;
+class CustomProgressIndicator extends StatefulWidget {
+  const CustomProgressIndicator({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    late bool selected = false;
+  State<CustomProgressIndicator> createState() => _CustomProgressIndicatorState();
+}
 
-    return InkWell(
-      onTap: () {
-        selected = true;
-      },
+class _CustomProgressIndicatorState extends State<CustomProgressIndicator> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
       child: Container(
-        height: 45,
-        width: 100,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: selected == false
-              ? Color.fromRGBO(242, 233, 228, 1.0)
-              : MyColors.buttonColor,
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: GoogleFonts.poppins(
-              fontSize: 12,
-              color: selected == false ? MyColors.textColor : Colors.white,
-              fontWeight: FontWeight.w600,
+        width: 300,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      height: 35,
+                      width: 35,
+                      // margin: EdgeInsets.all(300.0),
+                      decoration: BoxDecoration(
+                          color: MyColors.buttonColor, shape: BoxShape.circle),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ),
+            Container(
+              height: 10,
+              width: 50,
+              // margin: EdgeInsets.all(300.0),
+              decoration: BoxDecoration(
+                color: MyColors.textFieldColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+            ),
+            Container(
+              height: 20,
+              width: 20,
+              // margin: EdgeInsets.all(300.0),
+              decoration: BoxDecoration(
+                  color: MyColors.textFieldColor, shape: BoxShape.circle),
+            ),
+            Container(
+              height: 10,
+              width: 50,
+              // margin: EdgeInsets.all(300.0),
+              decoration: BoxDecoration(
+                color: MyColors.textFieldColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+            ),
+            Container(
+              height: 20,
+              width: 20,
+              // margin: EdgeInsets.all(300.0),
+              decoration: BoxDecoration(
+                  color: MyColors.textFieldColor, shape: BoxShape.circle),
+            ),
+          ],
         ),
       ),
     );
   }
+}
+
+checkProgress(
+  int selectedIndex,
+  bool isSell,
+  List filteredItems0,
+  List filteredItems1,
+  List filteredItems2,
+) {
+  return isSell == true
+      ? (selectedIndex == -1 || selectedIndex == 0
+          ? sellingOrders
+              .map(
+                (book) => SellingOrdersCard(
+                  name: book.name,
+                  price: book.price,
+                  condition: book.condition,
+                  progress: book.progress,
+                  img: book.image,
+                  sellerIMG: "",
+                  sellerName: "",
+                  sellerNum: "",
+                  isSell: true,
+                ),
+              )
+              .toList()
+          : selectedIndex == 1
+              ? filteredItems0
+                  .map(
+                    (book) => SellingOrdersCard(
+                      name: book.name,
+                      price: book.price,
+                      condition: book.condition,
+                      progress: book.progress,
+                      img: book.image,
+                      sellerIMG: "",
+                      sellerName: "",
+                      sellerNum: "",
+                      isSell: true,
+                    ),
+                  )
+                  .toList()
+              : selectedIndex == 2
+                  ? filteredItems1
+                      .map(
+                        (book) => SellingOrdersCard(
+                          name: book.name,
+                          price: book.price,
+                          condition: book.condition,
+                          progress: book.progress,
+                          img: book.image,
+                          sellerIMG: "",
+                          sellerName: "",
+                          sellerNum: "",
+                          isSell: true,
+                        ),
+                      )
+                      .toList()
+                  : filteredItems2
+                      .map(
+                        (book) => SellingOrdersCard(
+                          name: book.name,
+                          price: book.price,
+                          condition: book.condition,
+                          progress: book.progress,
+                          img: book.image,
+                          sellerIMG: "",
+                          sellerName: "",
+                          sellerNum: "",
+                          isSell: true,
+                        ),
+                      )
+                      .toList())
+      : (selectedIndex == 0 || selectedIndex == -1
+          ? buyingOrders
+              .map(
+                (book) => SellingOrdersCard(
+                  name: book.name,
+                  price: book.price,
+                  condition: book.condition,
+                  progress: book.progress,
+                  img: book.image,
+                  sellerIMG: book.sellerImg,
+                  sellerName: book.sellerName,
+                  sellerNum: book.sellerNum,
+                  isSell: false,
+                ),
+              )
+              .toList()
+          : selectedIndex == 1
+              ? filteredItems0
+                  .map(
+                    (book) => SellingOrdersCard(
+                      name: book.name,
+                      price: book.price,
+                      condition: book.condition,
+                      progress: book.progress,
+                      img: book.image,
+                      sellerIMG: book.sellerImg,
+                      sellerName: book.sellerName,
+                      sellerNum: book.sellerNum,
+                      isSell: false,
+                    ),
+                  )
+                  .toList()
+              : selectedIndex == 2
+                  ? filteredItems1
+                      .map(
+                        (book) => SellingOrdersCard(
+                          name: book.name,
+                          price: book.price,
+                          condition: book.condition,
+                          progress: book.progress,
+                          img: book.image,
+                          sellerIMG: book.sellerImg,
+                          sellerName: book.sellerName,
+                          sellerNum: book.sellerNum,
+                          isSell: false,
+                        ),
+                      )
+                      .toList()
+                  : filteredItems2
+                      .map(
+                        (book) => SellingOrdersCard(
+                          name: book.name,
+                          price: book.price,
+                          condition: book.condition,
+                          progress: book.progress,
+                          img: book.image,
+                          sellerIMG: book.sellerImg,
+                          sellerName: book.sellerName,
+                          sellerNum: book.sellerNum,
+                          isSell: false,
+                        ),
+                      )
+                      .toList());
 }
 
 class ProgressWidget2 extends StatefulWidget {

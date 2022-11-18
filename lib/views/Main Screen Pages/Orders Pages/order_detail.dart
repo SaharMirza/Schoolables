@@ -29,70 +29,7 @@ class _OrderDetailState extends State<OrderDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Container(
-                width: 300,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              height: 35,
-                              width: 35,
-                              // margin: EdgeInsets.all(300.0),
-                              decoration: BoxDecoration(
-                                  color: MyColors.buttonColor,
-                                  shape: BoxShape.circle),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 10,
-                      width: 50,
-                      // margin: EdgeInsets.all(300.0),
-                      decoration: BoxDecoration(
-                        color: MyColors.textFieldColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 20,
-                      width: 20,
-                      // margin: EdgeInsets.all(300.0),
-                      decoration: BoxDecoration(
-                          color: MyColors.textFieldColor,
-                          shape: BoxShape.circle),
-                    ),
-                    Container(
-                      height: 10,
-                      width: 50,
-                      // margin: EdgeInsets.all(300.0),
-                      decoration: BoxDecoration(
-                        color: MyColors.textFieldColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 20,
-                      width: 20,
-                      // margin: EdgeInsets.all(300.0),
-                      decoration: BoxDecoration(
-                          color: MyColors.textFieldColor,
-                          shape: BoxShape.circle),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            CustomProgressIndicator(),
             SizedBox(
               height: 10,
             ),
