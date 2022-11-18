@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/logo.png
+    - assets/images/girlavatar.png
     # - assets/Schoolables.png
   # - assets/female-4015339_640.jpg
 

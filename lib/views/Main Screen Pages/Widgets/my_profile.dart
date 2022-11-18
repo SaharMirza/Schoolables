@@ -189,8 +189,7 @@ class MyProfileNameCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 5),
             child: ProfileIcon(
-                img:
-                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
+                img: "assets/images/girlavatar.png",
                 radius: screenWidth * 0.15),
           ),
           Container(
@@ -293,8 +292,7 @@ class _EditProfileIconState extends State<EditProfileIcon> {
           size: widget.screenWidth * 0.06,
         ),
         child: ProfileIcon(
-            img:
-                "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
+            img: "assets/images/girlavatar.png",
             radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
         badgeColor: MyColors.startColor,
         position: BadgePosition.bottomEnd(bottom: 3, end: 6),
@@ -618,7 +616,7 @@ class _ProfileIconState extends State<ProfileIcon> {
     return CircleAvatar(
       radius: widget.radius,
       backgroundColor: Colors.white,
-      child: Image.network(widget.img),
+      child: Image.asset(widget.img),
     );
   }
 }

@@ -13,8 +13,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       leading: const Padding(
           padding: EdgeInsets.only(left: 15.0),
-          child:
-              Icon(
+          child: Icon(
             Icons.logo_dev_outlined,
             color: const Color.fromRGBO(74, 78, 105, 1.0),
           )),
@@ -35,6 +34,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 15.0),
           child: IconButton(
+            iconSize: 50,
             onPressed: () async {
               await Navigator.of(context).push(
                 MaterialPageRoute(
@@ -42,8 +42,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               );
             },
-            icon: const Icon(Icons.account_circle_outlined,
-                size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
+            icon: Image.asset("assets/images/girlavatar.png"),
+            // const Icon(Icons.account_circle_outlined,
+            //     size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
           ),
         )
       ],
@@ -74,17 +75,18 @@ class HeaderBar extends StatelessWidget {
                 screenWidth * 0.02 + screenHeight * 0.02)),
         actions: [
           IconButton(
-              iconSize: 50,
-              onPressed: () async {
-                await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => EditDetailsPage(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.account_circle_outlined,
-                size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
-              ),
+            iconSize: 50,
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => EditDetailsPage(),
+                ),
+              );
+            },
+            icon: Image.asset("assets/images/girlavatar.png"),
+            // const Icon(Icons.account_circle_outlined,
+            //   size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
+          ),
         ],
       ),
     );

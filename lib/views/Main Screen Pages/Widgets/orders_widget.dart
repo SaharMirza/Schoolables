@@ -14,7 +14,8 @@ class CustomProgressIndicator extends StatefulWidget {
   const CustomProgressIndicator({super.key});
 
   @override
-  State<CustomProgressIndicator> createState() => _CustomProgressIndicatorState();
+  State<CustomProgressIndicator> createState() =>
+      _CustomProgressIndicatorState();
 }
 
 class _CustomProgressIndicatorState extends State<CustomProgressIndicator> {
@@ -632,11 +633,10 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: (40),
-                          backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(
-                              "https://img.freepik.com/premium-vector/portrait-caucasian-woman-avatar-female-person-vector-icon-adult-flat-style-headshot_605517-26.jpg?w=2000"),
+                        const CircleAvatar(
+                          radius: (30),
+                          backgroundImage:
+                              AssetImage("assets/images/girlavatar.png"),
                         ),
                         SizedBox(
                           width: 10,
