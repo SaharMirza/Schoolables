@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
@@ -53,7 +54,7 @@ class _BookPricesState extends State<BookPrices> {
 
   @override
   Widget build(BuildContext context) {
-    List<Product> products = [
+    List<Product> product = [
       Product(name: "O'Levels Math", image: "", price: "500", isFav: false),
       Product(name: "O'Levels Science", image: "", price: "500", isFav: false),
       Product(name: "O'Levels English", image: "", price: "500", isFav: false),
@@ -93,10 +94,10 @@ class _BookPricesState extends State<BookPrices> {
                           children: [
                             for (var i = 0; i < 6; i++)
                               ProductCard(
-                                  name: products[i].name,
-                                  price: products[i].price,
-                                  image: products[i].image,
-                                  isFav: products[i].isFav),
+                                  name: product[i].name,
+                                  price: product[i].price,
+                                  image: product[i].image,
+                                  isFav: product[i].isFav),
                           ]),
                     ],
                   ),

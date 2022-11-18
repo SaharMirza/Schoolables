@@ -82,11 +82,8 @@ class HeaderBar extends StatelessWidget {
                   ),
                 );
               },
-              icon: ProfileIcon(
-                img:
-                    "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png",
-                radius: screenWidth * 0.03 + screenHeight * 0.01,
-              )
+              icon: const Icon(Icons.account_circle_outlined,
+                size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
               ),
         ],
       ),

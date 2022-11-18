@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/sub_heading.dart';
@@ -15,17 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Product> products = [
-    Product(name: "O'Levels Math", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels Science", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels English", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels ", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels Physics", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels Chemistry", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels Bio", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels Eco", image: "", price: "500", isFav: false),
-    Product(name: "O'Levels Computer", image: "", price: "500", isFav: false),
-  ];
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -94,16 +85,3 @@ class CategoryContainer extends StatelessWidget {
   }
 }
 
-class Product {
-  final String name;
-  final String image;
-  final String price;
-  bool isFav;
-
-  Product({
-    required this.name,
-    required this.image,
-    required this.price,
-    required this.isFav,
-  });
-}

@@ -48,9 +48,9 @@ class _ProductCardState extends State<ProductCard> {
                   Container(
                     height: screenHeight * 0.23,
                     width: screenWidth,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Color.fromARGB(255, 179, 150, 180),
                     child: widget.image.isEmpty
-                        ? Image.asset('assets/images/call.png')
+                        ? Image.asset('assets/images/math.png')
                         : Image.asset(widget.image),
                   ),
                   Row(

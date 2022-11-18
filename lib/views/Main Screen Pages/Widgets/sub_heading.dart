@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/productsPage.dart';
 
@@ -13,19 +14,7 @@ class SubHeading extends StatelessWidget {
   final String trailing;
   @override
   Widget build(BuildContext context) {
-    List<Product> products = [
-      Product(name: "O'Levels Math", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Science", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels English", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels ", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Physics", image: "", price: "500", isFav: false),
-      Product(
-          name: "O'Levels Chemistry", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Bio", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Eco", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Computer", image: "", price: "500", isFav: false),
-    ];
-
+    
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
@@ -105,7 +106,7 @@ class Container1 extends StatelessWidget {
     return Container(
       width: screenWidth * 0.80,
       height: screenWidth * 0.23,
-      color: Colors.black26,
+      color: Colors.purple,
       child: ListTile(
         leading: Padding(
           padding: EdgeInsets.only(top: 5),
@@ -158,6 +159,7 @@ class BookLocationCard extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: MyColors.buttonColor,
                   foregroundColor: Colors.white,
                   textStyle: const TextStyle(fontWeight: FontWeight.bold),
                   shape: RoundedRectangleBorder(
@@ -169,6 +171,7 @@ class BookLocationCard extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: MyColors.buttonColor,
                   foregroundColor: Colors.white,
                   textStyle: const TextStyle(fontWeight: FontWeight.bold),
                   shape: RoundedRectangleBorder(
