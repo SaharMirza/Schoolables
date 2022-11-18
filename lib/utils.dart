@@ -11,23 +11,34 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.white,
-      leading: const Padding(
+      leading: Padding(
           padding: EdgeInsets.only(left: 15.0),
-          child: Icon(
-            Icons.logo_dev_outlined,
-            color: const Color.fromRGBO(74, 78, 105, 1.0),
-          )),
+          child: Image.asset(
+            "assets/images/Schoolables.png",
+            height: 25,
+            width: 25,
+          )
+          // Icon(
+          //   Icons.logo_dev_outlined,
+          //   color: const Color.fromRGBO(74, 78, 105, 1.0),
+          // ),
+          ),
       centerTitle: true,
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: const [
-          Icon(Icons.location_on,
-              color: const Color.fromRGBO(74, 78, 105, 1.0)),
-          Text('North Nazimabad , Karachi',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10,
-                  color: const Color.fromRGBO(74, 78, 105, 1.0))),
+          Icon(
+            Icons.location_on,
+            color: const Color.fromRGBO(74, 78, 105, 1.0),
+          ),
+          Text(
+            'North Nazimabad , Karachi',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 10,
+              color: const Color.fromRGBO(74, 78, 105, 1.0),
+            ),
+          ),
         ],
       ),
       actions: <Widget>[
