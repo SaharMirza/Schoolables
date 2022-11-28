@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/colors.dart';
@@ -83,7 +84,14 @@ class _ProductDetailState extends State<ProductDetail> {
                                     ],
                                   ),
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return PlaceBidPopUp();
+                                        },
+                                      );
+                                    },
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
