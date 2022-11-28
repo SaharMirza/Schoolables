@@ -15,37 +15,39 @@ class _BidNotificationState extends State<BidNotification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const HeaderBar(title: "Notifications"),
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: 3,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: NotificationCard(context));
-              }),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              elevation: 10,
-              child: Column(
-                children: [
-                  ListTile(
-                      leading: const CircleAvatar(
-                        backgroundColor: Colors.blueGrey,
-                      ),
-                      title: Text(
-                        "Qiblatain",
-                        style: MyStyles.googleTextSubtitleListTile(18),
-                      ),
-                      subtitle: AcceptedBidSubtitle()),
-                ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const HeaderBar(title: "Notifications"),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: NotificationCard(context));
+                }),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 10,
+                child: Column(
+                  children: [
+                    ListTile(
+                        leading: const CircleAvatar(
+                          backgroundColor: Colors.blueGrey,
+                        ),
+                        title: Text(
+                          "Qiblatain",
+                          style: MyStyles.googleTextSubtitleListTile(18),
+                        ),
+                        subtitle: AcceptedBidSubtitle()),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

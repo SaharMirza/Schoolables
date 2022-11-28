@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
+import 'package:flutterdemo/views/Notifications%20Pages/bid_notifications.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -13,12 +14,38 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       leading: Padding(
           padding: EdgeInsets.only(left: 15.0),
-          child: Image.asset(
-            "assets/images/Schoolables.png",
-            height: 25,
-            width: 25,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+            child: InkWell(
+              onTap: (() {
+                 Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BidNotification()),
+            );
+              }),
+              child: Stack(
+                children: [
+                  Icon(
+                    Icons.notifications_none_outlined,
+                    size: 35,
+                  ),
+                  Container(
+                      height: 17,
+                      width: 17,
+                      child: CircleAvatar(
+                        child: Text("1"),
+                        backgroundColor: Colors.yellow,
+                      ))
+                ],
+              ),
+            ),
           )
-          // Icon(
+          // Image.asset(
+          //   "assets/images/Schoolables.png",
+          //   height: 25,
+          //   width: 25,
+          // )
+          // // Icon(
           //   Icons.logo_dev_outlined,
           //   color: const Color.fromRGBO(74, 78, 105, 1.0),
           // ),
