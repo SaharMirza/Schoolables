@@ -105,7 +105,7 @@ class FavouriteWidget extends StatelessWidget {
       onTap: onTap,
       child: Icon(
         Icons.favorite,
-        color: isFav ? Colors.red : Colors.grey,
+        color: isFav ? Colors.red : Colors.white,
       ),
     );
   }
