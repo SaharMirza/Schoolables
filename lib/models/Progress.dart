@@ -11,4 +11,5 @@ List<Progress> progress = [
   Progress(name: "In Progress"),
   Progress(name: "Completed"),
   Progress(name: "Cancelled"),
+  Progress(name: "Pending"),
 ];

@@ -91,6 +91,7 @@ checkProgress(
   List filteredItems0,
   List filteredItems1,
   List filteredItems2,
+  List filteredItems3,
 ) {
   return isSell == true
       ? (selectedIndex == -1 || selectedIndex == 0
@@ -204,21 +205,37 @@ checkProgress(
                         ),
                       )
                       .toList()
-                  : filteredItems2
-                      .map(
-                        (book) => SellingOrdersCard(
-                          name: book.name,
-                          price: book.price,
-                          condition: book.condition,
-                          progress: book.progress,
-                          img: book.image,
-                          sellerIMG: book.sellerImg,
-                          sellerName: book.sellerName,
-                          sellerNum: book.sellerNum,
-                          isSell: false,
-                        ),
-                      )
-                      .toList());
+                  : selectedIndex == 3
+                      ? filteredItems2
+                          .map(
+                            (book) => SellingOrdersCard(
+                              name: book.name,
+                              price: book.price,
+                              condition: book.condition,
+                              progress: book.progress,
+                              img: book.image,
+                              sellerIMG: book.sellerImg,
+                              sellerName: book.sellerName,
+                              sellerNum: book.sellerNum,
+                              isSell: false,
+                            ),
+                          )
+                          .toList()
+                      : filteredItems3
+                          .map(
+                            (book) => SellingOrdersCard(
+                              name: book.name,
+                              price: book.price,
+                              condition: book.condition,
+                              progress: book.progress,
+                              img: book.image,
+                              sellerIMG: book.sellerImg,
+                              sellerName: book.sellerName,
+                              sellerNum: book.sellerNum,
+                              isSell: false,
+                            ),
+                          )
+                          .toList());
 }
 
 class ProgressWidget2 extends StatefulWidget {

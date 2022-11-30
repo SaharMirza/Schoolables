@@ -18,6 +18,7 @@ class _SellingOrdersState extends State<SellingOrders> {
   late List<SellingOrdersClass> filteredItems0;
   late List<SellingOrdersClass> filteredItems1;
   late List<SellingOrdersClass> filteredItems2;
+  late List<SellingOrdersClass> filteredItems3;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _SellingOrdersState extends State<SellingOrders> {
     filteredItems0 = [];
     filteredItems1 = [];
     filteredItems2 = [];
+    filteredItems3 = [];
   }
 
   filter(int selectedValue) {
@@ -117,7 +119,13 @@ class _SellingOrdersState extends State<SellingOrders> {
                       ),
                       ListView(
                         shrinkWrap: true,
-                        children: checkProgress(selectedIndex, true, filteredItems0, filteredItems1, filteredItems2),
+                        children: checkProgress(
+                            selectedIndex,
+                            true,
+                            filteredItems0,
+                            filteredItems1,
+                            filteredItems2,
+                            filteredItems3),
                       ),
                     ],
                   ),

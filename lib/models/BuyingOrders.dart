@@ -65,4 +65,15 @@ List<BuyingOrdersClass> buyingOrders = [
           "https://media.istockphoto.com/id/1288732130/photo/portrait-of-cheerful-mixed-race-teenage-girl.jpg?b=1&s=170667a&w=0&k=20&c=R3BwP5rv0nG441whzRmAaLXCs9OZMdZHKOfUw0oj4sQ=",
       sellerName: "Roha Khan",
       sellerNum: "03321233400"),
+  BuyingOrdersClass(
+      condition: "9/10",
+      progress: "Pending",
+      name: "Geography",
+      image:
+          "https://images.unsplash.com/photo-1607776639522-3754b6893ac7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvb2tzJTIwYW5kJTIwbGFwdG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+      price: "250",
+      sellerImg:
+          "https://media.istockphoto.com/id/1288732130/photo/portrait-of-cheerful-mixed-race-teenage-girl.jpg?b=1&s=170667a&w=0&k=20&c=R3BwP5rv0nG441whzRmAaLXCs9OZMdZHKOfUw0oj4sQ=",
+      sellerName: "Roha Khan",
+      sellerNum: "03321233400"),
 ];

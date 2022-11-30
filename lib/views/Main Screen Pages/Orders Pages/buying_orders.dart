@@ -20,6 +20,7 @@ class _BuyingOrdersState extends State<BuyingOrders> {
   late List<BuyingOrdersClass> filteredItems0;
   late List<BuyingOrdersClass> filteredItems1;
   late List<BuyingOrdersClass> filteredItems2;
+  late List<BuyingOrdersClass> filteredItems3 = [];
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _BuyingOrdersState extends State<BuyingOrders> {
     filteredItems0 = [];
     filteredItems1 = [];
     filteredItems2 = [];
+    filteredItems3 = [];
   }
 
   @override
@@ -56,6 +58,12 @@ class _BuyingOrdersState extends State<BuyingOrders> {
             filteredItems2.add(buyingOrders[i]);
           }
         }
+        if (selectedValue == 4 && buyingOrders[i].progress == "Pending") {
+          if (!filteredItems3.contains(buyingOrders[i])) {
+            filteredItems3.add(buyingOrders[i]);
+          }
+          
+        }
       }
     }
 
@@ -63,72 +71,78 @@ class _BuyingOrdersState extends State<BuyingOrders> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              HeaderBar(title: "Buying Orders"),
-              SizedBox(
-                height: screenHeight * 0.88,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: SearchBar(
-                              width: screenWidth, screenHeight: screenHeight),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 50,
-                                alignment: Alignment.center,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: progress.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ProgressWidget2(
-                                      text: progress[index].name,
-                                      index: index,
-                                      selected: selectedIndex,
-                                      onValueChanged: (int value) {
-                                        selectedIndex = value;
-                                        refresh();
-
-                                        filter(value);
-                                      },
-                                    );
-                                  },
-                                ),
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            HeaderBar(title: "Buying Orders"),
+            SizedBox(
+              height: screenHeight * 0.88,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: SearchBar(
+                            width: screenWidth, screenHeight: screenHeight),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              alignment: Alignment.center,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: progress.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ProgressWidget2(
+                                    text: progress[index].name,
+                                    index: index,
+                                    selected: selectedIndex,
+                                    onValueChanged: (int value) {
+                                      selectedIndex = value;
+                                      refresh();
+                                      filter(value);
+                                    },
+                                  );
+                                },
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        ListView(shrinkWrap: true, children: checkProgress(selectedIndex, false, filteredItems0, filteredItems1, filteredItems2)),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      ListView(
+                        shrinkWrap: true,
+                        children: checkProgress(
+                            selectedIndex,
+                            false,
+                            filteredItems0,
+                            filteredItems1,
+                            filteredItems2,
+                            filteredItems3),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
-
- 
 }
