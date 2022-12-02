@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/models/Favourites.dart';
+import 'package:flutterdemo/models/favourites.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';

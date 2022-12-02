@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/MapScreen.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/map_screen.dart';
 
 class MapWidget extends StatelessWidget {
   const MapWidget({

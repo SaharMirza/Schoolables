@@ -7,7 +7,7 @@ import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/SyllabusList.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
 
 class BookList extends StatefulWidget {
   const BookList({super.key});

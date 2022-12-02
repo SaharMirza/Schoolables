@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
-import '../../../models/BuyingOrders.dart';
-import '../../../models/SellingOrders.dart';
+import '../../../models/buying_orders.dart';
+import '../../../models/selling_orders.dart';
 import 'map_widget.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
