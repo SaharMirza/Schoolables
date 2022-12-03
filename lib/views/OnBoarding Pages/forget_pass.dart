@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,10 +16,29 @@ class ForgetPass extends StatefulWidget {
 }
 
 class _ForgetPassState extends State<ForgetPass> {
+  
+  final AuthService _auth = AuthService();
   final TextEditingController _emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+
+   void _sendEmail() async {
+      var response = await _auth.resetPassword(_emailController.text.trim());
+      if (response is String) {
+        print(response);
+        // Show error message
+        dialogs.errorToast(
+            error: TextFormatter.firebaseError(response.toString()));
+      } else {
+        // Navigate to Home Page
+        Navigator.pop(context);
+      }
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => changepsw()));
+    }
+
+  
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -43,7 +64,7 @@ class _ForgetPassState extends State<ForgetPass> {
               mainBody(
                   screenHeight: screenHeight,
                   emailController: _emailController),
-              const Buttons(ButtonName: "Send")
+             Buttons(ButtonName: "Send", functionToComply: _sendEmail)
             ],
           ),
         ),

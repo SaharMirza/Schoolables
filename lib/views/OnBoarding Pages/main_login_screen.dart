@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
+import 'package:flutterdemo/Services/auth.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
+import 'package:flutterdemo/views/success_screen.dart';
+import 'package:provider/provider.dart';
 
 class MainLoginScreen extends StatelessWidget {
   const MainLoginScreen({Key? key, required this.role}) : super(key: key);
@@ -137,15 +142,16 @@ class LoginChoiceButton extends StatelessWidget {
               backgroundColor: Colors.white,
               minimumSize: const Size(120, 50),
               side: const BorderSide(width: 2)),
-          onPressed: () {
+          onPressed: () async {
+            if (choice == "Google") {}
             if (choice == "Email") {
-           
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>ContinueWithEmail(role: role,)),
-                );
-              
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ContinueWithEmail(
+                          role: role,
+                        )),
+              );
             }
           },
           child: Row(

@@ -40,7 +40,7 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
               ),
               SizedBox(height: screenHeight * 0.04),
               Inputs(),
-              const Buttons(ButtonName: "Next", role: "Parent"),
+              Buttons(ButtonName: "Next", role: "Parent", functionToComply: () {  },),
               SizedBox(height: screenHeight * 0.02),
               // Fill Details Later?
               Skip()

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/provider/user_provider.dart';
+import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
+import 'package:flutterdemo/views/success_screen.dart';
+import 'package:provider/provider.dart';
 
 class TellUsMore extends StatefulWidget {
   const TellUsMore({super.key});
@@ -41,7 +45,28 @@ class _TellUsMoreState extends State<TellUsMore> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-
+ void _register() {
+      if (_nameController.text.isEmpty ||
+          // _addressController.text.isEmpty ||
+          // _cityController.text.isEmpty ||
+          _phoneController.text.isEmpty) {
+        // Blank Details
+        dialogs.errorDialog(context, "Error", "Please fill all the fields");
+      } else {
+        // Update in UserProfile
+        context.read<UserProvider>().updateUserInfo(
+            name: _nameController.text,
+            schoolName: "School Name",
+            grade: "Grade",
+            phone: _phoneController.text);
+        context.read<UserProvider>().saveChanges();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const SuccessScreen(nextPage: BottomNavBar())));
+      }
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -61,7 +86,7 @@ class _TellUsMoreState extends State<TellUsMore> {
               ),
               SizedBox(height: screenHeight * 0.04),
               Inputs(),
-              const Buttons(ButtonName: "Next"),
+              Buttons(ButtonName: "Next", functionToComply:_register,),
               SizedBox(height: screenHeight * 0.02),
               // Fill Details Later?
               Skip()

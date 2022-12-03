@@ -1,5 +1,7 @@
 //Seperate List View widget for Edit Profile Screen
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
@@ -153,13 +155,13 @@ class LogoutBtnWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _auth = AuthService();
     return ElevatedButton(
       onPressed: () async {
-        // await Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => MainLoginScreen(),
-        //   ),
-        // );
+        // logout
+        await _auth.signOut();
+        // pop until login page
+        Navigator.popUntil(context, (route) => route.isFirst);
       },
       child: Text(
         "Logout",

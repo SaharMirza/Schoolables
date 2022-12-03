@@ -40,6 +40,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   camera: ^0.10.0+4
   carousel_slider: ^4.1.1
+  firebase_auth: ^4.1.5
+  fluttertoast: ^8.1.1
+  google_sign_in: ^5.4.2
+  cloud_firestore: ^4.1.0
 
 dev_dependencies:
   flutter_test:

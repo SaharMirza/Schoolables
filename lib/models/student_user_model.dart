@@ -7,8 +7,8 @@ class StudentUserProfileModel {
   final String display;
   final String dob;//what willbe the data type of date
   final List<String> products;
-  List<String> orderSeller = [];
-  List<String> orderBuyer = [];
+  final List<String> orderSeller;
+  final List<String> orderBuyer ;
   final List<String> wishListIDs; 
    String rating="0";
 

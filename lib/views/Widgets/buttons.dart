@@ -14,10 +14,11 @@ import 'package:flutterdemo/views/Scanning%20Pages/CameraScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Buttons extends StatefulWidget {
-  const Buttons({Key? key, required this.ButtonName, this.role = ""})
+  const Buttons({Key? key, required this.ButtonName, required this.functionToComply, this.role = ""})
       : super(key: key);
 
-  final String ButtonName;
+  final String ButtonName;  
+  final void Function() functionToComply;
   final String role;
   @override
   State<Buttons> createState() => _ButtonsState();
@@ -27,56 +28,58 @@ class _ButtonsState extends State<Buttons> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {
-          if (widget.ButtonName == "Login") {
-            if (widget.role == "Parent") {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ChildernProfileScreen()),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BottomNavBar()),
-              );
-            }
-          }
-          if (widget.ButtonName == "Register") {
-            if (widget.role == "Parent") {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TellUsMoreParent()),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TellUsMore()),
-              );
-            }
-          }
-          if (widget.ButtonName == "Next") {
-            if (widget.role == "Parent") {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ChildernProfileScreen()),
-              );
-            } else {
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BottomNavBar()),
+      onPressed: widget.functionToComply,
+    
+        // onPressed: () {
+        //   if (widget.ButtonName == "Login") {
+        //     if (widget.role == "Parent") {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => ChildernProfileScreen()),
+        //       );
+        //     } else {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => const BottomNavBar()),
+        //       );
+        //     }
+        //   }
+        //   if (widget.ButtonName == "Register") {
+        //     if (widget.role == "Parent") {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => TellUsMoreParent()),
+        //       );
+        //     } else {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => TellUsMore()),
+        //       );
+        //     }
+        //   }
+        //   if (widget.ButtonName == "Next") {
+        //     if (widget.role == "Parent") {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => ChildernProfileScreen()),
+        //       );
+        //     } else {
+        //       Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => BottomNavBar()),
             
-              );
-            }
+        //       );
+        //     }
             
-          }
-          if (widget.ButtonName == "Scan New List") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CameraScreen()),
-            );
-          }
-        },
+        //   }
+        //   if (widget.ButtonName == "Scan New List") {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => CameraScreen()),
+        //     );
+        //   }
+        // },
         style: ElevatedButton.styleFrom(
             elevation: 20,
             minimumSize: const Size(180, 50),

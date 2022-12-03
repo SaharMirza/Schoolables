@@ -1,20 +1,39 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
+import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
+import 'package:flutterdemo/provider/user_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(
+
+Future<void> main() async {
+  // For Flutter firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(
+     MultiProvider(
+      providers: [
+        // Providers Sorted Alphabetically
+        ChangeNotifierProvider(create: (_) => TabNotifier()),       
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
     child: const MyApp(),
-    create: (_) => TabNotifier(),
+    
   ));
 }
 
@@ -24,14 +43,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return StreamProvider<UserAuth?>.value(
+      value: AuthService().user,
+      initialData: null,child:MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home:BottomNavBar(),
-    );
+      home: MyHomePage(title: "title"),
+    ),);
   }
 }
 

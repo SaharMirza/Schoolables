@@ -63,7 +63,7 @@ class _ScanHistoryState extends State<ScanHistory> {
                   itemCount: scannedList.length,
                 ),
               ),
-              const Buttons(ButtonName: "Scan New List"),
+            Buttons(ButtonName: "Scan New List", functionToComply: () {  },),
             ],
           ),
         ),

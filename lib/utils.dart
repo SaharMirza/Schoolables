@@ -3,6 +3,8 @@ import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Notifications%20Pages/bid_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -128,5 +130,98 @@ class HeaderBar extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class dialogs {
+  static errorToast({required String error}) {
+    error = TextFormatter.errorFormatter(text: error);
+    Fluttertoast.showToast(
+      msg: error,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+static Future errorDialog(
+      BuildContext context, String title, String message) {
+    message = TextFormatter.errorFormatter(text: message);
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            title,
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                // color: const Color.fromARGB(255, 59, 59, 61),
+                color: Colors.redAccent),
+          ),
+          content: Text(
+            message,
+            style: GoogleFonts.poppins(
+              fontSize: 15,
+              fontWeight: FontWeight.w300,
+              color: const Color.fromARGB(255, 59, 59, 61),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'OK',
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: const Color.fromARGB(255, 59, 59, 61),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+}
+
+class TextFormatter {
+  static String removeSpecialCharacters(String input) {
+    return input.replaceAll(RegExp(r'[^\w\s]+'), '');
+  }
+
+  static String firebaseError(String input) {
+    return input.toString().split("]").last.trim();
+  }
+
+  static String errorFormatter({required String text}) {
+    // Error messages Formatting
+    text = text.split(" or ")[0];
+    text = text.split(".")[0] + ".";
+    text = text.replaceAll("String", "Field");
+    text = text.replaceAll("null", "blank");
+    text = text.replaceAll("badly", "incorrectly");
+    text = text.replaceAll("identifier", "email");
+    return text;
+  }
+
+  static productNameFormatter(String name) {
+    name = name.split(" ").first + " " + name.split(" ").last;
+    // if both first and last name are same, remove last name
+    if (name.split(" ").first == name.split(" ").last) {
+      name = name.split(" ").first;
+    }
+    // capetalise first letter
+    name = name.split(" ").map((e) {
+      return e.substring(0, 1).toUpperCase() + e.substring(1);
+    }).join(" ");
+    return name;
   }
 }

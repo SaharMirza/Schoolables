@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
+import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildrenProfileScreen.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/forget_pass.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
@@ -22,6 +27,32 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
 
   @override
   Widget build(BuildContext context) {
+    final _auth = AuthService();
+
+    void signin() async {
+      // Signin with Email and Password
+      dynamic result = await _auth.signInWithEmailAndPassword(
+          _emailController.text.trim(), _passwordController.text.trim());
+      // Check if result is of type UserProfile
+      if (result is UserAuth) {
+        if (widget.role == "Parent") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChildernProfileScreen()),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const BottomNavBar()),
+          );
+        }
+      } else {
+        // Show error message
+        dialogs.errorToast(
+            error: TextFormatter.firebaseError(result.toString()));
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -37,10 +68,15 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
             children: [
               Text(
                 "Login",
-                style: MyStyles.googleTitleText(MediaQuery.of(context).size.width * 0.07),
+                style: MyStyles.googleTitleText(
+                    MediaQuery.of(context).size.width * 0.07),
               ),
               loginInputs(),
-             Buttons(ButtonName: "Login",role: widget.role,),
+              Buttons(
+                ButtonName: "Login",
+                role: widget.role,
+                functionToComply: signin,
+              ),
               signUpRedirect(widget.role),
             ],
           ),
@@ -69,7 +105,9 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  SignupPage(role: role,)));
+                        builder: (context) => SignupPage(
+                              role: role,
+                            )));
               })
         ]);
   }
