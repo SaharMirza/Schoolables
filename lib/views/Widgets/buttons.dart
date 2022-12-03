@@ -2,14 +2,14 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildrenProfileScreen.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/CreateChildrenProfile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/children_profile_screen.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/create_children_profile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more_parent.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/CameraScreen.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/camera_screen.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 

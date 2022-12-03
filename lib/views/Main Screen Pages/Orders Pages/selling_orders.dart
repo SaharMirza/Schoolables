@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/models/SellingOrders.dart';
+import 'package:flutterdemo/models/selling_orders.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
-import '../../../models/Progress.dart';
+import '../../../models/progress.dart';
 import '../Widgets/orders_widget.dart';
 
 class SellingOrders extends StatefulWidget {

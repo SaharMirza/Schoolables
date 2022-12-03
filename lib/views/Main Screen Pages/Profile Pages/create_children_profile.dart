@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/ChildProfile.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/child_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo_text.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';

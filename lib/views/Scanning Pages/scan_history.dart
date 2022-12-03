@@ -3,11 +3,11 @@ import 'package:flutterdemo/Classes/ScannedList.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/CameraScreen.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/SyllabusList.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/camera_screen.dart';
+import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 

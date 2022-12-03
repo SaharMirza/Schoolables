@@ -8,7 +8,7 @@ import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/provider/user_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';

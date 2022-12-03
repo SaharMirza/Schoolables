@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../utils.dart';
 import '../Orders Pages/delivery_orders.dart';
 import '../Seller Pages/seller_products.dart';
-import '../Widgets/Bottom_Nav_bar.dart';
+import '../Widgets/bottom_nav_bar.dart';
 import '../Widgets/my_profile.dart';
 import '../favourites_page.dart';
 import '../home_screen.dart';
