@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/provider/user_provider.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
@@ -26,7 +26,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userProfile = context.watch<UserProvider>().userProfile;
+    // final userProfile = context.watch<UserProvider>().userProfile;
  
     void Register() async {
       // Signup Using Email and Password

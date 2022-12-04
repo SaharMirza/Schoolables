@@ -1,16 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Notifications%20Pages/bid_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+    final userProfile = context.watch<UserProvider>().userProfile;
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.white,
@@ -82,7 +87,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               );
             },
-            icon: Image.asset("assets/images/girlavatar.png"),
+            icon: Image(image: NetworkImage(userProfile.display.isEmpty
+                    ? "https://img.icons8.com/bubbles/50/000000/user.png"
+                    : userProfile.display),)
+            //Image.asset("assets/images/girlavatar.png"),
             // const Icon(Icons.account_circle_outlined,
             //     size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
           ),

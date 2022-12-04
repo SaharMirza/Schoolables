@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/favourites_page.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scan_history.dart';
+import 'package:provider/provider.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 import '../../../constants/fonts.dart';
 import 'my_profile.dart';
@@ -40,6 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+      
 
     return Scaffold(
       backgroundColor: Colors.white,

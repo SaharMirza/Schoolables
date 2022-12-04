@@ -1,31 +1,33 @@
-class StudentUserProfileModel {
+// Model for Firebase
+// ignore_for_file: curly_braces_in_flow_control_structures
+
+class StudentProfileModel {
   final String email;
   final String name;
-  final String phone;
   final String schoolName;
   final String grade;
   final String display;
-  final String dob;//what willbe the data type of date
+  final String phone;
+  final String dob; //what willbe the data type of date
   final List<String> products;
   final List<String> orderSeller;
-  final List<String> orderBuyer ;
-  final List<String> wishListIDs; 
-   String rating="0";
+  final List<String> orderBuyer;
+  final List<String> wishListIDs;
+  String rating = "0";
 
-  StudentUserProfileModel({
-    required this.dob,
-    required this.email,
-    required this.name,
-    required this.phone,
-    required this.display,
-    required this.schoolName,
-    required this.grade,
-    required this.orderBuyer,
-    required this.orderSeller,
-    required this.products,
-    required this.wishListIDs,
-    required this.rating
-  });
+StudentProfileModel(
+      {required this.email,
+      required this.phone,
+      required this.name,
+      required this.display,
+      required this.schoolName,
+      required this.grade,
+      required this.dob,
+      required this.orderBuyer,
+      required this.orderSeller,
+      required this.products,
+      required this.wishListIDs,
+      required this.rating});
 
   static fromJson(Map<String, dynamic> json) {
     var firebaseData = [];
@@ -50,28 +52,26 @@ class StudentUserProfileModel {
     List<String> favIDs = [];
     for (var id in firebaseData) favIDs.add(id.toString().trim());
 
-
-    return StudentUserProfileModel(
-      dob: json['dob'],
-      email: json['email'],
-      name: json['name'],
-      phone: json['phone'],
-      schoolName: json['schoolName'],
-      grade: json['grade'],
-      display: json['display'],
-      orderBuyer: orderBuyerIDs,
-      orderSeller: orderSellerIDs,
-      products: productIDs,
-      wishListIDs: favIDs,
-      rating: json['rating']
-    );
+    return StudentProfileModel(
+        phone: json['phone'],
+        email: json['email'],
+        name: json['name'],
+        schoolName: json['schoolName'],
+        grade: json['grade'],
+        display: json['display'],
+        dob: json['dob'],
+        orderBuyer: orderBuyerIDs,
+        orderSeller: orderSellerIDs,
+        products: productIDs,
+        wishListIDs: favIDs,
+        rating: json['rating']);
   }
 
   toJson() {
     return {
       'email': email,
-      'name': name,
       'phone': phone,
+      'name': name,
       'schoolName': schoolName,
       'grade': grade,
       'display': display,
@@ -79,8 +79,8 @@ class StudentUserProfileModel {
       'orderSellerIDs': orderSeller,
       'wishlistIDs': wishListIDs,
       'productIDs': products,
-      'dob':dob,
-      'rating':rating
+      'dob': dob,
+      'rating': rating
     };
   }
 }

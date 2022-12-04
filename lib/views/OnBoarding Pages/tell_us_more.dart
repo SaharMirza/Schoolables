@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/provider/user_provider.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
@@ -19,14 +19,16 @@ class TellUsMore extends StatefulWidget {
 class _TellUsMoreState extends State<TellUsMore> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final List<String> SchoolNames = <String>[
+
+  final List<String> schoolName = <String>[
     'City School',
     'Beacon House',
     'Generation School',
     'Nixor',
     "Others"
   ];
-  final List<String> Grade = <String>[
+  String _currentschoolName = 'City School';
+  final List<String> grade = <String>[
     '1',
     '2',
     '3',
@@ -38,26 +40,22 @@ class _TellUsMoreState extends State<TellUsMore> {
     '9',
     '10'
   ];
+  String _currentgrade = '1';
 
-  var dropdownValue = "One";
-  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
- void _register() {
-      if (_nameController.text.isEmpty ||
-          // _addressController.text.isEmpty ||
-          // _cityController.text.isEmpty ||
-          _phoneController.text.isEmpty) {
+    void _register() {
+      if (_nameController.text.isEmpty || _phoneController.text.isEmpty) {
         // Blank Details
         dialogs.errorDialog(context, "Error", "Please fill all the fields");
       } else {
         // Update in UserProfile
         context.read<UserProvider>().updateUserInfo(
             name: _nameController.text,
-            schoolName: "School Name",
-            grade: "Grade",
+            schoolName: _currentschoolName,
+            grade: _currentgrade,
             phone: _phoneController.text);
         context.read<UserProvider>().saveChanges();
         Navigator.push(
@@ -67,6 +65,64 @@ class _TellUsMoreState extends State<TellUsMore> {
                     const SuccessScreen(nextPage: BottomNavBar())));
       }
     }
+
+    Widget dropDown(_value, List<String> _list) {
+      return StatefulBuilder(builder: ((context, setState) {
+        return DropdownButton(
+          value: _value,
+          isExpanded: true,
+          items: _list.map((String items) {
+            return DropdownMenuItem(
+              value: items,
+              child: Text(items),
+            );
+          }).toList(),
+          onChanged: (newValue) => setState(() => _value = newValue!),
+        );
+      }));
+    }
+
+    Widget Inputs() {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.6,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                // Name TextField
+                SchoolablesTextField(
+                    FieldLabel: "User Name",
+                    hintText: "Name",
+                    control: _nameController),
+                // Phone Number TextField
+                SchoolablesTextField(
+                  FieldLabel: "Phone Number",
+                  hintText: "Phone Number",
+                  control: _phoneController,
+                  textType: TextInputType.number,
+                ),
+                //Schoolname dropdown
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const TextFieldLabel(text: "School Name"),
+                  ],
+                ),
+                dropDown(_currentschoolName, schoolName),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const TextFieldLabel(text: "Grade"),
+                  ],
+                ),
+                dropDown(_currentgrade, grade),
+                //grade dropdown
+              ]),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -86,7 +142,10 @@ class _TellUsMoreState extends State<TellUsMore> {
               ),
               SizedBox(height: screenHeight * 0.04),
               Inputs(),
-              Buttons(ButtonName: "Next", functionToComply:_register,),
+              Buttons(
+                ButtonName: "Next",
+                functionToComply: _register,
+              ),
               SizedBox(height: screenHeight * 0.02),
               // Fill Details Later?
               Skip()
@@ -94,52 +153,6 @@ class _TellUsMoreState extends State<TellUsMore> {
           ),
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-
-  Widget Inputs() {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.6,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              // Name TextField
-              SchoolablesTextField(
-                  FieldLabel: "User Name",
-                  hintText: "Name",
-                  control: _nameController),
-              // Phone Number TextField
-              SchoolablesTextField(
-                FieldLabel: "Phone Number",
-                hintText: "Phone Number",
-                control: _phoneController,
-                textType: TextInputType.number,
-              ),
-              //Schoolname dropdown
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TextFieldLabel(text: "School Name"),
-                  DropDownButton(
-                    list: SchoolNames,
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TextFieldLabel(text: "Grade"),
-                  DropDownButton(
-                    list: Grade,
-                  )
-                ],
-              ),
-
-              //grade dropdown
-            ]),
-      ),
     );
   }
 
@@ -162,52 +175,5 @@ class _TellUsMoreState extends State<TellUsMore> {
                         builder: (context) => const BottomNavBar()));
               })
         ]);
-  }
-}
-
-class DropDownButton extends StatefulWidget {
-  const DropDownButton({Key? key, required this.list}) : super(key: key);
-
-  final List<String> list;
-
-  @override
-  State<DropDownButton> createState() => _DropDownButtonState();
-}
-
-class _DropDownButtonState extends State<DropDownButton> {
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    var dropdownValue = widget.list[0];
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        //color: Colors.white,
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: StatefulBuilder(builder: ((context, setState) {
-          return DropdownButton(
-            value: dropdownValue,
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            icon: const Icon(Icons.arrow_downward_sharp),
-            isExpanded: true,
-            items: widget.list.map((String items) {
-              return DropdownMenuItem(
-                value: items,
-                child: Text(items),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedIndex = widget.list.indexOf(newValue!);
-                dropdownValue = newValue!;
-              });
-            },
-          );
-        })),
-      ),
-    );
   }
 }

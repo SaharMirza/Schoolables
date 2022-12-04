@@ -1,5 +1,5 @@
 // User Profile for UI
-class StudentUserProfile {
+class StudentProfile {
   final String id;
   final String email;
   String name;
@@ -7,23 +7,24 @@ class StudentUserProfile {
   String schoolName;
   String grade;
   String display;
-  String dob;
+   String dob;
   String rating;
   List<String> productIDs;
   List<String> orderBuyerIDs;
   List<String> orderSellerIDs;
   List<String> wishListIDs;
 
-  StudentUserProfile({
+
+  StudentProfile({
     required this.id,
     required this.email,
+    this.phone="",
     this.name = '',
-    this.rating = '',
-    this.phone = '',
-    this.schoolName = '',
-    this.grade = '',
-    this.dob = '',
+    this.schoolName='',
+    this.grade='',   
     this.display = 'https://img.icons8.com/bubbles/50/000000/user.png',
+    this.dob = '',
+    this.rating = '',
     this.orderBuyerIDs = const [""],
     this.orderSellerIDs = const [""],
     this.wishListIDs = const [""],

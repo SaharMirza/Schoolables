@@ -5,7 +5,7 @@ import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
-import 'package:flutterdemo/provider/user_provider.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,child:MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Schoolables',
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
@@ -68,11 +68,36 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: LogoWidget(),
-      ),
-    );
+     final userAuth = Provider.of<UserAuth?>(context);
+    Future.delayed(Duration.zero, () async {
+      context.read<UserProvider>().loadUser(userAuth);
+    });
+    return Scaffold(
+        body: StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text("Something went wrong!"),
+          );
+        } else if (snapshot.hasData) //if the user was logged in
+        {
+          return BottomNavBar();
+        } else //if the user was logged out
+        {
+          return LogoWidget();
+        }
+      },
+    ));
+    // const Scaffold(
+    //   body: Center(
+    //     child: LogoWidget(),
+    //   ),
+    // );
   }
 }
 
