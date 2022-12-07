@@ -1,7 +1,7 @@
 // User Profile for UI
-class StudentProfile {
+class UserProfile {
   final String id;
-  final String email;
+   String email;
   String name;
   String phone;
   String schoolName;
@@ -15,7 +15,7 @@ class StudentProfile {
   List<String> wishListIDs;
 
 
-  StudentProfile({
+  UserProfile({
     required this.id,
     required this.email,
     this.phone="",

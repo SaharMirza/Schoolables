@@ -1,6 +1,7 @@
 //Seperate List View widget for Edit Profile Screen
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
@@ -10,6 +11,7 @@ import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/colors.dart';
 
 class MyProfileListView extends StatelessWidget {
@@ -148,30 +150,65 @@ class MyProfileTextWidget extends StatelessWidget {
   }
 }
 
-class LogoutBtnWidget extends StatelessWidget {
-  const LogoutBtnWidget({
-    Key? key,
-  }) : super(key: key);
+class LogoutBtnWidget extends StatefulWidget {
+  const LogoutBtnWidget({super.key});
 
   @override
+  State<LogoutBtnWidget> createState() => _LogoutBtnWidgetState();
+}
+
+class _LogoutBtnWidgetState extends State<LogoutBtnWidget> {
+  @override
   Widget build(BuildContext context) {
-    final _auth = AuthService();
+    final userAuth = Provider.of<UserAuth?>(context);
+    // final _auth = AuthService();
     return ElevatedButton(
       onPressed: () async {
         // logout
-        await _auth.signOut();
+        await FirebaseAuth.instance.signOut();
+        print("Logged out");
+        setState(() {});
         // pop until login page
         Navigator.popUntil(context, (route) => route.isFirst);
       },
-      child: Text(
-        "Logout",
-        style: MyStyles.btnTextStyle,
-      ),
+      child: userAuth?.id != null
+          ? Text(
+              "Logout",
+              style: MyStyles.btnTextStyle,
+            )
+          : Text(
+              "Login",
+              style: MyStyles.btnTextStyle,
+            ),
       style: ElevatedButton.styleFrom(
           backgroundColor: MyColors.buttonColor, shadowColor: Colors.grey),
     );
   }
 }
+// class LogoutBtnWidget extends StatelessWidget {
+//   const LogoutBtnWidget({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final _auth = AuthService();
+//     return ElevatedButton(
+//       onPressed: () async {
+//         // logout
+//         await _auth.signOut();
+//         // pop until login page
+//         Navigator.popUntil(context, (route) => route.isFirst);
+//       },
+//       child: Text(
+//         "Logout",
+//         style: MyStyles.btnTextStyle,
+//       ),
+//       style: ElevatedButton.styleFrom(
+//           backgroundColor: MyColors.buttonColor, shadowColor: Colors.grey),
+//     );
+//   }
+// }
 
 class MyProfileNameCard extends StatelessWidget {
   const MyProfileNameCard({

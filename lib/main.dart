@@ -5,10 +5,13 @@ import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
+import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
+import 'package:flutterdemo/provider/user_auth_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
@@ -18,23 +21,23 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+void main() async {
+  //final UsersRepository userRepository;
 
-Future<void> main() async {
-  // For Flutter firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-     MultiProvider(
+    MultiProvider(
       providers: [
-        // Providers Sorted Alphabetically
-        ChangeNotifierProvider(create: (_) => TabNotifier()),       
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => CategoriesProvider())
       ],
-    child: const MyApp(),
-    
-  ));
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -45,14 +48,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<UserAuth?>.value(
       value: AuthService().user,
-      initialData: null,child:MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Schoolables',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
+      initialData: null,
+      child: MaterialApp(        
+        title: 'Schoolables',
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: MyHomePage(title: "title"),
+        debugShowCheckedModeBanner: false,
       ),
-      home: MyHomePage(title: "title"),
-    ),);
+    );
   }
 }
 
@@ -68,14 +73,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-     final userAuth = Provider.of<UserAuth?>(context);
-    Future.delayed(Duration.zero, () async {
-      context.read<UserProvider>().loadUser(userAuth);
-    });
+    final userAuth = Provider.of<UserAuth?>(context);
     return Scaffold(
         body: StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
+        print('user statue ${userAuth?.id}');
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -86,18 +89,17 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         } else if (snapshot.hasData) //if the user was logged in
         {
+          Future.delayed(Duration.zero, () async {
+                context.read<UserProvider>().loadUser(userAuth);
+              });
           return BottomNavBar();
         } else //if the user was logged out
         {
-          return LogoWidget();
+          print("logged out success");
+          return MainLoginScreen(role: "role");
         }
       },
     ));
-    // const Scaffold(
-    //   body: Center(
-    //     child: LogoWidget(),
-    //   ),
-    // );
   }
 }
 

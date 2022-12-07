@@ -3,23 +3,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/models/user_model.dart';
 
 // Provider for User Collection
 class UserProvider extends ChangeNotifier {
   // Will be initialized to when the user is logged in
-  StudentProfile user = StudentProfile(id: "", email: "");
+  UserProfile user = UserProfile(id: "", email: "");
   CollectionReference firebaseUser =
       FirebaseFirestore.instance.collection('users');
 
-  StudentProfile get userProfile => user;
-  String id = FirebaseAuth.instance.currentUser!.uid;
+  UserProfile get userProfile => user;
+  // String id = FirebaseAuth.instance.currentUser!.uid;
 
   void loadUser(UserAuth? userLogin) {
     if (userLogin != null) {
-      user = StudentProfile(
+      user = UserProfile(
         id: userLogin.id,
         email: userLogin.email,
         name: userLogin.name,
@@ -39,7 +39,7 @@ class UserProvider extends ChangeNotifier {
         }
       });
     } else {
-      user = StudentProfile(id: "", email: "");
+      user = UserProfile(id: "", email: "");
     }
     notifyListeners();
   }
@@ -63,9 +63,10 @@ class UserProvider extends ChangeNotifier {
   // Save Changes in DB
   // Update Changes
   void saveChanges() async {
+    print(user.id);
     // Update User Profile in Firebase
-    await firebaseUser.doc(id).set(StudentProfileModel(
-          email: FirebaseAuth.instance.currentUser!.email!,
+    await firebaseUser.doc(user.id).set(UserProfileModel(
+          email: user.email,
           phone: user.phone,
           name: user.name,
           schoolName: user.schoolName,
@@ -84,8 +85,8 @@ class UserProvider extends ChangeNotifier {
   //Add a new User
   void addUser() async {
     // Convert user to user model
-    await firebaseUser.doc(id).set(
-          StudentProfileModel(
+    await firebaseUser.doc(user.id).set(
+          UserProfileModel(
             email: user.email,
             name: user.name,
             phone: user.phone,
@@ -104,11 +105,10 @@ class UserProvider extends ChangeNotifier {
   }
 
   void loadUserFromFirebase() async {
-    print(id);
-    await firebaseUser.doc(id).get().then((doc) {
+    await firebaseUser.doc(user.id).get().then((doc) {
       // Load User from Firebase to User Provider
-      StudentProfileModel userModel =
-          StudentProfileModel.fromJson(doc.data() as Map<String, dynamic>);
+      UserProfileModel userModel =
+          UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
       user.name = userModel.name;
       user.schoolName = userModel.schoolName;
       user.grade = userModel.grade;

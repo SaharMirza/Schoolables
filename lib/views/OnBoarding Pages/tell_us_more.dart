@@ -70,6 +70,8 @@ class _TellUsMoreState extends State<TellUsMore> {
       return StatefulBuilder(builder: ((context, setState) {
         return DropdownButton(
           value: _value,
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            icon: const Icon(Icons.arrow_downward_sharp),
           isExpanded: true,
           items: _list.map((String items) {
             return DropdownMenuItem(
@@ -107,16 +109,18 @@ class _TellUsMoreState extends State<TellUsMore> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const TextFieldLabel(text: "School Name"),
+                    dropDown(_currentschoolName, schoolName),
                   ],
                 ),
-                dropDown(_currentschoolName, schoolName),
+                
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const TextFieldLabel(text: "Grade"),
+                    dropDown(_currentgrade, grade),
                   ],
                 ),
-                dropDown(_currentgrade, grade),
+                
                 //grade dropdown
               ]),
         ),

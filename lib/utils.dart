@@ -14,7 +14,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    // final user = FirebaseAuth.instance.currentUser!;
+    
     final userProfile = context.watch<UserProvider>().userProfile;
     return AppBar(
       elevation: 0,

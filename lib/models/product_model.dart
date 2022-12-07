@@ -3,7 +3,9 @@
 
 // import 'package:schoolablesmodel/Models/bidding_model.dart';
 
-import 'bidding_model.dart';
+import 'package:flutterdemo/Models/bidding_model.dart';
+
+// import 'bidding_model.dart';
 
 class ProductModel {
   final String sellerID;

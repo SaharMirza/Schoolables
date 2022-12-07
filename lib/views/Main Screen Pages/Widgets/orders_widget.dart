@@ -1,12 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/models/buying_orders.dart';
 
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
-import '../../../models/buying_orders.dart';
+// import '../../../models/buying_orders.dart';
 import '../../../models/selling_orders.dart';
 import 'map_widget.dart';
 

@@ -1,7 +1,7 @@
 // Model for Firebase
 // ignore_for_file: curly_braces_in_flow_control_structures
 
-class StudentProfileModel {
+class UserProfileModel {
   final String email;
   final String name;
   final String schoolName;
@@ -15,7 +15,7 @@ class StudentProfileModel {
   final List<String> wishListIDs;
   String rating = "0";
 
-StudentProfileModel(
+  UserProfileModel(
       {required this.email,
       required this.phone,
       required this.name,
@@ -52,7 +52,7 @@ StudentProfileModel(
     List<String> favIDs = [];
     for (var id in firebaseData) favIDs.add(id.toString().trim());
 
-    return StudentProfileModel(
+    return UserProfileModel(
         phone: json['phone'],
         email: json['email'],
         name: json['name'],

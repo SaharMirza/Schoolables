@@ -34,7 +34,7 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
       dynamic result = await _auth.signInWithEmailAndPassword(
           _emailController.text.trim(), _passwordController.text.trim());
       // Check if result is of type UserProfile
-      if (result is UserAuth) {
+      if (result!=null && result is UserAuth) {
         if (widget.role == "Parent") {
           Navigator.push(
             context,
