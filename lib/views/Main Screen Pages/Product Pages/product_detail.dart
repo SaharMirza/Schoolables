@@ -12,8 +12,12 @@ import '../../../constants/fonts.dart';
 import '../../../utils.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({super.key});
+  const ProductDetail({ Key? key,
+    required this.pid,
+   
+  }) : super(key: key);
 
+  final String pid;
   @override
   State<ProductDetail> createState() => _ProductDetailState();
 }

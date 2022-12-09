@@ -35,7 +35,7 @@ class _favouritesCardState extends State<favouritesCard> {
         onTap: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ProductDetail(),
+              builder: (context) => ProductDetail(pid: "",),
             ),
           );
         },

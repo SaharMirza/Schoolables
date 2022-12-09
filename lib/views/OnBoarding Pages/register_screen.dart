@@ -7,6 +7,7 @@ import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
+import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more_parent.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +35,12 @@ class _SignupPageState extends State<SignupPage> {
           _emailController.text, _passwordController.text);
       // Check if result is of type UserProfile
       if (result is UserAuth) {
+        if(widget.role=="Stduent"){
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const TellUsMore()));
+            MaterialPageRoute(builder: (context) => const TellUsMore()));}else{
+                 Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const TellUsMoreParent()));
+            }
       } else {
         // Show error
         dialogs.errorToast(

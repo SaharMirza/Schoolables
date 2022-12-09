@@ -5,7 +5,9 @@ import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
@@ -33,7 +35,10 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => CategoriesProvider())
+        ChangeNotifierProvider(create: (_) => CategoriesProvider()),
+         ChangeNotifierProvider(create: (_) => ProductsProvider()),
+         ChangeNotifierProvider(create: (_) => TabNotifier()),
+        ChangeNotifierProvider(create: (_) => BiddingProvider())
       ],
       child: const MyApp(),
     ),
@@ -91,12 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
         {
           Future.delayed(Duration.zero, () async {
                 context.read<UserProvider>().loadUser(userAuth);
+              
               });
           return BottomNavBar();
         } else //if the user was logged out
         {
           print("logged out success");
-          return MainLoginScreen(role: "role");
+          return RoleScreen();
         }
       },
     ));

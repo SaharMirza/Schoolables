@@ -125,21 +125,21 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // removeFavItem(String id) {
-  //   var ids = user.wishListIDs;
-  //   ids.remove(id);
-  //   user.wishListIDs = ids;
-  //   saveChanges();
-  //   notifyListeners();
-  // }
+  removeFavItem(String id) {
+    var ids = user.wishListIDs;
+    ids.remove(id);
+    user.wishListIDs = ids;
+    saveChanges();
+    notifyListeners();
+  }
 
-  // addFavItem(String id) {
-  //   var ids = user.wishListIDs;
-  //   ids.add(id);
-  //   user.wishListIDs = ids;
-  //   saveChanges();
-  //   notifyListeners();
-  // }
+  addFavItem(String id) {
+    var ids = user.wishListIDs;
+    ids.add(id);
+    user.wishListIDs = ids;
+    saveChanges();
+    notifyListeners();
+  }
 
   // void addNewOrder(orderid) {
   //   List<String> ids = [];

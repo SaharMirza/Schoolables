@@ -1,10 +1,19 @@
 class BiddingModel{
-  final String BuyerID;
-  final int Bid;
+  final String buyerID;
+  final int bid;
+  final String id;
   
 
   BiddingModel({
-    required this.BuyerID,
-    required  this.Bid
+    required this.buyerID,
+    required  this.bid,
+    required this.id
   });
-}
+
+  static BiddingModel fromJson(Map<String, dynamic> json, String id) =>
+    BiddingModel(
+      buyerID: json['buyerID']as String? ?? '',
+      bid: json['Bid'] as int? ?? 0,
+      id:id
+         );
+  }
