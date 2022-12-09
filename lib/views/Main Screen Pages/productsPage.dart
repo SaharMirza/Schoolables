@@ -60,6 +60,7 @@ class _ProductsPageState extends State<ProductsPage> {
         children: [
           for (var i = 0; i < widget.products.length; i++)
             ProductCard(
+              pid:widget.products[i].id,
                 name: widget.products[i].name,
                 price: widget.products[i].price,
                 image: widget.products[i].image,

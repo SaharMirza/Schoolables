@@ -1,64 +1,70 @@
-// Item Model Class
-// ignore_for_file: curly_braces_in_flow_control_structures
-
-// import 'package:schoolablesmodel/Models/bidding_model.dart';
-
-import 'package:flutterdemo/Models/bidding_model.dart';
-
-// import 'bidding_model.dart';
+// import 'package:practice/Models/bidding_model.dart';
 
 class ProductModel {
   final String sellerID;
   final String title;
   final String category;
-  final List<String> condition;
+  final String subCategory;
+  final String condition;
   final int price;
   final List<String> images;
-  final List<BiddingModel> biding;
+  final List<String> bidingID;
+  final String id;
 
   ProductModel({
+    required this.id,
     required this.sellerID,
-    required this.biding,
+    required this.bidingID,
     required this.title,
     required this.price,
     required this.images,
     required this.category,
-    this.condition = const ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    required this.subCategory,
+    required this.condition,
   });
 
-  static fromJson(Map<String, dynamic> json) {
+  static ProductModel fromJson(Map<String, dynamic> json, String id) {
     // Convert List<dynamic> to List<String> for colors
-    List<String> conditionList = ['not selected'];
+    // List<String> conditionList = ['not selected'];
     List<String> imageList = [];
+    List<String> bidingList = [];
 
-    if (json['conditions'] != null) {
-      var conditions = json['conditions'] as List<dynamic>;
-      for (var id in conditions) conditionList.add(id.toString().trim());
-    }
+    // if (json['conditions'] != null) {
+    //   var conditions = json['conditions'] as List<dynamic>;
+    //   for (var id in conditions) conditionList.add(id.toString().trim());
+    // }
 
     if (json['images'] != null) {
       var images = json['images'] as List<dynamic>;
       for (var id in images) imageList.add(id.toString().trim());
+    }
+    if (json['bidding'] != null) {
+      var biding = json['bidding'] as List<dynamic>;
+      for (var id in biding) bidingList.add(id.toString().trim());
     }
     return ProductModel(
         title: json['title'],
         price: json['price'] ?? 0,
         images: imageList,
         category: json['category'],
-        condition: conditionList,
+        subCategory: json['subCategory'],
+        condition: json['condition'],
         sellerID: json['sellerID'] ?? "404",
-        biding: json["biding"]);
+        bidingID:bidingList,
+        id:id
+        );
   }
 
   toJson() {
     return {
       'title': title,
       'price': price,
-      'image': images,
+      'images': images,
       'category': category,
       'condition': condition,
       'sellerID': sellerID,
-      "biding": biding
+      'subCategory':subCategory,
+      "bidding": bidingID
     };
   }
 }

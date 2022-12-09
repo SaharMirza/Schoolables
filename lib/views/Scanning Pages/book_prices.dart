@@ -91,14 +91,16 @@ class _BookPricesState extends State<BookPrices> {
                           childAspectRatio: screenWidth / (screenHeight * 0.8),
                           shrinkWrap: true,
                           crossAxisCount: 2,
-                          children: [
-                            for (var i = 0; i < 6; i++)
-                              ProductCard(
-                                  name: product[i].name,
-                                  price: product[i].price,
-                                  image: product[i].image,
-                                  isFav: product[i].isFav),
-                          ]),
+                          // children: [
+                          //   for (var i = 0; i < 6; i++)
+                          //     ProductCard(
+                          //       pid:product[i].id,
+                          //         name: product[i].name,
+                          //         price: product[i].price,
+                          //         image: product[i].image,
+                          //         isFav: product[i].isFav),
+                          // ]
+                          ),
                     ],
                   ),
                 ),

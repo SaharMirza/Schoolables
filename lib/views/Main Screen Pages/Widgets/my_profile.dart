@@ -351,6 +351,9 @@ class ContactInformationSection extends StatelessWidget {
   final double screenWidth;
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -362,11 +365,11 @@ class ContactInformationSection extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FormTextField(FieldLabel: "Phone Number", hintText: "Number"),
+          child: FormTextField(FieldLabel: "Phone Number", hintText: "Number", controller: _numberController,),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FormTextField(FieldLabel: "Email", hintText: "User Email"),
+          child: FormTextField(FieldLabel: "Email", hintText: "User Email", controller: _emailController,),
         ),
       ],
     );
@@ -384,6 +387,9 @@ class BasicInformationSection extends StatelessWidget {
   final double screenWidth;
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _nameController = TextEditingController();
+  // final TextEditingController _priceController = TextEditingController();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -395,7 +401,7 @@ class BasicInformationSection extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: FormTextField(FieldLabel: "User Name", hintText: "Name"),
+          child: FormTextField(FieldLabel: "User Name", hintText: "Name", controller: _nameController,),
         ),
         // FormTextField(FieldLabel: "Gender", hintText: "Choose Gender"),
         Padding(
@@ -415,8 +421,9 @@ class BasicInformationSection extends StatelessWidget {
 // Custom Text Field Widget
 class FormTextField extends StatefulWidget {
   const FormTextField(
-      {super.key, required this.FieldLabel, required this.hintText});
+      {super.key, required this.FieldLabel, required this.hintText,required this.controller});
   final String FieldLabel;
+  final TextEditingController controller;
   final String hintText;
   @override
   State<FormTextField> createState() => _FormTextFieldState();
@@ -431,9 +438,11 @@ class _FormTextFieldState extends State<FormTextField> {
         children: [
           TextFieldLabel(text: widget.FieldLabel),
           TextFormField(
+            controller: widget.controller,
             decoration: InputDecoration(
               hintText: widget.hintText,
               fillColor: MyColors.textFieldColor,
+              
               border: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.black,

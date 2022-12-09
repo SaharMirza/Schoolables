@@ -24,7 +24,7 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final catgeories = context.watch<CategoriesProvider>().categories;
+    final categories = context.watch<CategoriesProvider>().categories;
 
     List<Categories> Category = [
       Categories(name: "Books", image: "assets/images/book.gif"),
@@ -80,26 +80,22 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
       );
     }
 
-    return context.watch<CategoriesProvider>().isCategoriesFetching
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : ListView.builder(
+    return ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: catgeories.length,
+            itemCount: categories.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
+                child: categories[index].parentID=="0"?ElevatedButton(
                   onPressed: () {
-                    if (catgeories[index].catName == "Books") {
+                    if (categories[index].catName == "Books") {
                       booklist(index);
                     }
-                    if (catgeories[index].catName == "Stationary") {
+                    if (categories[index].catName == "Stationary") {
                       stationary(index);
                     }
-                    if (catgeories[index].catName == "Bags") {
+                    if (categories[index].catName == "Bags") {
                       bags(index);
                     }
                   },
@@ -120,10 +116,10 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
                         height: screenHeight * 0.2,
                         width: screenWidth * 0.1,
                       ),
-                      Text(catgeories[index].catName),
+                      Text(categories[index].catName),
                     ],
                   ),
-                ),
+                ):null
               );
             });
   }

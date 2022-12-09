@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
+import 'package:provider/provider.dart';
 import '../Product Pages/product_detail.dart';
 
 class ProductCard extends StatefulWidget {
   ProductCard({
     Key? key,
+    required this.pid,
     required this.name,
     required this.price,
     required this.image,
@@ -11,6 +14,7 @@ class ProductCard extends StatefulWidget {
   }) : super(key: key);
 
   final String name;
+  final String pid;
   final String price;
   final String image;
   bool isFav;
@@ -20,16 +24,26 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  bool myFav = false;
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+
+    void addFav(id) {
+      // Add to users wishlist list
+      context.read<UserProvider>().addFavItem(id);
+    }
+
+    void removeFav(id) {
+      // // Remove from users wishlist list
+      context.read<UserProvider>().removeFavItem(id);
+    }
+
     return InkWell(
       onTap: (() async {
         await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetail(),
+            builder: (context) => ProductDetail(pid: widget.pid,),
           ),
         );
       }),
@@ -56,9 +70,13 @@ class _ProductCardState extends State<ProductCard> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       FavouriteWidget(
-                        isFav: myFav,
+                        isFav: widget.isFav,
                         onTap: () {
-                          myFav = !myFav;
+                          widget.isFav = !widget.isFav;
+                          setState(() {});
+                          widget.isFav
+                              ? addFav(widget.pid)
+                              : removeFav(widget.pid);
                           setState(() {});
                         },
                       ),
