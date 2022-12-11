@@ -14,6 +14,7 @@ class UserProfileModel {
   final List<String> orderBuyer;
   final List<String> wishListIDs;
   String rating = "0";
+    late final String id;
 
   UserProfileModel(
       {required this.email,

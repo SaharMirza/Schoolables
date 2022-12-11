@@ -10,12 +10,40 @@ import 'package:flutterdemo/models/user_model.dart';
 // Provider for User Collection
 class UserProvider extends ChangeNotifier {
   // Will be initialized to when the user is logged in
+  List<UserProfileModel> Users = [];
   UserProfile user = UserProfile(id: "", email: "");
   CollectionReference firebaseUser =
       FirebaseFirestore.instance.collection('users');
 
   UserProfile get userProfile => user;
   // String id = FirebaseAuth.instance.currentUser!.uid;
+  Future<void> loadUsers() async {
+    await firebaseUser.get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        UserProfileModel userModel =
+            UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
+        UserProfileModel seller = UserProfileModel(
+            email: userModel.email,
+            phone: userModel.phone,
+            name: userModel.name,
+            display: userModel.display,
+            schoolName: userModel.schoolName,
+            grade: userModel.grade,
+            dob: userModel.dob,
+            orderBuyer: userModel.orderBuyer,
+            orderSeller: userModel.orderSeller,
+            products: userModel.products,
+            wishListIDs: userModel.wishListIDs,
+            rating: userModel.rating);
+
+        seller.id = doc.id;
+        Users.add(seller);
+        // print(item.name);
+        // print(item.brandID);
+      });
+    });
+    notifyListeners();
+  }
 
   void loadUser(UserAuth? userLogin) {
     if (userLogin != null) {

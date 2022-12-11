@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 import '../Product Pages/product_detail.dart';
 
 class favouritesCard extends StatefulWidget {
-  const favouritesCard(
+  favouritesCard(
       {super.key,
+      required this.id,
       required this.name,
       required this.price,
       required this.condition,
       required this.img,
       required this.sellerIMG,
       required this.sellerName,
-      required this.sellerNum});
+      required this.sellerNum,
+      required this.isFav,});
+      final String id;
   final String name;
   final String price;
   final String condition;
   final String img;
-
+  bool isFav;
   final String sellerIMG;
   final String sellerName;
   final String sellerNum;
@@ -29,13 +34,24 @@ class favouritesCard extends StatefulWidget {
 class _favouritesCardState extends State<favouritesCard> {
   @override
   Widget build(BuildContext context) {
+     void addFav(id) {
+      // Add to users wishlist list
+      context.read<UserProvider>().addFavItem(id);
+    }
+
+    void removeFav(id) {
+      // // Remove from users wishlist list
+      context.read<UserProvider>().removeFavItem(id);
+    }
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: InkWell(
         onTap: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ProductDetail(pid: "",),
+              builder: (context) => ProductDetail(
+                pid: "",
+              ),
             ),
           );
         },
@@ -73,7 +89,10 @@ class _favouritesCardState extends State<favouritesCard> {
                           borderRadius: BorderRadius.circular(15),
                           image: DecorationImage(
                             fit: BoxFit.fill,
-                            image: NetworkImage(widget.img),
+                            image: widget.img.isEmpty
+                                ? NetworkImage(
+                                    "https://static.thenounproject.com/png/3674270-200.png")
+                                : NetworkImage(widget.img),
                           )),
                       width: 90,
                       height: 90,
@@ -98,13 +117,23 @@ class _favouritesCardState extends State<favouritesCard> {
                                 // screenWidth * 0.025 - screenHeight * 0.025),
                               ),
                             ),
-                            Icon(Icons.favorite_outline)
+                            FavouriteWidget(
+                        isFav: widget.isFav,
+                        onTap: () {
+                          widget.isFav = !widget.isFav;
+                          setState(() {});
+                          widget.isFav
+                              ? addFav(widget.id)
+                              : removeFav(widget.id);
+                          setState(() {});
+                        },
+                      ),
                           ],
                         ),
                         Text("Rs " + widget.price,
                             style: MyStyles.googleTextSubtitleListTile(12)),
                         Text(
-                          "Book Condition : " + widget.condition,
+                          "Book Condition : " + widget.condition + "/10",
                           style: MyStyles.googleTextSubtitleListTile(12),
                         ),
                         SizedBox(
@@ -117,8 +146,10 @@ class _favouritesCardState extends State<favouritesCard> {
                                 CircleAvatar(
                                   radius: (20),
                                   backgroundColor: Colors.white,
-                                  backgroundImage:
-                                      NetworkImage(widget.sellerIMG),
+                                  backgroundImage:widget.sellerIMG.isEmpty
+                                ? NetworkImage(
+                                    "https://static.thenounproject.com/png/3674270-200.png")
+                                : NetworkImage(widget.sellerIMG),                                      
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -154,6 +185,28 @@ class _favouritesCardState extends State<favouritesCard> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FavouriteWidget extends StatelessWidget {
+  const FavouriteWidget({
+    Key? key,
+    required this.isFav,
+    required this.onTap,
+  }) : super(key: key);
+
+  final VoidCallback onTap;
+  final bool isFav;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Icon(
+        Icons.favorite,
+        color: isFav ? Colors.red : Colors.white,
       ),
     );
   }

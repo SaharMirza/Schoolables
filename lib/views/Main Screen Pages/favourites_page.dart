@@ -25,21 +25,31 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // context.read<CategoriesProvider>().fetchCategories();
       context.read<ProductsProvider>().fetchProducts();
+      context.read<UserProvider>().loadUsers();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final products = context.read<ProductsProvider>().products;
+    final Users = context.read<UserProvider>().Users;
     final userProfile = context.watch<UserProvider>().userProfile;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    
     List<ProductModel> Favourites = [];
 
     for (int i = 0; i < products.length; i++) {
       for (int j = 0; j < userProfile.wishListIDs.length; j++) {
         if (products[i].id == userProfile.wishListIDs[j])
           Favourites.add(products[i]);
+      }
+    }
+
+
+    getSeller(sellerID){
+      for(int i=0;i<Users.length;i++){
+        if(Users[i].id==sellerID)return Users[i];
       }
     }
 
@@ -53,7 +63,15 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
 
     TabNotifier tabNotifier({required bool renderUI}) =>
         Provider.of<TabNotifier>(context, listen: renderUI);
-
+    bool getFav(ID) {
+      bool fav=false;
+      for (int i = 0; i < userProfile.wishListIDs.length; i++) {
+        if (ID == userProfile.wishListIDs[i]) {
+          fav= true;
+        } 
+      }
+      return fav;
+    }
     Widget tabHolder() {
       return Container(
         alignment: Alignment.center,
@@ -118,13 +136,15 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
                 shrinkWrap: true,
                 children: fav
                     .map((products) => favouritesCard(
+                      id:products.id,
                         name: products.title,
                         price: products.price.toString(),
                         condition: products.condition,
-                        img: "products.image",
-                        sellerIMG: "products.sellerImg",
-                        sellerName: "products.sellerName",
-                        sellerNum: "products.sellerNum"))
+                        isFav: getFav(products.id),
+                        img: products.images.isEmpty?"":products.images[0],
+                        sellerIMG: Users.isEmpty?"":getSeller(products.sellerID)!.display,
+                        sellerName:Users.isEmpty?"SellerName":getSeller(products.sellerID)!.name,
+                        sellerNum: Users.isEmpty?"SellerPhone":getSeller(products.sellerID)!.phone,))
                     .toList()),
           );
         }

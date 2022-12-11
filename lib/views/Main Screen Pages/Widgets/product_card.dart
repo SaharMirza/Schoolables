@@ -63,7 +63,7 @@ class _ProductCardState extends State<ProductCard> {
                     width: screenWidth,
                     color: Color.fromARGB(255, 179, 150, 180),
                     child: widget.image.isEmpty
-                        ? Image.asset('assets/images/math.png')
+                        ? Image.network('https://static.thenounproject.com/png/3674270-200.png')
                         : Image.asset(widget.image),
                   ),
                   Row(
