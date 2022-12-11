@@ -5,7 +5,7 @@ import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/seller_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

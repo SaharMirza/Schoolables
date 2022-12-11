@@ -9,8 +9,7 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scan_history.dart';
 import 'package:provider/provider.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
-import '../../../constants/fonts.dart';
-import 'my_profile.dart';
+
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
