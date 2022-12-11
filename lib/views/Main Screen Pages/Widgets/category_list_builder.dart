@@ -51,7 +51,7 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
       }
     }
 
-    List<Categories> Category = [
+   List<Categories> Category = [
       Categories(name: "Books", image: "assets/images/book.gif"),
       Categories(name: "Stationary", image: "assets/images/stationary.gif"),
       Categories(name: "bags", image: "assets/images/bag.gif"),
@@ -131,11 +131,11 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
                       ),
                       child: Row(
                         children: [
-                          Image.network(
-                            Category[index].image,
-                            height: screenHeight * 0.2,
-                            width: screenWidth * 0.1,
-                          ),
+                          Image.asset(
+                        Category[index].image,
+                        height: screenHeight * 0.2,
+                        width: screenWidth * 0.1,
+                      ),
                           Text(categories[index].catName),
                         ],
                       ),

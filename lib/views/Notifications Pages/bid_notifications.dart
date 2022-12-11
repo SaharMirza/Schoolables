@@ -15,11 +15,17 @@ class _BidNotificationState extends State<BidNotification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("Notifications"),
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            const HeaderBar(title: "Notifications"),
+          children: [            
             ListView.builder(
+              physics: ScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {

@@ -21,9 +21,8 @@ import 'Widgets/filter_widget.dart';
 import 'Widgets/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key,  this.cID=""}) : super(key: key);
+  const HomeScreen({Key? key, this.cID = ""}) : super(key: key);
   final String cID;
-
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -42,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool categoriesFetched = false;
   bool productsFetched = false;
 //  bool categoriesFetched=false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,20 +73,24 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       );
     } else {
-      return pageRender(
-          userAuth, userProfile,parentProfile, screenWidth, screenHeight, products);
+      return pageRender(userAuth, userProfile, parentProfile, screenWidth,
+          screenHeight, products);
     }
   }
 
-  Padding pageRender(UserAuth? userAuth, UserProfile userProfile,  ParentProfile parentProfile,
-      double screenWidth, double screenHeight, List<ProductModel> products) {
-        
+  Padding pageRender(
+      UserAuth? userAuth,
+      UserProfile userProfile,
+      ParentProfile parentProfile,
+      double screenWidth,
+      double screenHeight,
+      List<ProductModel> products) {
     bool getFav(ID) {
-      bool fav=false;
+      bool fav = false;
       for (int i = 0; i < userProfile.wishListIDs.length; i++) {
         if (ID == userProfile.wishListIDs[i]) {
-          fav= true;
-        } 
+          fav = true;
+        }
       }
       return fav;
     }
@@ -122,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
           products.isEmpty
               ? Container()
               : GridView.count(
+                physics: ScrollPhysics(),
                   childAspectRatio: screenWidth / (screenHeight * 0.8),
                   shrinkWrap: true,
                   crossAxisCount: 2,
