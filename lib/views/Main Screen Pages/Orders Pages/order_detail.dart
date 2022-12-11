@@ -17,7 +17,33 @@ class OrderDetail extends StatefulWidget {
   State<OrderDetail> createState() => _OrderDetailState();
 }
 
-class _OrderDetailState extends State<OrderDetail> {
+class _OrderDetailState extends State<OrderDetail>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+  // late Animation colorAnimation;
+  // late Animation sizeAnimation;
+  late Tween<double> sizeTween;
+  late ColorTween colorTween;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+
+    // sizeAnimation = Tween<double>(begin: 50.0, end: 100.0).animate(controller);
+    // colorAnimation = ColorTween(
+    //         begin: MyColors.textColor, end: MyColors.buttonColor)
+    //     .animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut));
+    sizeTween = Tween<double>(begin: 50.0, end: 100.0);
+    colorTween =
+        ColorTween(begin: MyColors.textColor, end: MyColors.buttonColor);
+
+    // controller.addStatusListener((status) {
+    //   setState(() {});
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +55,11 @@ class _OrderDetailState extends State<OrderDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomProgressIndicator(),
+            CustomProgressIndicator(
+              colorTween: colorTween,
+              sizeTween: sizeTween,
+              controller: controller,
+            ),
             SizedBox(
               height: 10,
             ),

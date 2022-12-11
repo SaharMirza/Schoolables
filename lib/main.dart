@@ -12,6 +12,7 @@ import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
@@ -38,8 +39,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
-         ChangeNotifierProvider(create: (_) => ProductsProvider()),
-         ChangeNotifierProvider(create: (_) => TabNotifier()),
+        ChangeNotifierProvider(create: (_) => ProductsProvider()),
+        ChangeNotifierProvider(create: (_) => TabNotifier()),
          ChangeNotifierProvider(create: (_) => ParentProvider()),
          ChangeNotifierProvider(create: (_) => ChildProvider()),
         ChangeNotifierProvider(create: (_) => BiddingProvider())
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<UserAuth?>.value(
       value: AuthService().user,
       initialData: null,
-      child: MaterialApp(        
+      child: MaterialApp(
         title: 'Schoolables',
         theme: ThemeData(
           primarySwatch: Colors.grey,
@@ -100,7 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
         {
           Future.delayed(Duration.zero, () async {
                 context.read<UserProvider>().loadUser(userAuth);
-                context.read<ParentProvider>().loadUser(userAuth);
               
               });
           return BottomNavBar();

@@ -12,14 +12,49 @@ import '../../../models/selling_orders.dart';
 import 'map_widget.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
-  const CustomProgressIndicator({super.key});
+  const CustomProgressIndicator({
+    super.key,
+    required this.sizeTween,
+    required this.colorTween,
+    required this.controller,
+  });
+  final Tween<double> sizeTween;
+  final ColorTween colorTween;
+  final AnimationController controller;
 
   @override
   State<CustomProgressIndicator> createState() =>
       _CustomProgressIndicatorState();
 }
 
-class _CustomProgressIndicatorState extends State<CustomProgressIndicator> {
+class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
+    with SingleTickerProviderStateMixin {
+  late Animation sizeAnimation;
+  late Animation colorAnimation;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    sizeAnimation = widget.sizeTween.animate(controller);
+    colorAnimation = widget.colorTween.animate(
+      CurvedAnimation(parent: controller, curve: Curves.bounceOut),
+    );
+    controller.addStatusListener((status) {
+      print(status);
+      if (status == AnimationStatus.completed) {
+        controller.reverse();
+      }
+      if (status == AnimationStatus.dismissed) {
+        controller.forward();
+      }
+
+      controller.forward();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -33,11 +68,11 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator> {
                 Column(
                   children: [
                     Container(
-                      height: 35,
-                      width: 35,
+                      height: sizeAnimation.value,
+                      width: sizeAnimation.value,
                       // margin: EdgeInsets.all(300.0),
                       decoration: BoxDecoration(
-                          color: MyColors.buttonColor, shape: BoxShape.circle),
+                          color: colorAnimation.value, shape: BoxShape.circle),
                     ),
                   ],
                 ),
