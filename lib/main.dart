@@ -12,9 +12,11 @@ import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/map_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: MyHomePage(title: "title"),
+        home: const MyHomePage(title: " "),
         debugShowCheckedModeBanner: false,
       ),
     );
