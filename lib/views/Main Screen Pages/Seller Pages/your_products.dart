@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/models/product_model.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/fonts.dart';
 import '../Widgets/my_profile.dart';
@@ -21,58 +26,77 @@ class YourProductsPage extends StatefulWidget {
 
 class _YourProductsPageState extends State<YourProductsPage> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // context.read<CategoriesProvider>().fetchCategories();
+      context.read<ProductsProvider>().fetchProducts();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final products = context.read<ProductsProvider>().products;
+    final userAuth = Provider.of<UserAuth?>(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    List<ProductModel> sellerProducts = [];
+
+    for (int i = 0; i < products.length; i++) {
+      if (products[i].sellerID == userAuth?.id) sellerProducts.add(products[i]);
+    }
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
           HeaderBar(title: "Seller"),
-          SizedBox(
-            height: screenHeight * 0.88,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SearchfilterMapWidget(screenWidth: screenWidth, screenHeight: screenHeight),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: Column(
+          Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              SearchfilterMapWidget(
+                  screenWidth: screenWidth, screenHeight: screenHeight),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Your Products",
-                                style: MyStyles.googleSecondTitleText(
-                                    screenWidth * 0.04 + screenHeight * 0.01),
-                              ),
-                            ],
+                          Text(
+                            "Your Products",
+                            style: MyStyles.googleSecondTitleText(
+                                screenWidth * 0.04 + screenHeight * 0.01),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          YourProductCard(),
-                          YourProductCard(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          AddProductBtn(),
                         ],
                       ),
-                    ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          // scrollDirection: Axis.horizontal,
+                          itemCount: sellerProducts.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return YourProductCard(name: sellerProducts[index].title, price: sellerProducts[index].price.toString(), image: sellerProducts[index].images[0], condition: sellerProducts[index].condition);
+                          }),
+                      // YourProductCard(),
+                      // YourProductCard(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      AddProductBtn(),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
@@ -81,7 +105,20 @@ class _YourProductsPageState extends State<YourProductsPage> {
 }
 
 class YourProductCard extends StatefulWidget {
-  const YourProductCard({super.key});
+   YourProductCard({ Key? key,
+    // required this.pid,
+    required this.name,
+    required this.price,
+    required this.image,
+    required this.condition
+  }) : super(key: key);
+
+  final String name;
+  final String condition;
+  final String price;
+  final String image;
+  // bool isFav;
+
 
   @override
   State<YourProductCard> createState() => _YourProductCardState();
@@ -146,7 +183,7 @@ class _YourProductCardState extends State<YourProductCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Olevels Maths",
+                            widget.name,
                             style: GoogleFonts.poppins(
                               color: MyColors.textColor,
                               fontWeight: FontWeight.w600,
@@ -164,10 +201,10 @@ class _YourProductCardState extends State<YourProductCard> {
                           ),
                         ],
                       ),
-                      Text("Rs.500",
+                      Text("Rs." +widget.price,
                           style: MyStyles.googleTextSubtitleListTile(12)),
                       Text(
-                        "Book Condition : 7/10",
+                        "Book Condition : ${widget.condition}/10",
                         style: MyStyles.googleTextSubtitleListTile(12),
                       ),
                     ],

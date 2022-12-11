@@ -7,6 +7,8 @@ import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
+import 'package:flutterdemo/provider/child_provider.dart';
+import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
@@ -38,6 +40,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
          ChangeNotifierProvider(create: (_) => ProductsProvider()),
          ChangeNotifierProvider(create: (_) => TabNotifier()),
+         ChangeNotifierProvider(create: (_) => ParentProvider()),
+         ChangeNotifierProvider(create: (_) => ChildProvider()),
         ChangeNotifierProvider(create: (_) => BiddingProvider())
       ],
       child: const MyApp(),
@@ -96,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         {
           Future.delayed(Duration.zero, () async {
                 context.read<UserProvider>().loadUser(userAuth);
+                context.read<ParentProvider>().loadUser(userAuth);
               
               });
           return BottomNavBar();

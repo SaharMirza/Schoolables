@@ -32,10 +32,10 @@ class UserProvider extends ChangeNotifier {
           print("User ${user.email} is in Firebase");
           loadUserFromFirebase();
         } else {
-          // Add User to Firebase
-          print("User is not in Firebase");
-          addUser();
-          print("added in FB!");
+          // // Add User to Firebase
+          // print("User is not in Firebase");
+          // addUser();
+          // print("added in FB!");
         }
       });
     } else {

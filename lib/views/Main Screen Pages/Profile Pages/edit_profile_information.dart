@@ -4,7 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:badges/badges.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../Widgets/my_profile.dart';
 
 class EditProfileInformation extends StatefulWidget {
@@ -17,6 +19,8 @@ class EditProfileInformation extends StatefulWidget {
 class _EditProfileInformationState extends State<EditProfileInformation> {
   @override
   Widget build(BuildContext context) {
+    
+    
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 

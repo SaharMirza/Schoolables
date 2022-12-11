@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/provider/parent_provider.dart';
+import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/create_children_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
+import 'package:flutterdemo/views/success_screen.dart';
+import 'package:provider/provider.dart';
 
 class TellUsMoreParent extends StatefulWidget {
   const TellUsMoreParent({super.key});
@@ -19,6 +24,22 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    void register() {
+      if (_nameController.text.isEmpty || _phoneController.text.isEmpty) {
+        // Blank Details
+        dialogs.errorDialog(context, "Error", "Please fill all the fields");
+      } else {
+        // Update in UserProfile
+        context.read<ParentProvider>().updateparentInfo(
+            name: _nameController.text, phone: _phoneController.text);
+        context.read<ParentProvider>().saveChanges();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const SuccessScreen(nextPage: CreateChildrenProfile())));
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +61,11 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
               ),
               SizedBox(height: screenHeight * 0.04),
               Inputs(),
-              Buttons(ButtonName: "Next", role: "Parent", functionToComply: () {  },),
+              Buttons(
+                ButtonName: "Next",
+                role: "Parent",
+                functionToComply: register,
+              ),
               SizedBox(height: screenHeight * 0.02),
               // Fill Details Later?
               Skip()

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/main.dart';
+import 'package:flutterdemo/models/child_model.dart';
+import 'package:flutterdemo/provider/child_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/create_children_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
@@ -10,6 +12,7 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart'
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo_text.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../Classes/Children.dart';
 import 'child_profile.dart';
@@ -23,92 +26,114 @@ class ChildernProfileScreen extends StatefulWidget {
 
 class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
   @override
-  List<Children> children = [
-    Children(name: "Samra Noman", school: "Beaconhouse", grade: "4th Grade"),
-    Children(name: "Omar Noman", school: "Beaconhouse", grade: "1st Grade")
-  ];
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<ChildProvider>().fetchChildern();
+    });
+  }
+
+  bool childernFetched = false;
+  @override
+  // List<Children> children = [
+  //   Children(name: "Samra Noman", school: "Beaconhouse", grade: "4th Grade"),
+  //   Children(name: "Omar Noman", school: "Beaconhouse", grade: "1st Grade")
+  // ];
 
   Widget build(BuildContext context) {
+    final List children = context.watch<ChildProvider>().child;
+    childernFetched = context.watch<ChildProvider>().isChildernFetching;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     // TODO: implement build
     return Scaffold(
-        body: Column(
-      children: [
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: NavigateBackWidget(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-              ),
-            ),
-          ],
-        ),
-        SchoolablesLogoText(),
-        SizedBox(height: screenHeight * 0.04),
-        MyProfileTextWidget(
-            text: "Children Profiles", screenWidth: screenWidth),
-        SizedBox(height: screenHeight * 0.04),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView.separated(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: children.length,
-            separatorBuilder: (context, int index) =>
-                SizedBox(height: screenHeight * 0.01),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    ListCard(
-                      children: children[index],
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: screenHeight * 0.05,
-        ),
-        InkWell(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.add_circle,
-                size: 20,
-                color: MyColors.buttonColor,
-              ),
-              Text(
-                'Add More',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
+        body: childernFetched == true
+            ? Column(
+                children: [
+                  SizedBox(
+                    height: screenHeight,
+                    width: screenWidth,
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                ],
               )
-            ],
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ChildProfileScreen(),
-              ),
-            );
-          },
-        ),
-      ],
-    ));
+            : Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: NavigateBackWidget(
+                          screenWidth: screenWidth,
+                          screenHeight: screenHeight,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SchoolablesLogoText(),
+                  SizedBox(height: screenHeight * 0.04),
+                  MyProfileTextWidget(
+                      text: "Children Profiles", screenWidth: screenWidth),
+                  SizedBox(height: screenHeight * 0.04),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: children.length,
+                      separatorBuilder: (context, int index) =>
+                          SizedBox(height: screenHeight * 0.01),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              ListCard(
+                                children: children[index],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.05,
+                  ),
+                  InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.add_circle,
+                          size: 20,
+                          color: MyColors.buttonColor,
+                        ),
+                        Text(
+                          'Add More',
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ChildProfileScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ));
   }
 }
 
 class ListCard extends StatelessWidget {
-  final Children children;
+  final ChildProfileModel children;
 
   const ListCard({super.key, required this.children});
 
@@ -146,7 +171,7 @@ class ListCard extends StatelessWidget {
                       children.name,
                       style: MyStyles.googleTextListTile(screenHeight * 0.025),
                     ),
-                    Text(children.school,
+                    Text(children.schoolName,
                         style: MyStyles.googleTextSubtitleListTile(
                             screenHeight * 0.02)),
                     Text(children.grade,
