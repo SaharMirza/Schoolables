@@ -22,8 +22,10 @@ import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
+
 // import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -47,13 +49,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ChildProvider()),
         ChangeNotifierProvider(create: (_) => BiddingProvider())
       ],
-      child: const MyApp(),
+      child:  MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -71,6 +73,31 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     home: Scaffold(
+  //       appBar: AppBar(
+  //         title: const Text('Maps Sample App'),
+  //         backgroundColor: Colors.green[700],
+  //       ),
+  //       body: GoogleMap(
+  //         onMapCreated: _onMapCreated,
+  //         initialCameraPosition: CameraPosition(
+  //           target: _center,
+  //           zoom: 11.0,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }
 
 class MyHomePage extends StatefulWidget {

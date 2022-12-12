@@ -1,9 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutterdemo">
-   <application
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application
         android:label="flutterdemo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyBXcaX17NqjLOU-ubNUlvG3MV8LMk9eQ1M"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -16,10 +21,7 @@
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
-            <meta-data
-                    android:name="com.google.android.geo.API_KEY"
-                    android:value="AIzaSyDcq1-LUAz5OuJ8n7fu0xxHGW1MRlveCyQ"
-            />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
