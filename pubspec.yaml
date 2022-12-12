@@ -50,6 +50,8 @@ dependencies:
   maps_launcher: ^2.0.1
   google_mlkit_text_recognition:
   image_picker:
+  http: ^0.13.5
+  json_serializable: ^6.5.4
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -78,6 +81,7 @@ flutter:
     - assets/images/
     - assets/images/logo.png
     - assets/images/girlavatar.png
+    - assets/locations.json
     # - assets/Schoolables.png
   # - assets/female-4015339_640.jpg
 
