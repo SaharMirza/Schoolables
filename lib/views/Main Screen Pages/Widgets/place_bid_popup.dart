@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/bidding_model.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class PlaceBidPopUp extends StatefulWidget {
-  const PlaceBidPopUp({super.key});
+  const PlaceBidPopUp({
+    Key? key,
+    required this.pid,
+    required this.bid,
+  }) : super(key: key);
+
+  final String pid;
+  final List<BiddingModel> bid ;
 
   @override
   State<PlaceBidPopUp> createState() => _PlaceBidPopUpState();
 }
 
 class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
+
+  //  bool bidsFetched = false;
+
   @override
   Widget build(BuildContext context) {
+    final userAuth = Provider.of<UserAuth?>(context);
+
+    TextEditingController _bidController = TextEditingController();
     return AlertDialog(
       content: Center(
         child: Column(
@@ -55,31 +72,23 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Top 3 Bidder",
-                          style: MyStyles.googleTitleText(20)),
-                      const ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.grey,
-                        ),
-                        title: Text("Qiblatain Fatima"),
-                        trailing: Text("Rs. 500"),
-                      ),
-                      const ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.blueGrey,
-                        ),
-                        title: Text("Naquiya Asghar"),
-                        trailing: Text("Rs. 400"),
-                      ),
-                      const ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.blueAccent,
-                        ),
-                        title: Text("Ermina Fatima"),
-                        trailing: Text("Rs. 350"),
-                      ),
+                      Text("Top 3 Bidder", style: MyStyles.googleTitleText(20)),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          // scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.grey,
+                              ),
+                              title: Text(widget.bid[index].buyerName),
+                              trailing:Text(widget.bid[index].bid.toString()),
+                            );
+                          }),
+                 
                       Text("Your Bid!", style: MyStyles.googleTitleText(20)),
-                      placebid()
+                      placebid(_bidController, userAuth)
                     ],
                   ),
                 ),
@@ -91,12 +100,13 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
     );
   }
 
-  Row placebid() {
+  Row placebid(_bidController, user) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: TextFormField(
+            controller: _bidController,
             decoration: InputDecoration(
               hintText: "Enter your Bid",
               fillColor: MyColors.textFieldColor,
@@ -115,7 +125,11 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context
+                  .read<BiddingProvider>()
+                  .addBid(widget.pid, user.id, int.parse(_bidController.text),user.name);
+            },
             child: Text("Bid"),
             style: ElevatedButton.styleFrom(
                 elevation: 10,

@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/parent_entity.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/parent_model.dart';
 // import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
+import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 // import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
@@ -18,7 +21,8 @@ import 'Widgets/filter_widget.dart';
 import 'Widgets/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key, this.cID = ""}) : super(key: key);
+  final String cID;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -38,10 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
   bool productsFetched = false;
 //  bool categoriesFetched=false;
 
+
   @override
   Widget build(BuildContext context) {
     final products = context.read<ProductsProvider>().products;
     final userProfile = context.watch<UserProvider>().userProfile;
+    // print("DOB"+userProfile.dob);
+    final parentProfile = context.watch<ParentProvider>().parentProfile;
     final userAuth = Provider.of<UserAuth?>(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -66,20 +73,24 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       );
     } else {
-      return pageRender(
-          userAuth, userProfile, screenWidth, screenHeight, products);
+      return pageRender(userAuth, userProfile, parentProfile, screenWidth,
+          screenHeight, products);
     }
   }
 
-  Padding pageRender(UserAuth? userAuth, UserProfile userProfile,
-      double screenWidth, double screenHeight, List<ProductModel> products) {
-        
+  Padding pageRender(
+      UserAuth? userAuth,
+      UserProfile userProfile,
+      ParentProfile parentProfile,
+      double screenWidth,
+      double screenHeight,
+      List<ProductModel> products) {
     bool getFav(ID) {
-      bool fav=false;
+      bool fav = false;
       for (int i = 0; i < userProfile.wishListIDs.length; i++) {
         if (ID == userProfile.wishListIDs[i]) {
-          fav= true;
-        } 
+          fav = true;
+        }
       }
       return fav;
     }
@@ -92,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
           userAuth?.id != null
               ? Text('Hi ${userProfile.name}',
                   style: MyStyles.googleTitleText(screenWidth * 0.07))
-              : Text('Hi Guest',
+              : Text('Hi ${parentProfile.name}',
                   style: MyStyles.googleTitleText(screenWidth * 0.07)),
           SizedBox(height: screenHeight * 0.02),
           Row(
@@ -115,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
           products.isEmpty
               ? Container()
               : GridView.count(
+                physics: ScrollPhysics(),
                   childAspectRatio: screenWidth / (screenHeight * 0.8),
                   shrinkWrap: true,
                   crossAxisCount: 2,

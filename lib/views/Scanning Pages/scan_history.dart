@@ -52,7 +52,16 @@ class _ScanHistoryState extends State<ScanHistory> {
                   itemCount: scannedList.length,
                 ),
               ),
-            Buttons(ButtonName: "Scan New List", functionToComply: () {  },),
+              Buttons(
+                ButtonName: "Scan New List",
+                functionToComply: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CameraScreen()),
+                  );
+                },
+              ),
             ],
           ),
         ),

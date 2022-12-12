@@ -1,9 +1,12 @@
 //Seperate List View widget for Edit Profile Screen
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/user_model.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
@@ -165,7 +168,7 @@ class _LogoutBtnWidgetState extends State<LogoutBtnWidget> {
     return ElevatedButton(
       onPressed: () async {
         // logout
-        await FirebaseAuth.instance.signOut();
+        FirebaseAuth.instance.signOut();
         print("Logged out");
         setState(() {});
         // pop until login page
@@ -221,6 +224,8 @@ class MyProfileNameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    final userProfile = context.watch<UserProvider>().userProfile;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -228,7 +233,7 @@ class MyProfileNameCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 5),
             child: ProfileIcon(
-                img: "assets/images/girlavatar.png",
+                userProfile: userProfile,
                 radius: screenWidth * 0.15),
           ),
           Container(
@@ -239,7 +244,7 @@ class MyProfileNameCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Tooba Nadeem",
+                  userProfile.name,
                   style: MyStyles.googleTextListTile(screenWidth * 0.06),
                 ),
                 InkWell(
@@ -324,6 +329,8 @@ class EditProfileIcon extends StatefulWidget {
 class _EditProfileIconState extends State<EditProfileIcon> {
   @override
   Widget build(BuildContext context) {
+    
+    final userProfile = context.watch<UserProvider>().userProfile;
     return Center(
       child: Badge(
         badgeContent: Icon(
@@ -331,7 +338,7 @@ class _EditProfileIconState extends State<EditProfileIcon> {
           size: widget.screenWidth * 0.06,
         ),
         child: ProfileIcon(
-            img: "assets/images/girlavatar.png",
+           userProfile: userProfile,
             radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
         badgeColor: MyColors.startColor,
         position: BadgePosition.bottomEnd(bottom: 3, end: 6),
@@ -352,7 +359,8 @@ class ContactInformationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController _numberController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
+    final userProfile = context.watch<UserProvider>().userProfile;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -365,11 +373,19 @@ class ContactInformationSection extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FormTextField(FieldLabel: "Phone Number", hintText: "Number", controller: _numberController,),
+          child: FormTextField(
+            FieldLabel: "Phone Number",
+            hintText: userProfile.phone,
+            controller: _numberController,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FormTextField(FieldLabel: "Email", hintText: "User Email", controller: _emailController,),
+          child: FormTextField(
+            FieldLabel: "Email",
+            hintText: userProfile.email,
+            controller: _emailController,
+          ),
         ),
       ],
     );
@@ -388,7 +404,8 @@ class BasicInformationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController _nameController = TextEditingController();
-  // final TextEditingController _priceController = TextEditingController();
+    final userProfile = context.watch<UserProvider>().userProfile;
+    // final TextEditingController _priceController = TextEditingController();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -401,13 +418,17 @@ class BasicInformationSection extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: FormTextField(FieldLabel: "User Name", hintText: "Name", controller: _nameController,),
+          child: FormTextField(
+            FieldLabel: "User Name",
+            hintText: userProfile.name,
+            controller: _nameController,
+          ),
         ),
         // FormTextField(FieldLabel: "Gender", hintText: "Choose Gender"),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: DropDown(dropdownLabel: "Gender"),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(bottom: 8),
+        //   child: DropDown(dropdownLabel: "Gender"),
+        // ),
         // FormTextField(FieldLabel: "Date Of Birth", hintText: "DOB"),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
@@ -421,7 +442,10 @@ class BasicInformationSection extends StatelessWidget {
 // Custom Text Field Widget
 class FormTextField extends StatefulWidget {
   const FormTextField(
-      {super.key, required this.FieldLabel, required this.hintText,required this.controller});
+      {super.key,
+      required this.FieldLabel,
+      required this.hintText,
+      required this.controller});
   final String FieldLabel;
   final TextEditingController controller;
   final String hintText;
@@ -442,7 +466,6 @@ class _FormTextFieldState extends State<FormTextField> {
             decoration: InputDecoration(
               hintText: widget.hintText,
               fillColor: MyColors.textFieldColor,
-              
               border: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.black,
@@ -571,6 +594,7 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final userProfile = context.watch<UserProvider>().userProfile;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -598,7 +622,7 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
               ),
             ),
             //icon of text field
-            hintText: "Enter Date",
+            hintText: userProfile.dob,
           ),
           readOnly: true, //set it true, so that user will not able to edit text
           onTap: () async {
@@ -651,8 +675,8 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
 }
 
 class ProfileIcon extends StatefulWidget {
-  const ProfileIcon({super.key, required this.img, required this.radius});
-  final String img;
+  const ProfileIcon({super.key, required this.userProfile, required this.radius});
+  final UserProfile userProfile;
   final double radius;
   @override
   State<ProfileIcon> createState() => _ProfileIconState();
@@ -664,7 +688,9 @@ class _ProfileIconState extends State<ProfileIcon> {
     return CircleAvatar(
       radius: widget.radius,
       backgroundColor: Colors.white,
-      child: Image.asset(widget.img),
+      child: Image(image: NetworkImage(widget.userProfile.display.isEmpty
+                    ? "https://img.icons8.com/bubbles/50/000000/user.png"
+                    : widget.userProfile.display),),
     );
   }
 }

@@ -1,31 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/models/favourites.dart';
+import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/favourites_widget.dart';
 import 'package:provider/provider.dart';
 
-class CustomTabBarWidget extends StatelessWidget {
+class CustomTabBarWidget extends StatefulWidget {
   const CustomTabBarWidget({Key? key}) : super(key: key);
 
   @override
+  State<CustomTabBarWidget> createState() => _CustomTabBarWidgetState();
+}
+
+class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // context.read<CategoriesProvider>().fetchCategories();
+      context.read<ProductsProvider>().fetchProducts();
+      context.read<UserProvider>().loadUsers();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final products = context.read<ProductsProvider>().products;
+    final Users = context.read<UserProvider>().Users;
+    final userProfile = context.watch<UserProvider>().userProfile;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    
+    List<ProductModel> Favourites = [];
+
+    for (int i = 0; i < products.length; i++) {
+      for (int j = 0; j < userProfile.wishListIDs.length; j++) {
+        if (products[i].id == userProfile.wishListIDs[j])
+          Favourites.add(products[i]);
+      }
+    }
+
+
+    getSeller(sellerID){
+      for(int i=0;i<Users.length;i++){
+        if(Users[i].id==sellerID)return Users[i];
+      }
+    }
 
     List<Categories> Category = [
       Categories(name: "Books", image: "assets/images/book.gif"),
       Categories(name: "Stationary", image: "assets/images/stationary.gif"),
-      Categories(name: "Bags", image: "assets/images/bag.gif"),
+      Categories(name: "bags", image: "assets/images/bag.gif"),
     ];
 
-    List<favouritesClass> fav = [];
+    List<ProductModel> fav = [];
 
     TabNotifier tabNotifier({required bool renderUI}) =>
         Provider.of<TabNotifier>(context, listen: renderUI);
-
+    bool getFav(ID) {
+      bool fav=false;
+      for (int i = 0; i < userProfile.wishListIDs.length; i++) {
+        if (ID == userProfile.wishListIDs[i]) {
+          fav= true;
+        } 
+      }
+      return fav;
+    }
     Widget tabHolder() {
       return Container(
         alignment: Alignment.center,
@@ -80,7 +126,7 @@ class CustomTabBarWidget extends StatelessWidget {
       subWidget({required List fav}) {
         if (fav.isEmpty) {
           return SizedBox(
-            height: screenHeight*0.7,
+            height: screenHeight * 0.7,
             child: Center(child: Text("You haven't liked anything yet.")),
           );
         } else {
@@ -90,13 +136,15 @@ class CustomTabBarWidget extends StatelessWidget {
                 shrinkWrap: true,
                 children: fav
                     .map((products) => favouritesCard(
-                        name: products.name,
-                        price: products.price,
+                      id:products.id,
+                        name: products.title,
+                        price: products.price.toString(),
                         condition: products.condition,
-                        img: products.image,
-                        sellerIMG: products.sellerImg,
-                        sellerName: products.sellerName,
-                        sellerNum: products.sellerNum))
+                        isFav: getFav(products.id),
+                        img: products.images.isEmpty?"":products.images[0],
+                        sellerIMG: Users.isEmpty?"":getSeller(products.sellerID)!.display,
+                        sellerName:Users.isEmpty?"SellerName":getSeller(products.sellerID)!.name,
+                        sellerNum: Users.isEmpty?"SellerPhone":getSeller(products.sellerID)!.phone,))
                     .toList()),
           );
         }
@@ -121,7 +169,7 @@ class CustomTabBarWidget extends StatelessWidget {
         return subWidget(fav: fav);
       }
       for (int i = 0; i < Favourites.length; i++) {
-        if (Favourites[i].category == "Bags") {
+        if (Favourites[i].category == "bags") {
           fav.add(Favourites[i]);
         }
       }

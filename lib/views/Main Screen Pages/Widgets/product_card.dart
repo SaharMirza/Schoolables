@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:provider/provider.dart';
+import '../../../provider/product_provider.dart';
 import '../Product Pages/product_detail.dart';
 
 class ProductCard extends StatefulWidget {
@@ -24,8 +26,10 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+ 
   @override
   Widget build(BuildContext context) {
+     final products = context.watch<ProductsProvider>().products;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
@@ -39,11 +43,18 @@ class _ProductCardState extends State<ProductCard> {
       context.read<UserProvider>().removeFavItem(id);
     }
 
+    getProduct(pID){
+      for(int i=0;i<products.length;i++){
+        if(products[i].id==pID)return products[i];
+      }
+    }
+
     return InkWell(
       onTap: (() async {
+        ProductModel? product = getProduct(widget.pid);
         await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetail(pid: widget.pid,),
+            builder: (context) => ProductDetail(product: product,),
           ),
         );
       }),
@@ -63,7 +74,7 @@ class _ProductCardState extends State<ProductCard> {
                     width: screenWidth,
                     color: Color.fromARGB(255, 179, 150, 180),
                     child: widget.image.isEmpty
-                        ? Image.asset('assets/images/math.png')
+                        ? Image.network('https://static.thenounproject.com/png/3674270-200.png')
                         : Image.asset(widget.image),
                   ),
                   Row(

@@ -8,13 +8,11 @@ class ProductModel {
   final String condition;
   final int price;
   final List<String> images;
-  final List<String> bidingID;
   final String id;
 
   ProductModel({
     required this.id,
     required this.sellerID,
-    required this.bidingID,
     required this.title,
     required this.price,
     required this.images,
@@ -50,7 +48,6 @@ class ProductModel {
         subCategory: json['subCategory'],
         condition: json['condition'],
         sellerID: json['sellerID'] ?? "404",
-        bidingID:bidingList,
         id:id
         );
   }
@@ -64,7 +61,6 @@ class ProductModel {
       'condition': condition,
       'sellerID': sellerID,
       'subCategory':subCategory,
-      "bidding": bidingID
     };
   }
 }

@@ -2,29 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutterdemo/models/bidding_model.dart';
+import 'package:flutterdemo/models/product_model.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 import '../../../utils.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({ Key? key,
-    required this.pid,
-   
+  const ProductDetail({
+    Key? key,
+    this.product,
   }) : super(key: key);
 
-  final String pid;
+  final ProductModel? product;
   @override
   State<ProductDetail> createState() => _ProductDetailState();
 }
 
 class _ProductDetailState extends State<ProductDetail> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // context.read<CategoriesProvider>().fetchCategories();
+      context.read<BiddingProvider>().fetchBids();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final bids = context.watch<BiddingProvider>().bids;
+    List<BiddingModel> bid = [];
+    getbids() {
+      for (int i = 0; i < bids.length; i++) {
+        if (bids[i].productID == widget.product!.id) {
+          bid.add(bids[i]);
+        }
+      }
+    }
+
     return Center(
       child: Scaffold(
         appBar: AppBar(
@@ -38,7 +61,10 @@ class _ProductDetailState extends State<ProductDetail> {
                 height: 20,
               ),
               ImageSlider(),
-              OrderDetailsCard(isProduct: true),
+              OrderDetailsCard(
+                isProduct: true,
+                product: widget.product,
+              ),
               Container(
                 height: 100,
                 width: 370,
@@ -89,10 +115,14 @@ class _ProductDetailState extends State<ProductDetail> {
                                   ),
                                   child: ElevatedButton(
                                     onPressed: () {
+                                      getbids();
                                       showDialog(
                                         context: context,
                                         builder: (context) {
-                                          return PlaceBidPopUp();
+                                          return PlaceBidPopUp(
+                                            pid: widget.product!.id,
+                                            bid: bid,
+                                          );
                                         },
                                       );
                                     },

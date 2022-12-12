@@ -14,37 +14,39 @@ class MainLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Colors.white,elevation: 0,),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: IconButton(
-                      icon: const Icon(Icons.close_outlined),
-                      onPressed: (() {
-                        if (role == "Parent") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateChildrenProfile()),
-                          );
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const BottomNavBar()),
-                          );
-                        }
-                      }),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Padding(
+              //       padding: const EdgeInsets.only(top: 20.0),
+              //       child: IconButton(
+              //         icon: const Icon(Icons.close_outlined),
+              //         onPressed: (() {
+              //           if (role == "Parent") {
+              //             Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                   builder: (context) => CreateChildrenProfile()),
+              //             );
+              //           } else {
+              //             Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                   builder: (context) => const BottomNavBar()),
+              //             );
+              //           }
+              //         }),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               Continer1(role: role),
               const Text(
                 "If you continue, you are accepting Schoolables Terms and Conditions and Privacy Policy",

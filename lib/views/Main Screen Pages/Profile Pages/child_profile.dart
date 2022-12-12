@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/parent_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/child_model.dart';
+import 'package:flutterdemo/provider/child_provider.dart';
+import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/children_profile_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/circle_avatar_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ChildProfileScreen extends StatefulWidget {
   const ChildProfileScreen({Key? key}) : super(key: key);
@@ -20,6 +25,13 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    final parentProfile = context.read<ParentProvider>().parentProfile;
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _gradeController = TextEditingController();
+    TextEditingController _schoolController = TextEditingController();
+    final List<String>  orderBuyer=[];
+    final List<String>  wishListIDs=[];
+                                
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -54,11 +66,11 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
                       ],
                     ),
                     SizedBox(height: screenHeight * 0.03),
-                    NameAndTextField('Name', screenHeight),
+                    NameAndTextField('Name', screenHeight, _nameController),
                     SizedBox(height: screenHeight * 0.03),
-                    NameAndTextField('School', screenHeight),
+                    NameAndTextField('School', screenHeight, _schoolController),
                     SizedBox(height: screenHeight * 0.03),
-                    NameAndTextField('Grade', screenHeight),
+                    NameAndTextField('Grade', screenHeight, _gradeController),
                     SizedBox(height: screenHeight * 0.03),
                     Row(
                       children: [
@@ -74,6 +86,14 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
                             color: MyColors.buttonColor,
                           ),
                           onTap: () {
+                            context.read<ChildProvider>().addChild(
+                                _nameController.text,
+                                _schoolController.text,
+                                _gradeController.text,
+                                "display",
+                                orderBuyer,
+                                wishListIDs,
+                                parentProfile.id);
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) =>
@@ -93,13 +113,15 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
     );
   }
 
-  Widget NameAndTextField(String title, double screenHeight) {
+  Widget NameAndTextField(
+      String title, double screenHeight, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SubtitleText(
             text: title, align: TextAlign.left, size: screenHeight * 0.019),
         TextField(
+          controller: controller,
           decoration: InputDecoration(contentPadding: EdgeInsets.only(top: 10)),
         ),
       ],
