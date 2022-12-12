@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
+import 'package:flutterdemo/views/Widgets/Search.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -19,6 +21,10 @@ class SearchBar extends StatelessWidget {
       // height: 2 * (screenHeight * 0.04 - width * 0.02),
       height: 50,
       child: TextField(
+        onTap: () {Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => SearchPage(
+              searchList: products,
+            )));},
         decoration: InputDecoration(
           // labelStyle: TextStyle(fontSize: screenWidth * 0.05),
           prefixIcon: Icon(Icons.search_outlined),
