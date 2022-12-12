@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutterdemo/Classes/SyllabusBook.dart';
+import 'package:flutterdemo/models/SyllabusBook.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
@@ -17,20 +17,6 @@ class BookList extends StatefulWidget {
 }
 
 class _BookListState extends State<BookList> {
-  List<SyllabusBook> syllabusBooks = [
-    SyllabusBook(
-      book_name: "Cambridge Check Point English Book 3",
-      image: "images/image-placeholder.png",
-    ),
-    SyllabusBook(
-      book_name: "Karwaan-e-Urdu 8",
-      image: "images/image-placeholder.png",
-    ),
-    SyllabusBook(
-      book_name: "Graph Book MVP-29",
-      image: "images/image-placeholder.png",
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {

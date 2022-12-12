@@ -11,7 +11,7 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../Classes/Children.dart';
+import '../../../models/Children.dart';
 import 'child_profile.dart';
 
 class ChildernProfileScreen extends StatefulWidget {
@@ -23,10 +23,7 @@ class ChildernProfileScreen extends StatefulWidget {
 
 class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
   @override
-  List<Children> children = [
-    Children(name: "Samra Noman", school: "Beaconhouse", grade: "4th Grade"),
-    Children(name: "Omar Noman", school: "Beaconhouse", grade: "1st Grade")
-  ];
+
 
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;

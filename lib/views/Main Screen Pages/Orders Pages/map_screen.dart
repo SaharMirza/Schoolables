@@ -27,14 +27,11 @@ class _MapScreenState extends State<MapScreen> {
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
   }
-  // static final CameraPosition _kGooglePlex = const CameraPosition(target: LatLng(37.42796133588, longitude))
   Widget build(BuildContext context) {
     return Scaffold(
-        body:
-        GoogleMap(initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0
-        ),)
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
+      ),
     );
   }
 }

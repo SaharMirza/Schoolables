@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Classes/ScannedList.dart';
+import 'package:flutterdemo/models/ScannedList.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
@@ -21,17 +21,6 @@ class ScanHistory extends StatefulWidget {
 }
 
 class _ScanHistoryState extends State<ScanHistory> {
-  List<ScannedList> scannedList = [
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-    ScannedList(school_name: "Beacon House", grade: '10'),
-  ];
 
   @override
   Widget build(BuildContext context) {
