@@ -13,6 +13,7 @@ import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 // import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
@@ -110,9 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //searchbar
-              SearchBar(width: screenWidth * 0.70, screenHeight: screenHeight),
+              SearchBar(width: screenWidth * 0.60, screenHeight: screenHeight),
               //filtericon
-              const FilterWidget()
+              const FilterWidget(),
+              const MapWidget()
             ],
           ),
           SizedBox(height: screenHeight * 0.04),

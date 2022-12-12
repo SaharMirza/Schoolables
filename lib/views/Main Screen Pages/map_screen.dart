@@ -20,18 +20,22 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  Completer<GoogleMapController> _controller = Completer();
+  late GoogleMapController mapController;
 
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(45.521563, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
+    mapController = controller;
   }
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-        initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
-      ),
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+        target: _center,
+        zoom: 11.0,
+    ),
+    )
     );
   }
 }
