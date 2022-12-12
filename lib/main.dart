@@ -43,8 +43,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
         ChangeNotifierProvider(create: (_) => ProductsProvider()),
         ChangeNotifierProvider(create: (_) => TabNotifier()),
-         ChangeNotifierProvider(create: (_) => ParentProvider()),
-         ChangeNotifierProvider(create: (_) => ChildProvider()),
+        ChangeNotifierProvider(create: (_) => ParentProvider()),
+        ChangeNotifierProvider(create: (_) => ChildProvider()),
         ChangeNotifierProvider(create: (_) => BiddingProvider())
       ],
       child: const MyApp(),
@@ -102,9 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (snapshot.hasData) //if the user was logged in
         {
           Future.delayed(Duration.zero, () async {
-                context.read<UserProvider>().loadUser(userAuth);
-              
-              });
+            context.read<UserProvider>().loadUser(userAuth);
+          });
           return BottomNavBar();
         } else //if the user was logged out
         {
