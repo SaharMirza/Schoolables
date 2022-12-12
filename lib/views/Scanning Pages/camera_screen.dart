@@ -1,9 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/loading_screen.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -15,6 +15,8 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen> {
   late List<CameraDescription> cameras;
   late CameraController cameraController;
+  late String result;
+  XFile? pickedFile;
 
   @override
   void initState() {
@@ -22,6 +24,7 @@ class _CameraScreenState extends State<CameraScreen> {
     super.initState();
   }
 
+//searches for available cameras and picks the first camera available initialises it.
   void startCamera() async {
     cameras = await availableCameras();
 
@@ -35,6 +38,45 @@ class _CameraScreenState extends State<CameraScreen> {
       setState(() {}); // to refresh widget
     }).catchError((e) {
       print(e);
+    });
+  }
+
+// function that does text detection on image and converts it into text
+  Future imageToText(img) async {
+    InputImage inputImage = InputImage.fromFilePath(img!.path);
+    final textDetector = TextRecognizer(
+      script: TextRecognitionScript.latin,
+    );
+    final RecognizedText recognisedText = await textDetector.processImage(
+      inputImage,
+    );
+
+    setState(() {
+      String text = recognisedText.text;
+      for (TextBlock block in recognisedText.blocks) {
+        //each block of text/section of text
+        final String text = block.text;
+        // print("block of text: ");
+        // print(text);
+        for (TextLine line in block.lines) {
+          result = result + line.text + "\n";
+        }
+      }
+    });
+  }
+
+// picks image from gallery and calls image to text function
+  Future pickImageFromGallery() async {
+    final picker = ImagePicker();
+    InputImage inputImage;
+    pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        imageToText(pickedFile);
+      } else {
+        print('No image selected.');
+      }
     });
   }
 
@@ -85,21 +127,20 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
           GestureDetector(
               onTap: () {
-                cameraController.takePicture().then((XFile? file) {
-                  if (mounted) {
-                    if (file != null) {
-                      print("Picture saved to ${file.path}");
-                    }
-                  }
-                });
+                imageToText(pickedFile);
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: CaptureButton(),
               )),
-          const Text(
-            "UPLOAD",
-            style: TextStyle(color: Colors.white),
+          GestureDetector(
+            onTap: () {
+              pickImageFromGallery();
+            },
+            child: const Text(
+              "UPLOAD",
+              style: TextStyle(color: Colors.white),
+            ),
           )
         ],
       ),
@@ -107,24 +148,38 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Widget CaptureButton() {
-    return Container(
-      margin: const EdgeInsets.only(
-        //left: 20,
-        bottom: 20,
-      ),
-      height: 50,
-      width: 50,
-      decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black26, offset: Offset(2, 2), blurRadius: 10)
-          ]),
-      child: const Center(
-        child: Icon(
-          Icons.camera_alt_outlined,
-          color: Colors.black54,
+    return GestureDetector(
+      onTap: () {
+        cameraController.takePicture().then((XFile? file) {
+          if (mounted) {
+            if (file != null) {
+              setState(() {
+                pickedFile = file;
+              });
+              print("Picture saved to ${file.path}");
+            }
+          }
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.only(
+          //left: 20,
+          bottom: 20,
+        ),
+        height: 50,
+        width: 50,
+        decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black26, offset: Offset(2, 2), blurRadius: 10)
+            ]),
+        child: const Center(
+          child: Icon(
+            Icons.camera_alt_outlined,
+            color: Colors.black54,
+          ),
         ),
       ),
     );
