@@ -50,7 +50,7 @@ class _favouritesCardState extends State<favouritesCard> {
           await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => ProductDetail(
-                pid: "",
+                
               ),
             ),
           );

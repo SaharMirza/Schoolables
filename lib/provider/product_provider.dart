@@ -26,12 +26,12 @@ class ProductsProvider with ChangeNotifier {
       String title,
       String sellerID,
       List<String> images,
-      List<String> bidingID,
+      // List<String> bidingID,
       String category,
       String subCategory,
       String condition,
       int price) async {
-    await _productsRepository.addProduct(title, sellerID, images, bidingID,
+    await _productsRepository.addProduct(title, sellerID, images, 
         category, subCategory, condition, price);
   }
 }

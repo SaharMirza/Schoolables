@@ -206,61 +206,6 @@ class _AddProductFieldsState extends State<AddProductFields> {
     final TextEditingController _titleController = TextEditingController();
     final TextEditingController _priceController = TextEditingController();
 
-    // Widget dropDown(_value, List<String> _list) {
-    //   return StatefulBuilder(builder: ((context, setState) {
-    //     return DropdownButton(
-    //       value: _value,
-    //       borderRadius: BorderRadius.all(Radius.circular(5.0)),
-    //       icon: const Icon(Icons.arrow_downward_sharp),
-    //       isExpanded: true,
-    //       items: _list.map((String items) {
-    //         return DropdownMenuItem(
-    //           value: items,
-    //           child: Text(items),
-    //         );
-    //       }).toList(),
-    //       onChanged: (value) {
-    //         print(value);
-    //         _value = value;
-    //         setState(() {});
-    //         print(_value);
-    //       },
-    //     );
-    //   }));
-    // }
-
-    // Widget dropDown(_value, List<String> _list) {
-    //   return StatefulBuilder(builder: ((context, setState) {
-    //     return DecoratedBox(
-    //         decoration: BoxDecoration(
-    //           border: Border.all(color: Colors.black38),
-    //           borderRadius: BorderRadius.circular(8),
-    //         ),
-    //         child: Padding(
-    //             padding: EdgeInsets.only(left: 10, right: 2),
-    //             child: DropdownButton(
-    //                  value: _value,
-    //                 hint: Text(_value.toString()),
-    //                 isExpanded: true,
-    //                 underline: Container(),
-    //                 focusColor: Colors.white,
-    //                 items: _list.map((String items) {
-    //                   return DropdownMenuItem(
-    //                     value: items,
-    //                     child: Text(items),
-    //                   );
-    //                 }).toList(),
-    //                  onChanged: (value) {
-    //         print(value);
-    //         _value = value;
-    //         setState(() {});
-    //         print(_value);
-    //       },
-    //               )
-    //            ));
-    // }));
-    // }
-
     return Container(
       child: Column(
         children: [
@@ -365,7 +310,6 @@ class _AddProductFieldsState extends State<AddProductFields> {
                       _titleController.text,
                       userProfile.id,
                       images,
-                      bidingIDs,
                       _currentCategory,
                       _currentSubCategory,
                       _currentConditon,

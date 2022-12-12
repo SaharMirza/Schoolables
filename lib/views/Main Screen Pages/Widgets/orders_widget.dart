@@ -1,9 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/buying_orders.dart';
+import 'package:flutterdemo/models/product_model.dart';
+import 'package:flutterdemo/models/products.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
@@ -606,8 +610,9 @@ class _ContactSellerBtnState extends State<ContactSellerBtn> {
 }
 
 class OrderDetailsCard extends StatefulWidget {
-  const OrderDetailsCard({super.key, required this.isProduct});
+  const OrderDetailsCard({super.key, required this.isProduct,required this.product,});
   final bool isProduct;
+  final ProductModel? product;
 
   @override
   State<OrderDetailsCard> createState() => _OrderDetailsCardState();
@@ -615,8 +620,41 @@ class OrderDetailsCard extends StatefulWidget {
 
 class _OrderDetailsCardState extends State<OrderDetailsCard> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // context.read<CategoriesProvider>().fetchCategories();
+      // context.read<ProductsProvider>().fetchProducts();
+      context.read<UserProvider>().loadUsers();
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    return Padding(
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final Users = context.read<UserProvider>().Users;
+    bool seller=false;
+     getSeller(sellerID){
+      for(int i=0;i<Users.length;i++){
+        if(Users[i].id==sellerID)
+        {
+        seller= true;
+        return Users[i];
+        
+        }}
+    }
+     if (Users.isEmpty) {
+      print("empty");
+      return Column(
+        children: [
+          SizedBox(
+            height: screenHeight,
+            width: screenWidth,
+            child: const Center(child: CircularProgressIndicator()),
+          ),
+        ],
+      );
+    } else {return Padding(
       padding: const EdgeInsets.all(26),
       child: Container(
         child: Column(
@@ -627,11 +665,11 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Karwan e Urdu",
+                widget.product!.title,
                   style: MyStyles.googleTitleText(30),
                 ),
                 Text(
-                  "Rs 500",
+                  "Rs "+widget.product!.price.toString(),
                   style: MyStyles.googleTextSubtitleListTile(22),
                 ),
               ],
@@ -641,7 +679,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Urdu",
+                  widget.product!.subCategory,
                   style: GoogleFonts.poppins(
                       color: MyColors.subtitleColor,
                       fontSize: 21,
@@ -667,7 +705,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
               height: 15,
             ),
             Text(
-              "Book Condition: 7/10",
+              "Book Condition: "+widget.product!.condition+"/10",
               style: MyStyles.googleTextSubtitleListTile(18),
             ),
             SizedBox(
@@ -698,14 +736,14 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Qiblatain Fatima",
+                              Users.isEmpty?"SellerName":getSeller(widget.product!.sellerID)!.name,
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
                             Text(
-                              "0321-111-3247",
+                               Users.isEmpty?"SellerName":getSeller(widget.product!.sellerID)!.phone,
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700,
@@ -785,7 +823,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
           ],
         ),
       ),
-    );
+    );}
   }
 }
 

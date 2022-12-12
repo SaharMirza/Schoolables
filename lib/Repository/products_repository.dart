@@ -9,7 +9,7 @@ abstract class ProductsRepository {
       String title,
       String sellerID,
       List<String> images,
-      List<String> bidingID,
+      // List<String> bidingID,
       String category,
       String subCategory,
       String condition,
@@ -35,14 +35,12 @@ class FirebaseProductsRepository implements ProductsRepository {
       String title,
       String sellerID,
       List<String> images,
-      List<String> bidingID,
       String category,
       String subCategory,
       String condition,
       int price) async{
     final data = ProductModel(
             sellerID: sellerID,
-            bidingID: bidingID,
             title: title,
             price: price,
             images: images,

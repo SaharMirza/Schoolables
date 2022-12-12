@@ -21,4 +21,12 @@ class BiddingProvider with ChangeNotifier {
     isBidsFetching = false;
     notifyListeners();
   }
+
+  void addBid(
+      String pid,
+      String buyerid,
+      int bid,
+      String buyerName
+     ) async {
+    await _bidsRepository.addBid(buyerid, pid, buyerName,bid,);}
 }

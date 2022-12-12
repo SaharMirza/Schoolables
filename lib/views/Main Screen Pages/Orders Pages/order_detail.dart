@@ -75,7 +75,7 @@ class _OrderDetailState extends State<OrderDetail>
             Center(
               child: ImageSlider(),
             ),
-            OrderDetailsCard(isProduct: false),
+            // OrderDetailsCard(isProduct: false),
           ],
         ),
       ),
