@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/models/products.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
 import 'package:flutterdemo/views/Widgets/Search.dart';
+import 'package:flutterdemo/models/product_model.dart';
+import 'package:provider/provider.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -14,8 +16,15 @@ class SearchBar extends StatelessWidget {
   final double width;
   final double screenHeight;
 
+
   @override
   Widget build(BuildContext context) {
+    final product = context.read<ProductsProvider>().products;
+    List<ProductModel> products = [];
+    for (int i = 0; i < product.length; i++) {
+      products.add(product[i]);
+      }
+
     return SizedBox(
       width: width,
       // height: 2 * (screenHeight * 0.04 - width * 0.02),

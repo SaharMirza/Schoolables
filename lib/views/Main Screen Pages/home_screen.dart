@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
       double screenWidth,
       double screenHeight,
       List<ProductModel> products) {
-    bool getFav(ID) {
+      bool getFav(ID) {
       bool fav = false;
       for (int i = 0; i < userProfile.wishListIDs.length; i++) {
         if (ID == userProfile.wishListIDs[i]) {
@@ -135,12 +135,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                       for (var i = 0; i < 6; i++)
                         ProductCard(
-                            pid: products[i].id,
-                            name: products[i].title,
+                            pid:   products[i].id,
+                            name:  products[i].title,
                             price: products[i].price.toString(),
                             image: "",
                             isFav: getFav(products[i].id)),
-                    ]),
+                  ],
+          ),
         ],
       ),
     );
