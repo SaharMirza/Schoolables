@@ -28,5 +28,11 @@ class BiddingProvider with ChangeNotifier {
       int bid,
       String buyerName
      ) async {
-    await _bidsRepository.addBid(buyerid, pid, buyerName,bid,);}
+      print("buyer"+buyerName);
+    await _bidsRepository.addBid(buyerid, pid, buyerName,bid,false,false);}
+
+    void updateBid(bool isAccepted,bool isRejected,String ID,)async{
+      await _bidsRepository.updateBid(isAccepted,isRejected ,ID);
+      notifyListeners();
+    }
 }

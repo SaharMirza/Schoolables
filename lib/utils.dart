@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/bidding_model.dart';
+import 'package:flutterdemo/models/product_model.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
@@ -14,8 +19,29 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final user = FirebaseAuth.instance.currentUser!;
-    
+    int counter = 0;
+    final products = context.read<ProductsProvider>().products;
+    final userAuth = Provider.of<UserAuth?>(context);
+    final bids = context.read<BiddingProvider>().bids;
+    List<ProductModel> userProducts = [];
+
+    //User Products
+    for (int i = 0; i < products.length; i++) {
+      if (products[i].sellerID == userAuth?.id) {
+        userProducts.add(products[i]);
+      }
+    }
+
+    //fetch bids on user's products
+    for (int i = 0; i < bids.length; i++) {
+      for (int j = 0; j < userProducts.length; j++) {
+        if (bids[i].productID == userProducts[j].id &&
+            (bids[i].isAccepted == false && bids[i].isRejected == false)) {
+          counter++;
+        }
+      }
+    }
+
     final userProfile = context.watch<UserProvider>().userProfile;
     return AppBar(
       elevation: 0,
@@ -26,10 +52,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.only(top: 10.0, right: 10.0),
             child: InkWell(
               onTap: (() {
-                 Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BidNotification()),
-            );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BidNotification()),
+                );
               }),
               child: Stack(
                 children: [
@@ -41,7 +67,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                       height: 17,
                       width: 17,
                       child: CircleAvatar(
-                        child: Text("1"),
+                        child: Text(counter.toString()),
                         backgroundColor: Colors.yellow,
                       ))
                 ],
@@ -80,21 +106,23 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 15.0),
           child: IconButton(
-            iconSize: 50,
-            onPressed: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => EditDetailsPage(),
-                ),
-              );
-            },
-            icon: Image(image: NetworkImage(userProfile.display.isEmpty
+              iconSize: 50,
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => EditDetailsPage(),
+                  ),
+                );
+              },
+              icon: Image(
+                image: NetworkImage(userProfile.display.isEmpty
                     ? "https://img.icons8.com/bubbles/50/000000/user.png"
-                    : userProfile.display),)
-            //Image.asset("assets/images/girlavatar.png"),
-            // const Icon(Icons.account_circle_outlined,
-            //     size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
-          ),
+                    : userProfile.display),
+              )
+              //Image.asset("assets/images/girlavatar.png"),
+              // const Icon(Icons.account_circle_outlined,
+              //     size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
+              ),
         )
       ],
     );
@@ -156,7 +184,7 @@ class dialogs {
     );
   }
 
-static Future errorDialog(
+  static Future errorDialog(
       BuildContext context, String title, String message) {
     message = TextFormatter.errorFormatter(text: message);
     return showDialog(
@@ -198,7 +226,6 @@ static Future errorDialog(
       },
     );
   }
-
 }
 
 class TextFormatter {

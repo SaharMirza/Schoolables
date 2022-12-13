@@ -8,7 +8,10 @@ abstract class BiddingRepository {
   addBid( String buyerid,
       String pid,
     String buyerName,
-      int bid);
+      int bid,
+      bool isAccepted,
+      bool isRejected);
+  updateBid(bool isAccepted,bool isRejected,String ID);
 }
 
 class FirebaseBiddingRepository implements BiddingRepository {
@@ -31,9 +34,11 @@ class FirebaseBiddingRepository implements BiddingRepository {
       String buyerid,
       String pid,
       String buyerName,
-      int bid) async {
+      int bid,
+      bool isAccepted,
+      bool isRejected) async {
     final data =
-        BiddingModel(bid: bid, buyerID: buyerid, productID: pid,buyerName: buyerName, id: '', )
+        BiddingModel(bid: bid, buyerID: buyerid, productID: pid,buyerName: buyerName, id: '', isAccepted: isAccepted, isRejected: isRejected, )
             .toJson();
     await db
         .collection("bidding")
@@ -44,5 +49,20 @@ class FirebaseBiddingRepository implements BiddingRepository {
         .catchError(
           (error) => print('Add failed: $error'),
         );
+  }
+
+  //updateProduct
+  @override
+  updateBid(
+      bool isAccepted,bool isRejected,String ID) async {
+    await db
+        .collection("bidding")
+        .doc(ID)
+        .update({
+          "isAccepted":isAccepted,
+          "isRejected":isRejected
+        })
+        .then((value) => print("Bid Updated"))
+        .catchError((error) => print("Failed to update: $error"));
   }
 }

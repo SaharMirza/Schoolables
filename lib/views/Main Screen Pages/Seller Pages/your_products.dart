@@ -25,14 +25,14 @@ class YourProductsPage extends StatefulWidget {
 }
 
 class _YourProductsPageState extends State<YourProductsPage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // context.read<CategoriesProvider>().fetchCategories();
-      context.read<ProductsProvider>().fetchProducts();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //     // context.read<CategoriesProvider>().fetchCategories();
+  //     context.read<ProductsProvider>().fetchProducts();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +80,7 @@ class _YourProductsPageState extends State<YourProductsPage> {
                         height: 20,
                       ),
                       ListView.builder(
+                        physics: ScrollPhysics(),
                           shrinkWrap: true,
                           // scrollDirection: Axis.horizontal,
                           itemCount: sellerProducts.length,

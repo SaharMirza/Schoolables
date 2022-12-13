@@ -30,6 +30,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+
 void main() async {
   //final UsersRepository userRepository;
 
@@ -130,6 +131,11 @@ class _MyHomePageState extends State<MyHomePage> {
         {
           Future.delayed(Duration.zero, () async {
             context.read<UserProvider>().loadUser(userAuth);
+            context.read<BiddingProvider>().fetchBids();
+            context.read<ProductsProvider>().fetchProducts();
+            context.read<ChildProvider>().fetchChildern();
+            context.read<CategoriesProvider>().fetchCategories();
+            context.read<UserProvider>().loadUsers();
           });
           return BottomNavBar();
         } else //if the user was logged out

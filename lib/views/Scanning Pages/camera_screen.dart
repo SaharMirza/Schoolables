@@ -53,6 +53,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
     setState(() {
       String text = recognisedText.text;
+      print(text);
       for (TextBlock block in recognisedText.blocks) {
         //each block of text/section of text
         final String text = block.text;
@@ -63,6 +64,7 @@ class _CameraScreenState extends State<CameraScreen> {
         }
       }
     });
+    print(result);
   }
 
 // picks image from gallery and calls image to text function

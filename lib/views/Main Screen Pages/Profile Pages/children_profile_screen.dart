@@ -25,14 +25,14 @@ class ChildernProfileScreen extends StatefulWidget {
 }
 
 class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
-  @override
+  // @override
 
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<ChildProvider>().fetchChildern();
-    });
-  }
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //     context.read<ChildProvider>().fetchChildern();
+  //   });
+  // }
 
   bool childernFetched = false;
   @override

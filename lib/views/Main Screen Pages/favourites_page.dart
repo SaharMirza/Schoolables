@@ -19,15 +19,15 @@ class CustomTabBarWidget extends StatefulWidget {
 }
 
 class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // context.read<CategoriesProvider>().fetchCategories();
-      context.read<ProductsProvider>().fetchProducts();
-      context.read<UserProvider>().loadUsers();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //     // context.read<CategoriesProvider>().fetchCategories();
+  //     context.read<ProductsProvider>().fetchProducts();
+  //     context.read<UserProvider>().loadUsers();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

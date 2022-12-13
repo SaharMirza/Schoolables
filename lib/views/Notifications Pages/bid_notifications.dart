@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/bidding_model.dart';
+import 'package:flutterdemo/models/product_model.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class BidNotification extends StatefulWidget {
   const BidNotification({super.key});
@@ -12,8 +19,32 @@ class BidNotification extends StatefulWidget {
 }
 
 class _BidNotificationState extends State<BidNotification> {
+  // bool categoriesFetched = false;
+  bool productsFetched = false;
+  List<BiddingModel> userProductsBids = [];
+  int i = 0;
   @override
   Widget build(BuildContext context) {
+    final products = context.read<ProductsProvider>().products;
+    final userAuth = Provider.of<UserAuth?>(context);
+    final bids = context.read<BiddingProvider>().bids;
+    List<ProductModel> userProducts = [];
+
+    //User Products
+    for (int i = 0; i < products.length; i++) {
+      if (products[i].sellerID == userAuth?.id) {
+        userProducts.add(products[i]);
+      }
+    }
+
+    //fetch bids on user's products
+    for (int i = 0; i < bids.length; i++) {
+      for (int j = 0; j < userProducts.length; j++) {
+        if (bids[i].productID == userProducts[j].id)
+          userProductsBids.add(bids[i]);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -23,15 +54,20 @@ class _BidNotificationState extends State<BidNotification> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [            
+          children: [
             ListView.builder(
-              physics: ScrollPhysics(),
+                physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 3,
+                itemCount: userProductsBids.length,
                 itemBuilder: (BuildContext context, int index) {
+                  i = index;
                   return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: NotificationCard(context));
+                      child: userProductsBids[index].isAccepted ||
+                              userProductsBids[index].isRejected
+                          ? null
+                          : NotificationCard(
+                              userProductsBids[index], userProducts, index));
                 }),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -58,7 +94,7 @@ class _BidNotificationState extends State<BidNotification> {
     );
   }
 
-  Card NotificationCard(BuildContext context) {
+  Widget NotificationCard(BiddingModel userProductsBids, userProducts, index) {
     return Card(
       elevation: 10,
       child: Column(
@@ -68,25 +104,31 @@ class _BidNotificationState extends State<BidNotification> {
                 backgroundColor: Colors.blueGrey,
               ),
               title: Text(
-                "Qiblatain",
+                userProductsBids.buyerName,
                 style: MyStyles.googleTextSubtitleListTile(18),
               ),
-              subtitle: BidSubtitle()),
+              subtitle: BidSubtitle(userProductsBids, userProducts)),
           blackLine(width: MediaQuery.of(context).size.width),
-          Deny_Accept_Button()
+          Deny_Accept_Button(userProductsBids.id, index)
         ],
       ),
     );
   }
 
-  Row Deny_Accept_Button() {
+  Widget Deny_Accept_Button(ID, index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              // print("BEFORE" + userProductsBids.length.toString());
+              context.read<BiddingProvider>().updateBid(false, true, ID);
+              // userProductsBids.remove(userProductsBids[index]);
+              // print("AFTER" + userProductsBids.length.toString());
+              // setState(() {});
+            },
             child: Text("Deny"),
             style: ElevatedButton.styleFrom(
                 shape: new RoundedRectangleBorder(
@@ -107,7 +149,9 @@ class _BidNotificationState extends State<BidNotification> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<BiddingProvider>().updateBid(true, false, ID);
+              },
               child: Text("Accept"),
               style: ElevatedButton.styleFrom(
                   shape: new RoundedRectangleBorder(
@@ -124,26 +168,37 @@ class _BidNotificationState extends State<BidNotification> {
     );
   }
 
-  RichText BidSubtitle() {
+  Widget BidSubtitle(BiddingModel userProductsBids, userProducts) {
+    //fetch product details for bidded product
+    getProductDetails() {
+      for (int i = 0; i < userProducts.length; i++) {
+        if (userProductsBids.productID == userProducts[i].id)
+          return userProducts[i];
+      }
+    }
+
     return RichText(
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
-              text: 'Has placed a bid of Rs. 500 on ',
+              text: 'Has placed a bid of Rs. ' +
+                  userProductsBids.bid.toString() +
+                  ' on ',
               style: TextStyle(color: Colors.black)),
           TextSpan(
-              text: 'Karwan - e -Urdu\n\n',
+              text: getProductDetails().title + '\n\n',
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: MyColors.buttonColor)),
           TextSpan(
-              text: 'Original Price: Rs. 600',
+              text:
+                  'Original Price: Rs. ' + getProductDetails().price.toString(),
               style: TextStyle(color: Colors.black)),
         ],
       ),
     );
   }
 
-  RichText AcceptedBidSubtitle() {
+  Widget AcceptedBidSubtitle() {
     return RichText(
       text: TextSpan(
         children: <TextSpan>[
