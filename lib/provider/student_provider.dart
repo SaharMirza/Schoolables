@@ -35,7 +35,8 @@ class UserProvider extends ChangeNotifier {
             products: userModel.products,
             wishListIDs: userModel.wishListIDs,
             rating: userModel.rating,
-            biddingIDs: userModel.biddingIDs);
+            biddingIDs: userModel.biddingIDs,
+            sellingbiddingIDs: userModel.sellingbiddingIDs);
 
         seller.id = doc.id;
         Users.add(seller);
@@ -107,7 +108,8 @@ class UserProvider extends ChangeNotifier {
             orderBuyer: user.orderBuyer,
             dob: user.dob,
             products: user.products,
-            biddingIDs: user.biddingIDs)
+            biddingIDs: user.biddingIDs,
+            sellingbiddingIDs: user.sellingbiddingIDs)
         .toJson());
     print("${user.email} saved in Firebase");
   }
@@ -119,14 +121,14 @@ class UserProvider extends ChangeNotifier {
       // Load User from Firebase to User Provider
       UserProfileModel userModel =
           UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
-      bidIDs = userModel.biddingIDs;
+      bidIDs = userModel.sellingbiddingIDs;
     });
     bidIDs.add(bid);
     // print(user.id);
     // Update User Profile in Firebase
     await firebaseUser
         .doc(sid)
-        .update({"biddingIDs": bidIDs})
+        .update({"sellingbiddingIDs": bidIDs})
         .then((value) => print("Bid Updated"))
         .catchError((error) => print("Failed to update: $error"));
     // print("${user.email} saved in Firebase");
@@ -150,6 +152,7 @@ class UserProvider extends ChangeNotifier {
             dob: user.dob,
             products: user.products,
             biddingIDs: user.biddingIDs,
+            sellingbiddingIDs: user.sellingbiddingIDs
           ).toJson(),
         );
     notifyListeners();
@@ -172,6 +175,7 @@ class UserProvider extends ChangeNotifier {
       user.dob = userModel.dob;
       user.products = userModel.products;
       user.biddingIDs = userModel.biddingIDs;
+      user.sellingbiddingIDs =userModel.sellingbiddingIDs;
     });
     notifyListeners();
   }

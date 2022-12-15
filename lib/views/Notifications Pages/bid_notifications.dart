@@ -22,24 +22,14 @@ class BidNotification extends StatefulWidget {
 
 class _BidNotificationState extends State<BidNotification> {
   bool productsFetched = false;
-  List<Bidding> userbids = [];
   List<Bidding> bids = [];
-  // List<BiddingModel> userProductsBids = [];
+
   int i = 0;
   @override
   Widget build(BuildContext context) {
     final List<Product> userProducts =
         context.watch<ProductsProvider>().userProducts;
-    final userAuth = Provider.of<UserAuth?>(context);
-    //selling bids
-    userbids = context.watch<BiddingProvider>().userBids;
-
-    for (int i = 0; i < userbids.length; i++) {
-      if (userbids[i].buyerID == userAuth?.id)
-        continue;
-      else
-        (bids.add(userbids[i]));
-    }
+    bids = context.watch<BiddingProvider>().userBids;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -51,41 +41,50 @@ class _BidNotificationState extends State<BidNotification> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ListView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: bids.length,
-                itemBuilder: (BuildContext context, int index) {
-                  i = index;
-                  return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: bids[index].isAccepted || bids[index].isRejected
-                          ? null
-                          : NotificationCard(bids[index], userProducts, index));
-                }),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 10,
-                child: Column(
-                  children: [
-                    ListTile(
-                        leading: const CircleAvatar(
-                          backgroundColor: Colors.blueGrey,
-                        ),
-                        title: Text(
-                          "Qiblatain",
-                          style: MyStyles.googleTextSubtitleListTile(18),
-                        ),
-                        subtitle: AcceptedBidSubtitle()),
-                  ],
-                ),
-              ),
-            )
+            bids.length == 0
+                ? Center(
+                    child: Container(
+                    child: Text("You Have no Notifications Yet."),
+                  ))
+                : notifcationList(userProducts),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Card(
+            //     elevation: 10,
+            //     child: Column(
+            //       children: [
+            //         ListTile(
+            //             leading: const CircleAvatar(
+            //               backgroundColor: Colors.blueGrey,
+            //             ),
+            //             title: Text(
+            //               "Qiblatain",
+            //               style: MyStyles.googleTextSubtitleListTile(18),
+            //             ),
+            //             subtitle: AcceptedBidSubtitle()),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
     );
+  }
+
+  ListView notifcationList(List<Product> userProducts) {
+    return ListView.builder(
+        physics: ScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: bids.length,
+        itemBuilder: (BuildContext context, int index) {
+          i = index;
+          return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: bids[index].isAccepted || bids[index].isRejected
+                  ? null
+                  : NotificationCard(bids[index], userProducts, index));
+        });
   }
 
   Widget NotificationCard(Bidding Bid, userProducts, index) {
@@ -117,13 +116,9 @@ class _BidNotificationState extends State<BidNotification> {
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
             onPressed: () {
-              // print("BEFORE" + userProductsBids.length.toString());
               context.read<BiddingProvider>().updateBid(false, true, ID);
               bids.remove(bids[index]);
               setState(() {});
-              // userProductsBids.remove(userProductsBids[index]);
-              // print("AFTER" + userProductsBids.length.toString());
-              // setState(() {});
             },
             child: Text("Deny"),
             style: ElevatedButton.styleFrom(

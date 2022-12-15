@@ -14,7 +14,7 @@ class UserProfile {
   List<String> orderSeller;
   List<String> wishListIDs;
   List<String> biddingIDs;
-
+  List<String> sellingbiddingIDs;
 
   UserProfile({
     required this.id,
@@ -31,5 +31,6 @@ class UserProfile {
     this.wishListIDs = const [""],
     this.products = const [""],
     this.biddingIDs =const[""],
+    this.sellingbiddingIDs =const[""],
   });
 }

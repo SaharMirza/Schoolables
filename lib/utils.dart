@@ -30,7 +30,7 @@ class _MyAppBarState extends State<MyAppBar> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-       List<String> bids = context.read<UserProvider>().user.biddingIDs;
+       List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
        context.read<BiddingProvider>().loadUserBids(bids);
     });
   }
@@ -44,7 +44,7 @@ class _MyAppBarState extends State<MyAppBar> {
     List<ProductModel> userProducts = [];
 
     for(int i=0; i<bids.length;i++){
-      if(bids[i].isAccepted == false && bids[i].isRejected == false&&(bids[i].buyerID!=userAuth?.id)){
+      if(bids[i].isAccepted == false && bids[i].isRejected == false){
         counter++;
       }
     }

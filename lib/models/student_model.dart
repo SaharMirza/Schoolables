@@ -14,6 +14,7 @@ class UserProfileModel {
   final List<String> orderBuyer;
   final List<String> wishListIDs;
   final  List<String> biddingIDs;
+  final List<String> sellingbiddingIDs;
   String rating = "0";
     late final String id;
 
@@ -30,7 +31,8 @@ class UserProfileModel {
       required this.products,
       required this.wishListIDs,
       required this.rating,
-      required this.biddingIDs,});
+      required this.biddingIDs,
+      required this.sellingbiddingIDs});
 
   static fromJson(Map<String, dynamic> json) {
     var firebaseData = [];
@@ -59,6 +61,11 @@ class UserProfileModel {
     firebaseData = json['biddingIDs'] ?? [];
     List<String> bidIDs = [];
     for (var id in firebaseData) bidIDs.add(id.toString().trim());
+    
+     // Convert List<dynamic> to List<String> for wishlist
+    firebaseData = json['sellingbiddingIDs'] ?? [];
+    List<String> sellbidIDs = [];
+    for (var id in firebaseData) sellbidIDs.add(id.toString().trim());
 
     return UserProfileModel(
         phone: json['phone'],
@@ -73,7 +80,8 @@ class UserProfileModel {
         products: products,
         wishListIDs: favIDs,
         biddingIDs: bidIDs,
-        rating: json['rating']);
+        rating: json['rating'], 
+        sellingbiddingIDs: sellbidIDs);
   }
 
   toJson() {
@@ -90,7 +98,8 @@ class UserProfileModel {
       "biddingIDs" : biddingIDs,
       'products': products,
       'dob': dob,
-      'rating': rating
+      'rating': rating,
+      "sellingbiddingIDs":sellingbiddingIDs
     };
   }
 }

@@ -50,8 +50,10 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
           isAccepted: false,
           isRejected: false);
       var bidid = await context.read<BiddingProvider>().addBid(bid);
+      //update user's biddingIDs
       context.read<UserProvider>().addNewBid(bidid);
       context.read<UserProvider>().saveChanges();
+      //update seller's sellingbiddingIDs
       Product product=await context.read<ProductsProvider>().getProductByID(widget.pid);
       String psellerID=product.sellerID;
        context.read<UserProvider>().updateSeller(psellerID, bidid);
