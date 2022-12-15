@@ -28,11 +28,13 @@ class _ProductsPageState extends State<ProductsPage> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            HeaderBar(title: widget.title),
-            MainBody(screenHeight, screenWidth),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              HeaderBar(title: widget.title),
+              MainBody(screenHeight, screenWidth),
+            ],
+          ),
         ),
       ),
     );
