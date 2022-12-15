@@ -74,12 +74,12 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  late GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  // late GoogleMapController mapController;
+  //
+  // final LatLng _center = const LatLng(45.521563, -122.677433);
+  //
+  // void _onMapCreated(GoogleMapController controller) {
+  //   mapController = controller;
   }
 
   // Widget build(BuildContext context) {
@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
   //     ),
   //   );
   // }
-}
+//}
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});

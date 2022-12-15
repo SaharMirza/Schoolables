@@ -42,7 +42,6 @@ class AreaModel{
       phone: json['phone'],
     );
   }
-
 }
 
 class LatitudeLongitudeModel{
