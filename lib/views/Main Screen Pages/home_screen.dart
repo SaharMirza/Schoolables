@@ -30,15 +30,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // context.read<CategoriesProvider>().fetchCategories();
-      context.read<ProductsProvider>().fetchProducts();
-    });
-  }
-
+ 
   bool categoriesFetched = false;
   bool productsFetched = false;
 //  bool categoriesFetched=false;

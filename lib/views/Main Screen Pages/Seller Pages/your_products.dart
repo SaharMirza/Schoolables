@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/models/product_model.dart';
@@ -30,21 +31,24 @@ class _YourProductsPageState extends State<YourProductsPage> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // context.read<CategoriesProvider>().fetchCategories();
-      context.read<ProductsProvider>().fetchProducts();
+      List<String> products = context.read<UserProvider>().user.products;
+      context.read<ProductsProvider>().loadUserProducts(products);
     });
   }
-
+   List<Product> sellerProducts=[];
+ bool fetching =false;
   @override
   Widget build(BuildContext context) {
-    final products = context.read<ProductsProvider>().products;
-    final userAuth = Provider.of<UserAuth?>(context);
+    // fetching = context.watch<ProductsProvider>().isProductFetching;
+    sellerProducts = context.watch<ProductsProvider>().userProducts;
+    // final userAuth = Provider.of<UserAuth?>(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    List<ProductModel> sellerProducts = [];
+    // List<ProductModel> sellerProducts = [];
 
-    for (int i = 0; i < products.length; i++) {
-      if (products[i].sellerID == userAuth?.id) sellerProducts.add(products[i]);
-    }
+    // for (int i = 0; i < products.length; i++) {
+    //   if (products[i].sellerID == userAuth?.id) sellerProducts.add(products[i]);
+    // }
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -80,6 +84,7 @@ class _YourProductsPageState extends State<YourProductsPage> {
                         height: 20,
                       ),
                       ListView.builder(
+                        physics: ScrollPhysics(),
                           shrinkWrap: true,
                           // scrollDirection: Axis.horizontal,
                           itemCount: sellerProducts.length,

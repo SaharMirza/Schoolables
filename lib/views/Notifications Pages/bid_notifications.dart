@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/bidding_entity.dart';
+import 'package:flutterdemo/Entities/products_entity.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/models/bidding_model.dart';
+import 'package:flutterdemo/models/product_model.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class BidNotification extends StatefulWidget {
   const BidNotification({super.key});
@@ -12,8 +21,16 @@ class BidNotification extends StatefulWidget {
 }
 
 class _BidNotificationState extends State<BidNotification> {
+  bool productsFetched = false;
+  List<Bidding> bids = [];
+
+  int i = 0;
   @override
   Widget build(BuildContext context) {
+    final List<Product> userProducts =
+        context.watch<ProductsProvider>().userProducts;
+    bids = context.watch<BiddingProvider>().userBids;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -23,42 +40,54 @@ class _BidNotificationState extends State<BidNotification> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [            
-            ListView.builder(
-              physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: NotificationCard(context));
-                }),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 10,
-                child: Column(
-                  children: [
-                    ListTile(
-                        leading: const CircleAvatar(
-                          backgroundColor: Colors.blueGrey,
-                        ),
-                        title: Text(
-                          "Qiblatain",
-                          style: MyStyles.googleTextSubtitleListTile(18),
-                        ),
-                        subtitle: AcceptedBidSubtitle()),
-                  ],
-                ),
-              ),
-            )
+          children: [
+            bids.length == 0
+                ? Center(
+                    child: Container(
+                    child: Text("You Have no Notifications Yet."),
+                  ))
+                : notifcationList(userProducts),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Card(
+            //     elevation: 10,
+            //     child: Column(
+            //       children: [
+            //         ListTile(
+            //             leading: const CircleAvatar(
+            //               backgroundColor: Colors.blueGrey,
+            //             ),
+            //             title: Text(
+            //               "Qiblatain",
+            //               style: MyStyles.googleTextSubtitleListTile(18),
+            //             ),
+            //             subtitle: AcceptedBidSubtitle()),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
     );
   }
 
-  Card NotificationCard(BuildContext context) {
+  ListView notifcationList(List<Product> userProducts) {
+    return ListView.builder(
+        physics: ScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: bids.length,
+        itemBuilder: (BuildContext context, int index) {
+          i = index;
+          return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: bids[index].isAccepted || bids[index].isRejected
+                  ? null
+                  : NotificationCard(bids[index], userProducts, index));
+        });
+  }
+
+  Widget NotificationCard(Bidding Bid, userProducts, index) {
     return Card(
       elevation: 10,
       child: Column(
@@ -68,25 +97,29 @@ class _BidNotificationState extends State<BidNotification> {
                 backgroundColor: Colors.blueGrey,
               ),
               title: Text(
-                "Qiblatain",
+                Bid.buyerName,
                 style: MyStyles.googleTextSubtitleListTile(18),
               ),
-              subtitle: BidSubtitle()),
+              subtitle: BidSubtitle(Bid, userProducts)),
           blackLine(width: MediaQuery.of(context).size.width),
-          Deny_Accept_Button()
+          Deny_Accept_Button(Bid.id, index)
         ],
       ),
     );
   }
 
-  Row Deny_Accept_Button() {
+  Widget Deny_Accept_Button(ID, index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<BiddingProvider>().updateBid(false, true, ID);
+              bids.remove(bids[index]);
+              setState(() {});
+            },
             child: Text("Deny"),
             style: ElevatedButton.styleFrom(
                 shape: new RoundedRectangleBorder(
@@ -107,7 +140,11 @@ class _BidNotificationState extends State<BidNotification> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<BiddingProvider>().updateBid(true, false, ID);
+                bids.remove(bids[index]);
+                setState(() {});
+              },
               child: Text("Accept"),
               style: ElevatedButton.styleFrom(
                   shape: new RoundedRectangleBorder(
@@ -124,26 +161,34 @@ class _BidNotificationState extends State<BidNotification> {
     );
   }
 
-  RichText BidSubtitle() {
+  Widget BidSubtitle(Bidding Bid, userProducts) {
+    //fetch product details for bidded product
+    getProductDetails() {
+      for (int i = 0; i < userProducts.length; i++) {
+        if (Bid.productID == userProducts[i].id) return userProducts[i];
+      }
+    }
+
     return RichText(
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
-              text: 'Has placed a bid of Rs. 500 on ',
+              text: 'Has placed a bid of Rs. ' + Bid.bid.toString() + ' on ',
               style: TextStyle(color: Colors.black)),
           TextSpan(
-              text: 'Karwan - e -Urdu\n\n',
+              text: getProductDetails().title + '\n\n',
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: MyColors.buttonColor)),
           TextSpan(
-              text: 'Original Price: Rs. 600',
+              text:
+                  'Original Price: Rs. ' + getProductDetails().price.toString(),
               style: TextStyle(color: Colors.black)),
         ],
       ),
     );
   }
 
-  RichText AcceptedBidSubtitle() {
+  Widget AcceptedBidSubtitle() {
     return RichText(
       text: TextSpan(
         children: <TextSpan>[

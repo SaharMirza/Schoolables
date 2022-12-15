@@ -9,11 +9,12 @@ class UserProfile {
   String display;
    String dob;
   String rating;
-  List<String> productIDs;
-  List<String> orderBuyerIDs;
-  List<String> orderSellerIDs;
+  List<String> products;
+  List<String> orderBuyer;
+  List<String> orderSeller;
   List<String> wishListIDs;
-
+  List<String> biddingIDs;
+  List<String> sellingbiddingIDs;
 
   UserProfile({
     required this.id,
@@ -25,9 +26,11 @@ class UserProfile {
     this.display = 'https://img.icons8.com/bubbles/50/000000/user.png',
     this.dob = '',
     this.rating = '',
-    this.orderBuyerIDs = const [""],
-    this.orderSellerIDs = const [""],
+    this.orderBuyer = const [""],
+    this.orderSeller = const [""],
     this.wishListIDs = const [""],
-    this.productIDs = const [""],
+    this.products = const [""],
+    this.biddingIDs =const[""],
+    this.sellingbiddingIDs =const[""],
   });
 }

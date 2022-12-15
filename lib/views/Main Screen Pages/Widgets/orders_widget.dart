@@ -619,15 +619,15 @@ class OrderDetailsCard extends StatefulWidget {
 }
 
 class _OrderDetailsCardState extends State<OrderDetailsCard> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // context.read<CategoriesProvider>().fetchCategories();
-      // context.read<ProductsProvider>().fetchProducts();
-      context.read<UserProvider>().loadUsers();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //     // context.read<CategoriesProvider>().fetchCategories();
+  //     // context.read<ProductsProvider>().fetchProducts();
+  //     context.read<UserProvider>().loadUsers();
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;

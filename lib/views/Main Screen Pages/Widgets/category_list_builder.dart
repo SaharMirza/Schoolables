@@ -15,14 +15,14 @@ class CatergoryListBuilder extends StatefulWidget {
 }
 
 class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<CategoriesProvider>().fetchCategories();
-      // context.read<ProductsProvider>().fetchProducts();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //     context.read<CategoriesProvider>().fetchCategories();
+  //     // context.read<ProductsProvider>().fetchProducts();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
