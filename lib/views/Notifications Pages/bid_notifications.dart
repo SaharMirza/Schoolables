@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/bidding_entity.dart';
+import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
@@ -19,30 +21,24 @@ class BidNotification extends StatefulWidget {
 }
 
 class _BidNotificationState extends State<BidNotification> {
-  // bool categoriesFetched = false;
   bool productsFetched = false;
-  List<BiddingModel> userProductsBids = [];
+  List<Bidding> userbids = [];
+  List<Bidding> bids = [];
+  // List<BiddingModel> userProductsBids = [];
   int i = 0;
   @override
   Widget build(BuildContext context) {
-    final products = context.read<ProductsProvider>().products;
+    final List<Product> userProducts =
+        context.watch<ProductsProvider>().userProducts;
     final userAuth = Provider.of<UserAuth?>(context);
-    final bids = context.read<BiddingProvider>().bids;
-    List<ProductModel> userProducts = [];
+    //selling bids
+    userbids = context.watch<BiddingProvider>().userBids;
 
-    //User Products
-    for (int i = 0; i < products.length; i++) {
-      if (products[i].sellerID == userAuth?.id) {
-        userProducts.add(products[i]);
-      }
-    }
-
-    //fetch bids on user's products
-    for (int i = 0; i < bids.length; i++) {
-      for (int j = 0; j < userProducts.length; j++) {
-        if (bids[i].productID == userProducts[j].id)
-          userProductsBids.add(bids[i]);
-      }
+    for (int i = 0; i < userbids.length; i++) {
+      if (userbids[i].buyerID == userAuth?.id)
+        continue;
+      else
+        (bids.add(userbids[i]));
     }
 
     return Scaffold(
@@ -58,16 +54,14 @@ class _BidNotificationState extends State<BidNotification> {
             ListView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: userProductsBids.length,
+                itemCount: bids.length,
                 itemBuilder: (BuildContext context, int index) {
                   i = index;
                   return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: userProductsBids[index].isAccepted ||
-                              userProductsBids[index].isRejected
+                      child: bids[index].isAccepted || bids[index].isRejected
                           ? null
-                          : NotificationCard(
-                              userProductsBids[index], userProducts, index));
+                          : NotificationCard(bids[index], userProducts, index));
                 }),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -94,7 +88,7 @@ class _BidNotificationState extends State<BidNotification> {
     );
   }
 
-  Widget NotificationCard(BiddingModel userProductsBids, userProducts, index) {
+  Widget NotificationCard(Bidding Bid, userProducts, index) {
     return Card(
       elevation: 10,
       child: Column(
@@ -104,12 +98,12 @@ class _BidNotificationState extends State<BidNotification> {
                 backgroundColor: Colors.blueGrey,
               ),
               title: Text(
-                userProductsBids.buyerName,
+                Bid.buyerName,
                 style: MyStyles.googleTextSubtitleListTile(18),
               ),
-              subtitle: BidSubtitle(userProductsBids, userProducts)),
+              subtitle: BidSubtitle(Bid, userProducts)),
           blackLine(width: MediaQuery.of(context).size.width),
-          Deny_Accept_Button(userProductsBids.id, index)
+          Deny_Accept_Button(Bid.id, index)
         ],
       ),
     );
@@ -125,6 +119,8 @@ class _BidNotificationState extends State<BidNotification> {
             onPressed: () {
               // print("BEFORE" + userProductsBids.length.toString());
               context.read<BiddingProvider>().updateBid(false, true, ID);
+              bids.remove(bids[index]);
+              setState(() {});
               // userProductsBids.remove(userProductsBids[index]);
               // print("AFTER" + userProductsBids.length.toString());
               // setState(() {});
@@ -151,6 +147,8 @@ class _BidNotificationState extends State<BidNotification> {
           child: ElevatedButton(
               onPressed: () {
                 context.read<BiddingProvider>().updateBid(true, false, ID);
+                bids.remove(bids[index]);
+                setState(() {});
               },
               child: Text("Accept"),
               style: ElevatedButton.styleFrom(
@@ -168,12 +166,11 @@ class _BidNotificationState extends State<BidNotification> {
     );
   }
 
-  Widget BidSubtitle(BiddingModel userProductsBids, userProducts) {
+  Widget BidSubtitle(Bidding Bid, userProducts) {
     //fetch product details for bidded product
     getProductDetails() {
       for (int i = 0; i < userProducts.length; i++) {
-        if (userProductsBids.productID == userProducts[i].id)
-          return userProducts[i];
+        if (Bid.productID == userProducts[i].id) return userProducts[i];
       }
     }
 
@@ -181,9 +178,7 @@ class _BidNotificationState extends State<BidNotification> {
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
-              text: 'Has placed a bid of Rs. ' +
-                  userProductsBids.bid.toString() +
-                  ' on ',
+              text: 'Has placed a bid of Rs. ' + Bid.bid.toString() + ' on ',
               style: TextStyle(color: Colors.black)),
           TextSpan(
               text: getProductDetails().title + '\n\n',

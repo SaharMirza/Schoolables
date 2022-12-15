@@ -13,6 +13,7 @@ class UserProfileModel {
   final List<String> orderSeller;
   final List<String> orderBuyer;
   final List<String> wishListIDs;
+  final  List<String> biddingIDs;
   String rating = "0";
     late final String id;
 
@@ -28,30 +29,36 @@ class UserProfileModel {
       required this.orderSeller,
       required this.products,
       required this.wishListIDs,
-      required this.rating});
+      required this.rating,
+      required this.biddingIDs,});
 
   static fromJson(Map<String, dynamic> json) {
     var firebaseData = [];
 
     // Convert List<dynamic> to List<String> for products
-    firebaseData = json['productIDs'] ?? [];
-    List<String> productIDs = [];
-    for (var id in firebaseData) productIDs.add(id.toString().trim());
+    firebaseData = json['products'] ?? [];
+    List<String> products = [];
+    for (var id in firebaseData) products.add(id.toString().trim());
 
-    // Convert List<dynamic> to List<String> for orderBuyerIDs
-    firebaseData = json['orderBuyerIDs'] ?? [];
-    List<String> orderBuyerIDs = [];
-    for (var id in firebaseData) orderBuyerIDs.add(id.toString().trim());
+    // Convert List<dynamic> to List<String> for orderBuyer
+    firebaseData = json['orderBuyer'] ?? [];
+    List<String> orderBuyer = [];
+    for (var id in firebaseData) orderBuyer.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for sellerBuyerIDs
-    firebaseData = json['sellerBuyerIDs'] ?? [];
-    List<String> orderSellerIDs = [];
-    for (var id in firebaseData) orderSellerIDs.add(id.toString().trim());
+    firebaseData = json['sellerBuyer'] ?? [];
+    List<String> orderSeller = [];
+    for (var id in firebaseData) orderSeller.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for wishlist
     firebaseData = json['wishlistIDs'] ?? [];
     List<String> favIDs = [];
     for (var id in firebaseData) favIDs.add(id.toString().trim());
+
+     // Convert List<dynamic> to List<String> for wishlist
+    firebaseData = json['biddingIDs'] ?? [];
+    List<String> bidIDs = [];
+    for (var id in firebaseData) bidIDs.add(id.toString().trim());
 
     return UserProfileModel(
         phone: json['phone'],
@@ -61,10 +68,11 @@ class UserProfileModel {
         grade: json['grade'],
         display: json['display'],
         dob: json['dob'],
-        orderBuyer: orderBuyerIDs,
-        orderSeller: orderSellerIDs,
-        products: productIDs,
+        orderBuyer: orderBuyer,
+        orderSeller: orderSeller,
+        products: products,
         wishListIDs: favIDs,
+        biddingIDs: bidIDs,
         rating: json['rating']);
   }
 
@@ -76,10 +84,11 @@ class UserProfileModel {
       'schoolName': schoolName,
       'grade': grade,
       'display': display,
-      'orderBuyerIDs': orderBuyer,
-      'orderSellerIDs': orderSeller,
+      'orderBuyer': orderBuyer,
+      'orderSeller': orderSeller,
       'wishlistIDs': wishListIDs,
-      'productIDs': products,
+      "biddingIDs" : biddingIDs,
+      'products': products,
       'dob': dob,
       'rating': rating
     };

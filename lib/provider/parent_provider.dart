@@ -63,8 +63,8 @@ class ParentProvider extends ChangeNotifier {
           email: parent.email,
           phone: parent.phone,
           name: parent.name,         
-          orderSeller: parent.orderSellerIDs,
-          products: parent.productIDs,
+          orderSeller: parent.orderSeller,
+          products: parent.products,
         ).toJson());
     print("${parent.email} saved in Firebase");
   }
@@ -77,8 +77,8 @@ class ParentProvider extends ChangeNotifier {
   //           email: parent.email,
   //           name: parent.name,
   //           phone: parent.phone,           
-  //           orderSeller: parent.orderSellerIDs,
-  //           products: parent.productIDs,
+  //           orderSeller: parent.orderSeller,
+  //           products: parent.products,
   //         ).toJson(),
   //       );
   //   notifyListeners();
@@ -96,10 +96,10 @@ class ParentProvider extends ChangeNotifier {
       // parent.display = parentModel.display;
       // parent.rating = parentModel.rating;
       // parent.wishListIDs = parentModel.wishListIDs;
-      parent.orderSellerIDs = parent.orderSellerIDs;
-      // parent.orderBuyerIDs = parent.orderBuyerIDs;
+      parent.orderSeller = parent.orderSeller;
+      // parent.orderBuyer = parent.orderBuyer;
       // parent.dob = parent.dob;
-      parent.productIDs = parent.productIDs;
+      parent.products = parent.products;
     });
     saveChanges();
     notifyListeners();

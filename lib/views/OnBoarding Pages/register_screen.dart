@@ -28,19 +28,22 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     // final userProfile = context.watch<UserProvider>().userProfile;
- 
+
     void Register() async {
       // Signup Using Email and Password
       dynamic result = await _auth.registerWithEmailAndPassword(
           _emailController.text, _passwordController.text);
       // Check if result is of type UserProfile
       if (result is UserAuth) {
-        if(widget.role=="Stduent"){
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const TellUsMore()));}else{
-                 Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const TellUsMoreParent()));
-            }
+        if (widget.role == "Student") {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const TellUsMore()));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TellUsMoreParent()));
+        }
       } else {
         // Show error
         dialogs.errorToast(

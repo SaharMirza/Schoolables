@@ -30,7 +30,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-
 void main() async {
   //final UsersRepository userRepository;
 
@@ -50,13 +49,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ChildProvider()),
         ChangeNotifierProvider(create: (_) => BiddingProvider())
       ],
-      child:  MyApp(),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -74,6 +73,7 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
   late GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
@@ -114,6 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final userAuth = Provider.of<UserAuth?>(context);
+    // List<String> products = context.read<UserProvider>().user.products;
+    // List<String> bids = context.read<UserProvider>().user.biddingIDs;
     return Scaffold(
         body: StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -129,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         } else if (snapshot.hasData) //if the user was logged in
         {
-          Future.delayed(Duration.zero, () async {
+          Future.delayed(const Duration(seconds: 1), () async {
             context.read<UserProvider>().loadUser(userAuth);
             context.read<BiddingProvider>().fetchBids();
             context.read<ProductsProvider>().fetchProducts();

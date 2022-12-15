@@ -14,33 +14,57 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 
+  @override
+  State<MyAppBar> createState() => _MyAppBarState();
+  
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize =>  const Size.fromHeight(60);
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+    @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+       List<String> bids = context.read<UserProvider>().user.biddingIDs;
+       context.read<BiddingProvider>().loadUserBids(bids);
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     int counter = 0;
     final products = context.read<ProductsProvider>().products;
     final userAuth = Provider.of<UserAuth?>(context);
-    final bids = context.read<BiddingProvider>().bids;
+    final bids = context.watch<BiddingProvider>().userBids;
     List<ProductModel> userProducts = [];
 
-    //User Products
-    for (int i = 0; i < products.length; i++) {
-      if (products[i].sellerID == userAuth?.id) {
-        userProducts.add(products[i]);
+    for(int i=0; i<bids.length;i++){
+      if(bids[i].isAccepted == false && bids[i].isRejected == false&&(bids[i].buyerID!=userAuth?.id)){
+        counter++;
       }
     }
 
-    //fetch bids on user's products
-    for (int i = 0; i < bids.length; i++) {
-      for (int j = 0; j < userProducts.length; j++) {
-        if (bids[i].productID == userProducts[j].id &&
-            (bids[i].isAccepted == false && bids[i].isRejected == false)) {
-          counter++;
-        }
-      }
-    }
+    // //User Products
+    // for (int i = 0; i < products.length; i++) {
+    //   if (products[i].sellerID == userAuth?.id) {
+    //     userProducts.add(products[i]);
+    //   }
+    // }
+
+    // //fetch bids on user's products
+    // for (int i = 0; i < bids.length; i++) {
+    //   for (int j = 0; j < userProducts.length; j++) {
+    //     if (bids[i].productID == userProducts[j].id &&
+    //         (bids[i].isAccepted == false && bids[i].isRejected == false)) {
+    //       counter++;
+    //     }
+    //   }
+    // }
 
     final userProfile = context.watch<UserProvider>().userProfile;
     return AppBar(

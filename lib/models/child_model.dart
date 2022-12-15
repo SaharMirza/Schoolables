@@ -19,10 +19,10 @@ class ChildProfileModel {
 
   static ChildProfileModel fromJson(Map<String, dynamic> json, String id) {
     var firebaseData = [];
-    // Convert List<dynamic> to List<String> for orderBuyerIDs
-    firebaseData = json['orderBuyerIDs'] ?? [];
-    List<String> orderBuyerIDs = [];
-    for (var id in firebaseData) orderBuyerIDs.add(id.toString().trim());
+    // Convert List<dynamic> to List<String> for orderBuyer
+    firebaseData = json['orderBuyer'] ?? [];
+    List<String> orderBuyer = [];
+    for (var id in firebaseData) orderBuyer.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for wishlist
     firebaseData = json['wishlistIDs'] ?? [];
@@ -34,7 +34,7 @@ class ChildProfileModel {
         schoolName: json['schoolName'],
         grade: json['grade'],
         display: json['display'],
-        orderBuyer: orderBuyerIDs,
+        orderBuyer: orderBuyer,
         wishListIDs: favIDs,
          parentID: json['parentID']);
   }

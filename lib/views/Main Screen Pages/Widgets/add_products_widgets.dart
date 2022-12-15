@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/products_entity.dart';
+import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
@@ -206,12 +208,34 @@ class _AddProductFieldsState extends State<AddProductFields> {
     final TextEditingController _titleController = TextEditingController();
     final TextEditingController _priceController = TextEditingController();
 
+    void saveMyProduct() async {
+      var product = Product(
+          sellerID: userProfile.id,
+          title: _titleController.text,
+          price: int.parse(_priceController.text),
+          images: images,
+          category: _currentCategory,
+          subCategory: _currentSubCategory,
+          condition: _currentConditon);
+      var productid =
+          await context.read<ProductsProvider>().addProduct(product);
+      context.read<UserProvider>().addNewProduct(productid);
+      context.read<UserProvider>().saveChanges();
+      // context.read<ProductsProvider>().fetchProducts();
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => BottomNavBar(),
+        ),
+      );
+    }
+
     return Container(
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: FormTextField(
+            child:
+             FormTextField(
                 FieldLabel: "Title",
                 hintText: "Title",
                 controller: _titleController),
@@ -306,20 +330,21 @@ class _AddProductFieldsState extends State<AddProductFields> {
               child: ElevatedButton(
                 onPressed: () async {
                   print(_currentConditon);
-                  context.read<ProductsProvider>().addProduct(
-                      _titleController.text,
-                      userProfile.id,
-                      images,
-                      _currentCategory,
-                      _currentSubCategory,
-                      _currentConditon,
-                      int.parse(_priceController.text));
-                  context.read<ProductsProvider>().fetchProducts();
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => BottomNavBar(),
-                    ),
-                  );
+                  saveMyProduct();
+                  // context.read<ProductsProvider>().addProduct(
+                  //     _titleController.text,
+                  //     userProfile.id,
+                  //     images,
+                  //     _currentCategory,
+                  //     _currentSubCategory,
+                  //     _currentConditon,
+                  //     int.parse(_priceController.text));
+                  // context.read<ProductsProvider>().fetchProducts();
+                  // await Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BottomNavBar(),
+                  //   ),
+                  // );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

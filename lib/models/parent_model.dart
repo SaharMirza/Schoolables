@@ -17,21 +17,21 @@ class ParentProfileModel {
     var firebaseData = [];
 
     // Convert List<dynamic> to List<String> for products
-    firebaseData = json['productIDs'] ?? [];
-    List<String> productIDs = [];
-    for (var id in firebaseData) productIDs.add(id.toString().trim());
+    firebaseData = json['products'] ?? [];
+    List<String> products = [];
+    for (var id in firebaseData) products.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for sellerBuyerIDs
     firebaseData = json['sellerBuyerIDs'] ?? [];
-    List<String> orderSellerIDs = [];
-    for (var id in firebaseData) orderSellerIDs.add(id.toString().trim());
+    List<String> orderSeller = [];
+    for (var id in firebaseData) orderSeller.add(id.toString().trim());
 
     return ParentProfileModel(
       phone: json['phone'],
       email: json['email'],
       name: json['name'],
-      orderSeller: orderSellerIDs,
-      products: productIDs,
+      orderSeller: orderSeller,
+      products: products,
     );
   }
 
@@ -40,8 +40,8 @@ class ParentProfileModel {
       'email': email,
       'phone': phone,
       'name': name,
-      'orderSellerIDs': orderSeller,
-      'productIDs': products,
+      'orderSeller': orderSeller,
+      'products': products,
     };
   }
 }

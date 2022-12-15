@@ -1,5 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
+import 'package:flutterdemo/provider/categories_provider.dart';
+import 'package:flutterdemo/provider/child_provider.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
@@ -10,7 +15,6 @@ import 'package:flutterdemo/views/Scanning%20Pages/scan_history.dart';
 import 'package:provider/provider.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 
-
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
@@ -19,7 +23,6 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -39,11 +42,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 
+  List<String> products = [];
+  List<String> bids = [];
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-      
 
     return Scaffold(
       backgroundColor: Colors.white,

@@ -3,8 +3,8 @@ class ParentProfile {
    String email;
   String name;
   String phone;
-  List<String> productIDs;
-  List<String> orderSellerIDs;
+  List<String> products;
+  List<String> orderSeller;
 
 
   ParentProfile({
@@ -12,7 +12,7 @@ class ParentProfile {
     required this.email,
     this.phone="",
     this.name = '',
-    this.orderSellerIDs = const [""],
-    this.productIDs = const [""],
+    this.orderSeller = const [""],
+    this.products = const [""],
   });
 }

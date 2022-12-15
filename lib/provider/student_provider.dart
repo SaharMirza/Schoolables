@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/models/user_model.dart';
+import 'package:flutterdemo/models/student_model.dart';
 
 // Provider for User Collection
 class UserProvider extends ChangeNotifier {
@@ -16,7 +16,7 @@ class UserProvider extends ChangeNotifier {
       FirebaseFirestore.instance.collection('users');
 
   UserProfile get userProfile => user;
-  // String id = FirebaseAuth.instance.currentUser!.uid;
+
   Future<void> loadUsers() async {
     await firebaseUser.get().then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
@@ -34,7 +34,8 @@ class UserProvider extends ChangeNotifier {
             orderSeller: userModel.orderSeller,
             products: userModel.products,
             wishListIDs: userModel.wishListIDs,
-            rating: userModel.rating);
+            rating: userModel.rating,
+            biddingIDs: userModel.biddingIDs);
 
         seller.id = doc.id;
         Users.add(seller);
@@ -94,20 +95,41 @@ class UserProvider extends ChangeNotifier {
     print(user.id);
     // Update User Profile in Firebase
     await firebaseUser.doc(user.id).set(UserProfileModel(
-          email: user.email,
-          phone: user.phone,
-          name: user.name,
-          schoolName: user.schoolName,
-          grade: user.grade,
-          display: user.display,
-          rating: user.rating,
-          wishListIDs: user.wishListIDs,
-          orderSeller: user.orderSellerIDs,
-          orderBuyer: user.orderBuyerIDs,
-          dob: user.dob,
-          products: user.productIDs,
-        ).toJson());
+            email: user.email,
+            phone: user.phone,
+            name: user.name,
+            schoolName: user.schoolName,
+            grade: user.grade,
+            display: user.display,
+            rating: user.rating,
+            wishListIDs: user.wishListIDs,
+            orderSeller: user.orderSeller,
+            orderBuyer: user.orderBuyer,
+            dob: user.dob,
+            products: user.products,
+            biddingIDs: user.biddingIDs)
+        .toJson());
     print("${user.email} saved in Firebase");
+  }
+
+//update seller biddingIDS
+  void updateSeller(sid, bid) async {
+    List<String> bidIDs = [];
+    await firebaseUser.doc(sid).get().then((doc) {
+      // Load User from Firebase to User Provider
+      UserProfileModel userModel =
+          UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
+      bidIDs = userModel.biddingIDs;
+    });
+    bidIDs.add(bid);
+    // print(user.id);
+    // Update User Profile in Firebase
+    await firebaseUser
+        .doc(sid)
+        .update({"biddingIDs": bidIDs})
+        .then((value) => print("Bid Updated"))
+        .catchError((error) => print("Failed to update: $error"));
+    // print("${user.email} saved in Firebase");
   }
 
   //Add a new User
@@ -123,10 +145,11 @@ class UserProvider extends ChangeNotifier {
             display: user.display,
             rating: user.rating,
             wishListIDs: user.wishListIDs,
-            orderSeller: user.orderSellerIDs,
-            orderBuyer: user.orderBuyerIDs,
+            orderSeller: user.orderSeller,
+            orderBuyer: user.orderBuyer,
             dob: user.dob,
-            products: user.productIDs,
+            products: user.products,
+            biddingIDs: user.biddingIDs,
           ).toJson(),
         );
     notifyListeners();
@@ -144,12 +167,12 @@ class UserProvider extends ChangeNotifier {
       user.display = userModel.display;
       user.rating = userModel.rating;
       user.wishListIDs = userModel.wishListIDs;
-      user.orderSellerIDs = user.orderSellerIDs;
-      user.orderBuyerIDs = user.orderBuyerIDs;
-      user.dob = user.dob;
-      user.productIDs = user.productIDs;
+      user.orderSeller = userModel.orderSeller;
+      user.orderBuyer = userModel.orderBuyer;
+      user.dob = userModel.dob;
+      user.products = userModel.products;
+      user.biddingIDs = userModel.biddingIDs;
     });
-    saveChanges();
     notifyListeners();
   }
 
@@ -169,16 +192,29 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void addNewOrder(orderid) {
-  //   List<String> ids = [];
-  //   for (var id in user.orderHistoryIDs) {
-  //     ids.add(id);
-  //   }
-  //   // remove blank address initially
-  //   // ids.remove("");
-  //   ids.add(orderid);
-  //   user.orderHistoryIDs = ids;
-  //   print("added new Order $orderid");
-  //   notifyListeners();
-  // }
+  void addNewProduct(productid) {
+    List<String> ids = [];
+    for (var id in user.products) {
+      ids.add(id);
+    }
+    // remove blank address initially
+    // ids.remove("");
+    ids.add(productid);
+    user.products = ids;
+    print("added new Product $productid");
+    notifyListeners();
+  }
+
+  void addNewBid(bidid) {
+    List<String> ids = [];
+    for (var id in user.biddingIDs) {
+      ids.add(id);
+    }
+    // remove blank address initially
+    // ids.remove("");
+    ids.add(bidid);
+    user.biddingIDs = ids;
+    print("added new Bid $bidid");
+    notifyListeners();
+  }
 }
