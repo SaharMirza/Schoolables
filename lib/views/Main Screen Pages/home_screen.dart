@@ -103,9 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //searchbar
-              SearchBar(width: screenWidth * 0.60, screenHeight: screenHeight),
+              SearchBar(width: screenWidth * 0.70, screenHeight: screenHeight),
               //filtericon
-              const FilterWidget(),
+              // const FilterWidget(),
               const MapWidget()
             ],
           ),
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             pid:   products[i].id,
                             name:  products[i].title,
                             price: products[i].price.toString(),
-                            image: "",
+                            image: products[i].images[0],
                             isFav: getFav(products[i].id)),
                   ],
           ),

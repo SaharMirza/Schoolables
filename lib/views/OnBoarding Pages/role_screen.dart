@@ -127,12 +127,12 @@ class ChoiceButton extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const MainLoginScreen(role:"Student")),
               );
             }
-            if (title == "Parent") {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainLoginScreen(role:"Parent")),
-              );
-            }
+            // if (title == "Parent") {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => const MainLoginScreen(role:"Parent")),
+            //   );
+            // }
           },
           style: ElevatedButton.styleFrom(
             elevation: 10,

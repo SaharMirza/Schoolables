@@ -75,7 +75,7 @@ class _ProductCardState extends State<ProductCard> {
                     color: Color.fromARGB(255, 179, 150, 180),
                     child: widget.image.isEmpty
                         ? Image.network('https://static.thenounproject.com/png/3674270-200.png')
-                        : Image.asset(widget.image),
+                        : Image.network(widget.image),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

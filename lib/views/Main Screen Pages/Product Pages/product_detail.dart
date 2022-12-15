@@ -27,22 +27,11 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
-  //     // context.read<CategoriesProvider>().fetchCategories();
-  //     context.read<BiddingProvider>().fetchBids();
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     final bids = context.watch<BiddingProvider>().bids;
     List<BiddingModel> bid = [];
-    // void sortBids() {
-    //   bids.sort(((a, b) => a.bid.compareTo(b.bid)));
-    // }
 
     getbids() {
       for (int i = 0; i < bids.length; i++) {
@@ -50,7 +39,6 @@ class _ProductDetailState extends State<ProductDetail> {
           bid.add(bids[i]);
         }
       }
-      // sortBids();
     }
 
     return Center(
