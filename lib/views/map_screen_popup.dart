@@ -26,20 +26,20 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
     super.initState();
     product_controller = TextEditingController();
     getLocations();
-    print(" Hello");
-    print(areaList);
-    print(locationList);
+    //print(" Hello");
+    //print(areaList);
+    //print(locationList);
   }
 
   Future getLocations() async {
-    print("getlocations");
+//    print("getlocations");
     //locationList= context.read<LocationProvider>().locationList;
     await Provider.of<LocationProvider>(context, listen: false).getLocation();
      locationList = Provider.of<LocationProvider>(context, listen: false)
          .locationList;
-     print("get locations 2");
+  //   print("get locations 2");
     for (var area in locationList) {
-      print("1");
+    //  print("1");
       areaList.add(area.areaName);
     }
   }
@@ -115,7 +115,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                 TextButton(
                   style:
                   TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
-                  child: Text('Continue'),
+                  child: Text('Continue', style: TextStyle(color: Colors.black)),
                   onPressed: () {
                     if (selectedIndex == 0) {
                       showDialog(
@@ -143,7 +143,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 18.0),
                                         child: Text('OK',
-                                            style: GoogleFonts.reemKufi(
+                                            style: GoogleFonts.poppins(
                                                 color: Colors.black,
                                                 fontSize:
                                                 screenHeight *
@@ -181,7 +181,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                 TextButton(
                   style:
                   TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
-                  child: Text('Cancel'),
+                  child: Text('Cancel', style: TextStyle(color: Colors.black)),
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                       context,
