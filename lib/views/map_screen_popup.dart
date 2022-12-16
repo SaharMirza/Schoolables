@@ -148,14 +148,15 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                                                     0.03)),
                                       ),
                                       onPressed: () {
-                                        Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                MapScreenPopUp(),
-                                          ),
-                                              (route) => false,
-                                        );
+                                        // Navigator.pushAndRemoveUntil(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (BuildContext context) =>
+                                        //         MapScreenPopUp(),
+                                        //   ),
+                                        //       (route) => false,
+                                        // );
+                                        Navigator.pop(context);
                                       },
                                     ),
                                   ],
@@ -181,13 +182,14 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                   TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
                   child: Text('Cancel', style: TextStyle(color: Colors.black)),
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const MapScreenPopUp(),
-                      ),
-                          (route) => false,
-                    );
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (BuildContext context) => const MapScreenPopUp(),
+                    //   ),
+                    //       (route) => false,
+                    // );
+                    Navigator.pop(context);
                   },
                 ),
               ],
