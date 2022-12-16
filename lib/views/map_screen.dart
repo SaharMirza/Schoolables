@@ -12,8 +12,12 @@
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:flutterdemo/views/locations.dart' as locations;
 //
+// import '../Entities/location_entity.dart';
+//
 // class MapScreen extends StatefulWidget {
-//   const MapScreen({Key? key}) : super(key: key);
+//   final Location selectedLocation;
+//
+//   const MapScreen({Key? key,required this.selectedLocation}) : super(key: key);
 //
 //   @override
 //   State<MapScreen> createState() => _MapScreenState();
