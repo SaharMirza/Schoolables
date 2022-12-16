@@ -14,7 +14,7 @@ class LocationProvider extends ChangeNotifier {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         // print(LocationModel.fromJson(doc.data() as Map<String, dynamic>).toString());
-        // print(doc);
+         print(doc.id);
         LocationModel locations =
         LocationModel.fromJson(doc.data() as Map<String, dynamic>);
         LatitudeLongitude latlong = LatitudeLongitude(
