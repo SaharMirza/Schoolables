@@ -30,16 +30,13 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
   }
 
   Future getLocations() async {
-    // print("111");
+    print("111");
     await Provider.of<LocationProvider>(context, listen: false).getLocation();
     //await context.read<LocationProvider>().getLocation();
-    // print("222");
-    locationList = Provider
-        .of<LocationProvider>(context, listen: false)
-        .locationList;
+    print("222");
+    locationList = Provider.of<LocationProvider>(context, listen: false).locationList;
     //locationList = context.watch<LocationProvider>().locationList;
-    // print("333");
-    //print(locationList[1].areaName);
+    print("333");
     for (var area in locationList) {
       areaList.add(area.areaName);
     }
@@ -52,25 +49,19 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    final double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: AlertDialog(
+      body:  AlertDialog(
         backgroundColor: MyColors.startColor,
-        title: const Text('Select your area'),
+            title: const Text('Select your area'),
         actions: <Widget>[
           Padding(
             padding:
             EdgeInsets.all(8),
             child: Container(
-              decoration: const BoxDecoration(
+              decoration:const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 color: Color(0xffDADBC6),
               ),
@@ -86,7 +77,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                     value: dropdownValue,
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     icon: const Icon(Icons.arrow_downward_sharp),
-                    onTap: () {
+                    onTap:() {
                       print(areaList.toString());
                       print(areaList.length);
                     },
@@ -122,8 +113,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                 TextButton(
                   style:
                   TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
-                  child: Text(
-                      'Continue', style: TextStyle(color: Colors.black)),
+                  child: Text('Continue', style: TextStyle(color: Colors.black)),
                   onPressed: () {
                     if (selectedIndex == 0) {
                       showDialog(
@@ -134,7 +124,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                             backgroundColor: const Color(0xff283618),
                             title: Column(
                               children: [
-                                Text('Area not selected'),
+                               Text('Area not selected'),
                               ],
                             ),
                             actions: <Widget>[
@@ -179,10 +169,9 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                MapDemo(
-                                    selectedLocation:
-                                    locationList[selectedIndex - 1]),
+                            builder: (context) => MapDemo(
+                                selectedLocation:
+                                locationList[selectedIndex - 1]),
                           ));
                     }
                   },
@@ -195,8 +184,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (
-                            BuildContext context) => const MapScreenPopUp(),
+                        builder: (BuildContext context) => const MapScreenPopUp(),
                       ),
                           (route) => false,
                     );

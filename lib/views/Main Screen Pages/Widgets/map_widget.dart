@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/views/map_screen.dart';
 import 'package:flutterdemo/views/map_screen_popup.dart';
 
 class MapWidget extends StatelessWidget {
@@ -18,8 +20,7 @@ class MapWidget extends StatelessWidget {
              Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) =>
-                         const MapScreenPopUp()),
-                        // const MapScreen()),
+                        const MapScreenPopUp()),
               );
           },
           child: Icon(
