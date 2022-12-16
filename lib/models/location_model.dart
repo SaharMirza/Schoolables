@@ -12,9 +12,20 @@ class LocationModel{
   static LocationModel fromJson(Map<String, dynamic> json) {
     return LocationModel(
       areaName: json['area_name'],
-      areaLocation: LatitudeLongitudeModel.fromJson(json['coords'] as Map<String, dynamic>),
-      areas: (json['areas'] as List).map((e) => AreaModel.fromJson(e as Map<String, dynamic>)).toList(),
+      //areaLocation: LatitudeLongitudeModel.fromJson(json['coords'] as Map<String, dynamic>),
+      //areas: (json['areas'] as List).map((e) => AreaModel.fromJson(e as Map<String, dynamic>)).toList(),
+      areaLocation: LatitudeLongitudeModel(lat: 24.25, lng:67.50),
+      areas:[AreaModel(coords: LatitudeLongitudeModel(lat: 24.25, lng: 37.50),
+          address: "xyz", id: "abc", name: "abc", phone: "phone")]
     );
+  }
+
+  toJson(){
+    return {
+      'area_name' : areaName,
+      'coords' : areaLocation,
+      'areas': areas
+    };
   }
 }
 

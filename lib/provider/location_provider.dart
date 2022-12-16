@@ -7,12 +7,14 @@ class LocationProvider extends ChangeNotifier {
   List<Location> locationList = [];
 
   Future getLocation() async {
-    //locationList.clear();
+    locationList.clear();
     await FirebaseFirestore.instance
         .collection("locations")
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
+        // print(LocationModel.fromJson(doc.data() as Map<String, dynamic>).toString());
+        // print(doc);
         LocationModel locations =
         LocationModel.fromJson(doc.data() as Map<String, dynamic>);
         LatitudeLongitude latlong = LatitudeLongitude(

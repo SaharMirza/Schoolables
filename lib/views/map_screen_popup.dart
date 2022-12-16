@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/location_entity.dart';
+import 'package:flutterdemo/Repository/location_repository.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/location_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
@@ -26,20 +27,17 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
     super.initState();
     product_controller = TextEditingController();
     getLocations();
-    //print(" Hello");
-    //print(areaList);
-    //print(locationList);
   }
 
   Future getLocations() async {
-//    print("getlocations");
-    //locationList= context.read<LocationProvider>().locationList;
+    print("111");
     await Provider.of<LocationProvider>(context, listen: false).getLocation();
-     locationList = Provider.of<LocationProvider>(context, listen: false)
-         .locationList;
-  //   print("get locations 2");
+    //await context.read<LocationProvider>().getLocation();
+    print("222");
+    locationList = Provider.of<LocationProvider>(context, listen: false).locationList;
+    //locationList = context.watch<LocationProvider>().locationList;
+    print("333");
     for (var area in locationList) {
-    //  print("1");
       areaList.add(area.areaName);
     }
   }
