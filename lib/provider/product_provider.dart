@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
@@ -11,16 +13,17 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductModel> products = [];
   List<Product> userProducts = [];
-  
-  // Product product = Product(
-  //     sellerID: "",
-  //     title: "",
-  //     price: 0,
-  //     images: [],
-  //     category: "",
-  //     subCategory: "",
-  //     condition: "");
-  // String psellerID = "";
+  Product product = Product(
+    sellerID: "",
+    title: "",
+    price: 0,
+    images: [],
+    category: "",
+    subCategory: "",
+    condition: "",
+  );
+  String psellerID = "";
+  List<String> downloadUrls = [];
 
   final ProductsRepository _productsRepository = FirebaseProductsRepository();
 
@@ -69,7 +72,14 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<List<String>> getDownloadUrls(List<File> finalImages) async {
+    downloadUrls = await _productsRepository.getDownloadUrls(finalImages);
+    return downloadUrls;
+  }
+
   Future<String> addProduct(Product product) async {
+    // print("/////// ////////// " + images[0]);
+    // String productid = await _productsRepository.addProduct(product);
     String productid = await _productsRepository.addProduct(product);
     product.id = productid;
     userProducts.add(product);
@@ -77,3 +87,22 @@ class ProductsProvider with ChangeNotifier {
     return productid;
   }
 }
+  // Future<String> addProduct(
+  //     String sellerID,
+  //     String title,
+  //     int price,
+  //     List images,
+  //     String category,
+  //     String subCategory,
+  //     String condition) async {
+  //   print("/////// ////////// " + images[0]);
+  //   // String productid = await _productsRepository.addProduct(product);
+  //   String productid = await _productsRepository.addProduct(
+  //       sellerID, title, price, images, category, subCategory, condition);
+
+  //   product.id = productid;
+  //   userProducts.add(product);
+  //   notifyListeners();
+  //   return productid;
+  // }
+

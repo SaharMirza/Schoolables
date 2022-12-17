@@ -14,17 +14,14 @@ class LocationProvider extends ChangeNotifier {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         // print(LocationModel.fromJson(doc.data() as Map<String, dynamic>).toString());
-         print(doc.id);
+        print(doc.id);
         LocationModel locations =
         LocationModel.fromJson(doc.data() as Map<String, dynamic>);
         LatitudeLongitude latlong = LatitudeLongitude(
             lat: locations.areaLocation.lat, lng: locations.areaLocation.lng);
         List<Area> area = locations.areas.map((e) => Area(
             coords: LatitudeLongitude(lat: e.coords.lat, lng: e.coords.lng),
-            address: e.address,
-            id: e.id,
-            name: e.name,
-            phone: e.phone)).toList();
+            id: e.id)).toList();
         Location location = Location(
             areaName: locations.areaName,
             areaLocation: latlong,
@@ -36,4 +33,35 @@ class LocationProvider extends ChangeNotifier {
     });
     notifyListeners();
   }
+  //
+  // Future getLocation() async {
+  //   locationList.clear();
+  //   await FirebaseFirestore.instance
+  //       .collection("locations")
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) {
+  //     querySnapshot.docs.forEach((doc) {
+  //       // print(LocationModel.fromJson(doc.data() as Map<String, dynamic>).toString());
+  //        print(doc.id);
+  //       LocationModel locations =
+  //       LocationModel.fromJson(doc.data() as Map<String, dynamic>);
+  //       LatitudeLongitude latlong = LatitudeLongitude(
+  //           lat: locations.areaLocation.lat, lng: locations.areaLocation.lng);
+  //       List<Area> area = locations.areas.map((e) => Area(
+  //           coords: LatitudeLongitude(lat: e.coords.lat, lng: e.coords.lng),
+  //           address: e.address,
+  //           id: e.id,
+  //           name: e.name,
+  //           phone: e.phone)).toList();
+  //       Location location = Location(
+  //           areaName: locations.areaName,
+  //           areaLocation: latlong,
+  //           areas: area
+  //       );
+  //       locationList.add(location);
+  //       print('This is my list: '+ locationList.toString());
+  //     });
+  //   });
+  //   notifyListeners();
+  // }
 }

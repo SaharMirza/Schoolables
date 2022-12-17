@@ -7,7 +7,7 @@ class ProductModel {
   final String subCategory;
   final String condition;
   final int price;
-  final List<String> images;
+  final List images;
   final String id;
 
   ProductModel({
@@ -25,7 +25,7 @@ class ProductModel {
     // Convert List<dynamic> to List<String> for colors
     // List<String> conditionList = ['not selected'];
     List<String> imageList = [];
-    List<String> bidingList = [];
+
 
     // if (json['conditions'] != null) {
     //   var conditions = json['conditions'] as List<dynamic>;
@@ -33,13 +33,14 @@ class ProductModel {
     // }
 
     if (json['images'] != null) {
-      var images = json['images'] as List<dynamic>;
-      for (var id in images) imageList.add(id.toString().trim());
+      // var images = json['images'] as List<dynamic>;
+      var images = json['images'] ?? [];
+      for (var id in images) {
+        imageList.add(id);
+      }
+      // for (var id in images) imageList.add(id.toString().trim());
     }
-    if (json['bidding'] != null) {
-      var biding = json['bidding'] as List<dynamic>;
-      for (var id in biding) bidingList.add(id.toString().trim());
-    }
+
     return ProductModel(
         title: json['title'],
         price: json['price'] ?? 0,
@@ -48,8 +49,7 @@ class ProductModel {
         subCategory: json['subCategory'],
         condition: json['condition'],
         sellerID: json['sellerID'] ?? "404",
-        id:id
-        );
+        id: id);
   }
 
   toJson() {
@@ -60,7 +60,7 @@ class ProductModel {
       'category': category,
       'condition': condition,
       'sellerID': sellerID,
-      'subCategory':subCategory,
+      'subCategory': subCategory,
     };
   }
 }

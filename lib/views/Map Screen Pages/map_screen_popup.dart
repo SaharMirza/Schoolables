@@ -4,7 +4,7 @@ import 'package:flutterdemo/Repository/location_repository.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/location_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:flutterdemo/views/map_screen_demo.dart';
+import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen_demo.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -30,13 +30,8 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
   }
 
   Future getLocations() async {
-    print("111");
     await Provider.of<LocationProvider>(context, listen: false).getLocation();
-    //await context.read<LocationProvider>().getLocation();
-    print("222");
     locationList = Provider.of<LocationProvider>(context, listen: false).locationList;
-    //locationList = context.watch<LocationProvider>().locationList;
-    print("333");
     for (var area in locationList) {
       areaList.add(area.areaName);
     }
@@ -53,9 +48,9 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body:  AlertDialog(
+      body: AlertDialog(
         backgroundColor: MyColors.startColor,
-            title: const Text('Select your area'),
+           title: const Text('Select your area'),
         actions: <Widget>[
           Padding(
             padding:
@@ -77,10 +72,10 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                     value: dropdownValue,
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     icon: const Icon(Icons.arrow_downward_sharp),
-                    onTap:() {
-                      print(areaList.toString());
-                      print(areaList.length);
-                    },
+                    // onTap:() {
+                    //   // print(areaList.toString());
+                    //   // print(areaList.length);
+                    // },
                     underline: DecoratedBox(
                       decoration: BoxDecoration(color: Color(0xffDADBC6)),
                     ),
@@ -166,7 +161,8 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                           );
                         },
                       );
-                    } else {
+                    }
+                    else {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -182,13 +178,13 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                   TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
                   child: Text('Cancel', style: TextStyle(color: Colors.black)),
                   onPressed: () {
-                    // Navigator.pushAndRemoveUntil(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (BuildContext context) => const MapScreenPopUp(),
-                    //   ),
-                    //       (route) => false,
-                    // );
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const MapScreenPopUp(),
+                      ),
+                          (route) => false,
+                    );
                     Navigator.pop(context);
                   },
                 ),

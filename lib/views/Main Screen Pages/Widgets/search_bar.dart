@@ -30,6 +30,7 @@ class SearchBar extends StatelessWidget {
       // height: 2 * (screenHeight * 0.04 - width * 0.02),
       height: 50,
       child: TextField(
+        autofocus: false,
         onTap: () {Navigator.of(context).push(MaterialPageRoute(
             builder: (_) => SearchPage(
               searchList: products,

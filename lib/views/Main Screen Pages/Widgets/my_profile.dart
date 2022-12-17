@@ -224,7 +224,6 @@ class MyProfileNameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final userProfile = context.watch<UserProvider>().userProfile;
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -233,8 +232,7 @@ class MyProfileNameCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 5),
             child: ProfileIcon(
-                userProfile: userProfile,
-                radius: screenWidth * 0.15),
+                userProfile: userProfile, radius: screenWidth * 0.15),
           ),
           Container(
             // height: screenHeight * 0.165,
@@ -329,7 +327,6 @@ class EditProfileIcon extends StatefulWidget {
 class _EditProfileIconState extends State<EditProfileIcon> {
   @override
   Widget build(BuildContext context) {
-    
     final userProfile = context.watch<UserProvider>().userProfile;
     return Center(
       child: Badge(
@@ -338,7 +335,7 @@ class _EditProfileIconState extends State<EditProfileIcon> {
           size: widget.screenWidth * 0.06,
         ),
         child: ProfileIcon(
-           userProfile: userProfile,
+            userProfile: userProfile,
             radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
         badgeColor: MyColors.startColor,
         position: BadgePosition.bottomEnd(bottom: 3, end: 6),
@@ -377,6 +374,7 @@ class ContactInformationSection extends StatelessWidget {
             FieldLabel: "Phone Number",
             hintText: userProfile.phone,
             controller: _numberController,
+            isEmpty: false,
           ),
         ),
         Padding(
@@ -385,6 +383,7 @@ class ContactInformationSection extends StatelessWidget {
             FieldLabel: "Email",
             hintText: userProfile.email,
             controller: _emailController,
+            isEmpty: false,
           ),
         ),
       ],
@@ -421,7 +420,7 @@ class BasicInformationSection extends StatelessWidget {
           child: FormTextField(
             FieldLabel: "User Name",
             hintText: userProfile.name,
-            controller: _nameController,
+            controller: _nameController, isEmpty: false,
           ),
         ),
         Padding(
@@ -435,11 +434,14 @@ class BasicInformationSection extends StatelessWidget {
 
 // Custom Text Field Widget
 class FormTextField extends StatefulWidget {
-  const FormTextField(
-      {super.key,
-      required this.FieldLabel,
-      required this.hintText,
-      required this.controller});
+  const FormTextField({
+    super.key,
+    required this.FieldLabel,
+    required this.hintText,
+    required this.controller,
+    required this.isEmpty,
+  });
+  final bool isEmpty;
   final String FieldLabel;
   final TextEditingController controller;
   final String hintText;
@@ -455,14 +457,14 @@ class _FormTextFieldState extends State<FormTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFieldLabel(text: widget.FieldLabel),
-          TextFormField(
+          TextField(
             controller: widget.controller,
             decoration: InputDecoration(
               hintText: widget.hintText,
               fillColor: MyColors.textFieldColor,
               border: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: widget.isEmpty == true ? Colors.red : Colors.black,
                   ),
                   borderRadius: BorderRadius.circular(8)),
               focusedBorder: OutlineInputBorder(
@@ -669,7 +671,8 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
 }
 
 class ProfileIcon extends StatefulWidget {
-  const ProfileIcon({super.key, required this.userProfile, required this.radius});
+  const ProfileIcon(
+      {super.key, required this.userProfile, required this.radius});
   final UserProfile userProfile;
   final double radius;
   @override
@@ -682,9 +685,11 @@ class _ProfileIconState extends State<ProfileIcon> {
     return CircleAvatar(
       radius: widget.radius,
       backgroundColor: Colors.white,
-      child: Image(image: NetworkImage(widget.userProfile.display.isEmpty
-                    ? "https://img.icons8.com/bubbles/50/000000/user.png"
-                    : widget.userProfile.display),),
+      child: Image(
+        image: NetworkImage(widget.userProfile.display.isEmpty
+            ? "https://img.icons8.com/bubbles/50/000000/user.png"
+            : widget.userProfile.display),
+      ),
     );
   }
 }

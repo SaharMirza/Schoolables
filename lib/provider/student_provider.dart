@@ -14,8 +14,8 @@ class UserProvider extends ChangeNotifier {
   UserProfile user = UserProfile(id: "", email: "");
   CollectionReference firebaseUser =
       FirebaseFirestore.instance.collection('users');
-
   UserProfile get userProfile => user;
+  bool isLoading = false;
 
   Future<void> loadUsers() async {
     await firebaseUser.get().then((QuerySnapshot querySnapshot) {
@@ -93,6 +93,8 @@ class UserProvider extends ChangeNotifier {
   // Save Changes in DB
   // Update Changes
   void saveChanges() async {
+    isLoading = true;
+    notifyListeners();
     print(user.id);
     // Update User Profile in Firebase
     await firebaseUser.doc(user.id).set(UserProfileModel(
@@ -112,6 +114,8 @@ class UserProvider extends ChangeNotifier {
             sellingbiddingIDs: user.sellingbiddingIDs)
         .toJson());
     print("${user.email} saved in Firebase");
+    isLoading = false;
+    notifyListeners();
   }
 
 //update seller biddingIDS
@@ -161,21 +165,21 @@ class UserProvider extends ChangeNotifier {
     // Convert user to user model
     await firebaseUser.doc(user.id).set(
           UserProfileModel(
-            email: user.email,
-            name: user.name,
-            phone: user.phone,
-            schoolName: user.schoolName,
-            grade: user.grade,
-            display: user.display,
-            rating: user.rating,
-            wishListIDs: user.wishListIDs,
-            orderSeller: user.orderSeller,
-            orderBuyer: user.orderBuyer,
-            dob: user.dob,
-            products: user.products,
-            biddingIDs: user.biddingIDs,
-            sellingbiddingIDs: user.sellingbiddingIDs
-          ).toJson(),
+                  email: user.email,
+                  name: user.name,
+                  phone: user.phone,
+                  schoolName: user.schoolName,
+                  grade: user.grade,
+                  display: user.display,
+                  rating: user.rating,
+                  wishListIDs: user.wishListIDs,
+                  orderSeller: user.orderSeller,
+                  orderBuyer: user.orderBuyer,
+                  dob: user.dob,
+                  products: user.products,
+                  biddingIDs: user.biddingIDs,
+                  sellingbiddingIDs: user.sellingbiddingIDs)
+              .toJson(),
         );
     notifyListeners();
   }
@@ -197,7 +201,7 @@ class UserProvider extends ChangeNotifier {
       user.dob = userModel.dob;
       user.products = userModel.products;
       user.biddingIDs = userModel.biddingIDs;
-      user.sellingbiddingIDs =userModel.sellingbiddingIDs;
+      user.sellingbiddingIDs = userModel.sellingbiddingIDs;
     });
     notifyListeners();
   }
