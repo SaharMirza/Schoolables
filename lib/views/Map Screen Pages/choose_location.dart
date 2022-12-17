@@ -74,6 +74,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
                 ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _getCurrentLocation,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
