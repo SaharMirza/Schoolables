@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/main.dart';
 import 'package:flutterdemo/models/child_model.dart';
 import 'package:flutterdemo/provider/child_provider.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/create_children_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/circle_avatar_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo_text.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/Children.dart';
 import 'child_profile.dart';
 
 class ChildernProfileScreen extends StatefulWidget {
@@ -71,7 +65,7 @@ class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
                       ),
                     ],
                   ),
-                  SchoolablesLogoText(),
+                  const SchoolablesLogoText(),
                   SizedBox(height: screenHeight * 0.04),
                   MyProfileTextWidget(
                       text: "Children Profiles", screenWidth: screenWidth),
@@ -105,7 +99,7 @@ class _ChildernProfileScreenState extends State<ChildernProfileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.add_circle,
                           size: 20,
                           color: MyColors.buttonColor,
@@ -147,7 +141,7 @@ class ListCard extends StatelessWidget {
       height: screenHeight * 0.15,
       width: screenWidth * 0.8,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(242, 232, 228, 100),
+        color: const Color.fromRGBO(242, 232, 228, 100),
         border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -159,7 +153,7 @@ class ListCard extends StatelessWidget {
             child: Row(
               children: [
                 Column(
-                  children: [
+                  children: const [
                     CircleAvatarWidget(
                         image: 'assets/images/profile.png', size: 28),
                   ],
@@ -186,19 +180,19 @@ class ListCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
-                padding: EdgeInsets.only(top: 1.0, right: 9.0),
+                padding: const EdgeInsets.only(top: 1.0, right: 9.0),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BottomNavBar()));
+                            builder: (context) => const BottomNavBar()));
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_forward_ios,
                     size: 18,
                     color: MyColors.buttonColor,

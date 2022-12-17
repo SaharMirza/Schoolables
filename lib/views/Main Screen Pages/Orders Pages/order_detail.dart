@@ -1,12 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../Widgets/orders_widget.dart';
 
@@ -29,7 +23,7 @@ class _OrderDetailState extends State<OrderDetail>
   void initState() {
     super.initState();
     controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
     // sizeAnimation = Tween<double>(begin: 50.0, end: 100.0).animate(controller);
     // colorAnimation = ColorTween(
@@ -60,7 +54,7 @@ class _OrderDetailState extends State<OrderDetail>
               sizeTween: sizeTween,
               controller: controller,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Center(
@@ -69,10 +63,10 @@ class _OrderDetailState extends State<OrderDetail>
                 style: MyStyles.googleSecondTitleText(22),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Center(
+            const Center(
               child: ImageSlider(),
             ),
             // OrderDetailsCard(isProduct: false),

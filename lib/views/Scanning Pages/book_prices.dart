@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 
 class BookPrices extends StatefulWidget {
   const BookPrices({super.key, required this.bookname});

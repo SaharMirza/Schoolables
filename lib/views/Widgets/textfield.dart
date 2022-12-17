@@ -53,7 +53,7 @@ class _SchoolablesTextFieldState extends State<SchoolablesTextField> {
                 ),
                 borderRadius: BorderRadius.circular(8)),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: MyColors.textColor, width: 1.5),
+              borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
               borderRadius: BorderRadius.circular(25.0),
             ),
             // If its a password field, show a suffix icon

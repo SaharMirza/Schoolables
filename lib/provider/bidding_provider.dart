@@ -25,10 +25,10 @@ class BiddingProvider with ChangeNotifier {
   }
 
   void loadSellerOrders(List<String> bids) async {
-    print("IN Seller " + bids.length.toString());
+    print("IN Seller ${bids.length}");
     sellerOrder = [];
     for (var id in bids) {
-      print("bidID" + id);
+      print("bidID$id");
       if (id == "") continue;
       Bidding bid = await _bidsRepository.getBid(id);
       bid.id = id;
@@ -40,7 +40,7 @@ class BiddingProvider with ChangeNotifier {
   void loadUserBids(List<String> bids) async {
     userBids = [];
     for (var id in bids) {
-      print("bidID" + id);
+      print("bidID$id");
       if (id == "") continue;
       Bidding bid = await _bidsRepository.getBid(id);
       bid.id = id;
@@ -52,7 +52,7 @@ class BiddingProvider with ChangeNotifier {
   void loadUserBuyingBids(List<String> bids) async {
     userBuyingBids = [];
     for (var id in bids) {
-      print("bidID" + id);
+      print("bidID$id");
       if (id == "") continue;
       Bidding bid = await _bidsRepository.getBid(id);
       bid.id = id;

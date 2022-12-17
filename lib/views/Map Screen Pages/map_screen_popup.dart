@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/location_entity.dart';
-import 'package:flutterdemo/Repository/location_repository.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/location_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen_demo.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +21,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
   var dropdownValue = 'Select your area';
   int selectedIndex = 0;
 
+  @override
   void initState() {
     super.initState();
     product_controller = TextEditingController();
@@ -37,6 +36,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
     }
   }
 
+  @override
   void dispose() {
     product_controller.dispose();
     super.dispose();
@@ -54,7 +54,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
         actions: <Widget>[
           Padding(
             padding:
-            EdgeInsets.all(8),
+            const EdgeInsets.all(8),
             child: Container(
               decoration:const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -68,15 +68,15 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                   return DropdownButton(
                     menuMaxHeight: screenHeight * 0.2,
                     isExpanded: true,
-                    dropdownColor: Color(0xffDADBC6),
+                    dropdownColor: const Color(0xffDADBC6),
                     value: dropdownValue,
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                     icon: const Icon(Icons.arrow_downward_sharp),
                     // onTap:() {
                     //   // print(areaList.toString());
                     //   // print(areaList.length);
                     // },
-                    underline: DecoratedBox(
+                    underline: const DecoratedBox(
                       decoration: BoxDecoration(color: Color(0xffDADBC6)),
                     ),
                     items: areaList.map((String items) {
@@ -91,7 +91,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedIndex = areaList.indexOf(newValue!);
-                        dropdownValue = newValue!;
+                        dropdownValue = newValue;
                       });
                     },
                   );
@@ -107,8 +107,8 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
               children: [
                 TextButton(
                   style:
-                  TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
-                  child: Text('Continue', style: TextStyle(color: Colors.black)),
+                  TextButton.styleFrom(backgroundColor: const Color(0xffBBBD88)),
+                  child: const Text('Continue', style: TextStyle(color: Colors.black)),
                   onPressed: () {
                     if (selectedIndex == 0) {
                       showDialog(
@@ -118,7 +118,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                           return AlertDialog(
                             backgroundColor: const Color(0xff283618),
                             title: Column(
-                              children: [
+                              children: const [
                                Text('Area not selected'),
                               ],
                             ),
@@ -131,7 +131,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                                   children: [
                                     TextButton(
                                       style: TextButton.styleFrom(
-                                          backgroundColor: Color(0xffFFFDF4)),
+                                          backgroundColor: const Color(0xffFFFDF4)),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 18.0),
@@ -175,8 +175,8 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                 ),
                 TextButton(
                   style:
-                  TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
-                  child: Text('Cancel', style: TextStyle(color: Colors.black)),
+                  TextButton.styleFrom(backgroundColor: const Color(0xffBBBD88)),
+                  child: const Text('Cancel', style: TextStyle(color: Colors.black)),
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                       context,

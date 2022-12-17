@@ -37,10 +37,10 @@ class SearchBar extends StatelessWidget {
             )));},
         decoration: InputDecoration(
           // labelStyle: TextStyle(fontSize: screenWidth * 0.05),
-          prefixIcon: Icon(Icons.search_outlined),
+          prefixIcon: const Icon(Icons.search_outlined),
           filled: true,
-          fillColor: Color.fromRGBO(242, 233, 228, 1.0),
-          labelText: "What are you looking for?",labelStyle: TextStyle(fontSize: 15),
+          fillColor: const Color.fromRGBO(242, 233, 228, 1.0),
+          labelText: "What are you looking for?",labelStyle: const TextStyle(fontSize: 15),
           enabledBorder: OutlineInputBorder(
             borderSide:
                 const BorderSide(color: Color.fromRGBO(242, 233, 228, 1.0)),
@@ -69,7 +69,7 @@ class SearchfilterMapWidget extends StatelessWidget {
       children: [
         SearchBar(width: screenWidth * 0.8, screenHeight: screenHeight),
         // FilterWidget(),
-        MapWidget()
+        const MapWidget()
       ],
     );
   }
@@ -91,7 +91,7 @@ class SearchfilterWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SearchBar(width: screenWidth * 0.76, screenHeight: screenHeight),
-        FilterWidget(),
+        const FilterWidget(),
         // MapWidget()
       ],
     );

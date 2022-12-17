@@ -12,7 +12,7 @@ class LocationProvider extends ChangeNotifier {
         .collection("locations")
         .get()
         .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         // print(LocationModel.fromJson(doc.data() as Map<String, dynamic>).toString());
         print(doc.id);
         LocationModel locations =
@@ -28,8 +28,8 @@ class LocationProvider extends ChangeNotifier {
             areas: area
         );
         locationList.add(location);
-        print('This is my list: '+ locationList.toString());
-      });
+        print('This is my list: $locationList');
+      }
     });
     notifyListeners();
   }

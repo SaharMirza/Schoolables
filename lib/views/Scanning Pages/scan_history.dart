@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/ScannedList.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/camera_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../Main Screen Pages/Widgets/my_profile.dart';
 
 class ScanHistory extends StatefulWidget {
   const ScanHistory({super.key});
@@ -34,7 +30,7 @@ class _ScanHistoryState extends State<ScanHistory> {
         child: Center(
           child: Column(
             children: [
-              HeaderBar(title: "Scanned Lists"),
+              const HeaderBar(title: "Scanned Lists"),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 20, bottom: 0, left: 10, right: 10),
@@ -117,7 +113,7 @@ class _scanListTileState extends State<scanListTile> {
           ),
         ),
         trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
+          icon: const Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(

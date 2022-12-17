@@ -1,16 +1,11 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/tell_us_more_parent.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
-import 'package:provider/provider.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key, required this.role}) : super(key: key);

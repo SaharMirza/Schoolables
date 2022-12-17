@@ -60,7 +60,7 @@ class _CameraScreenState extends State<CameraScreen> {
         // print("block of text: ");
         // print(text);
         for (TextLine line in block.lines) {
-          result = result + line.text + "\n";
+          result = "$result${line.text}\n";
         }
       }
     });
@@ -120,13 +120,13 @@ class _CameraScreenState extends State<CameraScreen> {
                 MaterialPageRoute(builder: (context) => const LoadingScreen()),
               );
             },
-            child: Text("SCAN"),
             style: ElevatedButton.styleFrom(
                 backgroundColor: MyColors.subtitleColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)),
                 minimumSize: const Size(120, 40),
                 foregroundColor: Colors.white),
+            child: const Text("SCAN"),
           ),
           GestureDetector(
               onTap: () {

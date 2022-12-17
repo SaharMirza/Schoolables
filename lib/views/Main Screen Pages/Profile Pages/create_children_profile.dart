@@ -3,8 +3,6 @@ import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/child_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo_text.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CreateChildrenProfile extends StatefulWidget {
   const CreateChildrenProfile({super.key});
@@ -20,7 +18,7 @@ class _CreateChildrenProfile extends State<CreateChildrenProfile> {
     final double screenWidth = MediaQuery.of(context).size.width;
     // TODO: implement build
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: screenHeight,
         width: screenWidth,
         child: Column(
@@ -34,7 +32,7 @@ class _CreateChildrenProfile extends State<CreateChildrenProfile> {
                 ),
               ],
             ),
-            Container2(),
+            const Container2(),
           ],
         ),
       ),
@@ -59,7 +57,7 @@ class Container2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SchoolablesLogoText(),
+            const SchoolablesLogoText(),
             SizedBox(height: screenHeight * 0.04),
             Text('Create Children Profiles',
                 style: MyStyles.googleTitleText(screenHeight * 0.03)),

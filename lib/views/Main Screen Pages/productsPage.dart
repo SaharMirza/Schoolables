@@ -72,7 +72,7 @@ class _ProductsPageState extends State<ProductsPage> {
     }
 
     return GridView.count(
-      physics: ScrollPhysics(),
+      physics: const ScrollPhysics(),
         childAspectRatio: screenWidth / (screenHeight * 0.8),
         shrinkWrap: true,
         crossAxisCount: 2,

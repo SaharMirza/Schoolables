@@ -3,15 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 // import 'package:flutterdemo/models/user_model.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
@@ -98,13 +95,13 @@ class MyProfileListTile extends StatelessWidget {
               if (title == "Selling Orders") {
                 await Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => SellingOrders(),
+                    builder: (context) => const SellingOrders(),
                   ),
                 );
               } else if (title == "Buying Orders") {
                 await Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => BuyingOrders(),
+                    builder: (context) => const BuyingOrders(),
                   ),
                 );
               }
@@ -124,7 +121,7 @@ class MyProfileListTile extends StatelessWidget {
               style: MyStyles.googleTextSubtitleListTile(
                   screenWidth < 300 ? 10 : 13),
             ),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.navigate_next,
               color: MyColors.textColor,
             ),
@@ -174,6 +171,8 @@ class _LogoutBtnWidgetState extends State<LogoutBtnWidget> {
         // pop until login page
         Navigator.popUntil(context, (route) => route.isFirst);
       },
+      style: ElevatedButton.styleFrom(
+          backgroundColor: MyColors.buttonColor, shadowColor: Colors.grey),
       child: userAuth?.id != null
           ? Text(
               "Logout",
@@ -183,8 +182,6 @@ class _LogoutBtnWidgetState extends State<LogoutBtnWidget> {
               "Login",
               style: MyStyles.btnTextStyle,
             ),
-      style: ElevatedButton.styleFrom(
-          backgroundColor: MyColors.buttonColor, shadowColor: Colors.grey),
     );
   }
 }
@@ -234,7 +231,7 @@ class MyProfileNameCard extends StatelessWidget {
             child: ProfileIcon(
                 userProfile: userProfile, radius: screenWidth * 0.15),
           ),
-          Container(
+          SizedBox(
             // height: screenHeight * 0.165,
             width: screenWidth * 0.49,
             child: Column(
@@ -249,7 +246,7 @@ class MyProfileNameCard extends StatelessWidget {
                   onTap: () async {
                     await Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => EditProfileInformation(),
+                        builder: (context) => const EditProfileInformation(),
                       ),
                     );
                   },
@@ -334,11 +331,11 @@ class _EditProfileIconState extends State<EditProfileIcon> {
           Icons.add_a_photo_outlined,
           size: widget.screenWidth * 0.06,
         ),
+        badgeColor: MyColors.startColor,
+        position: BadgePosition.bottomEnd(bottom: 3, end: 6),
         child: ProfileIcon(
             userProfile: userProfile,
             radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
-        badgeColor: MyColors.startColor,
-        position: BadgePosition.bottomEnd(bottom: 3, end: 6),
       ),
     );
   }
@@ -355,15 +352,15 @@ class ContactInformationSection extends StatelessWidget {
   final double screenWidth;
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _numberController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController numberController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
     final userProfile = context.watch<UserProvider>().userProfile;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 10, right: 10, bottom: 10),
+          padding: const EdgeInsets.only(top: 10, right: 10, bottom: 10),
           child: Text("Contact Information",
               style: MyStyles.googleSecondTitleText(
                   screenWidth * 0.07 - screenHeight * 0.008)),
@@ -373,7 +370,7 @@ class ContactInformationSection extends StatelessWidget {
           child: FormTextField(
             FieldLabel: "Phone Number",
             hintText: userProfile.phone,
-            controller: _numberController,
+            controller: numberController,
             isEmpty: false,
           ),
         ),
@@ -382,7 +379,7 @@ class ContactInformationSection extends StatelessWidget {
           child: FormTextField(
             FieldLabel: "Email",
             hintText: userProfile.email,
-            controller: _emailController,
+            controller: emailController,
             isEmpty: false,
           ),
         ),
@@ -402,7 +399,7 @@ class BasicInformationSection extends StatelessWidget {
   final double screenWidth;
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _nameController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
     final userProfile = context.watch<UserProvider>().userProfile;
     // final TextEditingController _priceController = TextEditingController();
 
@@ -410,7 +407,7 @@ class BasicInformationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 10, right: 10, bottom: 10),
+          padding: const EdgeInsets.only(top: 10, right: 10, bottom: 10),
           child: Text("Basic Information",
               style: MyStyles.googleSecondTitleText(
                   screenWidth * 0.07 - screenHeight * 0.008)),
@@ -420,11 +417,11 @@ class BasicInformationSection extends StatelessWidget {
           child: FormTextField(
             FieldLabel: "User Name",
             hintText: userProfile.name,
-            controller: _nameController, isEmpty: false,
+            controller: nameController, isEmpty: false,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 8.0),
           child: DatePickerTextField(),
         ),
       ],
@@ -468,7 +465,7 @@ class _FormTextFieldState extends State<FormTextField> {
                   ),
                   borderRadius: BorderRadius.circular(8)),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: MyColors.textColor, width: 1.5),
+                borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
@@ -522,10 +519,10 @@ class _DropDownState extends State<DropDown> {
                 : BorderRadius.circular(25), //border raiuds of dropdown button
           ),
           child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 2),
+            padding: const EdgeInsets.only(left: 10, right: 2),
             child: DropdownButton<String>(
               hint: selectedValue == ""
-                  ? Text("Gender")
+                  ? const Text("Gender")
                   : Text(selectedValue.toString()),
               isExpanded: true,
               underline: Container(),
@@ -594,7 +591,7 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFieldLabel(text: "Date Of Birth"),
+        const TextFieldLabel(text: "Date Of Birth"),
         Container(
             child: Center(
                 child: TextField(
@@ -602,16 +599,16 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
           decoration: InputDecoration(
             fillColor: MyColors.textFieldColor,
             border: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.black,
                 ),
                 borderRadius: BorderRadius.circular(8)),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: MyColors.textColor, width: 1.5),
+              borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
               borderRadius: BorderRadius.circular(25.0),
             ),
-            suffixIcon: Padding(
-              padding: const EdgeInsets.all(2.0),
+            suffixIcon: const Padding(
+              padding: EdgeInsets.all(2.0),
               child: Icon(
                 Icons.calendar_month_outlined,
                 color: MyColors.textColor,
@@ -631,14 +628,14 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
               builder: (context, child) {
                 return Theme(
                   data: Theme.of(context).copyWith(
-                    colorScheme: ColorScheme.light(
+                    colorScheme: const ColorScheme.light(
                       primary: MyColors.startColor, // <-- SEE HERE
                       onPrimary: Colors.white, // <-- SEE HERE
                       onSurface: MyColors.textColor, // <-- SEE HERE
                     ),
                     textButtonTheme: TextButtonThemeData(
                       style: TextButton.styleFrom(
-                        primary: MyColors.textColor, // button text color
+                        foregroundColor: MyColors.textColor, // button text color
                       ),
                     ),
                   ),

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/book_list.dart';
 
@@ -13,6 +12,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  @override
   void initState() {
     super.initState();
     startTime();
@@ -53,7 +53,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           SizedBox(
             height: screenHeight * 0.025,
           ),
-          Center(
+          const Center(
               child: CircularProgressIndicator(
             color: Colors.black,
           ))

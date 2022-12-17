@@ -7,9 +7,7 @@ import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/children_profile_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/forget_pass.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:flutterdemo/views/Widgets/textfield.dart';
 
@@ -27,18 +25,18 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
 
   @override
   Widget build(BuildContext context) {
-    final _auth = AuthService();
+    final auth = AuthService();
 
     void signin() async {
       // Signin with Email and Password
-      dynamic result = await _auth.signInWithEmailAndPassword(
+      dynamic result = await auth.signInWithEmailAndPassword(
           _emailController.text.trim(), _passwordController.text.trim());
       // Check if result is of type UserProfile
       if (result!=null && result is UserAuth) {
         if (widget.role == "Parent") {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChildernProfileScreen()),
+            MaterialPageRoute(builder: (context) => const ChildernProfileScreen()),
           );
         } else {
           Navigator.push(
@@ -94,7 +92,7 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
         children: <Widget>[
           const Text("Don't have an account? "),
           InkWell(
-              child: Text(
+              child: const Text(
                 "Signup",
                 style: TextStyle(
                   color: MyColors.textColor,
@@ -117,7 +115,7 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
   Widget forgetPassword() {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
       InkWell(
-          child: Text(
+          child: const Text(
             "Forget Password?",
             style: TextStyle(
                 color: MyColors.textColor,

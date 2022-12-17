@@ -4,10 +4,7 @@ import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scan_history.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
@@ -129,7 +126,7 @@ class _searchListTileState extends State<searchListTile> {
             ),
           ),
           trailing: IconButton(
-            icon: Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
+            icon: const Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
