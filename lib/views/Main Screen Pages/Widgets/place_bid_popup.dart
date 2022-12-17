@@ -71,7 +71,7 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
               autofocus: false,
               // initialValue: 'sathyabaman@gmail.com',
               style: new TextStyle(
-                  fontWeight: FontWeight.normal, color: Colors.white),
+                  fontWeight: FontWeight.normal),
               decoration: InputDecoration(
                 hintText: 'Enter your bid',
                 hintStyle: TextStyle(
@@ -162,6 +162,8 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
                                   return ListTile(
                                     leading: CircleAvatar(
                                       backgroundColor: Colors.grey,
+                                      foregroundColor: Colors.black,
+                                      child: Text(widget.bid[index].buyerName[0]),
                                     ),
                                     title: Text(widget.bid[index].buyerName),
                                     trailing:

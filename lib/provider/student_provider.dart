@@ -138,6 +138,28 @@ class UserProvider extends ChangeNotifier {
     // print("${user.email} saved in Firebase");
   }
 
+    void updateSellerOrders(sid, bid) async {
+    List<String> bidIDs = [];
+    List<String> biddingIDs=[];
+    await firebaseUser.doc(sid).get().then((doc) {
+      // Load User from Firebase to User Provider
+      UserProfileModel userModel =
+          UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
+      bidIDs = userModel.orderBuyer;
+      biddingIDs=userModel.biddingIDs;
+    });
+    bidIDs.add(bid);
+    biddingIDs.remove(bid);
+    // print(user.id);
+    // Update User Profile in Firebase
+    await firebaseUser
+        .doc(sid)
+        .update({"orderBuyer": bidIDs,"biddingIDs":biddingIDs})
+        .then((value) => print("Bid Updated"))
+        .catchError((error) => print("Failed to update: $error"));
+    // print("${user.email} saved in Firebase");
+  }
+
   //Add a new User
   void addUser() async {
     // Convert user to user model
@@ -223,6 +245,39 @@ class UserProvider extends ChangeNotifier {
     ids.add(bidid);
     user.biddingIDs = ids;
     print("added new Bid $bidid");
+    notifyListeners();
+  }
+
+ void removeBid(bidid) {
+   var ids = user.sellingbiddingIDs;
+    ids.remove(bidid);
+    user.sellingbiddingIDs = ids;
+    saveChanges();
+    notifyListeners();
+  }
+  void addSellerOrder(bidid) {
+    List<String> ids = [];
+    for (var id in user.orderSeller) {
+      ids.add(id);
+    }
+    // remove blank address initially
+    // ids.remove("");
+    ids.add(bidid);
+    user.orderSeller = ids;
+    print("added new Selling Order $bidid");
+    notifyListeners();
+  }
+
+  void addBuyerOrder(bidid) {
+    List<String> ids = [];
+    for (var id in user.orderBuyer) {
+      ids.add(id);
+    }
+    // remove blank address initially
+    // ids.remove("");
+    ids.add(bidid);
+    user.orderBuyer = ids;
+    print("added new Buyer Order $bidid");
     notifyListeners();
   }
 }

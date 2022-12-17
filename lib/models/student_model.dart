@@ -48,7 +48,7 @@ class UserProfileModel {
     for (var id in firebaseData) orderBuyer.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for sellerBuyerIDs
-    firebaseData = json['sellerBuyer'] ?? [];
+    firebaseData = json['orderSeller'] ?? [];
     List<String> orderSeller = [];
     for (var id in firebaseData) orderSeller.add(id.toString().trim());
 

@@ -138,8 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
             context.read<ChildProvider>().fetchChildern();
             context.read<CategoriesProvider>().fetchCategories();
             context.read<UserProvider>().loadUsers();
-//            context.read<LocationProvider>().locationList;
-
           });
           return BottomNavBar();
         } else //if the user was logged out

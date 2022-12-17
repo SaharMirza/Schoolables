@@ -82,7 +82,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 pid: widget.products[i].id,
                 name: widget.products[i].title,
                 price: widget.products[i].price.toString(),
-                image: "",
+                image: widget.products[i].images[0],
                 isFav: getFav(widget.products[i].id)),
         ]);
   }
