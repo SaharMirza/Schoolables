@@ -30,13 +30,8 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
   }
 
   Future getLocations() async {
-    print("111");
     await Provider.of<LocationProvider>(context, listen: false).getLocation();
-    //await context.read<LocationProvider>().getLocation();
-    print("222");
     locationList = Provider.of<LocationProvider>(context, listen: false).locationList;
-    //locationList = context.watch<LocationProvider>().locationList;
-    print("333");
     for (var area in locationList) {
       areaList.add(area.areaName);
     }
@@ -53,10 +48,11 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body:  AlertDialog(
-        backgroundColor: MyColors.startColor,
-            title: const Text('Select your area'),
-        actions: <Widget>[
+      body: Column(
+        //AlertDialog(
+        //backgroundColor: MyColors.startColor,
+          //  title: const Text('Select your area'),
+        children: <Widget>[
           Padding(
             padding:
             EdgeInsets.all(8),
@@ -115,58 +111,59 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                   TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
                   child: Text('Continue', style: TextStyle(color: Colors.black)),
                   onPressed: () {
-                    if (selectedIndex == 0) {
-                      showDialog(
-                        barrierDismissible: false,
-                        context: context, // user must tap button!
-                        builder: (context) {
-                          return AlertDialog(
-                            backgroundColor: const Color(0xff283618),
-                            title: Column(
-                              children: [
-                               Text('Area not selected'),
-                              ],
-                            ),
-                            actions: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                          backgroundColor: Color(0xffFFFDF4)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 18.0),
-                                        child: Text('OK',
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize:
-                                                screenHeight *
-                                                    0.03)),
-                                      ),
-                                      onPressed: () {
-                                        // Navigator.pushAndRemoveUntil(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (BuildContext context) =>
-                                        //         MapScreenPopUp(),
-                                        //   ),
-                                        //       (route) => false,
-                                        // );
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else {
+                    //if (selectedIndex == 0) {
+                      //showDialog(
+                        //barrierDismissible: false,
+                        //context: context, // user must tap button!
+                        //builder: (context) {
+                          // return AlertDialog(
+                          //   backgroundColor: const Color(0xff283618),
+                          //   title: Column(
+                          //     children: [
+                          //      Text('Area not selected'),
+                          //     ],
+                          //   ),
+                          //   actions: <Widget>[
+                          //     Padding(
+                          //       padding: const EdgeInsets.all(8.0),
+                          //       child: Row(
+                          //         mainAxisAlignment:
+                          //         MainAxisAlignment.spaceEvenly,
+                          //         children: [
+                          //           TextButton(
+                          //             style: TextButton.styleFrom(
+                          //                 backgroundColor: Color(0xffFFFDF4)),
+                          //             child: Padding(
+                          //               padding: const EdgeInsets.symmetric(
+                          //                   horizontal: 18.0),
+                          //               child: Text('OK',
+                          //                   style: GoogleFonts.poppins(
+                          //                       color: Colors.black,
+                          //                       fontSize:
+                          //                       screenHeight *
+                          //                           0.03)),
+                          //             ),
+                          //             onPressed: () {
+                          //               // Navigator.pushAndRemoveUntil(
+                          //               //   context,
+                          //               //   MaterialPageRoute(
+                          //               //     builder: (BuildContext context) =>
+                          //               //         MapScreenPopUp(),
+                          //               //   ),
+                          //               //       (route) => false,
+                          //               // );
+                          //               Navigator.pop(context);
+                          //             },
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ],
+                          // );
+                        //},
+                      //);
+                    //}
+                    //else {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -175,7 +172,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                                 locationList[selectedIndex - 1]),
                           ));
                     }
-                  },
+                //  },
                 ),
                 TextButton(
                   style:
