@@ -21,7 +21,9 @@ class LocationProvider extends ChangeNotifier {
             lat: locations.areaLocation.lat, lng: locations.areaLocation.lng);
         List<Area> area = locations.areas.map((e) => Area(
             coords: LatitudeLongitude(lat: e.coords.lat, lng: e.coords.lng),
-            id: e.id)).toList();
+          name: e.name,
+          id: e.id,
+        )).toList();
         Location location = Location(
             areaName: locations.areaName,
             areaLocation: latlong,

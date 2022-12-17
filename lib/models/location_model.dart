@@ -32,7 +32,7 @@ class LocationModel{
 class AreaModel{
   // String address;
   String id;
-  //String name;
+  String name;
   // String phone;
   LatitudeLongitudeModel coords;
 
@@ -40,7 +40,7 @@ class AreaModel{
     required this.coords,
     // required this.address,
     required this.id,
-    //required this.name,
+    required this.name,
     // required this.phone,
   });
 
@@ -55,7 +55,7 @@ class AreaModel{
       coords: LatitudeLongitudeModel.fromJson(json['coords'] as Map<String, dynamic>),
       //address: json['address'],
       id: json['id'],
-      //name: json['name'],
+      name: json['name'],
       //phone: json['phone'],
     );
   }

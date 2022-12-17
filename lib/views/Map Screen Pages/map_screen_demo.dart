@@ -25,13 +25,12 @@ class _MapDemoState extends State<MapDemo> with AutomaticKeepAliveClientMixin {
           position: LatLng(office.coords.lat, office.coords.lng),
           infoWindow: InfoWindow(
             title: office.id,
-            //snippet: office.address,
+            snippet: office.name,
           ),
         );
         _markers[office.id] = marker;
         print(widget.selectedLocation.areaName);
       }
-
     });
   }
   @override

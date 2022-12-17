@@ -14,7 +14,7 @@ class Area{
   //String address;
   //List<String> id;
   String id;
-  //String name;
+  String name;
   //String phone;
   LatitudeLongitude coords;
 
@@ -22,7 +22,7 @@ class Area{
     required this.coords,
     //required this.address,
     required this.id,
-    //required this.name,
+    required this.name,
     //required this.phone,
   });
 
