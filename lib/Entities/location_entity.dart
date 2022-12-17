@@ -11,18 +11,18 @@ class Location{
 }
 
 class Area{
-  String address;
+  //String address;
   String id;
-  String name;
-  String phone;
+  //String name;
+  //String phone;
   LatitudeLongitude coords;
 
   Area({
     required this.coords,
-    required this.address,
+    //required this.address,
     required this.id,
-    required this.name,
-    required this.phone,
+    //required this.name,
+    //required this.phone,
   });
 
 }

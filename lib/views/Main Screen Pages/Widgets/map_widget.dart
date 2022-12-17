@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/views/map_screen.dart';
-import 'package:flutterdemo/views/map_screen_popup.dart';
+import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen.dart';
+import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen_popup.dart';
+import 'package:flutterdemo/views/Map%20Screen%20Pages/select_area.dart';
 
 class MapWidget extends StatelessWidget {
   const MapWidget({

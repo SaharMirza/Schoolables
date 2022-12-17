@@ -4,7 +4,7 @@ import 'package:flutterdemo/Repository/location_repository.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/location_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:flutterdemo/views/map_screen_demo.dart';
+import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen_demo.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -77,10 +77,10 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                     value: dropdownValue,
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     icon: const Icon(Icons.arrow_downward_sharp),
-                    onTap:() {
-                      print(areaList.toString());
-                      print(areaList.length);
-                    },
+                    // onTap:() {
+                    //   // print(areaList.toString());
+                    //   // print(areaList.length);
+                    // },
                     underline: DecoratedBox(
                       decoration: BoxDecoration(color: Color(0xffDADBC6)),
                     ),

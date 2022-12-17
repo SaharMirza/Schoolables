@@ -1,4 +1,5 @@
 class LocationModel{
+
   String areaName;
   LatitudeLongitudeModel areaLocation;
   List<AreaModel> areas;
@@ -10,6 +11,7 @@ class LocationModel{
   });
 
   static LocationModel fromJson(Map<String, dynamic> json) {
+    print(json);
     return LocationModel(
       areaName: json['area_name'],
       areas: (json['areas'] as List).map((e) => AreaModel.fromJson(e as Map<String, dynamic>)).toList(),
@@ -29,29 +31,40 @@ class LocationModel{
     };
   }
 }
-
+// class ProductModel{
+//   String id;
+//   String name;
+//
+//
+//}
+//
 class AreaModel{
-  String address;
-  String id;
-  String name;
-  String phone;
+  // String address;
+  List<String> id;
+  //String name;
+  // String phone;
   LatitudeLongitudeModel coords;
 
   AreaModel({
     required this.coords,
-    required this.address,
+    // required this.address,
     required this.id,
-    required this.name,
-    required this.phone,
+    //required this.name,
+    // required this.phone,
   });
 
   static AreaModel fromJson(Map<String, dynamic> json) {
+    var firebaseData=[];
+    firebaseData = json['products'] ?? [];
+    List<String> products = [];
+    for (var id in firebaseData) products.add(id.toString().trim());
+
     return AreaModel(
       coords: LatitudeLongitudeModel.fromJson(json['coords'] as Map<String, dynamic>),
-      address: json['address'],
-      id: json['id'],
-      name: json['name'],
-      phone: json['phone'],
+      //address: json['address'],
+      id: products,
+      // name: json['name'],
+      // phone: json['phone'],
     );
   }
 }
@@ -66,7 +79,7 @@ class LatitudeLongitudeModel{
   });
 
   static LatitudeLongitudeModel fromJson(Map<String, dynamic> json) {
-   print(json);
+   // print(json);
     return LatitudeLongitudeModel(
       lat: (json['lat']??0) as double,
       lng: (json['lng']??0) as double,

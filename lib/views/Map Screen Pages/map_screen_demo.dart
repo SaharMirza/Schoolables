@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/location_entity.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class MapDemo extends StatefulWidget {
   final Location selectedLocation;
@@ -25,11 +25,11 @@ class _MapDemoState extends State<MapDemo> with AutomaticKeepAliveClientMixin {
           markerId: MarkerId(office.id),
           position: LatLng(office.coords.lat, office.coords.lng),
           infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
+            title: office.id,
+            //snippet: office.address,
           ),
         );
-        _markers[office.name] = marker;
+        _markers[office.id] = marker;
         print(widget.selectedLocation.areaName);
       }
 
