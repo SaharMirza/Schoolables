@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/bidding_entity.dart';
 import 'package:flutterdemo/models/buying_orders.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/models/products.dart';
+import 'package:flutterdemo/models/student_model.dart';
+import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
@@ -278,63 +281,316 @@ checkProgress(
                           .toList());
 }
 
-class ProgressWidget2 extends StatefulWidget {
-  const ProgressWidget2({
+class BuyingOrdersWidget extends StatefulWidget {
+  BuyingOrdersWidget({
     super.key,
-    required this.text,
-    required this.index,
-    required this.onValueChanged,
-    required this.selected,
+    required this.product,
+    required this.progresstype,
+    required this.seller,
   });
-  final String text;
-  final int index;
-  final Function(int) onValueChanged;
-  final int selected;
+  final ProductModel? product;
+  final String progresstype;
+  final UserProfileModel? seller;
   @override
-  State<ProgressWidget2> createState() => _ProgressWidget2State();
+  State<BuyingOrdersWidget> createState() => _BuyingOrdersWidget();
 }
 
-class _ProgressWidget2State extends State<ProgressWidget2> {
+class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
   @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   selected = widget.selected;
-  // }
-
   Widget build(BuildContext context) {
     int selectedIndex = -1;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: const EdgeInsets.only(right: 10, left: 10),
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedIndex = widget.index;
-          });
-          widget.onValueChanged(selectedIndex);
-        },
-        child: Container(
-          height: screenWidth < 400 ? 18 : 25,
-          width: screenWidth < 400 ? 80 : 100,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: widget.selected != widget.index
-                ? Color.fromRGBO(242, 233, 228, 1.0)
-                : MyColors.buttonColor,
-          ),
-          child: Center(
-            child: Text(
-              widget.text,
-              style: GoogleFonts.poppins(
-                fontSize: screenWidth < 400 ? 10 : 12,
-                color: widget.selected != widget.index
-                    ? MyColors.textColor
-                    : Colors.white,
-                fontWeight: FontWeight.w600,
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.startColor,
+              blurRadius: 20.0,
+              spreadRadius: 0,
+              offset: Offset(
+                10, // Move to right 10  horizontally
+                8.0, // Move to bottom 10 Vertically
               ),
+            ),
+          ],
+        ),
+        child: Card(
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            // side: BorderSide(color: MyColors.borderColor),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              width: 800,
+              child: Row(children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        // border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: widget.product!.images.isEmpty
+                              ? NetworkImage(
+                                  "https://static.thenounproject.com/png/3674270-200.png")
+                              : NetworkImage(widget.product!.images[0]),
+                        )),
+                    width: 90,
+                    height: 90,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.product!.title,
+                              style: GoogleFonts.poppins(
+                                color: MyColors.textColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
+                              // screenWidth * 0.025 - screenHeight * 0.025),
+                            ),
+                          ),
+                          Text(
+                            widget.progresstype,
+                            style: GoogleFonts.poppins(
+                              fontSize: screenWidth < 400 ? 10 : null,
+                              color: widget.progresstype == "In Progress"
+                                  ? Color.fromARGB(255, 201, 182, 18)
+                                  : widget.progresstype == "Cancelled"
+                                      ? Colors.red
+                                      : widget.progresstype == "Completed"
+                                          ? Colors.green
+                                          : Colors.lightBlue,
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                          widget.progresstype == "In Progress" ||
+                                  widget.progresstype == "Completed"
+                              ? "Accepted Bid Rs. " +
+                                  widget.product!.price.toString()
+                              : "Your Bid Rs. " +
+                                  widget.product!.price.toString(),
+                          style: MyStyles.googleTextSubtitleListTile(12)),
+                      Text(
+                        "Book Condition : " + widget.product!.condition + "/10",
+                        style: MyStyles.googleTextSubtitleListTile(12),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: (20),
+                                backgroundColor: Colors.white,
+                                backgroundImage: widget.seller!.display.isEmpty
+                                    ? NetworkImage(
+                                        "https://static.thenounproject.com/png/3674270-200.png")
+                                    : NetworkImage(widget.seller!.display),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.seller!.name,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.seller!.phone,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SellingOrdersWidget extends StatefulWidget {
+  SellingOrdersWidget({
+    super.key,
+    required this.product,
+    required this.progresstype,
+    required this.bid,
+  });
+  final ProductModel? product;
+  final String progresstype;
+  final Bidding bid;
+  @override
+  State<SellingOrdersWidget> createState() => _SellingOrdersWidget();
+}
+
+class _SellingOrdersWidget extends State<SellingOrdersWidget> {
+  @override
+  Widget build(BuildContext context) {
+    int selectedIndex = -1;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.startColor,
+              blurRadius: 20.0,
+              spreadRadius: 0,
+              offset: Offset(
+                10, // Move to right 10  horizontally
+                8.0, // Move to bottom 10 Vertically
+              ),
+            ),
+          ],
+        ),
+        child: Card(
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            // side: BorderSide(color: MyColors.borderColor),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              width: 800,
+              child: Row(children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        // border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: widget.product!.images.isEmpty
+                              ? NetworkImage(
+                                  "https://static.thenounproject.com/png/3674270-200.png")
+                              : NetworkImage(widget.product!.images[0]),
+                        )),
+                    width: 90,
+                    height: 90,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.product!.title,
+                              style: GoogleFonts.poppins(
+                                color: MyColors.textColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
+                              // screenWidth * 0.025 - screenHeight * 0.025),
+                            ),
+                          ),
+                          Text(
+                            widget.progresstype,
+                            style: GoogleFonts.poppins(
+                              fontSize: screenWidth < 400 ? 10 : null,
+                              color: widget.progresstype == "In Progress"
+                                  ? Color.fromARGB(255, 201, 182, 18)
+                                  : widget.progresstype == "Cancelled"
+                                      ? Colors.red
+                                      : widget.progresstype == "Completed"
+                                          ? Colors.green
+                                          : Colors.lightBlue,
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                          widget.progresstype == "In Progress" ||
+                                  widget.progresstype == "Completed"
+                              ? "Accepted Bid Rs. " +
+                                  widget.product!.price.toString()
+                              : "Your Bid Rs. " +
+                                  widget.product!.price.toString(),
+                          style: MyStyles.googleTextSubtitleListTile(12)),
+                      Text(
+                        "Book Condition : " + widget.product!.condition + "/10",
+                        style: MyStyles.googleTextSubtitleListTile(12),
+                      ),
+                      widget.progresstype == "Completed"||
+                                  widget.progresstype == "Pending"||
+                                  widget.progresstype == "Cancelled"?Container():ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<UserProvider>()
+                                .addSellerOrder(widget.bid.id);
+                            context.read<UserProvider>().saveChanges();
+                            context.read<UserProvider>().updateSellerOrders(
+                                widget.bid.buyerID, widget.bid.id);
+                            context
+                                .read<UserProvider>()
+                                .removeBid(widget.bid.id);
+                            List<String> bids = context
+                                .read<UserProvider>()
+                                .user
+                                .sellingbiddingIDs;
+                            context.read<BiddingProvider>().loadUserBids(bids);
+                            List<String> sellerbids =
+                                context.read<UserProvider>().user.orderSeller;
+                            context
+                                .read<BiddingProvider>()
+                                .loadSellerOrders(sellerbids);
+                          },
+                          child: Text("Update"))
+                    ],
+                  ),
+                ),
+              ]),
             ),
           ),
         ),
@@ -610,7 +866,11 @@ class _ContactSellerBtnState extends State<ContactSellerBtn> {
 }
 
 class OrderDetailsCard extends StatefulWidget {
-  const OrderDetailsCard({super.key, required this.isProduct,required this.product,});
+  const OrderDetailsCard({
+    super.key,
+    required this.isProduct,
+    required this.product,
+  });
   final bool isProduct;
   final ProductModel? product;
 
@@ -633,17 +893,17 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final Users = context.read<UserProvider>().Users;
-    bool seller=false;
-     getSeller(sellerID){
-      for(int i=0;i<Users.length;i++){
-        if(Users[i].id==sellerID)
-        {
-        seller= true;
-        return Users[i];
-        
-        }}
+    bool seller = false;
+    getSeller(sellerID) {
+      for (int i = 0; i < Users.length; i++) {
+        if (Users[i].id == sellerID) {
+          seller = true;
+          return Users[i];
+        }
+      }
     }
-     if (Users.isEmpty) {
+
+    if (Users.isEmpty) {
       print("empty");
       return Column(
         children: [
@@ -654,176 +914,183 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
           ),
         ],
       );
-    } else {return Padding(
-      padding: const EdgeInsets.all(26),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                widget.product!.title,
-                  style: MyStyles.googleTitleText(24),
-                ),
-                Text(
-                  "Rs "+widget.product!.price.toString(),
-                  style: MyStyles.googleTextSubtitleListTile(22),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.product!.subCategory,
-                  style: GoogleFonts.poppins(
-                      color: MyColors.subtitleColor,
-                      fontSize: 21,
-                      fontWeight: FontWeight.w500),
-                ),
-                (widget.isProduct == false)
-                    ? Row(
-                        children: [
-                          Icon(Icons.star_rounded, color: Colors.amber),
-                          Text(
-                            "4.0",
-                            style: GoogleFonts.poppins(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.amber),
-                          ),
-                        ],
-                      )
-                    : Text(""),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              "Book Condition: "+widget.product!.condition+"/10",
-              style: MyStyles.googleTextSubtitleListTile(18),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Seller",
-              style: MyStyles.googleTextSubtitleListTile(18),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const CircleAvatar(
-                          radius: (30),
-                          backgroundImage:
-                              AssetImage("assets/images/girlavatar.png"),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(26),
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.product!.title,
+                    style: MyStyles.googleTitleText(24),
+                  ),
+                  Text(
+                    "Rs " + widget.product!.price.toString(),
+                    style: MyStyles.googleTextSubtitleListTile(22),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.product!.subCategory,
+                    style: GoogleFonts.poppins(
+                        color: MyColors.subtitleColor,
+                        fontSize: 21,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  (widget.isProduct == false)
+                      ? Row(
                           children: [
+                            Icon(Icons.star_rounded, color: Colors.amber),
                             Text(
-                              Users.isEmpty?"SellerName":getSeller(widget.product!.sellerID)!.name,
+                              "4.0",
                               style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Text(
-                               Users.isEmpty?"SellerName":getSeller(widget.product!.sellerID)!.phone,
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.amber),
                             ),
                           ],
-                        ),
-                      ],
-                    ),
-                    widget.isProduct == true
-                        ? Row(
+                        )
+                      : Text(""),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                "Book Condition: " + widget.product!.condition + "/10",
+                style: MyStyles.googleTextSubtitleListTile(18),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Seller",
+                style: MyStyles.googleTextSubtitleListTile(18),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const CircleAvatar(
+                            radius: (30),
+                            backgroundImage:
+                                AssetImage("assets/images/girlavatar.png"),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.star_rounded, color: Colors.amber),
                               Text(
-                                "4.0",
+                                Users.isEmpty
+                                    ? "SellerName"
+                                    : getSeller(widget.product!.sellerID)!.name,
                                 style: GoogleFonts.poppins(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.amber),
-                              ),
-                            ],
-                          )
-                        : MapWidget(),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                widget.isProduct == true
-                    ? Container(
-                        child: Column(children: [
-                          Container(
-                            height: 45,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(50, 0, 0, 0),
-                                  offset: const Offset(
-                                    5.0,
-                                    5.0,
-                                  ),
-                                  blurRadius: 10.0,
-                                  spreadRadius: 1.0,
-                                ), //BoxShadow
-                                //BoxShadow
-                              ],
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text("View Location on Map",
-                                    style: MyStyles.googleTextListTile(15)),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                side: BorderSide(
-                                    color: MyColors.textColor, width: 2),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
-                            ),
-                          )
-                        ]),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CancelOrderBtn(),
-                          ContactSellerBtn(),
+                              Text(
+                                Users.isEmpty
+                                    ? "SellerName"
+                                    : getSeller(widget.product!.sellerID)!
+                                        .phone,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                widget.isProduct == true ? Container() : Text(""),
-              ],
-            ),
-          ],
+                      widget.isProduct == true
+                          ? Row(
+                              children: [
+                                Icon(Icons.star_rounded, color: Colors.amber),
+                                Text(
+                                  "4.0",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.amber),
+                                ),
+                              ],
+                            )
+                          : MapWidget(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  widget.isProduct == true
+                      ? Container(
+                          child: Column(children: [
+                            Container(
+                              height: 45,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromARGB(50, 0, 0, 0),
+                                    offset: const Offset(
+                                      5.0,
+                                      5.0,
+                                    ),
+                                    blurRadius: 10.0,
+                                    spreadRadius: 1.0,
+                                  ), //BoxShadow
+                                  //BoxShadow
+                                ],
+                              ),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("View Location on Map",
+                                      style: MyStyles.googleTextListTile(15)),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  side: BorderSide(
+                                      color: MyColors.textColor, width: 2),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CancelOrderBtn(),
+                            ContactSellerBtn(),
+                          ],
+                        ),
+                  widget.isProduct == true ? Container() : Text(""),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-    );}
+      );
+    }
   }
 }
 

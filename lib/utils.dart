@@ -39,7 +39,6 @@ class _MyAppBarState extends State<MyAppBar> {
   Widget build(BuildContext context) {
     int counter = 0;
     final bids = context.watch<BiddingProvider>().userBids;
-    List<ProductModel> userProducts = [];
 
     for(int i=0; i<bids.length;i++){
       if(bids[i].isAccepted == false && bids[i].isRejected == false){

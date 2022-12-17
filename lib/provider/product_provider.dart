@@ -11,15 +11,16 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductModel> products = [];
   List<Product> userProducts = [];
-  Product product = Product(
-      sellerID: "",
-      title: "",
-      price: 0,
-      images: [],
-      category: "",
-      subCategory: "",
-      condition: "");
-  String psellerID = "";
+  
+  // Product product = Product(
+  //     sellerID: "",
+  //     title: "",
+  //     price: 0,
+  //     images: [],
+  //     category: "",
+  //     subCategory: "",
+  //     condition: "");
+  // String psellerID = "";
 
   final ProductsRepository _productsRepository = FirebaseProductsRepository();
 

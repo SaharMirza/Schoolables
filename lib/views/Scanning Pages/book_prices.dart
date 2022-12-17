@@ -19,53 +19,53 @@ class BookPrices extends StatefulWidget {
 }
 
 class _BookPricesState extends State<BookPrices> {
-  List<Product> books = [
-    Product(
-      name: 'Karwaan-e-Urdu',
-      image: 'assets/images/image-placeholder.png',
-      price: '200',
-      isFav: false,
-    ),
-    Product(
-      name: 'Karwaan-e-Urdu',
-      image: 'assets/images/image-placeholder.png',
-      price: '250',
-      isFav: false,
-    ),
-    Product(
-      name: 'Karwaan-e-Urdu',
-      image: 'assets/images/image-placeholder.png',
-      price: '300',
-      isFav: false,
-    ),
-    Product(
-      name: 'Karwaan-e-Urdu',
-      image: 'assets/images/image-placeholder.png',
-      price: '250',
-      isFav: false,
-    ),
-    Product(
-      name: 'Karwaan-e-Urdu',
-      image: 'assets/images/image-placeholder.png',
-      price: '300',
-      isFav: false,
-    ),
-  ];
+  // List<Product> books = [
+  //   Product(
+  //     name: 'Karwaan-e-Urdu',
+  //     image: 'assets/images/image-placeholder.png',
+  //     price: '200',
+  //     isFav: false,
+  //   ),
+  //   Product(
+  //     name: 'Karwaan-e-Urdu',
+  //     image: 'assets/images/image-placeholder.png',
+  //     price: '250',
+  //     isFav: false,
+  //   ),
+  //   Product(
+  //     name: 'Karwaan-e-Urdu',
+  //     image: 'assets/images/image-placeholder.png',
+  //     price: '300',
+  //     isFav: false,
+  //   ),
+  //   Product(
+  //     name: 'Karwaan-e-Urdu',
+  //     image: 'assets/images/image-placeholder.png',
+  //     price: '250',
+  //     isFav: false,
+  //   ),
+  //   Product(
+  //     name: 'Karwaan-e-Urdu',
+  //     image: 'assets/images/image-placeholder.png',
+  //     price: '300',
+  //     isFav: false,
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    List<Product> product = [
-      Product(name: "O'Levels Math", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Science", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels English", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels ", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Physics", image: "", price: "500", isFav: false),
-      Product(
-          name: "O'Levels Chemistry", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Bio", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Eco", image: "", price: "500", isFav: false),
-      Product(name: "O'Levels Computer", image: "", price: "500", isFav: false),
-    ];
+    // List<Product> product = [
+    //   Product(name: "O'Levels Math", image: "", price: "500", isFav: false),
+    //   Product(name: "O'Levels Science", image: "", price: "500", isFav: false),
+    //   Product(name: "O'Levels English", image: "", price: "500", isFav: false),
+    //   Product(name: "O'Levels ", image: "", price: "500", isFav: false),
+    //   Product(name: "O'Levels Physics", image: "", price: "500", isFav: false),
+    //   Product(
+    //       name: "O'Levels Chemistry", image: "", price: "500", isFav: false),
+    //   Product(name: "O'Levels Bio", image: "", price: "500", isFav: false),
+    //   Product(name: "O'Levels Eco", image: "", price: "500", isFav: false),
+    //   Product(name: "O'Levels Computer", image: "", price: "500", isFav: false),
+    // ];
 
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
