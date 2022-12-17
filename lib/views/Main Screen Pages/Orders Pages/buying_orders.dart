@@ -52,10 +52,10 @@ class _BuyingOrdersState extends State<BuyingOrders> {
     }
 
     List<Categories> progress = [
-      Categories(name: "In Progress", image: "assets/images/book.gif"),
-      Categories(name: "Completed", image: "assets/images/stationary.gif"),
-      Categories(name: "Cancelled", image: "assets/images/bag.gif"),
-      Categories(name: "Pending", image: "assets/images/bag.gif"),
+      Categories(name: "In Progress", image: "assets/images/inprogress.gif"),
+      Categories(name: "Completed", image: "assets/images/completed.gif"),
+      Categories(name: "Cancelled", image: "assets/images/cancelled.gif"),
+      Categories(name: "Pending", image: "assets/images/pending.gif"),
     ];
 
     List<Bidding> orders = [];
