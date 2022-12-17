@@ -39,7 +39,7 @@ class SearchBar extends StatelessWidget {
           prefixIcon: Icon(Icons.search_outlined),
           filled: true,
           fillColor: Color.fromRGBO(242, 233, 228, 1.0),
-          labelText: "What are you looking for?",
+          labelText: "What are you looking for?",labelStyle: TextStyle(fontSize: 15),
           enabledBorder: OutlineInputBorder(
             borderSide:
                 const BorderSide(color: Color.fromRGBO(242, 233, 228, 1.0)),
@@ -66,8 +66,8 @@ class SearchfilterMapWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SearchBar(width: screenWidth * 0.65, screenHeight: screenHeight),
-        FilterWidget(),
+        SearchBar(width: screenWidth * 0.8, screenHeight: screenHeight),
+        // FilterWidget(),
         MapWidget()
       ],
     );

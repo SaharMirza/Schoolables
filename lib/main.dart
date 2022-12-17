@@ -27,6 +27,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'provider/location_provider.dart';
 
 void main() async {
   //final UsersRepository userRepository;
@@ -45,7 +46,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => TabNotifier()),
         ChangeNotifierProvider(create: (_) => ParentProvider()),
         ChangeNotifierProvider(create: (_) => ChildProvider()),
-        ChangeNotifierProvider(create: (_) => BiddingProvider())
+        ChangeNotifierProvider(create: (_) => BiddingProvider()),
+        ChangeNotifierProvider(create: (_) => LocationProvider())
       ],
       child: MyApp(),
     ),
@@ -72,12 +74,12 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  late GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  // late GoogleMapController mapController;
+  //
+  // final LatLng _center = const LatLng(45.521563, -122.677433);
+  //
+  // void _onMapCreated(GoogleMapController controller) {
+  //   mapController = controller;
   }
 
   // Widget build(BuildContext context) {
@@ -97,7 +99,7 @@ class MyApp extends StatelessWidget {
   //     ),
   //   );
   // }0
-}
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -136,6 +138,8 @@ class _MyHomePageState extends State<MyHomePage> {
             context.read<ChildProvider>().fetchChildern();
             context.read<CategoriesProvider>().fetchCategories();
             context.read<UserProvider>().loadUsers();
+//            context.read<LocationProvider>().locationList;
+
           });
           return BottomNavBar();
         } else //if the user was logged out

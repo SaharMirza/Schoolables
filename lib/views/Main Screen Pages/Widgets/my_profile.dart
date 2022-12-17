@@ -423,12 +423,6 @@ class BasicInformationSection extends StatelessWidget {
             controller: _nameController, isEmpty: false,
           ),
         ),
-        // FormTextField(FieldLabel: "Gender", hintText: "Choose Gender"),
-        // Padding(
-        //   padding: const EdgeInsets.only(bottom: 8),
-        //   child: DropDown(dropdownLabel: "Gender"),
-        // ),
-        // FormTextField(FieldLabel: "Date Of Birth", hintText: "DOB"),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: DatePickerTextField(),

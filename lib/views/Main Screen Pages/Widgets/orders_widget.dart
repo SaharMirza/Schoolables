@@ -666,7 +666,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
               children: [
                 Text(
                 widget.product!.title,
-                  style: MyStyles.googleTitleText(30),
+                  style: MyStyles.googleTitleText(24),
                 ),
                 Text(
                   "Rs "+widget.product!.price.toString(),

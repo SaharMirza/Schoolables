@@ -26,21 +26,18 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    newList = widget.searchList;
+    //newList = widget.searchList;
+  newList=[];
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    String val='';
+    final textController = TextEditingController();
 
     return Scaffold(
-      // appBar: AppBar(
-      //     // The search area here
-      //     title: Container(
-      //   width: double.infinity,
-      //   height: 40,
-      //   color: Colors.white,
       body: (
       Column(
         children: [
@@ -50,11 +47,18 @@ class _SearchPageState extends State<SearchPage> {
             width: screenWidth*0.9,
             child: TextField(
               onChanged: (value) {
-                newList = widget.searchList
-                    .where(((products) => (products.title
-                        .toLowerCase()
-                        .contains(value.toLowerCase()))))
-                    .toList();
+                val = value;
+                if(val!='' ) {
+                  newList = widget.searchList
+                      .where(((products) =>
+                  (products.title
+                      .toLowerCase()
+                      .contains(value.toLowerCase()))))
+                      .toList();
+                }
+                else{
+                  newList=[];
+                }
                 setState(() {});
               },
               decoration: InputDecoration(
@@ -71,25 +75,17 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
     SizedBox(height:screenHeight*0.01 ,),
-    Expanded(
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        itemBuilder: (context, index) =>
-            searchListTile(product: newList[index]),
-        itemCount: newList.length,
-      ),
-    ),
-    ]
-      )
-        ),
-      // )
-      // ),
-      // body: ListView.builder(
-      //   padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      //   itemBuilder: (context, index) =>
-      //       searchListTile(product: newList[index]),
-      //   itemCount: newList.length,
-      // ),
+          Expanded(
+                      child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
+                      itemBuilder: (context, index) =>
+                          searchListTile(product: newList[index]),
+                      itemCount: newList.length,
+                    ),
+                  ),
+        ],
+      )),
     );
   }
 }
@@ -122,13 +118,6 @@ class _searchListTileState extends State<searchListTile> {
             ),
           );
         }),
-        // onTap: () async {
-        //   await Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //       builder: (context) => SyllabusList(scannedList: widget.scanItem),
-        //     ),
-        //   );
-        // },
         title: Padding(
           padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: ListtitleText(

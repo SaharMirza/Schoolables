@@ -38,8 +38,6 @@ class _MyAppBarState extends State<MyAppBar> {
   @override
   Widget build(BuildContext context) {
     int counter = 0;
-    final products = context.read<ProductsProvider>().products;
-    final userAuth = Provider.of<UserAuth?>(context);
     final bids = context.watch<BiddingProvider>().userBids;
     List<ProductModel> userProducts = [];
 
@@ -48,23 +46,6 @@ class _MyAppBarState extends State<MyAppBar> {
         counter++;
       }
     }
-
-    // //User Products
-    // for (int i = 0; i < products.length; i++) {
-    //   if (products[i].sellerID == userAuth?.id) {
-    //     userProducts.add(products[i]);
-    //   }
-    // }
-
-    // //fetch bids on user's products
-    // for (int i = 0; i < bids.length; i++) {
-    //   for (int j = 0; j < userProducts.length; j++) {
-    //     if (bids[i].productID == userProducts[j].id &&
-    //         (bids[i].isAccepted == false && bids[i].isRejected == false)) {
-    //       counter++;
-    //     }
-    //   }
-    // }
 
     final userProfile = context.watch<UserProvider>().userProfile;
     return AppBar(
@@ -98,15 +79,6 @@ class _MyAppBarState extends State<MyAppBar> {
               ),
             ),
           )
-          // Image.asset(
-          //   "assets/images/Schoolables.png",
-          //   height: 25,
-          //   width: 25,
-          // )
-          // // Icon(
-          //   Icons.logo_dev_outlined,
-          //   color: const Color.fromRGBO(74, 78, 105, 1.0),
-          // ),
           ),
       centerTitle: true,
       title: Row(
@@ -165,7 +137,7 @@ class HeaderBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-
+   final userProfile = context.watch<UserProvider>().userProfile;
     return SizedBox(
       child: AppBar(
         elevation: 0,
@@ -184,7 +156,12 @@ class HeaderBar extends StatelessWidget {
                 ),
               );
             },
-            icon: Image.asset("assets/images/girlavatar.png"),
+            icon: Image(
+                image: NetworkImage(userProfile.display.isEmpty
+                    ? "https://img.icons8.com/bubbles/50/000000/user.png"
+                    : userProfile.display),
+              )
+            //Image.asset("assets/images/girlavatar.png"),
             // const Icon(Icons.account_circle_outlined,
             //   size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
           ),
