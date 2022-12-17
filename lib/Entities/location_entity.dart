@@ -12,7 +12,8 @@ class Location{
 
 class Area{
   //String address;
-  List<String> id;
+  //List<String> id;
+  String id;
   //String name;
   //String phone;
   LatitudeLongitude coords;

@@ -54,17 +54,18 @@ class AreaModel{
   });
 
   static AreaModel fromJson(Map<String, dynamic> json) {
-    var firebaseData=[];
-    firebaseData = json['products'] ?? [];
-    List<String> products = [];
-    for (var id in firebaseData) products.add(id.toString().trim());
+    //var firebaseData=[];
+    //firebaseData = json['products'] ?? [];
+    //String productID='';
+    // productID=fire);
+    // for (var id in firebaseData) products.add(id.toString().trim());
 
     return AreaModel(
       coords: LatitudeLongitudeModel.fromJson(json['coords'] as Map<String, dynamic>),
       //address: json['address'],
-      id: products,
-      // name: json['name'],
-      // phone: json['phone'],
+      id: json['id'],
+      //name: json['name'],
+      //phone: json['phone'],
     );
   }
 }
