@@ -1,24 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/parent_entity.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/models/parent_model.dart';
-// import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
-// import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
 import '../../provider/student_provider.dart';
-import 'Widgets/filter_widget.dart';
 import 'Widgets/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
