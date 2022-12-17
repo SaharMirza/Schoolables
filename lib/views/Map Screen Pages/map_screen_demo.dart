@@ -22,14 +22,14 @@ class _MapDemoState extends State<MapDemo> with AutomaticKeepAliveClientMixin {
       for (final office in widget.selectedLocation.areas) {
         print(widget.selectedLocation.areaName);
         final marker = Marker(
-          markerId: MarkerId(office.id.first),
+          markerId: MarkerId(office.id.elementAt(0)),
           position: LatLng(office.coords.lat, office.coords.lng),
           infoWindow: InfoWindow(
-            title: office.id.first,
+            title: office.id.elementAt(0),
             //snippet: office.address,
           ),
         );
-        _markers[office.id.first] = marker;
+        _markers[office.id.elementAt(0)] = marker;
         print(widget.selectedLocation.areaName);
       }
 
