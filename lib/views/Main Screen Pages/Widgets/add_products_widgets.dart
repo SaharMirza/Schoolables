@@ -8,6 +8,7 @@ import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
+import 'package:flutterdemo/views/Map%20Screen%20Pages/choose_location.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -257,7 +258,12 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
               ),
             ),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => const chooseLocation()));
+              },
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
