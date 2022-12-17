@@ -72,10 +72,6 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                     value: dropdownValue,
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     icon: const Icon(Icons.arrow_downward_sharp),
-                    // onTap:() {
-                    //   // print(areaList.toString());
-                    //   // print(areaList.length);
-                    // },
                     underline: DecoratedBox(
                       decoration: BoxDecoration(color: Color(0xffDADBC6)),
                     ),
@@ -178,13 +174,13 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                   TextButton.styleFrom(backgroundColor: Color(0xffBBBD88)),
                   child: Text('Cancel', style: TextStyle(color: Colors.black)),
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const MapScreenPopUp(),
-                      ),
-                          (route) => false,
-                    );
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (BuildContext context) => const MapScreenPopUp(),
+                    //   ),
+                    //       (route) => false,
+                    // );
                     Navigator.pop(context);
                   },
                 ),
