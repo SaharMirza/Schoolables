@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
@@ -5,14 +8,17 @@ import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/seller_products.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:tflite/tflite.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
+
+late List<XFile> acceptedImages = [];
 
 class UploadPictureCard extends StatefulWidget {
   const UploadPictureCard(
@@ -25,6 +31,54 @@ class UploadPictureCard extends StatefulWidget {
 }
 
 class _UploadPictureCardState extends State<UploadPictureCard> {
+  XFile? _image;
+  bool _loading = false;
+  List<dynamic>? _outputs;
+  final ImagePicker picker = ImagePicker();
+
+  loadModel() async {
+    Tflite.close();
+    var res = (await Tflite.loadModel(
+      model: "assets/model/model_unquant.tflite",
+      labels: "assets/model/labels.txt",
+    ))!;
+    print("Models loading status: $res");
+  }
+
+  classifyImage(image) async {
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 2,
+      threshold: 0.5,
+      imageMean: 127.5,
+      imageStd: 127.5,
+    );
+    setState(() {
+      _loading = false;
+//Declare List _outputs in the class which will be used to show the classified classs name and confidence
+      _outputs = output;
+    });
+    print(_outputs);
+    if (output?[0]["label"] != "4 Misc") {
+      acceptedImages.add(image);
+    }
+  }
+
+  Future pickImageFromGallery() async {
+    var piture = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = piture;
+    });
+    classifyImage(piture);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadModel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,29 +103,84 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                       ]),
                 ),
               ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.upload_rounded,
-                ),
-                label: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text(
-                    "Add Photos",
-                    style: const TextStyle(color: MyColors.buttonTextColor),
-                  ),
-                ),
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(color: MyColors.textColor),
-                  ),
-                  backgroundColor: MyColors.startColor,
-                  textStyle: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
+              acceptedImages.length == 0
+                  ? ElevatedButton.icon(
+                      onPressed: () {
+                        pickImageFromGallery();
+                      },
+                      icon: Icon(
+                        Icons.upload_rounded,
+                      ),
+                      label: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          "Add Photos",
+                          style:
+                              const TextStyle(color: MyColors.buttonTextColor),
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(color: MyColors.textColor),
+                        ),
+                        backgroundColor: MyColors.startColor,
+                        textStyle: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  : SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 130,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                physics: ScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: acceptedImages.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stack(
+                                      fit: StackFit.loose,
+                                      children: [
+                                        Container(
+                                          width: 90,
+                                          child: Image.file(
+                                            File(acceptedImages[index].path),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              acceptedImages.removeAt(index);
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: MyColors.textColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ),
+                          acceptedImages.length != 20
+                              ? GestureDetector(
+                                  onTap: (() {
+                                    pickImageFromGallery();
+                                  }),
+                                  child: Icon(Icons.add),
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ),
             ],
           )
         ],
@@ -184,49 +293,73 @@ class AddProductFields extends StatefulWidget {
 }
 
 class _AddProductFieldsState extends State<AddProductFields> {
-  List<String> category = [];
-  List<String> subCategory = [];
+  List<String> category = ["Books", "Stationary", "Calculator"];
+  List<String> subCategory = ["English", "Math"];
   List<String> condition = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  final titleController = TextEditingController();
+  final priceController = TextEditingController();
+  bool isEmpty = false;
+  var downloadUrls = [];
 
-  String _currentCategory = 'Books';
+  String _currentCategory = "Books";
   String _currentConditon = '1';
-  String _currentSubCategory = 'English';
+  String _currentSubCategory = "English";
+
   @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    titleController.dispose();
+    priceController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     final userProfile = context.read<UserProvider>().userProfile;
-    final categories = context.read<CategoriesProvider>().categories;
-    for (int i = 0; i < categories.length; i++) {
-      if (categories[i].parentID == "0") {
-        category.add(categories[i].catName.toString());
-      } else {
-        subCategory.add(categories[i].catName.toString());
+    final categories = context.watch<CategoriesProvider>().categories;
+    final isLoading = context.watch<UserProvider>().isLoading;
+
+//function which stores images uploaded by the user in firebase storages and returns their download urls.
+    storeImagesinStorage(acceptedImages) async {
+      List<File> finalImages = [];
+      for (XFile i in acceptedImages) {
+        finalImages.add(File(i.path));
       }
+      downloadUrls =
+          await context.read<ProductsProvider>().getDownloadUrls(finalImages);
+      // downloadUrls = context.read<ProductsProvider>().downloadUrls;
+      print("LLFLEFLKELF " + downloadUrls.length.toString());
     }
-    List<String> images = ["URL 1", "URL 2"];
-    List<String> bidingIDs = [];
 
-    final TextEditingController _titleController = TextEditingController();
-    final TextEditingController _priceController = TextEditingController();
-
+//Saves the product into firebase.
     void saveMyProduct() async {
       var product = Product(
           sellerID: userProfile.id,
-          title: _titleController.text,
-          price: int.parse(_priceController.text),
-          images: images,
+          title: titleController.text,
+          price: int.parse(priceController.text),
+          images: downloadUrls,
           category: _currentCategory,
           subCategory: _currentSubCategory,
           condition: _currentConditon);
-      var productid =
-          await context.read<ProductsProvider>().addProduct(product);
-      context.read<UserProvider>().addNewProduct(productid);
-      context.read<UserProvider>().saveChanges();
-      // context.read<ProductsProvider>().fetchProducts();
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => BottomNavBar(),
-        ),
-      );
+
+      if (downloadUrls.length != 0) {
+        var productid =
+            await context.read<ProductsProvider>().addProduct(product);
+        context.read<UserProvider>().addNewProduct(productid);
+        context.read<UserProvider>().saveChanges();
+
+        isLoading == true
+            ? CircularProgressIndicator()
+            : await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => BottomNavBar(),
+                ),
+              );
+
+        titleController.clear();
+        priceController.clear();
+        acceptedImages = [];
+      }
     }
 
     return Container(
@@ -234,11 +367,12 @@ class _AddProductFieldsState extends State<AddProductFields> {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child:
-             FormTextField(
-                FieldLabel: "Title",
-                hintText: "Title",
-                controller: _titleController),
+            child: FormTextField(
+              FieldLabel: "Title",
+              hintText: "Title",
+              controller: titleController,
+              isEmpty: false,
+            ),
           ),
           Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
@@ -248,11 +382,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
                   Text("Category", style: MyStyles.googleTextFieldLabelStyle),
                   dropdownCategory()
                 ],
-              )
-              // DropDown(
-              //   dropdownLabel: "Category",
-              // ),
-              ),
+              )),
           Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Column(
@@ -262,11 +392,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
                       style: MyStyles.googleTextFieldLabelStyle),
                   dropDownSubCategory()
                 ],
-              )
-              // DropDown(
-              //   dropdownLabel: "Category",
-              // ),
-              ),
+              )),
           Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Column(
@@ -275,27 +401,16 @@ class _AddProductFieldsState extends State<AddProductFields> {
                   Text("Condition", style: MyStyles.googleTextFieldLabelStyle),
                   dropdownCondition()
                 ],
-              )
-              // DropDown(
-              //   dropdownLabel: "Category",
-              // ),
-              ),
-          // Padding(
-          //   padding: const EdgeInsets.only(bottom: 8.0),
-          //   child:
-          //       FormTextField(FieldLabel: "Condition", hintText: "Condition"),
-          // ),
+              )),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: FormTextField(
-                FieldLabel: "Price",
-                hintText: "Price",
-                controller: _priceController),
+              FieldLabel: "Price",
+              hintText: "Price",
+              controller: priceController,
+              isEmpty: false,
+            ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(bottom: 8.0),
-          //   child: EnlargedTextField(screenWidth: widget.screenWidth),
-          // ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: LocationTextFieldNBtn(screenWidth: widget.screenWidth),
@@ -329,22 +444,8 @@ class _AddProductFieldsState extends State<AddProductFields> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () async {
-                  print(_currentConditon);
+                  await storeImagesinStorage(acceptedImages);
                   saveMyProduct();
-                  // context.read<ProductsProvider>().addProduct(
-                  //     _titleController.text,
-                  //     userProfile.id,
-                  //     images,
-                  //     _currentCategory,
-                  //     _currentSubCategory,
-                  //     _currentConditon,
-                  //     int.parse(_priceController.text));
-                  // context.read<ProductsProvider>().fetchProducts();
-                  // await Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BottomNavBar(),
-                  //   ),
-                  // );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -360,6 +461,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
     );
   }
 
+// dropdown widget for Condition
   StatefulBuilder dropdownCondition() {
     return StatefulBuilder(builder: ((context, setState) {
       return DecoratedBox(
@@ -384,44 +486,54 @@ class _AddProductFieldsState extends State<AddProductFields> {
                 onChanged: (value) {
                   print(value);
                   _currentConditon = value!;
-                  setState(() {});
+                  setState(
+                    () {},
+                  );
                   print(_currentConditon);
                 },
               )));
     }));
   }
 
+// dropdown widget for SubCategory
   StatefulBuilder dropDownSubCategory() {
-    return StatefulBuilder(builder: ((context, setState) {
-      return DecoratedBox(
+    return StatefulBuilder(
+      builder: ((context, setState) {
+        return DecoratedBox(
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black38),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
-              padding: EdgeInsets.only(left: 10, right: 2),
-              child: DropdownButton(
-                value: _currentSubCategory,
-                hint: Text(_currentSubCategory),
-                isExpanded: true,
-                underline: Container(),
-                focusColor: Colors.white,
-                items: subCategory.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  print(value);
-                  _currentSubCategory = value!;
-                  setState(() {});
-                  print(_currentSubCategory);
-                },
-              )));
-    }));
+            padding: EdgeInsets.only(left: 10, right: 2),
+            child: DropdownButton(
+              value: _currentSubCategory,
+              hint: Text(_currentSubCategory),
+              isExpanded: true,
+              underline: Container(),
+              focusColor: Colors.white,
+              items: subCategory.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+              }).toList(),
+              onChanged: (value) {
+                print(value);
+                _currentSubCategory = value!;
+                setState(
+                  () {},
+                );
+                print(_currentSubCategory);
+              },
+            ),
+          ),
+        );
+      }),
+    );
   }
 
+// dropdown widget for Category
   StatefulBuilder dropdownCategory() {
     return StatefulBuilder(builder: ((context, setState) {
       return DecoratedBox(

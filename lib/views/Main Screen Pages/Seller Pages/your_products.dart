@@ -85,15 +85,17 @@ class _YourProductsPageState extends State<YourProductsPage> {
                       ),
                       sellerProducts.length==0?CircularProgressIndicator():
                       ListView.builder(
-                        physics: ScrollPhysics(),
+                          physics: ScrollPhysics(),
                           shrinkWrap: true,
                           // scrollDirection: Axis.horizontal,
                           itemCount: sellerProducts.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return YourProductCard(name: sellerProducts[index].title, price: sellerProducts[index].price.toString(), image: sellerProducts[index].images[0], condition: sellerProducts[index].condition);
+                            return YourProductCard(
+                                name: sellerProducts[index].title,
+                                price: sellerProducts[index].price.toString(),
+                                image: sellerProducts[index].images[0],
+                                condition: sellerProducts[index].condition);
                           }),
-                      // YourProductCard(),
-                      // YourProductCard(),
                       SizedBox(
                         height: 20,
                       ),
@@ -111,20 +113,20 @@ class _YourProductsPageState extends State<YourProductsPage> {
 }
 
 class YourProductCard extends StatefulWidget {
-   YourProductCard({ Key? key,
-    // required this.pid,
-    required this.name,
-    required this.price,
-    required this.image,
-    required this.condition
-  }) : super(key: key);
+  YourProductCard(
+      {Key? key,
+      // required this.pid,
+      required this.name,
+      required this.price,
+      required this.image,
+      required this.condition})
+      : super(key: key);
 
   final String name;
   final String condition;
   final String price;
   final String image;
   // bool isFav;
-
 
   @override
   State<YourProductCard> createState() => _YourProductCardState();
@@ -173,7 +175,7 @@ class _YourProductCardState extends State<YourProductCard> {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(
-                            "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fG1hdGglMjBib29rfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+                            widget.image.toString(),
                           ),
                         )),
                     width: 70,
@@ -193,7 +195,7 @@ class _YourProductCardState extends State<YourProductCard> {
                             style: GoogleFonts.poppins(
                               color: MyColors.textColor,
                               fontWeight: FontWeight.w600,
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                             // screenWidth * 0.025 - screenHeight * 0.025),
                           ),
@@ -207,7 +209,7 @@ class _YourProductCardState extends State<YourProductCard> {
                           ),
                         ],
                       ),
-                      Text("Rs." +widget.price,
+                      Text("Rs." + widget.price,
                           style: MyStyles.googleTextSubtitleListTile(12)),
                       Text(
                         "Book Condition : ${widget.condition}/10",

@@ -18,8 +18,6 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orde
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
 
@@ -100,8 +98,8 @@ class MyApp extends StatelessWidget {
   //       ),
   //     ),
   //   );
-  // }
-//}
+  // }0
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
