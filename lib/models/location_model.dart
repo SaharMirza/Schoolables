@@ -18,8 +18,6 @@ class LocationModel{
       //areaLocation: LatitudeLongitudeModel(lat: 24.25, lng:67.50),
       areaLocation: LatitudeLongitudeModel.fromJson((json['coords']??{"lng": 67.0, "lat": 24.0}) as Map<String, dynamic>),
 
-      //areas:[AreaModel(coords: LatitudeLongitudeModel(lat: 24.25, lng: 37.50),
-       //   address: "xyz", id: "abc", name: "abc", phone: "phone")]
     );
   }
 
@@ -31,16 +29,9 @@ class LocationModel{
     };
   }
 }
-// class ProductModel{
-//   String id;
-//   String name;
-//
-//
-//}
-//
 class AreaModel{
   // String address;
-  List<String> id;
+  String id;
   //String name;
   // String phone;
   LatitudeLongitudeModel coords;
