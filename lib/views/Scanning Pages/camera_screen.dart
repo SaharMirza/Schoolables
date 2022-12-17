@@ -64,6 +64,7 @@ class _CameraScreenState extends State<CameraScreen> {
         }
       }
     });
+
     print(result);
   }
 
@@ -137,7 +138,7 @@ class _CameraScreenState extends State<CameraScreen> {
               )),
           GestureDetector(
             onTap: () {
-              pickImageFromGallery();
+              pickImageFromGallery(); 
             },
             child: const Text(
               "UPLOAD",

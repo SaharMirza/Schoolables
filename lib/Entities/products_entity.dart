@@ -16,7 +16,7 @@ class Product {
   String subCategory;
   String condition;
   int price;
-  List<String> images;
+  List images;
   // final List<String> bidingID;
 
   late final String id;
