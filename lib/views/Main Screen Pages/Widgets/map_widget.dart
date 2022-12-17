@@ -21,7 +21,7 @@ class MapWidget extends StatelessWidget {
              Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) =>
-                        const MapScreenPopUp()),
+                        const selectArea()),
               );
           },
           child: Icon(
