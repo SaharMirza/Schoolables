@@ -32,7 +32,6 @@ class _MapDemoState extends State<MapDemo> with AutomaticKeepAliveClientMixin {
         _markers[office.id] = marker;
         print(widget.selectedLocation.areaName);
       }
-
     });
   }
   @override
