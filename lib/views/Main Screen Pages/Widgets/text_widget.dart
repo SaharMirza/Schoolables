@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 
 class TitleText extends StatelessWidget {
-    TitleText({
+    const TitleText({
     Key? key,
     required this.text,
       required this.align,
@@ -27,7 +27,7 @@ class TitleText extends StatelessWidget {
 
 }
 class SecondTitleText extends StatelessWidget {
-  SecondTitleText({
+  const SecondTitleText({
     Key? key,
     required this.text,
     required this.align,
@@ -53,7 +53,7 @@ class SecondTitleText extends StatelessWidget {
 }
 
 class SubtitleText extends StatelessWidget {
-  SubtitleText({
+  const SubtitleText({
     Key? key,
     required this.text,
     required this.align,
@@ -80,7 +80,7 @@ class SubtitleText extends StatelessWidget {
 
 
 class ListtitleText extends StatelessWidget {
-  ListtitleText({
+  const ListtitleText({
     Key? key,
     required this.text,
     required this.align,
@@ -106,7 +106,7 @@ class ListtitleText extends StatelessWidget {
 }
 
 class SubtitleListTileText extends StatelessWidget {
-  SubtitleListTileText({
+  const SubtitleListTileText({
     Key? key,
     required this.text,
     required this.align,

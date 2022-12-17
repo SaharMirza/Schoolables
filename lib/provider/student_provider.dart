@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
@@ -19,7 +18,7 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> loadUsers() async {
     await firebaseUser.get().then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         UserProfileModel userModel =
             UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
         UserProfileModel seller = UserProfileModel(
@@ -42,7 +41,7 @@ class UserProvider extends ChangeNotifier {
         Users.add(seller);
         // print(item.name);
         // print(item.brandID);
-      });
+      }
     });
     notifyListeners();
   }

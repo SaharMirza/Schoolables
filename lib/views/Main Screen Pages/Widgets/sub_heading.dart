@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/products.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/productsPage.dart';
 
 class SubHeading extends StatelessWidget {

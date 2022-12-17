@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/bidding_entity.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/models/bidding_model.dart';
-import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -34,17 +29,17 @@ class _BidNotificationState extends State<BidNotification> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Notifications"),
+        title: const Text("Notifications"),
         elevation: 0,
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            bids.length == 0
+            bids.isEmpty
                 ? Center(
                     child: Container(
-                    child: Text("You Have no Notifications Yet."),
+                    child: const Text("You Have no Notifications Yet."),
                   ))
                 : notifcationList(userProducts),
             // Padding(
@@ -74,7 +69,7 @@ class _BidNotificationState extends State<BidNotification> {
 
   ListView notifcationList(List<Product> userProducts) {
     return ListView.builder(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         shrinkWrap: true,
         itemCount: bids.length,
         itemBuilder: (BuildContext context, int index) {
@@ -120,14 +115,13 @@ class _BidNotificationState extends State<BidNotification> {
               bids.remove(bids[index]);
               setState(() {});
             },
-            child: Text("Deny"),
             style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-                  side: BorderSide(
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(
                     width: 2.0,
                     color: MyColors.buttonColor,
                   ),
-                  borderRadius: new BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
                 elevation: 5,
                 minimumSize: const Size(100, 35),
@@ -135,6 +129,7 @@ class _BidNotificationState extends State<BidNotification> {
                 textStyle: GoogleFonts.poppins(),
                 foregroundColor: MyColors.buttonColor,
                 shadowColor: MyColors.buttonColor),
+            child: const Text("Deny"),
           ),
         ),
         Padding(
@@ -145,17 +140,17 @@ class _BidNotificationState extends State<BidNotification> {
                 bids.remove(bids[index]);
                 setState(() {});
               },
-              child: Text("Accept"),
               style: ElevatedButton.styleFrom(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
                   elevation: 5,
                   minimumSize: const Size(100, 35),
                   backgroundColor: MyColors.buttonColor,
                   textStyle: GoogleFonts.poppins(),
                   foregroundColor: MyColors.buttonTextColor,
-                  shadowColor: MyColors.buttonColor)),
+                  shadowColor: MyColors.buttonColor),
+              child: const Text("Accept")),
         )
       ],
     );
@@ -173,16 +168,16 @@ class _BidNotificationState extends State<BidNotification> {
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
-              text: 'Has placed a bid of Rs. ' + Bid.bid.toString() + ' on ',
-              style: TextStyle(color: Colors.black)),
+              text: 'Has placed a bid of Rs. ${Bid.bid} on ',
+              style: const TextStyle(color: Colors.black)),
           TextSpan(
               text: getProductDetails().title + '\n\n',
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.bold, color: MyColors.buttonColor)),
           TextSpan(
               text:
-                  'Original Price: Rs. ' + getProductDetails().price.toString(),
-              style: TextStyle(color: Colors.black)),
+                  'Original Price: Rs. ${getProductDetails().price}',
+              style: const TextStyle(color: Colors.black)),
         ],
       ),
     );
@@ -190,7 +185,7 @@ class _BidNotificationState extends State<BidNotification> {
 
   Widget AcceptedBidSubtitle() {
     return RichText(
-      text: TextSpan(
+      text: const TextSpan(
         children: <TextSpan>[
           TextSpan(
               text: 'Has accepted your bid of Rs. 500 on ',

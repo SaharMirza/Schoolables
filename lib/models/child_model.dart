@@ -22,12 +22,16 @@ class ChildProfileModel {
     // Convert List<dynamic> to List<String> for orderBuyer
     firebaseData = json['orderBuyer'] ?? [];
     List<String> orderBuyer = [];
-    for (var id in firebaseData) orderBuyer.add(id.toString().trim());
+    for (var id in firebaseData) {
+      orderBuyer.add(id.toString().trim());
+    }
 
     // Convert List<dynamic> to List<String> for wishlist
     firebaseData = json['wishlistIDs'] ?? [];
     List<String> favIDs = [];
-    for (var id in firebaseData) favIDs.add(id.toString().trim());
+    for (var id in firebaseData) {
+      favIDs.add(id.toString().trim());
+    }
 
     return ChildProfileModel(
         name: json['name'],

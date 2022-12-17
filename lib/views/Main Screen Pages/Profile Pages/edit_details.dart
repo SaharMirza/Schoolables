@@ -1,19 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/constants/fonts.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import '../../../provider/student_provider.dart';
-import '../../../utils.dart';
-import '../Orders Pages/delivery_orders.dart';
-import '../Seller Pages/seller_products.dart';
-import '../Widgets/bottom_nav_bar.dart';
 import '../Widgets/my_profile.dart';
-import '../favourites_page.dart';
-import '../home_screen.dart';
 
 class EditDetailsPage extends StatefulWidget {
   const EditDetailsPage({super.key});
@@ -48,7 +35,7 @@ class _EditDetailsPageState extends State<EditDetailsPage> {
                     child: MyProfileTextWidget(
                         text: "My Profile", screenWidth: screenWidth),
                   ),
-                  LogoutBtnWidget(),
+                  const LogoutBtnWidget(),
                 ],
               ),
               Padding(

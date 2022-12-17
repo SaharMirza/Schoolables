@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/location_entity.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../main.dart';
 
 class MapDemo extends StatefulWidget {
   final Location selectedLocation;
@@ -38,12 +37,12 @@ class _MapDemoState extends State<MapDemo> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     return Scaffold(
 
-        backgroundColor: Color(0xFFFFFDF4),
+        backgroundColor: const Color(0xFFFFFDF4),
         body: Column(
 
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            HeaderBar(title: "Products nearby " + widget.selectedLocation.areaName,
+            HeaderBar(title: "Products nearby ${widget.selectedLocation.areaName}",
             ),
             Expanded(
               child: GoogleMap(

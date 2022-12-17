@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 
@@ -24,8 +21,8 @@ class _YourOrdersPageState extends State<YourOrdersPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            HeaderBar(title: "Your Orders"),
-            SizedBox(
+            const HeaderBar(title: "Your Orders"),
+            const SizedBox(
               height: 70,
             ),
             ListView(

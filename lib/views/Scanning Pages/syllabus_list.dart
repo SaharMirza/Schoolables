@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/ScannedList.dart';
 import 'package:flutterdemo/models/SyllabusBook.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/book_prices.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SyllabusList extends StatefulWidget {
   const SyllabusList({super.key, required this.scannedList});
@@ -31,7 +28,7 @@ class _SyllabusListState extends State<SyllabusList> {
       body: Center(
         child: Column(
           children: [
-            HeaderBar(title: "Scanned Lists"),
+            const HeaderBar(title: "Scanned Lists"),
             Padding(
               padding: const EdgeInsets.only(
                   top: 20, bottom: 0, left: 10, right: 10),
@@ -96,7 +93,7 @@ class _syllabusListTileState extends State<syllabusListTile> {
             ),
           ),
           trailing: IconButton(
-            icon: Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
+            icon: const Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(

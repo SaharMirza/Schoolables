@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/Services/auth.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/create_children_profile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
-import 'package:flutterdemo/views/success_screen.dart';
-import 'package:provider/provider.dart';
 
 class MainLoginScreen extends StatelessWidget {
   const MainLoginScreen({Key? key, required this.role}) : super(key: key);
@@ -163,7 +156,7 @@ class LoginChoiceButton extends StatelessWidget {
                 width: 25,
                 height: 25,
               ),
-              Text("  " + title)
+              Text("  $title")
             ],
           )),
     );

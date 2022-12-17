@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class DeliveryOrders extends StatefulWidget {
   const DeliveryOrders({super.key});
@@ -13,7 +11,7 @@ class _DeliveryOrdersState extends State<DeliveryOrders> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("DeliveryOrder")
+      child: const Text("DeliveryOrder")
     );
   }
 }

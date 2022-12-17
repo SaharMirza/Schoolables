@@ -1,13 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/models/bidding_model.dart';
-import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
 import 'package:flutterdemo/views/Notifications%20Pages/bid_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -29,7 +23,7 @@ class _MyAppBarState extends State<MyAppBar> {
     @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
        List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
        context.read<BiddingProvider>().loadUserBids(bids);
     });
@@ -51,28 +45,28 @@ class _MyAppBarState extends State<MyAppBar> {
       elevation: 0,
       backgroundColor: Colors.white,
       leading: Padding(
-          padding: EdgeInsets.only(left: 15.0),
+          padding: const EdgeInsets.only(left: 15.0),
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0, right: 10.0),
             child: InkWell(
               onTap: (() {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BidNotification()),
+                  MaterialPageRoute(builder: (context) => const BidNotification()),
                 );
               }),
               child: Stack(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.notifications_none_outlined,
                     size: 35,
                   ),
-                  Container(
+                  SizedBox(
                       height: 17,
                       width: 17,
                       child: CircleAvatar(
-                        child: Text(counter.toString()),
                         backgroundColor: Colors.yellow,
+                        child: Text(counter.toString()),
                       ))
                 ],
               ),
@@ -85,14 +79,14 @@ class _MyAppBarState extends State<MyAppBar> {
         children: const [
           Icon(
             Icons.location_on,
-            color: const Color.fromRGBO(74, 78, 105, 1.0),
+            color: Color.fromRGBO(74, 78, 105, 1.0),
           ),
           Text(
             'North Nazimabad , Karachi',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 10,
-              color: const Color.fromRGBO(74, 78, 105, 1.0),
+              color: Color.fromRGBO(74, 78, 105, 1.0),
             ),
           ),
         ],
@@ -105,7 +99,7 @@ class _MyAppBarState extends State<MyAppBar> {
               onPressed: () async {
                 await Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => EditDetailsPage(),
+                    builder: (context) => const EditDetailsPage(),
                   ),
                 );
               },
@@ -151,7 +145,7 @@ class HeaderBar extends StatelessWidget {
             onPressed: () async {
               await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => EditDetailsPage(),
+                  builder: (context) => const EditDetailsPage(),
                 ),
               );
             },
@@ -240,7 +234,7 @@ class TextFormatter {
   static String errorFormatter({required String text}) {
     // Error messages Formatting
     text = text.split(" or ")[0];
-    text = text.split(".")[0] + ".";
+    text = "${text.split(".")[0]}.";
     text = text.replaceAll("String", "Field");
     text = text.replaceAll("null", "blank");
     text = text.replaceAll("badly", "incorrectly");
@@ -249,7 +243,7 @@ class TextFormatter {
   }
 
   static productNameFormatter(String name) {
-    name = name.split(" ").first + " " + name.split(" ").last;
+    name = "${name.split(" ").first} ${name.split(" ").last}";
     // if both first and last name are same, remove last name
     if (name.split(" ").first == name.split(" ").last) {
       name = name.split(" ").first;

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/bidding_entity.dart';
 import 'package:flutterdemo/models/buying_orders.dart';
 import 'package:flutterdemo/models/product_model.dart';
-import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/models/student_model.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
@@ -65,7 +64,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
+      child: SizedBox(
         width: 300,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -89,7 +88,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
               height: 10,
               width: 50,
               // margin: EdgeInsets.all(300.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: MyColors.textFieldColor,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
@@ -100,14 +99,14 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
               height: 20,
               width: 20,
               // margin: EdgeInsets.all(300.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: MyColors.textFieldColor, shape: BoxShape.circle),
             ),
             Container(
               height: 10,
               width: 50,
               // margin: EdgeInsets.all(300.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: MyColors.textFieldColor,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
@@ -118,7 +117,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
               height: 20,
               width: 20,
               // margin: EdgeInsets.all(300.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: MyColors.textFieldColor, shape: BoxShape.circle),
             ),
           ],
@@ -282,7 +281,7 @@ checkProgress(
 }
 
 class BuyingOrdersWidget extends StatefulWidget {
-  BuyingOrdersWidget({
+  const BuyingOrdersWidget({
     super.key,
     required this.product,
     required this.progresstype,
@@ -306,7 +305,7 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
         height: 150,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: MyColors.startColor,
@@ -327,7 +326,7 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Container(
+            child: SizedBox(
               width: 800,
               child: Row(children: [
                 Padding(
@@ -339,7 +338,7 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: widget.product!.images.isEmpty
-                              ? NetworkImage(
+                              ? const NetworkImage(
                                   "https://static.thenounproject.com/png/3674270-200.png")
                               : NetworkImage(widget.product!.images[0]),
                         )),
@@ -371,7 +370,7 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth < 400 ? 10 : null,
                               color: widget.progresstype == "In Progress"
-                                  ? Color.fromARGB(255, 201, 182, 18)
+                                  ? const Color.fromARGB(255, 201, 182, 18)
                                   : widget.progresstype == "Cancelled"
                                       ? Colors.red
                                       : widget.progresstype == "Completed"
@@ -386,16 +385,14 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
                       Text(
                           widget.progresstype == "In Progress" ||
                                   widget.progresstype == "Completed"
-                              ? "Accepted Bid Rs. " +
-                                  widget.product!.price.toString()
-                              : "Your Bid Rs. " +
-                                  widget.product!.price.toString(),
+                              ? "Accepted Bid Rs. ${widget.product!.price}"
+                              : "Your Bid Rs. ${widget.product!.price}",
                           style: MyStyles.googleTextSubtitleListTile(12)),
                       Text(
-                        "Book Condition : " + widget.product!.condition + "/10",
+                        "Book Condition : ${widget.product!.condition}/10",
                         style: MyStyles.googleTextSubtitleListTile(12),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Column(
@@ -406,11 +403,11 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
                                 radius: (20),
                                 backgroundColor: Colors.white,
                                 backgroundImage: widget.seller!.display.isEmpty
-                                    ? NetworkImage(
+                                    ? const NetworkImage(
                                         "https://static.thenounproject.com/png/3674270-200.png")
                                     : NetworkImage(widget.seller!.display),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
@@ -449,7 +446,7 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
 }
 
 class SellingOrdersWidget extends StatefulWidget {
-  SellingOrdersWidget({
+  const SellingOrdersWidget({
     super.key,
     required this.product,
     required this.progresstype,
@@ -473,7 +470,7 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
         height: 150,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: MyColors.startColor,
@@ -494,7 +491,7 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Container(
+            child: SizedBox(
               width: 800,
               child: Row(children: [
                 Padding(
@@ -506,7 +503,7 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: widget.product!.images.isEmpty
-                              ? NetworkImage(
+                              ? const NetworkImage(
                                   "https://static.thenounproject.com/png/3674270-200.png")
                               : NetworkImage(widget.product!.images[0]),
                         )),
@@ -538,7 +535,7 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth < 400 ? 10 : null,
                               color: widget.progresstype == "In Progress"
-                                  ? Color.fromARGB(255, 201, 182, 18)
+                                  ? const Color.fromARGB(255, 201, 182, 18)
                                   : widget.progresstype == "Cancelled"
                                       ? Colors.red
                                       : widget.progresstype == "Completed"
@@ -553,13 +550,11 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
                       Text(
                           widget.progresstype == "In Progress" ||
                                   widget.progresstype == "Completed"
-                              ? "Accepted Bid Rs. " +
-                                  widget.product!.price.toString()
-                              : "Your Bid Rs. " +
-                                  widget.product!.price.toString(),
+                              ? "Accepted Bid Rs. ${widget.product!.price}"
+                              : "Your Bid Rs. ${widget.product!.price}",
                           style: MyStyles.googleTextSubtitleListTile(12)),
                       Text(
-                        "Book Condition : " + widget.product!.condition + "/10",
+                        "Book Condition : ${widget.product!.condition}/10",
                         style: MyStyles.googleTextSubtitleListTile(12),
                       ),
                       widget.progresstype == "Completed"||
@@ -586,7 +581,7 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
                                 .read<BiddingProvider>()
                                 .loadSellerOrders(sellerbids);
                           },
-                          child: Text("Update"))
+                          child: const Text("Update"))
                     ],
                   ),
                 ),
@@ -636,7 +631,7 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
         onTap: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => OrderDetail(),
+              builder: (context) => const OrderDetail(),
             ),
           );
         },
@@ -644,7 +639,7 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
           // height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Color.fromARGB(83, 158, 158, 158),
                 blurRadius: 5.0,
@@ -667,7 +662,7 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
               child: Padding(
                 padding: const EdgeInsets.only(
                     left: 9.0, right: 9, top: 8, bottom: 8),
-                child: Container(
+                child: SizedBox(
                   width: screenWidth < 400 ? 600 : 800,
                   // height: screenWidth < 400 ? 45 : 250,
                   child: Row(
@@ -701,15 +696,15 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
                                 ),
                                 // screenWidth * 0.025 - screenHeight * 0.025),
                               ),
-                              Text("Accepted Bid: Rs " + widget.price,
+                              Text("Accepted Bid: Rs ${widget.price}",
                                   style: MyStyles.googleTextSubtitleListTile(
                                       screenWidth < 400 ? 8 : 12)),
                               Text(
-                                "Book Condition : " + widget.condition,
+                                "Book Condition : ${widget.condition}",
                                 style: MyStyles.googleTextSubtitleListTile(
                                     screenWidth < 400 ? 8 : 12),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               widget.isSell == false
@@ -721,7 +716,7 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
                                           backgroundImage:
                                               NetworkImage(widget.sellerIMG),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Column(
@@ -750,7 +745,7 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
                                         ),
                                       ],
                                     )
-                                  : Text(""),
+                                  : const Text(""),
                             ],
                           ),
                         ),
@@ -771,26 +766,26 @@ class _SellingOrdersCardState extends State<SellingOrdersCard> {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 50,
                             ),
                             widget.isSell == true
                                 ? ElevatedButton(
                                     onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      backgroundColor: MyColors.buttonColor,
+                                    ),
                                     child: Text(
                                       "Update",
                                       style: GoogleFonts.poppins(
                                           color: Colors.white, fontSize: 12),
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(15.0),
-                                      ),
-                                      backgroundColor: MyColors.buttonColor,
-                                    ),
                                   )
-                                : Text("")
+                                : const Text("")
                           ],
                         )
                       ]),
@@ -814,19 +809,19 @@ class CancelOrderBtn extends StatefulWidget {
 class _CancelOrderBtnState extends State<CancelOrderBtn> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 45,
       child: ElevatedButton(
         onPressed: () {},
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("Cancel Order", style: MyStyles.btnTextStyle),
-        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: MyColors.mapColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Cancel Order", style: MyStyles.btnTextStyle),
         ),
       ),
     );
@@ -843,21 +838,21 @@ class ContactSellerBtn extends StatefulWidget {
 class _ContactSellerBtnState extends State<ContactSellerBtn> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 45,
       child: ElevatedButton(
         onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: MyColors.buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Contact Seller",
             style: MyStyles.btnTextStyle,
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: MyColors.buttonColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
           ),
         ),
       ),
@@ -930,7 +925,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                     style: MyStyles.googleTitleText(24),
                   ),
                   Text(
-                    "Rs " + widget.product!.price.toString(),
+                    "Rs ${widget.product!.price}",
                     style: MyStyles.googleTextSubtitleListTile(22),
                   ),
                 ],
@@ -949,7 +944,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                   (widget.isProduct == false)
                       ? Row(
                           children: [
-                            Icon(Icons.star_rounded, color: Colors.amber),
+                            const Icon(Icons.star_rounded, color: Colors.amber),
                             Text(
                               "4.0",
                               style: GoogleFonts.poppins(
@@ -959,17 +954,17 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                             ),
                           ],
                         )
-                      : Text(""),
+                      : const Text(""),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Text(
-                "Book Condition: " + widget.product!.condition + "/10",
+                "Book Condition: ${widget.product!.condition}/10",
                 style: MyStyles.googleTextSubtitleListTile(18),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -990,7 +985,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                             backgroundImage:
                                 AssetImage("assets/images/girlavatar.png"),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -1022,7 +1017,7 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                       widget.isProduct == true
                           ? Row(
                               children: [
-                                Icon(Icons.star_rounded, color: Colors.amber),
+                                const Icon(Icons.star_rounded, color: Colors.amber),
                                 Text(
                                   "4.0",
                                   style: GoogleFonts.poppins(
@@ -1032,10 +1027,10 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                                 ),
                               ],
                             )
-                          : MapWidget(),
+                          : const MapWidget(),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   widget.isProduct == true
@@ -1043,11 +1038,11 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                           child: Column(children: [
                             Container(
                               height: 45,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
                                     color: Color.fromARGB(50, 0, 0, 0),
-                                    offset: const Offset(
+                                    offset: Offset(
                                       5.0,
                                       5.0,
                                     ),
@@ -1059,18 +1054,18 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                               ),
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text("View Location on Map",
-                                      style: MyStyles.googleTextListTile(15)),
-                                ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                       color: MyColors.textColor, width: 2),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                   ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("View Location on Map",
+                                      style: MyStyles.googleTextListTile(15)),
                                 ),
                               ),
                             )
@@ -1078,12 +1073,12 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                         )
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
+                          children: const [
                             CancelOrderBtn(),
                             ContactSellerBtn(),
                           ],
                         ),
-                  widget.isProduct == true ? Container() : Text(""),
+                  widget.isProduct == true ? Container() : const Text(""),
                 ],
               ),
             ],
@@ -1109,10 +1104,10 @@ class _ImageSliderState extends State<ImageSlider> {
       height: 180,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Color.fromARGB(50, 0, 0, 0),
-              offset: const Offset(
+              offset: Offset(
                 5.0,
                 5.0,
               ),
@@ -1121,7 +1116,7 @@ class _ImageSliderState extends State<ImageSlider> {
             ), //BoxShadow
             BoxShadow(
               color: Colors.white,
-              offset: const Offset(0.0, 0.0),
+              offset: Offset(0.0, 0.0),
               blurRadius: 0.0,
               spreadRadius: 0.0,
             ), //BoxShadow

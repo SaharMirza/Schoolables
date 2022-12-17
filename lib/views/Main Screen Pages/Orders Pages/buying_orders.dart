@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/bidding_entity.dart';
-import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/models/Progress.dart';
-import 'package:flutterdemo/models/favourites.dart';
-import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/favourites_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -145,8 +139,7 @@ class _BuyingOrdersState extends State<BuyingOrders> {
                     .map((products) => BuyingOrdersWidget(
                           progresstype: progresstype,
                           product: getProductDetails(products.productID),
-                          seller:
-                              getSeller(getProductDetails(products.productID)!.sellerID),
+                          seller: getSeller(getProductDetails(products.productID)!.sellerID),
                         ))
                     .toList()),
           );
@@ -154,10 +147,9 @@ class _BuyingOrdersState extends State<BuyingOrders> {
       }
 
       if (kIndex == 0) {
-        print("IN  IN PROGRESS" + userBids.length.toString());
+        print("IN  IN PROGRESS${userBids.length}");
         for (int i = 0; i < userBids.length; i++) {
-          if (userBids[i].isAccepted == true &&
-              userBids[i].isRejected == false) {
+          if (userBids[i].isAccepted == true && userBids[i].isRejected == false) {
             orders.add(userBids[i]);
           }
         }
@@ -165,7 +157,7 @@ class _BuyingOrdersState extends State<BuyingOrders> {
         return subWidget(order: orders, progresstype: "In Progress");
       }
       if (kIndex == 2) {
-        print("IN  IN cancelled" + userBids.length.toString());
+        print("IN  IN cancelled${userBids.length}");
         for (int i = 0; i < userBids.length; i++) {
           if (userBids[i].isRejected == true &&
               userBids[i].isAccepted == false) {
@@ -176,7 +168,7 @@ class _BuyingOrdersState extends State<BuyingOrders> {
         return subWidget(order: orders, progresstype: "Cancelled");
       }
       if (kIndex == 3) {
-        print("IN  IN pending" + userBids.length.toString());
+        print("IN  IN pending${userBids.length}");
         for (int i = 0; i < userBids.length; i++) {
           if (userBids[i].isRejected == false &&
               userBids[i].isAccepted == false) {
@@ -187,7 +179,7 @@ class _BuyingOrdersState extends State<BuyingOrders> {
         return subWidget(order: orders, progresstype: "Pending");
       }
 
-      print("IN  IN completed" + userBids.length.toString());
+      print("IN  IN completed${userBids.length}");
        for (int i = 0; i < completedBids.length; i++) {
        
           orders.add(completedBids[i]);

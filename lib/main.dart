@@ -12,18 +12,11 @@ import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
-import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
 
 // import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -49,13 +42,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => BiddingProvider()),
         ChangeNotifierProvider(create: (_) => LocationProvider())
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -68,7 +61,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: const MyHomePage(title: " "),
+        home: const LogoWidget(),
         debugShowCheckedModeBanner: false,
       ),
     );
@@ -139,11 +132,11 @@ class _MyHomePageState extends State<MyHomePage> {
             context.read<CategoriesProvider>().fetchCategories();
             context.read<UserProvider>().loadUsers();
           });
-          return BottomNavBar();
+          return const BottomNavBar();
         } else //if the user was logged out
         {
           print("logged out success");
-          return RoleScreen();
+          return const RoleScreen();
         }
       },
     ));
@@ -175,7 +168,7 @@ class LogoWidget extends StatelessWidget {
       duration: 3000,
       splashTransition: SplashTransition.fadeTransition,
       centered: true,
-      nextScreen: const RoleScreen(),
+      nextScreen: const MyHomePage(title: " "),
     );
   }
 }

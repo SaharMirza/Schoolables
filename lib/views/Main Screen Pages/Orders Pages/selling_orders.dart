@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/models/selling_orders.dart';
 // import 'package:flutterdemo/models/selling_orders.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
-import '../../../models/progress.dart';
 import '../Widgets/orders_widget.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/bidding_entity.dart';
-import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/models/Progress.dart';
-import 'package:flutterdemo/models/favourites.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/favourites_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
 import 'package:provider/provider.dart';
 
 class SellingOrders extends StatefulWidget {
@@ -35,7 +24,7 @@ class _SellingOrdersState extends State<SellingOrders> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
       context.read<BiddingProvider>().loadUserBids(bids);
       List<String> sellerbids = context.read<UserProvider>().user.orderSeller;
@@ -164,7 +153,7 @@ class _SellingOrdersState extends State<SellingOrders> {
       }
 
       if (kIndex == 0) {
-        print("IN  IN PROGRESS" + userBids.length.toString());
+        print("IN  IN PROGRESS${userBids.length}");
         for (int i = 0; i < userBids.length; i++) {
           if (userBids[i].isAccepted == true &&
               userBids[i].isRejected == false) {
@@ -175,7 +164,7 @@ class _SellingOrdersState extends State<SellingOrders> {
         return subWidget(order: orders, progresstype: "In Progress");
       }
       if (kIndex == 2) {
-        print("IN  IN cancelled" + userBids.length.toString());
+        print("IN  IN cancelled${userBids.length}");
         for (int i = 0; i < userBids.length; i++) {
           if (userBids[i].isRejected == true &&
               userBids[i].isAccepted == false) {
@@ -186,7 +175,7 @@ class _SellingOrdersState extends State<SellingOrders> {
         return subWidget(order: orders, progresstype: "Cancelled");
       }
       if (kIndex == 3) {
-        print("IN  IN pending" + userBids.length.toString());
+        print("IN  IN pending${userBids.length}");
         for (int i = 0; i < userBids.length; i++) {
           if (userBids[i].isRejected == false &&
               userBids[i].isAccepted == false) {
@@ -197,7 +186,7 @@ class _SellingOrdersState extends State<SellingOrders> {
         return subWidget(order: orders, progresstype: "Pending");
       }
 
-      print("IN  IN completed" + completedBids.length.toString());
+      print("IN  IN completed${completedBids.length}");
       for (int i = 0; i < completedBids.length; i++) {
        
           orders.add(completedBids[i]);

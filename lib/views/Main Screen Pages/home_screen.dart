@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/parent_entity.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
@@ -115,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
           products.isEmpty
               ? Container()
               : GridView.count(
-                physics: ScrollPhysics(),
+                physics: const ScrollPhysics(),
                   childAspectRatio: screenWidth / (screenHeight * 0.8),
                   shrinkWrap: true,
                   crossAxisCount: 2,
