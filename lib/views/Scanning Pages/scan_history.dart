@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/models/ScannedList.dart';
+import 'package:flutterdemo/models/scanned_List.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/camera_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
 import 'package:flutterdemo/views/Widgets/buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
+import '../../provider/student_provider.dart';
 import '../Main Screen Pages/Widgets/my_profile.dart';
 
 class ScanHistory extends StatefulWidget {
@@ -21,11 +22,23 @@ class ScanHistory extends StatefulWidget {
 }
 
 class _ScanHistoryState extends State<ScanHistory> {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      String schoolName = context.read<UserProvider>().userProfile.schoolName;
+      context
+          .read<ScannedListProvider>()
+          .fetchScannedListAccordingToSchoolName(schoolName);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    final scannedLists = context.watch<ScannedListProvider>().scannedLists;
+    print(scannedLists.toList());
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -48,8 +61,8 @@ class _ScanHistoryState extends State<ScanHistory> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   itemBuilder: (context, index) =>
-                      scanListTile(scanItem: scannedList[index]),
-                  itemCount: scannedList.length,
+                      scanListTile(scanItem: scannedLists[index]),
+                  itemCount: scannedLists.length,
                 ),
               ),
               Buttons(
@@ -102,7 +115,7 @@ class _scanListTileState extends State<scanListTile> {
         title: Padding(
           padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: ListtitleText(
-            text: widget.scanItem.school_name,
+            text: widget.scanItem.schoolName,
             align: TextAlign.left,
             size: screenHeight * 0.022,
           ),

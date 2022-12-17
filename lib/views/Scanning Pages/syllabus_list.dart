@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutterdemo/models/ScannedList.dart';
+import 'package:flutterdemo/models/scanned_List.dart';
 import 'package:flutterdemo/models/SyllabusBook.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';

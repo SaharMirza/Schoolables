@@ -10,6 +10,7 @@ import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/child_provider.dart';
 import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
+import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
 import 'package:flutterdemo/views/map_screen.dart';
@@ -47,7 +48,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ParentProvider()),
         ChangeNotifierProvider(create: (_) => ChildProvider()),
         ChangeNotifierProvider(create: (_) => BiddingProvider()),
-        ChangeNotifierProvider(create: (_) => LocationProvider())
+        ChangeNotifierProvider(create: (_) => LocationProvider()),
+        ChangeNotifierProvider(create: (_) => ScannedListProvider()),
       ],
       child: MyApp(),
     ),
@@ -80,26 +82,25 @@ class MyApp extends StatelessWidget {
   //
   // void _onMapCreated(GoogleMapController controller) {
   //   mapController = controller;
-  }
+}
 
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     home: Scaffold(
-  //       appBar: AppBar(
-  //         title: const Text('Maps Sample App'),
-  //         backgroundColor: Colors.green[700],
-  //       ),
-  //       body: GoogleMap(
-  //         onMapCreated: _onMapCreated,
-  //         initialCameraPosition: CameraPosition(
-  //           target: _center,
-  //           zoom: 11.0,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }0
-
+// Widget build(BuildContext context) {
+//   return MaterialApp(
+//     home: Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Maps Sample App'),
+//         backgroundColor: Colors.green[700],
+//       ),
+//       body: GoogleMap(
+//         onMapCreated: _onMapCreated,
+//         initialCameraPosition: CameraPosition(
+//           target: _center,
+//           zoom: 11.0,
+//         ),
+//       ),
+//     ),
+//   );
+// }0
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -139,7 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
             context.read<CategoriesProvider>().fetchCategories();
             context.read<UserProvider>().loadUsers();
 //            context.read<LocationProvider>().locationList;
-
           });
           return BottomNavBar();
         } else //if the user was logged out
