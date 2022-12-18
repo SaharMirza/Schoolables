@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/edit_product_widget.dart';
-import 'package:provider/provider.dart';
-import '../../../provider/categories_provider.dart';
+
+import '../../../imports.dart';
 
 class EditProductPage extends StatefulWidget {
   EditProductPage({super.key,required this.sellerProduct});

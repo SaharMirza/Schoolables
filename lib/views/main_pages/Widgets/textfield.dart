@@ -39,7 +39,7 @@ class _SchoolablesTextFieldState extends State<SchoolablesTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFieldLabel(text: widget.FieldLabel),
+        TextFieldLabel1(text: widget.FieldLabel),
         TextFormField(
           controller: widget.control,
           obscureText: _obscured,
@@ -78,8 +78,8 @@ class _SchoolablesTextFieldState extends State<SchoolablesTextField> {
 }
 
 // Text Field Label
-class TextFieldLabel extends StatelessWidget {
-  const TextFieldLabel({
+class TextFieldLabel1 extends StatelessWidget {
+  const TextFieldLabel1({
     Key? key,
     required this.text,
   }) : super(key: key);

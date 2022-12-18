@@ -1,14 +1,5 @@
 
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/provider/categories_provider.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
-import 'package:provider/provider.dart';
-import '../../../constants/colors.dart';
-import '../../../constants/fonts.dart';
+import '../../../imports.dart';
 
 class EditProductFields extends StatefulWidget {
    EditProductFields(

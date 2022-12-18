@@ -1,12 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/provider/child_provider.dart';
-import 'package:flutterdemo/provider/parent_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/children_profile_screen.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/circle_avatar_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:provider/provider.dart';
+
+
+import '../../../imports.dart';
 
 class ChildProfileScreen extends StatefulWidget {
   const ChildProfileScreen({Key? key}) : super(key: key);
