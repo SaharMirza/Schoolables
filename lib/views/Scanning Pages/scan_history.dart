@@ -8,7 +8,7 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart'
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/camera_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
-import 'package:flutterdemo/views/Widgets/buttons.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../provider/student_provider.dart';

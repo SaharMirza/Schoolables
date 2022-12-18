@@ -8,8 +8,8 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/children
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/forget_pass.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
-import 'package:flutterdemo/views/Widgets/buttons.dart';
-import 'package:flutterdemo/views/Widgets/textfield.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/buttons.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/textfield.dart';
 
 class ContinueWithEmail extends StatefulWidget {
   const ContinueWithEmail({Key? key, required this.role}) : super(key: key);
