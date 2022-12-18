@@ -20,11 +20,11 @@ class ProductsProvider with ChangeNotifier {
   final ProductsRepository _productsRepository = FirebaseProductsRepository();
 
   bool isProductsFetching = false;
+  
   bool isProductFetching = false;
 
   void loadNearbyProducts(List<String> products)async{
-    print("///////////////////////////////////////////////////////////////////////////////////"+products.toString());
-    isProductFetching = true;
+   isProductFetching = true;
     notifyListeners();
     nearbyProducts = [];
     for (var id in products) {

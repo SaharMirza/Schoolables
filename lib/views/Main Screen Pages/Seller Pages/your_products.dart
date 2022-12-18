@@ -8,7 +8,6 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_wid
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants/fonts.dart';
 
 class YourProductsPage extends StatefulWidget {
@@ -23,7 +22,6 @@ class _YourProductsPageState extends State<YourProductsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // context.read<CategoriesProvider>().fetchCategories();
       List<String> products = context.read<UserProvider>().user.products;
       context.read<ProductsProvider>().loadUserProducts(products);
     });
@@ -32,16 +30,9 @@ class _YourProductsPageState extends State<YourProductsPage> {
  bool fetching =false;
   @override
   Widget build(BuildContext context) {
-    // fetching = context.watch<ProductsProvider>().isProductFetching;
     sellerProducts = context.watch<ProductsProvider>().userProducts;
-    // final userAuth = Provider.of<UserAuth?>(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    // List<ProductModel> sellerProducts = [];
-
-    // for (int i = 0; i < products.length; i++) {
-    //   if (products[i].sellerID == userAuth?.id) sellerProducts.add(products[i]);
-    // }
 
     return Padding(
       padding: const EdgeInsets.all(10.0),

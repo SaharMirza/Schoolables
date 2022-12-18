@@ -6,9 +6,9 @@ import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/productsPage.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/productsPage.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/book_prices.dart';
 import 'package:provider/provider.dart';
 

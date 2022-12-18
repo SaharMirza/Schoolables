@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/area_selector_popup.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/area_selector_popup.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
