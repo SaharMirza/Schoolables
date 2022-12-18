@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
-import 'package:flutterdemo/views/Widgets/Search.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Search.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:provider/provider.dart';
 
