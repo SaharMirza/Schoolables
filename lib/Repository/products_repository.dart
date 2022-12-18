@@ -10,12 +10,9 @@ import 'package:flutterdemo/models/product_model.dart';
 abstract class ProductsRepository {
   Future<List<ProductModel>> fetchProductsList();
   addProduct(Product product);
-  // addProduct(String sellerID, String title, int price, List images,
-  //     String category, String subCategory, String condition);
-
   getProduct(String id);
-
   Future<List<String>> getDownloadUrls(List<File> finalImages);
+  Future<List<ProductModel>> fetchScannedProducts(List<String> scannedList);
 }
 
 class FirebaseProductsRepository implements ProductsRepository {
@@ -61,39 +58,15 @@ class FirebaseProductsRepository implements ProductsRepository {
   @override
   Future<List<ProductModel>> fetchProductsList() async {
     List<ProductModel> products = [];
-    await db.collection("products").get().then((event) {
-      products =
-          event.docs.map((e) => ProductModel.fromJson(e.data(), e.id)).toList();
-    });
+    await db.collection("products").get().then(
+      (event) {
+        products = event.docs
+            .map((e) => ProductModel.fromJson(e.data(), e.id))
+            .toList();
+      },
+    );
     return products;
   }
-
-  // @override
-  // Future<String> addProduct(
-  //     String sellerID,
-  //     String title,
-  //     int price,
-  //     List images,
-  //     String category,
-  //     String subCategory,
-  //     String condition) async {
-  //   print("!!!!!!!!!!!!!!!!!!!!!!! "+images[0]);
-  //   var newRef = await db.collection("products").add(
-  //         ProductModel(
-  //                 id: "",
-  //                 sellerID: sellerID,
-  //                 title: title,
-  //                 price: price,
-  //                 images: images,
-  //                 category: category,
-  //                 subCategory: subCategory,
-  //                 condition: condition)
-  //             .toJson(),
-  //       );
-  //   // product.id = newRef.id;
-
-  //   return newRef.id;
-  // }
 
   @override
   Future<String> addProduct(Product product) async {
@@ -114,28 +87,23 @@ class FirebaseProductsRepository implements ProductsRepository {
     return newRef.id;
   }
 
-  // //add product
-  // @override
-  // addProduct(String title, String sellerID, List<String> images,
-  //     String category, String subCategory, String condition, int price) async {
-  //   final data = ProductModel(
-  //           sellerID: sellerID,
-  //           title: title,
-  //           price: price,
-  //           images: images,
-  //           category: category,
-  //           subCategory: subCategory,
-  //           condition: condition,
-  //           id: '')
-  //       .toJson();
-  //   await db
-  //       .collection("products")
-  //       .add(data)
-  //       .then(
-  //         (_) => print('Added'),
-  //       )
-  //       .catchError(
-  //         (error) => print('Add failed: $error'),
-  //       );
-  // }
+// Fetches the products from firebase according to user scanned list.
+  @override
+  Future<List<ProductModel>> fetchScannedProducts(
+      List<String> scannedList) async {
+    List<ProductModel> scannedProducts = [];
+
+    for (String i in scannedList) {
+      await db.collection("products").where('title', isEqualTo: i).get().then(
+        (event) {
+          scannedProducts = event.docs
+              .map((e) => ProductModel.fromJson(e.data(), e.id))
+              .toList();
+        },
+      );
+    }
+    return scannedProducts;
+  }
+
+
 }

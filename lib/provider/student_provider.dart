@@ -184,24 +184,27 @@ class UserProvider extends ChangeNotifier {
   }
 
   void loadUserFromFirebase() async {
-    await firebaseUser.doc(user.id).get().then((doc) {
-      // Load User from Firebase to User Provider
-      UserProfileModel userModel =
-          UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
-      user.name = userModel.name;
-      user.schoolName = userModel.schoolName;
-      user.grade = userModel.grade;
-      user.phone = userModel.phone;
-      user.display = userModel.display;
-      user.rating = userModel.rating;
-      user.wishListIDs = userModel.wishListIDs;
-      user.orderSeller = userModel.orderSeller;
-      user.orderBuyer = userModel.orderBuyer;
-      user.dob = userModel.dob;
-      user.products = userModel.products;
-      user.biddingIDs = userModel.biddingIDs;
-      user.sellingbiddingIDs = userModel.sellingbiddingIDs;
-    });
+    await firebaseUser.doc(user.id).get().then(
+      (doc) {
+        // Load User from Firebase to User Provider
+        UserProfileModel userModel =
+            UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
+        user.name = userModel.name;
+        user.schoolName = userModel.schoolName;
+        user.grade = userModel.grade;
+        user.phone = userModel.phone;
+        user.display = userModel.display;
+        user.rating = userModel.rating;
+        user.wishListIDs = userModel.wishListIDs;
+        user.orderSeller = userModel.orderSeller;
+        user.orderBuyer = userModel.orderBuyer;
+        user.dob = userModel.dob;
+        user.products = userModel.products;
+        user.biddingIDs = userModel.biddingIDs;
+        user.sellingbiddingIDs = userModel.sellingbiddingIDs;
+      },
+    );
+
     notifyListeners();
   }
 

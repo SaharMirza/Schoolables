@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutterdemo/models/ScannedList.dart';
+import 'package:flutterdemo/models/scanned_List.dart';
 import 'package:flutterdemo/models/SyllabusBook.dart';
 import 'package:flutterdemo/constants/colors.dart';
+import 'package:flutterdemo/provider/product_provider.dart';
+import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/productsPage.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/book_prices.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/product_model.dart';
 
 class SyllabusList extends StatefulWidget {
   const SyllabusList({super.key, required this.scannedList});
@@ -18,7 +24,6 @@ class SyllabusList extends StatefulWidget {
 }
 
 class _SyllabusListState extends State<SyllabusList> {
-
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -37,15 +42,14 @@ class _SyllabusListState extends State<SyllabusList> {
                 screenHeight: screenHeight,
               ),
             ),
-
-            // list
             Expanded(
               child: ListView.builder(
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                itemBuilder: (context, index) =>
-                    syllabusListTile(syllabusItem: syllabusBooks[index]),
-                itemCount: syllabusBooks.length,
+                itemBuilder: (context, index) => syllabusListTile(
+                    syllabusItem:
+                        context.read<ScannedListProvider>().results[index]),
+                itemCount: context.read<ScannedListProvider>().results.length,
               ),
             ),
           ],
@@ -60,46 +64,60 @@ class _SyllabusListState extends State<SyllabusList> {
 class syllabusListTile extends StatefulWidget {
   const syllabusListTile({super.key, required this.syllabusItem});
 
-  final SyllabusBook syllabusItem;
+  final String syllabusItem;
 
   @override
   State<syllabusListTile> createState() => _syllabusListTileState();
 }
 
 class _syllabusListTileState extends State<syllabusListTile> {
+//function that fetches products according to ScannedListItem title and navigates to product page.
+  navigateToProductPage() {
+    context.read<ProductsProvider>().fetchProducts();
+
+    List<ProductModel> allproducts;
+    allproducts = context.read<ProductsProvider>().products;
+    print("All products:" + allproducts.length.toString());
+    List<ProductModel> searchList = [];
+
+    for (ProductModel product in allproducts) {
+      print(product.title);
+      if (widget.syllabusItem.contains(product.title)) {
+        searchList.add(product);
+      }
+    }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (context) =>
+              ProductsPage(title: widget.syllabusItem, products: searchList)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
-      height: 80,
+      height: 100,
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: ListTile(
-          leading: Image.asset(
-            widget.syllabusItem.image,
-            width: 45,
-            height: 45,
-          ),
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child:
-            ListtitleText(
-              text: widget.syllabusItem.book_name,
+            child: ListtitleText(
+              text: widget.syllabusItem,
               align: TextAlign.left,
               size: screenHeight * 0.022,
             ),
           ),
           trailing: IconButton(
-            icon: const Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
+            icon: const Icon(Icons.arrow_forward_ios,
+                color: MyColors.subtitleColor),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) =>
-                        BookPrices(bookname: widget.syllabusItem.book_name)),
-              );
+              navigateToProductPage();
             },
           ),
         ),

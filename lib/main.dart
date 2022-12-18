@@ -10,6 +10,7 @@ import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/child_provider.dart';
 import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
+import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
@@ -36,7 +37,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ParentProvider()),
         ChangeNotifierProvider(create: (_) => ChildProvider()),
         ChangeNotifierProvider(create: (_) => BiddingProvider()),
-        ChangeNotifierProvider(create: (_) => LocationProvider())
+        ChangeNotifierProvider(create: (_) => LocationProvider()),
+        ChangeNotifierProvider(create: (_) => ScannedListProvider()),
       ],
       child: const MyApp(),
     ),

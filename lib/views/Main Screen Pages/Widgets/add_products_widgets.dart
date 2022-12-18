@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
@@ -11,7 +12,7 @@ import 'package:flutterdemo/views/Map%20Screen%20Pages/choose_location.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:tflite/tflite.dart';
+// import 'package:tflite/tflite.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 
