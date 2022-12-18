@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Widgets/buttons.dart';
-import 'package:flutterdemo/views/Widgets/textfield.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/buttons.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/textfield.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgetPass extends StatefulWidget {

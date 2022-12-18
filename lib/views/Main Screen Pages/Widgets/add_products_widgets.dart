@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
@@ -8,7 +9,6 @@ import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
-import 'package:flutterdemo/views/Map%20Screen%20Pages/choose_location.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +21,7 @@ List<XFile> acceptedImages = [];
 class UploadPictureCard extends StatefulWidget {
   const UploadPictureCard(
       {super.key, required this.screenWidth, required this.screenHeight});
+
   final double screenWidth;
   final double screenHeight;
 
@@ -188,6 +189,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
 
 class EnlargedTextField extends StatefulWidget {
   const EnlargedTextField({super.key, required this.screenWidth});
+
   final double screenWidth;
 
   @override
@@ -230,6 +232,7 @@ class _EnlargedTextFieldState extends State<EnlargedTextField> {
 
 class LocationTextFieldNBtn extends StatefulWidget {
   const LocationTextFieldNBtn({super.key, required this.screenWidth});
+
   final double screenWidth;
 
   @override
@@ -257,10 +260,6 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
             ),
             OutlinedButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ChooseLocation()));
               },
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -287,8 +286,10 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
 class AddProductFields extends StatefulWidget {
   const AddProductFields(
       {super.key, required this.screenWidth, required this.screenHeight});
+
   final double screenWidth;
   final double screenHeight;
+
   @override
   State<AddProductFields> createState() => _AddProductFieldsState();
 }

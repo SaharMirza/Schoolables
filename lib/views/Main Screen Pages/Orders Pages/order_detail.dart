@@ -14,8 +14,6 @@ class OrderDetail extends StatefulWidget {
 class _OrderDetailState extends State<OrderDetail>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  // late Animation colorAnimation;
-  // late Animation sizeAnimation;
   late Tween<double> sizeTween;
   late ColorTween colorTween;
 
