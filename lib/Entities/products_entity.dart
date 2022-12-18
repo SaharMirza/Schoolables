@@ -7,7 +7,7 @@ class Product {
     required this.category,
     required this.subCategory,
     required this.condition,
-    this.id,
+    id
   });
 
   String sellerID;
@@ -18,5 +18,5 @@ class Product {
   int price;
   List images;
 
-  String? id;
+  late String id;
 }
