@@ -6,7 +6,6 @@ import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen_demo.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-
 class MapScreenPopUp extends StatefulWidget {
   const MapScreenPopUp({Key? key}) : super(key: key);
 
@@ -26,6 +25,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
     super.initState();
     product_controller = TextEditingController();
     getLocations();
+
   }
 
   Future getLocations() async {
@@ -61,7 +61,6 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                 color: Color(0xffDADBC6),
               ),
               width: screenWidth * 0.75,
-              //color: Color(0xffDADBC6),
               child: ButtonTheme(
                 alignedDropdown: true,
                 child: StatefulBuilder(builder: (context, setState) {
@@ -72,7 +71,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                     value: dropdownValue,
                     borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                     icon: const Icon(Icons.arrow_downward_sharp),
-                    underline: DecoratedBox(
+                    underline: const DecoratedBox(
                       decoration: BoxDecoration(color: Color(0xffDADBC6)),
                     ),
                     items: areaList.map((String items) {
@@ -139,14 +138,6 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                                                     0.03)),
                                       ),
                                       onPressed: () {
-                                        // Navigator.pushAndRemoveUntil(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (BuildContext context) =>
-                                        //         MapScreenPopUp(),
-                                        //   ),
-                                        //       (route) => false,
-                                        // );
                                         Navigator.pop(context);
                                       },
                                     ),
@@ -174,13 +165,6 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                   TextButton.styleFrom(backgroundColor: const Color(0xffBBBD88)),
                   child: const Text('Cancel', style: TextStyle(color: Colors.black)),
                   onPressed: () {
-                    // Navigator.pushAndRemoveUntil(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (BuildContext context) => const MapScreenPopUp(),
-                    //   ),
-                    //       (route) => false,
-                    // );
                     Navigator.pop(context);
                   },
                 ),
@@ -192,3 +176,20 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
     );
   }
 }
+
+class DropDown extends StatefulWidget {
+  const DropDown({Key? key}) : super(key: key);
+
+  @override
+  State<DropDown> createState() => _DropDownState();
+}
+
+class _DropDownState extends State<DropDown> {
+  @override
+  Widget build(BuildContext context) {
+    return DropDown(
+
+    );
+  }
+}
+
