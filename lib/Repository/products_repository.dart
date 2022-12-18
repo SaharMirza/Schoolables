@@ -15,6 +15,7 @@ abstract class ProductsRepository {
   Future<void> updateProduct(Product product);
 
   Future<List<String>> getDownloadUrls(List<File> finalImages);
+  Future<List<ProductModel>> fetchScannedProducts(List<String> scannedList);
 }
 
 class FirebaseProductsRepository implements ProductsRepository {
@@ -62,12 +63,16 @@ class FirebaseProductsRepository implements ProductsRepository {
   @override
   Future<List<ProductModel>> fetchProductsList() async {
     List<ProductModel> products = [];
-    await db.collection("products").get().then((event) {
-      products =
-          event.docs.map((e) => ProductModel.fromJson(e.data(), e.id)).toList();
-    });
+    await db.collection("products").get().then(
+      (event) {
+        products = event.docs
+            .map((e) => ProductModel.fromJson(e.data(), e.id))
+            .toList();
+      },
+    );
     return products;
   }
+
   @override
   Future<String> addProduct(Product product) async {
     var newRef = await db.collection("products").add(
@@ -82,6 +87,7 @@ class FirebaseProductsRepository implements ProductsRepository {
                   condition: product.condition)
               .toJson(),
         );
+    // product.id = newRef.id;
 
     return newRef.id;
   }
@@ -99,4 +105,24 @@ class FirebaseProductsRepository implements ProductsRepository {
       print("Product updated");
     }).catchError((error) => print("Failed to updated Task: $error"));
   }
+
+// Fetches the products from firebase according to user scanned list.
+  @override
+  Future<List<ProductModel>> fetchScannedProducts(
+      List<String> scannedList) async {
+    List<ProductModel> scannedProducts = [];
+
+    for (String i in scannedList) {
+      await db.collection("products").where('title', isEqualTo: i).get().then(
+        (event) {
+          scannedProducts = event.docs
+              .map((e) => ProductModel.fromJson(e.data(), e.id))
+              .toList();
+        },
+      );
+    }
+    return scannedProducts;
+  }
+
+
 }

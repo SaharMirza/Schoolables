@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/area_selector_popup.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
@@ -76,19 +77,12 @@ class _MyAppBarState extends State<MyAppBar> {
       centerTitle: true,
       title: Row(
         mainAxisSize: MainAxisSize.min,
-        children: const [
+        children:  [
           Icon(
             Icons.location_on,
             color: Color.fromRGBO(74, 78, 105, 1.0),
           ),
-          Text(
-            'North Nazimabad , Karachi',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 10,
-              color: Color.fromRGBO(74, 78, 105, 1.0),
-            ),
-          ),
+         AreaSeletorPopup()
         ],
       ),
       actions: <Widget>[

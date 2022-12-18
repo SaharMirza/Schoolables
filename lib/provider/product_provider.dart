@@ -13,6 +13,7 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductModel> products = [];
   List<Product> userProducts = [];
+  List<Product> nearbyProducts=[];
   String psellerID = "";
   List<String> downloadUrls = [];
 
@@ -20,6 +21,21 @@ class ProductsProvider with ChangeNotifier {
 
   bool isProductsFetching = false;
   bool isProductFetching = false;
+
+  void loadNearbyProducts(List<String> products)async{
+   isProductFetching = true;
+    notifyListeners();
+    nearbyProducts = [];
+    for (var id in products) {
+      print("productID$id");
+      if (id == "") continue;
+      Product product = await _productsRepository.getProduct(id);
+      product.id = id;
+      nearbyProducts.add(product);
+    }
+    isProductFetching = false;
+    notifyListeners();
+  }
 
   Future<Product> getProductByID(id) async {
     var doc =
