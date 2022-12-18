@@ -8,10 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/loading_screen.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/product_model.dart';
 import '../../provider/scanned_list_provider.dart';
 import '../../utils.dart';
 
@@ -32,6 +31,11 @@ class _CameraScreenState extends State<CameraScreen> {
   void initState() {
     startCamera();
     super.initState();
+    setState(() {});
+    Future.delayed(const Duration(seconds: 1), () {
+      initial = true;
+      setState(() {});
+    });
   }
 
 //searches for available cameras and picks the first camera available initialises it.
@@ -78,46 +82,17 @@ class _CameraScreenState extends State<CameraScreen> {
         result.removeAt(0);
         Provider.of<ScannedListProvider>(context, listen: false)
             .saveScannedList(
-                result, context.read<UserProvider>().user.schoolName);
+                result,
+                context.read<UserProvider>().user.schoolName,
+                context.read<UserProvider>().user.grade);
+        result = [];
+
+        Provider.of<ScannedListProvider>(context, listen: false)
+            .fetchScannedListAccordingToSchoolName(
+                context.read<UserProvider>().user.schoolName);
       },
     );
   }
-
-  // parseImage(XFile? pickedFile) async {
-  //   var bytes = File(pickedFile!.path).readAsBytesSync();
-  //   String img64 = base64Encode(bytes);
-  //   return img64;
-  // }
-
-  // OCRThroughAPI(String? img64) async {
-  //   String parsedtext = '';
-
-  //   var url = Uri.parse('https://api.ocr.space/parse/image');
-  //   var payload = {
-  //     "base64Image": "data:image/jpg;base64,${img64}",
-  //     // "isTable": "true",
-  //     "scale": "true",
-  //     "OCREngine": "2"
-  //   };
-  //   var header = {"apikey": "K87453326288957"};
-  //   var post = await http.post(url = url, body: payload, headers: header);
-
-  //   var result = jsonDecode(post.body);
-  //   print(result);
-  //   // print(result);
-  //   // setState(() {
-  //   //   parsedtext = result['ParsedResults'][0]['ParsedText'];
-  //   //   print(parsedtext);
-  //   // });
-
-  //   // await Provider.of<ScannedListProvider>(context, listen: false)
-  //   // .fetchScannedProducts();
-
-  //   // List<ProductModel> scannedProducts =
-  //   //     await Provider.of<ScannedListProvider>(context, listen: false)
-  //   //         .scannedProducts;
-  //   // print(scannedProducts.toString());
-  // }
 
 // picks image from gallery and calls image to text function
   pickImageFromGallery() async {
@@ -129,8 +104,8 @@ class _CameraScreenState extends State<CameraScreen> {
         pickedFile = pickedFile;
       } else {
         dialogs.errorToast(
-            error:
-                TextFormatter.firebaseError("Please pick an image to upload"));
+          error: TextFormatter.firebaseError("Please pick an image to upload"),
+        );
       }
     });
     return pickedFile;
@@ -142,23 +117,23 @@ class _CameraScreenState extends State<CameraScreen> {
     super.dispose();
   }
 
+  bool initial = false;
+
   @override
   Widget build(BuildContext context) {
-    if (cameraController.value.isInitialized) {
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: MyColors.buttonColor,
-        ),
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: MyColors.buttonColor,
-        body: Stack(
-          children: [CameraPreview(cameraController), optionRow()],
-        ),
-      );
-    } else {
-      return const SizedBox(
-        child: Text("Select Camera"),
-      );
-    }
+      ),
+      backgroundColor: MyColors.buttonColor,
+      body: initial == true
+          ? Stack(
+              children: [CameraPreview(cameraController), optionRow()],
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
+    );
   }
 
   Widget optionRow() {
@@ -188,7 +163,7 @@ class _CameraScreenState extends State<CameraScreen> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: CaptureButton(),
+                child: captureButton(),
               )),
           GestureDetector(
             onTap: () async {
@@ -204,21 +179,62 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget CaptureButton() {
+  Future<CroppedFile?> cropSquareImage(XFile imageFile) async {
+    File image = File(imageFile.path);
+    var croppedFile = await ImageCropper().cropImage(
+      sourcePath: image.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      compressQuality: 70,
+      compressFormat: ImageCompressFormat.jpg,
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+      ],
+    );
+    print("cropping is working");
+    if (croppedFile != null) {
+      imageToText(croppedFile);
+      // image = croppedFile as File;
+
+    }
+
+    return croppedFile;
+  }
+
+  Widget captureButton() {
     return GestureDetector(
       onTap: () async {
-        await cameraController.takePicture().then((XFile? file) {
-          if (mounted) {
-            if (file != null) {
-              setState(() {
-                pickedFile = file;
-                // String img64 = parseImage(pickedFile);
-                // OCRThroughAPI(img64);
-              });
-              print("Picture saved to ${file.path}");
+        await cameraController.takePicture().then(
+          (XFile? file) async {
+            if (mounted) {
+              if (file != null) {
+                CroppedFile? res = await cropSquareImage(file);
+                if (res != null) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const LoadingScreen()),
+                  );
+                }
+                // setState(() {
+                //   pickedFile = file;
+                // });
+              }
             }
-          }
-        });
+          },
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(
