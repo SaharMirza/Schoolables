@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/models/product_model.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_list_view.dart';
+
+import '../../imports.dart';
 
 class SearchPage extends StatefulWidget {
   List<ProductModel> searchList;

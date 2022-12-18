@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../../../constants/colors.dart';
-import '../../../constants/fonts.dart';
-import '../Product Pages/product_detail.dart';
+
+import '../../../imports.dart';
 
 class favouritesCard extends StatefulWidget {
   favouritesCard({

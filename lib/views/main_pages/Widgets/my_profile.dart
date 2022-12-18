@@ -1,18 +1,9 @@
-//Seperate List View widget for Edit Profile Screen
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/student_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/constants/fonts.dart';
-// import 'package:flutterdemo/models/user_model.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
+
+
+
 import 'package:intl/intl.dart';
-import 'package:badges/badges.dart';
-import 'package:provider/provider.dart';
-import '../../../constants/colors.dart';
+
+import '../../../imports.dart';
 
 class MyProfileListView extends StatelessWidget {
   const MyProfileListView({

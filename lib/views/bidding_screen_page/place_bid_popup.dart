@@ -1,16 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/bidding_entity.dart';
-import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/constants/colors.dart';
 
-import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/models/bidding_model.dart';
-import 'package:flutterdemo/provider/bidding_provider.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import '../../imports.dart';
 
 class PlaceBidPopUp extends StatefulWidget {
   const PlaceBidPopUp({

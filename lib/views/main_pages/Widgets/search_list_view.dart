@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/models/product_model.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_list_tile.dart';
+
+import '../../../imports.dart';
 
 class SearchListView extends StatelessWidget {
   SearchListView({Key? key, required this.newList}) : super(key: key);

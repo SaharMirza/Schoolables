@@ -1,14 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutterdemo/Entities/location_entity.dart';
-import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/models/location_model.dart';
-import 'package:flutterdemo/provider/location_provider.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen_demo.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+
+
+import '../../../imports.dart';
 
 class AreaSeletorPopup extends StatefulWidget {
   const AreaSeletorPopup({super.key});

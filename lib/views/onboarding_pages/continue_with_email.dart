@@ -1,15 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/Services/auth.dart';
-import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/children_profile_screen.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/forget_pass.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/register_screen.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/buttons.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/textfield.dart';
+
+import 'package:flutterdemo/views/main_pages/Widgets/textfield.dart';
+
+import '../../imports.dart';
 
 class ContinueWithEmail extends StatefulWidget {
   const ContinueWithEmail({Key? key, required this.role}) : super(key: key);

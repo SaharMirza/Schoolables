@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
+
+import '../../imports.dart';
 
 class RoleScreen extends StatefulWidget {
   const RoleScreen({super.key});

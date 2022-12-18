@@ -1,25 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/Services/auth.dart';
-import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/provider/TabNotifier.dart';
-import 'package:flutterdemo/provider/bidding_provider.dart';
-import 'package:flutterdemo/provider/categories_provider.dart';
-import 'package:flutterdemo/provider/child_provider.dart';
-import 'package:flutterdemo/provider/parent_provider.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/provider/scanned_list_provider.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/provider/user_auth_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'provider/location_provider.dart';
+
+import 'imports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

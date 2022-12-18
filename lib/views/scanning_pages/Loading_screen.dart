@@ -1,8 +1,7 @@
+
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/book_list.dart';
+import '../../imports.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);

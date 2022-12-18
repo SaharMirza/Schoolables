@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/location_entity.dart';
-import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/provider/location_provider.dart';
-import 'package:flutterdemo/views/Map%20Screen%20Pages/map_screen_demo.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+
+
+import '../../imports.dart';
 
 class MapScreenPopUp extends StatefulWidget {
   const MapScreenPopUp({Key? key}) : super(key: key);

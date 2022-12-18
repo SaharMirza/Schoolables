@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/Services/auth.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
-import 'package:flutterdemo/views/success_screen.dart';
+
+import '../../imports.dart';
 
 class MainLoginScreen extends StatelessWidget {
   const MainLoginScreen({Key? key, required this.role}) : super(key: key);

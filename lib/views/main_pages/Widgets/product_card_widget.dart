@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/models/product_model.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:provider/provider.dart';
-import '../../../provider/product_provider.dart';
-import '../Product Pages/product_detail.dart';
+
+
+import '../../../imports.dart';
 
 class ProductCard extends StatefulWidget {
   ProductCard({

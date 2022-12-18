@@ -1,14 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/bidding_entity.dart';
-import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/provider/TabNotifier.dart';
-import 'package:flutterdemo/provider/bidding_provider.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
-import 'package:provider/provider.dart';
+
+
+import '../../../imports.dart';
 
 class BuyingOrders extends StatefulWidget {
   const BuyingOrders({super.key});
@@ -35,8 +27,8 @@ class _BuyingOrdersState extends State<BuyingOrders> {
   @override
   Widget build(BuildContext context) {
     //get bids of user
-    userBids = context.watch<BiddingProvider>().userBuyingBids;
-    completedBids = context.read<BiddingProvider>().sellerOrder;
+    userBids = context.watch<BiddingProvider>().userBuyingBids.cast<Bidding>();
+    completedBids = context.read<BiddingProvider>().sellerOrder.cast<Bidding>();
 
     //for InProgress bids with isAccepted= true- array of inprogress bids
     final products = context.read<ProductsProvider>().products;

@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/sub_heading.dart';
-import 'package:provider/provider.dart';
-import '../../provider/student_provider.dart';
-import 'Widgets/search_bar.dart';
+
+import 'package:flutterdemo/views/main_pages/Widgets/product_card_widget.dart';
+
+import '../../imports.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, this.cID = ""}) : super(key: key);

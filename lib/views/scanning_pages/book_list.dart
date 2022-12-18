@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/models/SyllabusBook.dart';
-import 'package:flutterdemo/provider/scanned_list_provider.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
-import 'package:provider/provider.dart';
+
+import 'package:flutterdemo/views/scanning_pages/syllabus_list.dart';
+
+import '../../imports.dart';
 
 class BookList extends StatefulWidget {
   const BookList({super.key});

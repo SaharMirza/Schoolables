@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
+
+import '../../imports.dart';
 
 class BookPrices extends StatefulWidget {
   const BookPrices({super.key, required this.bookname});
