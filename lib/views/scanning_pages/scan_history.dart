@@ -4,15 +4,14 @@ import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/camera_screen.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/buttons.dart';
+import 'package:flutterdemo/views/scanning_pages/syllabus_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../provider/student_provider.dart';
-import '../Main Screen Pages/Widgets/my_profile.dart';
+import '../main_pages/Widgets/buttons.dart';
+import '../main_pages/Widgets/search_bar.dart';
+import '../main_pages/Widgets/text_widget.dart';
+import 'camera_screen.dart';
 
 class ScanHistory extends StatefulWidget {
   const ScanHistory({super.key});

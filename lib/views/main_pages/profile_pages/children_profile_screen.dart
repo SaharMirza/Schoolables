@@ -3,12 +3,12 @@ import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/models/child_model.dart';
 import 'package:flutterdemo/provider/child_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/circle_avatar_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo_text.dart';
 import 'package:provider/provider.dart';
 
+import '../Widgets/Bottom_Nav_bar.dart';
+import '../Widgets/circle_avatar_widget.dart';
+import '../Widgets/my_profile.dart';
+import '../Widgets/schoolables_logo_text.dart';
 import 'child_profile.dart';
 
 class ChildernProfileScreen extends StatefulWidget {

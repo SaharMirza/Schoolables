@@ -4,7 +4,7 @@ import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/product_provider.dart';
-import '../Product Pages/product_detail.dart';
+import '../product_pages/product_detail.dart';
 
 class ProductCard extends StatefulWidget {
   ProductCard({

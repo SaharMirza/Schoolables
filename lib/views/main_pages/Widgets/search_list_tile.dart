@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../product_pages/product_detail.dart';
+import 'text_widget.dart';
 
 class searchListTile extends StatefulWidget {
   const searchListTile({super.key, required this.product});

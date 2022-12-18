@@ -7,13 +7,13 @@ import 'package:flutterdemo/models/student_model.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/order_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 // import '../../../models/buying_orders.dart';
+import '../orders_pages/order_detail.dart';
 import 'map_widget.dart';
 
 class CustomProgressIndicator extends StatefulWidget {

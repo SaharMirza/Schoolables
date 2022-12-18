@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'Widgets/product_card_widget.dart';
+import 'Widgets/search_bar.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({Key? key, required this.title, required this.products})

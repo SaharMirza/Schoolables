@@ -6,15 +6,15 @@ import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_product.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 // import 'package:tflite/tflite.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
+import '../seller_pages/add_product.dart';
+import 'Bottom_Nav_bar.dart';
+import 'my_profile.dart';
 
 List<XFile> acceptedImages = [];
 

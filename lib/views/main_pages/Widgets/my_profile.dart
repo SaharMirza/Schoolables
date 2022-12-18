@@ -6,13 +6,13 @@ import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 // import 'package:flutterdemo/models/user_model.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/buying_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/selling_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_profile_information.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colors.dart';
+import '../orders_pages/buying_orders.dart';
+import '../orders_pages/selling_orders.dart';
+import '../profile_pages/edit_profile_information.dart';
 
 class MyProfileListView extends StatelessWidget {
   const MyProfileListView({

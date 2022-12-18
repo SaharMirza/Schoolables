@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Favourites%20Pages/favourites_page.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scan_history.dart';
+
+import '../../scanning_pages/scan_history.dart';
+import '../favourites_pages/favourites_page.dart';
+import '../home_screen.dart';
+import '../orders_pages/your_orders.dart';
+import '../seller_pages/your_products.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

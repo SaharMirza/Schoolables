@@ -6,9 +6,10 @@ import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../Widgets/category_list_builder.dart';
+import '../Widgets/orders_widget.dart';
 
 class BuyingOrders extends StatefulWidget {
   const BuyingOrders({super.key});

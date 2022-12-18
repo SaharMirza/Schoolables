@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
-import '../Product Pages/product_detail.dart';
 
 class favouritesCard extends StatefulWidget {
   favouritesCard({

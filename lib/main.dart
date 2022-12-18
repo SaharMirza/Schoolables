@@ -13,8 +13,9 @@ import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
-import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
+import 'package:flutterdemo/views/main_pages/Widgets/Bottom_Nav_bar.dart';
+import 'package:flutterdemo/views/onboarding_pages/role_screen.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -3,11 +3,12 @@ import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/buttons.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/textfield.dart';
 import 'package:flutterdemo/views/success_screen.dart';
 import 'package:provider/provider.dart';
+
+import '../main_pages/Widgets/Bottom_Nav_bar.dart';
+import '../main_pages/Widgets/buttons.dart';
+import '../main_pages/Widgets/textfield.dart';
 
 class TellUsMore extends StatefulWidget {
   const TellUsMore({super.key});

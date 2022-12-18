@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/area_selector_popup.dart';
 import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
-import 'package:flutterdemo/views/Notifications%20Pages/bid_notifications.dart';
+import 'package:flutterdemo/views/main_pages/Widgets/area_selector_popup.dart';
+import 'package:flutterdemo/views/main_pages/profile_pages/edit_details.dart';
+import 'package:flutterdemo/views/notifications_pages/bid_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

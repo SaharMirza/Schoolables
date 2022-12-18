@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/child_profile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/schoolables_logo_text.dart';
+
+import '../Widgets/my_profile.dart';
+import '../Widgets/schoolables_logo_text.dart';
+import 'child_profile.dart';
 
 class CreateChildrenProfile extends StatefulWidget {
   const CreateChildrenProfile({super.key});

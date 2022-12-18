@@ -6,13 +6,13 @@ import 'package:http/http.dart' as http;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/loading_screen.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../provider/scanned_list_provider.dart';
 import '../../utils.dart';
+import 'Loading_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
