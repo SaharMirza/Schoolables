@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
@@ -11,14 +10,13 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/add_produ
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:tflite/tflite.dart';
+// import 'package:tflite/tflite.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 
-late List<XFile> acceptedImages = [];
+List<XFile> acceptedImages = [];
 
 class UploadPictureCard extends StatefulWidget {
   const UploadPictureCard(
@@ -92,7 +90,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
             children: [
               Container(
                 height: widget.screenWidth * 0.15 + widget.screenHeight * 0.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   // border: Border.all(color: MyColors.buttonColor),
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -103,26 +101,26 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                       ]),
                 ),
               ),
-              acceptedImages.length == 0
+              acceptedImages.isEmpty
                   ? ElevatedButton.icon(
                       onPressed: () {
                         pickImageFromGallery();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.upload_rounded,
                       ),
-                      label: Padding(
-                        padding: const EdgeInsets.all(4.0),
+                      label: const Padding(
+                        padding: EdgeInsets.all(4.0),
                         child: Text(
                           "Add Photos",
                           style:
-                              const TextStyle(color: MyColors.buttonTextColor),
+                              TextStyle(color: MyColors.buttonTextColor),
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(color: MyColors.textColor),
+                          side: const BorderSide(color: MyColors.textColor),
                         ),
                         backgroundColor: MyColors.startColor,
                         textStyle: GoogleFonts.poppins(
@@ -134,11 +132,11 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             height: 130,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                physics: ScrollPhysics(),
+                                physics: const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: acceptedImages.length,
                                 itemBuilder: (BuildContext context, int index) {
@@ -147,7 +145,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                                     child: Stack(
                                       fit: StackFit.loose,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: 90,
                                           child: Image.file(
                                             File(acceptedImages[index].path),
@@ -160,7 +158,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                                               acceptedImages.removeAt(index);
                                             });
                                           },
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.delete,
                                             color: MyColors.textColor,
                                           ),
@@ -175,7 +173,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                                   onTap: (() {
                                     pickImageFromGallery();
                                   }),
-                                  child: Icon(Icons.add),
+                                  child: const Icon(Icons.add),
                                 )
                               : Container(),
                         ],
@@ -203,10 +201,10 @@ class _EnlargedTextFieldState extends State<EnlargedTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFieldLabel(text: "Description"),
+        const TextFieldLabel(text: "Description"),
         Container(
           height: widget.screenWidth * 0.2,
-          margin: EdgeInsets.all(12),
+          margin: const EdgeInsets.all(12),
           child: TextFormField(
             maxLines: 5,
             minLines: 2,
@@ -216,12 +214,12 @@ class _EnlargedTextFieldState extends State<EnlargedTextField> {
               hintText: "Describe what you're selling",
               fillColor: MyColors.textFieldColor,
               border: OutlineInputBorder(
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.black,
                   ),
                   borderRadius: BorderRadius.circular(8)),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: MyColors.textColor, width: 1.5),
+                borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
@@ -246,34 +244,34 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFieldLabel(text: "Location*"),
+        const TextFieldLabel(text: "Location*"),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: widget.screenWidth * 0.5,
               child: TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Type location or choose",
                 ),
               ),
             ),
             OutlinedButton(
               onPressed: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:
-                    Text("Choose", style: TextStyle(color: MyColors.textColor)),
-              ),
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
                 backgroundColor: Colors.white,
-                side: BorderSide(
+                side: const BorderSide(
                   color: MyColors.textColor,
                   width: 2,
                 ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child:
+                    Text("Choose", style: TextStyle(color: MyColors.textColor)),
               ),
             ),
           ],
@@ -314,6 +312,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     final userProfile = context.read<UserProvider>().userProfile;
     final categories = context.watch<CategoriesProvider>().categories;
@@ -328,7 +327,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
       downloadUrls =
           await context.read<ProductsProvider>().getDownloadUrls(finalImages);
       // downloadUrls = context.read<ProductsProvider>().downloadUrls;
-      print("LLFLEFLKELF " + downloadUrls.length.toString());
+      print("LLFLEFLKELF ${downloadUrls.length}");
     }
 
 //Saves the product into firebase.
@@ -342,17 +341,17 @@ class _AddProductFieldsState extends State<AddProductFields> {
           subCategory: _currentSubCategory,
           condition: _currentConditon);
 
-      if (downloadUrls.length != 0) {
+      if (downloadUrls.isNotEmpty) {
         var productid =
             await context.read<ProductsProvider>().addProduct(product);
         context.read<UserProvider>().addNewProduct(productid);
         context.read<UserProvider>().saveChanges();
 
         isLoading == true
-            ? CircularProgressIndicator()
+            ? const CircularProgressIndicator()
             : await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => BottomNavBar(),
+                  builder: (context) => const BottomNavBar(),
                 ),
               );
 
@@ -415,7 +414,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: LocationTextFieldNBtn(screenWidth: widget.screenWidth),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
@@ -426,8 +425,8 @@ class _AddProductFieldsState extends State<AddProductFields> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(children: [
-                Icon(Icons.info_outlined),
-                SizedBox(width: 10),
+                const Icon(Icons.info_outlined),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     "Pickup point helps the buyer to locate where your book is located. You an change the location and mark it near your college as to reach more number of potential buyers.",
@@ -437,7 +436,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
               ]),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -447,13 +446,13 @@ class _AddProductFieldsState extends State<AddProductFields> {
                   await storeImagesinStorage(acceptedImages);
                   saveMyProduct();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Add Product",
-                      style: TextStyle(color: Colors.white)),
-                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: MyColors.buttonColor,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Add Product",
+                      style: TextStyle(color: Colors.white)),
                 ),
               ))
         ],
@@ -470,7 +469,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
-              padding: EdgeInsets.only(left: 10, right: 2),
+              padding: const EdgeInsets.only(left: 10, right: 2),
               child: DropdownButton(
                 value: _currentConditon,
                 hint: Text(_currentConditon),
@@ -505,7 +504,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 2),
+            padding: const EdgeInsets.only(left: 10, right: 2),
             child: DropdownButton(
               value: _currentSubCategory,
               hint: Text(_currentSubCategory),
@@ -542,7 +541,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Padding(
-              padding: EdgeInsets.only(left: 10, right: 2),
+              padding: const EdgeInsets.only(left: 10, right: 2),
               child: DropdownButton(
                 value: _currentCategory,
                 hint: Text(_currentCategory),
@@ -580,16 +579,16 @@ class _AddProductBtnState extends State<AddProductBtn> {
       onPressed: () async {
         await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => AddProductPage(),
+            builder: (context) => const AddProductPage(),
           ),
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("Add Product", style: TextStyle(color: Colors.white)),
-      ),
       style: ElevatedButton.styleFrom(
         backgroundColor: MyColors.buttonColor,
+      ),
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text("Add Product", style: TextStyle(color: Colors.white)),
       ),
     );
   }

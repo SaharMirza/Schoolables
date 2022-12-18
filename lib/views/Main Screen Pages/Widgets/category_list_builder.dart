@@ -103,20 +103,23 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
                         if (categories[index].catName == "Books") {
                           if (product.isNotEmpty) {
                             booklist(index);
-                          } else
+                          } else {
                             print("wait");
+                          }
                         }
                         if (categories[index].catName == "Stationary") {
                           if (product.isNotEmpty) {
                             stationary(index);
-                          } else
+                          } else {
                             print("wait");
+                          }
                         }
                         if (categories[index].catName == "bags") {
                           if (product.isNotEmpty) {
                             bags(index);
-                          } else
+                          } else {
                             print("wait");
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -155,16 +158,16 @@ class Categories {
   });
 }
 
-class Product {
-  final String name;
-  final String image;
-  final String price;
-  bool isFav;
+// class Product {
+//   final String name;
+//   final String image;
+//   final String price;
+//   bool isFav;
 
-  Product({
-    required this.name,
-    required this.image,
-    required this.price,
-    required this.isFav,
-  });
-}
+//   Product({
+//     required this.name,
+//     required this.image,
+//     required this.price,
+//     required this.isFav,
+//   });
+// }

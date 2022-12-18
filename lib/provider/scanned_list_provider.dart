@@ -8,6 +8,7 @@ class ScannedListProvider with ChangeNotifier {
       FirebaseScannedListRepository();
   List<ScannedList> scannedLists = [];
   List<ProductModel> scannedProducts = [];
+  List<String> results = [];
 
   bool isLoading = false;
 
@@ -22,8 +23,15 @@ class ScannedListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void fetchScannedProducts(List<String> result) async {
-    scannedProducts = await _scannedListRepository.fetchScannedProducts(result);
+  void fetchProductsByName(String result) async {
+    scannedProducts = await _scannedListRepository.fetchProductsByName(result);
+    print(scannedProducts.toString());
     notifyListeners();
+  }
+
+  void saveScannedList(List<String> result, String schoolName) async {
+    results = result;
+    notifyListeners();
+    _scannedListRepository.saveScanList(result, schoolName);
   }
 }

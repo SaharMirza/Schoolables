@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/Services/auth.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/utils.dart';
@@ -110,7 +108,7 @@ class mainBody extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(8)),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: MyColors.textColor, width: 1.5),
+          borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
           borderRadius: BorderRadius.circular(25.0),
         ),
       ),

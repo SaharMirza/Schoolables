@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/models/SyllabusBook.dart';
-import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/provider/scanned_list_provider.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
+import 'package:provider/provider.dart';
 
 class BookList extends StatefulWidget {
   const BookList({super.key});
@@ -17,7 +14,6 @@ class BookList extends StatefulWidget {
 }
 
 class _BookListState extends State<BookList> {
-
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -27,7 +23,7 @@ class _BookListState extends State<BookList> {
       body: Center(
         child: Column(
           children: [
-            HeaderBar(title: "BookList"),
+            const HeaderBar(title: "BookList"),
             Padding(
               padding: const EdgeInsets.only(
                   top: 20, bottom: 0, left: 10, right: 10),
@@ -42,8 +38,8 @@ class _BookListState extends State<BookList> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 itemBuilder: (context, index) =>
-                    syllabusListTile(syllabusItem: syllabusBooks[index]),
-                itemCount: syllabusBooks.length,
+                    syllabusListTile(syllabusItem: context.read<ScannedListProvider>().results[index]),
+                itemCount: context.read<ScannedListProvider>().results.length,
               ),
             ),
           ],

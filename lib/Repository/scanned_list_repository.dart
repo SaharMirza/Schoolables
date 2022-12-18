@@ -11,12 +11,14 @@ import '../provider/student_provider.dart';
 abstract class ScannedListRepository {
   Future<List<ScannedList>> fetchScannedListAccordingToSchoolName(
       String schoolName);
-  Future<List<ProductModel>> fetchScannedProducts(List<String> result);
+  Future<List<ProductModel>> fetchProductsByName(String result);
+  void saveScanList(List<String> result, String schoolName);
 }
 
 class FirebaseScannedListRepository implements ScannedListRepository {
   final db = FirebaseFirestore.instance;
 
+// fetches scanlist on scan history page according to current user logged in's school.
   @override
   Future<List<ScannedList>> fetchScannedListAccordingToSchoolName(
       String schoolName) async {
@@ -34,28 +36,46 @@ class FirebaseScannedListRepository implements ScannedListRepository {
       },
     );
 
-    print("books fetched" + scannedLists.toString());
     return scannedLists;
   }
 
+// fetches products from database according to scanlist items
   @override
-  Future<List<ProductModel>> fetchScannedProducts(List<String> result) async {
+  Future<List<ProductModel>> fetchProductsByName(String result) async {
     List<ProductModel> scannedProducts = [];
-
-    for (String i in result) {
-      ProductModel productModel;
-      var doc = await db
-          .collection("products")
-          .where("title", isEqualTo: i)
-          .get()
-          .then(
-        (event) {
-          scannedProducts = event.docs
-              .map((e) => ProductModel.fromJson(e.data(), e.id))
-              .toList();
-        },
-      );
-    }
+    ProductModel productModel;
+    var doc = await db
+        .collection("products")
+        .where("title", isEqualTo: result)
+        .get()
+        .then(
+      (event) {
+        scannedProducts = event.docs
+            .map((e) => ProductModel.fromJson(e.data(), e.id))
+            .toList();
+      },
+    );
+    print(scannedProducts);
     return scannedProducts;
+  }
+
+// saves the scan list array into scannedlist db according to school name
+  @override
+  void saveScanList(List<String> result, String schoolName) async {
+    List<ScannedList> scanlist = [];
+
+    var doc = await db
+        .collection("scannedlist")
+        .where("school_name", isEqualTo: schoolName)
+        .get()
+        .then((value) {
+      scanlist =
+          value.docs.map((e) => ScannedList.fromJson(e.data(), e.id)).toList();
+    });
+
+    await db
+        .collection("scannedlist")
+        .doc(scanlist[0].id)
+        .update({"scannedItems": result}).then((value) => print("Bid Updated"));
   }
 }

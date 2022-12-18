@@ -108,7 +108,7 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
         children: <Widget>[
           const Text("Want to setup later? "),
           InkWell(
-              child: Text("Skip",
+              child: const Text("Skip",
                   style: TextStyle(
                       color: MyColors.textColor,
                       decoration: TextDecoration.underline,

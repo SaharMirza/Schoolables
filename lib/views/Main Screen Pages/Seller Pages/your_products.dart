@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/filter_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/fonts.dart';
-import '../Widgets/my_profile.dart';
 
 class YourProductsPage extends StatefulWidget {
   const YourProductsPage({super.key});
@@ -29,7 +22,7 @@ class _YourProductsPageState extends State<YourProductsPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // context.read<CategoriesProvider>().fetchCategories();
       List<String> products = context.read<UserProvider>().user.products;
       context.read<ProductsProvider>().loadUserProducts(products);
@@ -54,15 +47,15 @@ class _YourProductsPageState extends State<YourProductsPage> {
       padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
-          HeaderBar(title: "Seller"),
+          const HeaderBar(title: "Seller"),
           Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               SearchfilterMapWidget(
                   screenWidth: screenWidth, screenHeight: screenHeight),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -80,12 +73,12 @@ class _YourProductsPageState extends State<YourProductsPage> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      sellerProducts.length==0?CircularProgressIndicator():
+                      sellerProducts.isEmpty?const CircularProgressIndicator():
                       ListView.builder(
-                          physics: ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           // scrollDirection: Axis.horizontal,
                           itemCount: sellerProducts.length,
@@ -96,10 +89,10 @@ class _YourProductsPageState extends State<YourProductsPage> {
                                 image: sellerProducts[index].images[0],
                                 condition: sellerProducts[index].condition);
                           }),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      AddProductBtn(),
+                      const AddProductBtn(),
                     ],
                   ),
                 ),
@@ -113,7 +106,7 @@ class _YourProductsPageState extends State<YourProductsPage> {
 }
 
 class YourProductCard extends StatefulWidget {
-  YourProductCard(
+  const YourProductCard(
       {Key? key,
       // required this.pid,
       required this.name,
@@ -142,7 +135,7 @@ class _YourProductCardState extends State<YourProductCard> {
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
         height: 110,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: MyColors.startColor,
@@ -163,7 +156,7 @@ class _YourProductCardState extends State<YourProductCard> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Container(
+            child: SizedBox(
               width: 800,
               child: Row(children: [
                 Padding(
@@ -209,7 +202,7 @@ class _YourProductCardState extends State<YourProductCard> {
                           ),
                         ],
                       ),
-                      Text("Rs." + widget.price,
+                      Text("Rs.${widget.price}",
                           style: MyStyles.googleTextSubtitleListTile(12)),
                       Text(
                         "Book Condition : ${widget.condition}/10",

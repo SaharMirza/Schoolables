@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutterdemo/Entities/bidding_entity.dart';
 import 'package:flutterdemo/Repository/bidding_repository.dart';
@@ -10,24 +12,51 @@ class BiddingProvider with ChangeNotifier {
 
   List<BiddingModel> bids = [];
   List<Bidding> userBids = [];
-  
+  List<Bidding> userBuyingBids = [];
+  List<Bidding> sellerOrder = [];
+
   final BiddingRepository _bidsRepository = FirebaseBiddingRepository();
 
   bool isBidsFetching = false;
 
-  Future<Bidding> getBidbyID(id)async{
+  Future<Bidding> getBidbyID(id) async {
     Bidding bid = await _bidsRepository.getBid(id);
     return bid;
+  }
+
+  void loadSellerOrders(List<String> bids) async {
+    print("IN Seller ${bids.length}");
+    sellerOrder = [];
+    for (var id in bids) {
+      print("bidID$id");
+      if (id == "") continue;
+      Bidding bid = await _bidsRepository.getBid(id);
+      bid.id = id;
+      sellerOrder.add(bid);
+    }
+    notifyListeners();
   }
 
   void loadUserBids(List<String> bids) async {
     userBids = [];
     for (var id in bids) {
-      print("bidID" + id);
+      print("bidID$id");
       if (id == "") continue;
       Bidding bid = await _bidsRepository.getBid(id);
       bid.id = id;
       userBids.add(bid);
+    }
+    notifyListeners();
+  }
+
+  void loadUserBuyingBids(List<String> bids) async {
+    userBuyingBids = [];
+    for (var id in bids) {
+      print("bidID$id");
+      if (id == "") continue;
+      Bidding bid = await _bidsRepository.getBid(id);
+      bid.id = id;
+      userBuyingBids.add(bid);
     }
     notifyListeners();
   }

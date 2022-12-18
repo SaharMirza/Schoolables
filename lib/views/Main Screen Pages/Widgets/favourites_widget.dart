@@ -49,7 +49,7 @@ class _favouritesCardState extends State<favouritesCard> {
         onTap: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ProductDetail(
+              builder: (context) => const ProductDetail(
                 
               ),
             ),
@@ -57,7 +57,7 @@ class _favouritesCardState extends State<favouritesCard> {
         },
         child: Container(
           height: 150,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: MyColors.startColor,
@@ -78,7 +78,7 @@ class _favouritesCardState extends State<favouritesCard> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Container(
+              child: SizedBox(
                 width: 800,
                 child: Row(children: [
                   Padding(
@@ -90,7 +90,7 @@ class _favouritesCardState extends State<favouritesCard> {
                           image: DecorationImage(
                             fit: BoxFit.fill,
                             image: widget.img.isEmpty
-                                ? NetworkImage(
+                                ? const NetworkImage(
                                     "https://static.thenounproject.com/png/3674270-200.png")
                                 : NetworkImage(widget.img),
                           )),
@@ -130,13 +130,13 @@ class _favouritesCardState extends State<favouritesCard> {
                       ),
                           ],
                         ),
-                        Text("Rs " + widget.price,
+                        Text("Rs ${widget.price}",
                             style: MyStyles.googleTextSubtitleListTile(12)),
                         Text(
-                          "Book Condition : " + widget.condition + "/10",
+                          "Book Condition : ${widget.condition}/10",
                           style: MyStyles.googleTextSubtitleListTile(12),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Column(
@@ -147,11 +147,11 @@ class _favouritesCardState extends State<favouritesCard> {
                                   radius: (20),
                                   backgroundColor: Colors.white,
                                   backgroundImage:widget.sellerIMG.isEmpty
-                                ? NetworkImage(
+                                ? const NetworkImage(
                                     "https://static.thenounproject.com/png/3674270-200.png")
                                 : NetworkImage(widget.sellerIMG),                                      
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Column(

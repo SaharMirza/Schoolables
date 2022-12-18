@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutterdemo/models/bidding_model.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/fonts.dart';
-import '../../../utils.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({
@@ -50,10 +44,10 @@ class _ProductDetailState extends State<ProductDetail> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              ImageSlider(),
+              const ImageSlider(),
               OrderDetailsCard(
                 isProduct: true,
                 product: widget.product,
@@ -61,7 +55,7 @@ class _ProductDetailState extends State<ProductDetail> {
               Container(
                 height: 100,
                 width: 370,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: MyColors.textColor,
                 ),
                 child: Padding(
@@ -92,11 +86,11 @@ class _ProductDetailState extends State<ProductDetail> {
                               child: Column(children: [
                                 Container(
                                   height: 45,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
                                         color: Color.fromARGB(107, 0, 0, 0),
-                                        offset: const Offset(
+                                        offset: Offset(
                                           5.0,
                                           5.0,
                                         ),
@@ -119,6 +113,12 @@ class _ProductDetailState extends State<ProductDetail> {
                                         },
                                       );
                                     },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: MyColors.buttonColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
@@ -126,12 +126,6 @@ class _ProductDetailState extends State<ProductDetail> {
                                         style: GoogleFonts.poppins(
                                           color: Colors.white,
                                         ),
-                                      ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: MyColors.buttonColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
                                       ),
                                     ),
                                   ),

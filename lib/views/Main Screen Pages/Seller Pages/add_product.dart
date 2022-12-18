@@ -32,7 +32,7 @@ class _AddProductPageState extends State<AddProductPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            HeaderBar(title: "New Product"),
+            const HeaderBar(title: "New Product"),
             SizedBox(
               height: screenHeight * 0.85,
               child: SingleChildScrollView(

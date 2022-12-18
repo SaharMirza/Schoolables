@@ -4,10 +4,7 @@ import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/product_detail.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/scan_history.dart';
-import 'package:flutterdemo/views/Scanning%20Pages/syllabus_list.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
@@ -46,6 +43,7 @@ class _SearchPageState extends State<SearchPage> {
           SizedBox(
             width: screenWidth*0.9,
             child: TextField(
+              autofocus: true,
               onChanged: (value) {
                 val = value;
                 if(val!='' ) {
@@ -105,35 +103,37 @@ class _searchListTileState extends State<searchListTile> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final products = context.watch<ProductsProvider>().products;
 
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: ListTile(
-        onTap: (() async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ProductDetail(product: widget.product),
-            ),
-          );
-        }),
-        title: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-          child: ListtitleText(
-            text: widget.product.title,
-            align: TextAlign.left,
-            size: screenHeight * 0.022,
-          ),
+    return GestureDetector(
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
-          onPressed: () {
-            Navigator.of(context).push(
+        child: ListTile(
+          onTap: (() async {
+            await Navigator.of(context).push(
               MaterialPageRoute(
-                  builder: (context) => ProductDetail(product: widget.product)),
+                builder: (context) => ProductDetail(product: widget.product),
+              ),
             );
-          },
+          }),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            child: ListtitleText(
+              text: widget.product.title,
+              align: TextAlign.left,
+              size: screenHeight * 0.022,
+            ),
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => ProductDetail(product: widget.product)),
+              );
+            },
+          ),
         ),
       ),
     );

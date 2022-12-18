@@ -13,15 +13,15 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductModel> products = [];
   List<Product> userProducts = [];
-  Product product = Product(
-    sellerID: "",
-    title: "",
-    price: 0,
-    images: [],
-    category: "",
-    subCategory: "",
-    condition: "",
-  );
+  // Product product = Product(
+  //   sellerID: "",
+  //   title: "",
+  //   price: 0,
+  //   images: [],
+  //   category: "",
+  //   subCategory: "",
+  //   condition: "",
+  // );
   String psellerID = "";
   List<String> downloadUrls = [];
 
@@ -54,7 +54,7 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
     userProducts = [];
     for (var id in products) {
-      print("productID" + id);
+      print("productID$id");
       if (id == "") continue;
       Product product = await _productsRepository.getProduct(id);
       product.id = id;

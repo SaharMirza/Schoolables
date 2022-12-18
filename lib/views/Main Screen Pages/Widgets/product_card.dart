@@ -72,7 +72,7 @@ class _ProductCardState extends State<ProductCard> {
                   Container(
                     height: screenHeight * 0.23,
                     width: screenWidth,
-                    color: Color.fromARGB(255, 179, 150, 180),
+                    color: const Color.fromARGB(255, 179, 150, 180),
                     child: widget.image.isEmpty
                         ? Image.network('https://static.thenounproject.com/png/3674270-200.png')
                         : Image.network(widget.image),

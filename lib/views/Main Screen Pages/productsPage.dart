@@ -16,10 +16,10 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  
   @override
   Widget build(BuildContext context) {
-    for(int i=0;i<widget.products.length;i++){
+    print(widget.products.toString());
+    for (int i = 0; i < widget.products.length; i++) {
       print(widget.products[i].title);
     }
     double screenWidth = MediaQuery.of(context).size.width;
@@ -72,7 +72,7 @@ class _ProductsPageState extends State<ProductsPage> {
     }
 
     return GridView.count(
-      physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         childAspectRatio: screenWidth / (screenHeight * 0.8),
         shrinkWrap: true,
         crossAxisCount: 2,
@@ -82,7 +82,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 pid: widget.products[i].id,
                 name: widget.products[i].title,
                 price: widget.products[i].price.toString(),
-                image: "",
+                image: widget.products[i].images[0],
                 isFav: getFav(widget.products[i].id)),
         ]);
   }

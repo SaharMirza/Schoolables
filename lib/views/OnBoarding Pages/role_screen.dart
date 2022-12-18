@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/main_login_screen.dart';
 
 class RoleScreen extends StatefulWidget {

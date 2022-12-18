@@ -47,7 +47,7 @@ class _ScanHistoryState extends State<ScanHistory> {
         child: Center(
           child: Column(
             children: [
-              HeaderBar(title: "Scanned Lists"),
+              const HeaderBar(title: "Scanned Lists"),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 20, bottom: 0, left: 10, right: 10),
@@ -130,7 +130,7 @@ class _scanListTileState extends State<scanListTile> {
           ),
         ),
         trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
+          icon: const Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(

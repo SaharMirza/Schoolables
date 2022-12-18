@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
+import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
 import '../../provider/scanned_list_provider.dart';
+import '../../utils.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -23,7 +26,7 @@ class _CameraScreenState extends State<CameraScreen> {
   late List<CameraDescription> cameras;
   late CameraController cameraController;
   late List<String> result = [];
-  XFile? pickedFile;
+  late XFile? pickedFile;
 
   @override
   void initState() {
@@ -72,56 +75,62 @@ class _CameraScreenState extends State<CameraScreen> {
             result.add(_line);
           }
         }
+        result.removeAt(0);
+        Provider.of<ScannedListProvider>(context, listen: false)
+            .saveScannedList(
+                result, context.read<UserProvider>().user.schoolName);
       },
     );
-
-    print(result);
-
-    List<ProductModel> scannedProducts =
-        await Provider.of<ScannedListProvider>(context, listen: false)
-            .scannedProducts;
-    print(scannedProducts.toString());
   }
 
-  parsethetext(XFile pickedFile) async {
-    var bytes = File(pickedFile.path).readAsBytesSync();
-    String img64 = base64Encode(bytes);
-    return img64;
-  }
+  // parseImage(XFile? pickedFile) async {
+  //   var bytes = File(pickedFile!.path).readAsBytesSync();
+  //   String img64 = base64Encode(bytes);
+  //   return img64;
+  // }
 
-  OCRThroughAPI(String img64) async {
-    String parsedtext = '';
+  // OCRThroughAPI(String? img64) async {
+  //   String parsedtext = '';
 
-    var url = Uri.parse('https://api.ocr.space/parse/image');
-    var payload = {
-      "base64Image": "data:image/jpg;base64,${img64}",
-      // "isTable": "true",
-      "scale": "true",
-      "OCREngine": "2"
-    };
-    var header = {"apikey": "K89478109688957"};
-    var post = await http.post(url = url, body: payload, headers: header);
+  //   var url = Uri.parse('https://api.ocr.space/parse/image');
+  //   var payload = {
+  //     "base64Image": "data:image/jpg;base64,${img64}",
+  //     // "isTable": "true",
+  //     "scale": "true",
+  //     "OCREngine": "2"
+  //   };
+  //   var header = {"apikey": "K87453326288957"};
+  //   var post = await http.post(url = url, body: payload, headers: header);
 
-    var result = jsonDecode(post.body);
-    print(result);
-    // print(result);
-    setState(() {
-      parsedtext = result['ParsedResults'][0]['ParsedText'];
-      print(parsedtext);
-    });
-  }
+  //   var result = jsonDecode(post.body);
+  //   print(result);
+  //   // print(result);
+  //   // setState(() {
+  //   //   parsedtext = result['ParsedResults'][0]['ParsedText'];
+  //   //   print(parsedtext);
+  //   // });
+
+  //   // await Provider.of<ScannedListProvider>(context, listen: false)
+  //   // .fetchScannedProducts();
+
+  //   // List<ProductModel> scannedProducts =
+  //   //     await Provider.of<ScannedListProvider>(context, listen: false)
+  //   //         .scannedProducts;
+  //   // print(scannedProducts.toString());
+  // }
 
 // picks image from gallery and calls image to text function
   pickImageFromGallery() async {
     final picker = ImagePicker();
     InputImage inputImage;
     pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     setState(() {
       if (pickedFile != null) {
-        // imageToText(pickedFile);
+        pickedFile = pickedFile;
       } else {
-        print('No image selected.');
+        dialogs.errorToast(
+            error:
+                TextFormatter.firebaseError("Please pick an image to upload"));
       }
     });
     return pickedFile;
@@ -160,17 +169,18 @@ class _CameraScreenState extends State<CameraScreen> {
         children: [
           ElevatedButton(
             onPressed: () {
+              imageToText(pickedFile);
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const LoadingScreen()),
               );
             },
-            child: Text("SCAN"),
             style: ElevatedButton.styleFrom(
                 backgroundColor: MyColors.subtitleColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)),
                 minimumSize: const Size(120, 40),
                 foregroundColor: Colors.white),
+            child: const Text("SCAN"),
           ),
           GestureDetector(
               onTap: () {
@@ -182,9 +192,7 @@ class _CameraScreenState extends State<CameraScreen> {
               )),
           GestureDetector(
             onTap: () async {
-              XFile pickedFile = await pickImageFromGallery();
-              String img64 = await parsethetext(pickedFile);
-              OCRThroughAPI(img64);
+              XFile? pickedFile = await pickImageFromGallery();
             },
             child: const Text(
               "UPLOAD",
@@ -198,12 +206,14 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Widget CaptureButton() {
     return GestureDetector(
-      onTap: () {
-        cameraController.takePicture().then((XFile? file) {
+      onTap: () async {
+        await cameraController.takePicture().then((XFile? file) {
           if (mounted) {
             if (file != null) {
               setState(() {
                 pickedFile = file;
+                // String img64 = parseImage(pickedFile);
+                // OCRThroughAPI(img64);
               });
               print("Picture saved to ${file.path}");
             }

@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/parent_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/models/child_model.dart';
 import 'package:flutterdemo/provider/child_provider.dart';
 import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/children_profile_screen.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/circle_avatar_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/my_profile.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/text_widget.dart';
-import 'package:flutterdemo/views/Widgets/textfield.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ChildProfileScreen extends StatefulWidget {
@@ -26,9 +21,9 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final parentProfile = context.read<ParentProvider>().parentProfile;
-    TextEditingController _nameController = TextEditingController();
-    TextEditingController _gradeController = TextEditingController();
-    TextEditingController _schoolController = TextEditingController();
+    TextEditingController nameController = TextEditingController();
+    TextEditingController gradeController = TextEditingController();
+    TextEditingController schoolController = TextEditingController();
     final List<String>  orderBuyer=[];
     final List<String>  wishListIDs=[];
                                 
@@ -47,7 +42,7 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
               ),
               SizedBox(height: screenHeight * 0.03),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 26),
+                padding: const EdgeInsets.symmetric(horizontal: 26),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -58,19 +53,19 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
                           align: TextAlign.left,
                           size: screenHeight * 0.03,
                         ),
-                        Spacer(),
-                        CircleAvatarWidget(
+                        const Spacer(),
+                        const CircleAvatarWidget(
                           image: 'assets/images/profile.png',
                           size: 34,
                         ),
                       ],
                     ),
                     SizedBox(height: screenHeight * 0.03),
-                    NameAndTextField('Name', screenHeight, _nameController),
+                    NameAndTextField('Name', screenHeight, nameController),
                     SizedBox(height: screenHeight * 0.03),
-                    NameAndTextField('School', screenHeight, _schoolController),
+                    NameAndTextField('School', screenHeight, schoolController),
                     SizedBox(height: screenHeight * 0.03),
-                    NameAndTextField('Grade', screenHeight, _gradeController),
+                    NameAndTextField('Grade', screenHeight, gradeController),
                     SizedBox(height: screenHeight * 0.03),
                     Row(
                       children: [
@@ -78,18 +73,18 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
                             text: "Add Child",
                             align: TextAlign.left,
                             size: screenHeight * 0.025),
-                        Spacer(),
+                        const Spacer(),
                         InkWell(
-                          child: Icon(
+                          child: const Icon(
                             Icons.add_circle,
                             size: 50,
                             color: MyColors.buttonColor,
                           ),
                           onTap: () {
                             context.read<ChildProvider>().addChild(
-                                _nameController.text,
-                                _schoolController.text,
-                                _gradeController.text,
+                                nameController.text,
+                                schoolController.text,
+                                gradeController.text,
                                 "display",
                                 orderBuyer,
                                 wishListIDs,
@@ -122,7 +117,7 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
             text: title, align: TextAlign.left, size: screenHeight * 0.019),
         TextField(
           controller: controller,
-          decoration: InputDecoration(contentPadding: EdgeInsets.only(top: 10)),
+          decoration: const InputDecoration(contentPadding: EdgeInsets.only(top: 10)),
         ),
       ],
     );

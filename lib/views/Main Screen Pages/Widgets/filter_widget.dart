@@ -12,8 +12,8 @@ class FilterWidget extends StatelessWidget {
 
     return CircleAvatar(
       radius: screenHeight * 0.04 - screenWidth * 0.02,
-      backgroundColor: Color.fromRGBO(74, 78, 105, 1.0),
-      child: Icon(
+      backgroundColor: const Color.fromRGBO(74, 78, 105, 1.0),
+      child: const Icon(
         Icons.tune_outlined,
       ),
     );

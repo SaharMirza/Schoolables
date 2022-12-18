@@ -27,7 +27,7 @@ class _TellUsMoreState extends State<TellUsMore> {
     'Nixor',
     "Others"
   ];
-  String _currentschoolName = 'City School';
+  final String _currentschoolName = 'City School';
   final List<String> grade = <String>[
     '1',
     '2',
@@ -40,7 +40,7 @@ class _TellUsMoreState extends State<TellUsMore> {
     '9',
     '10'
   ];
-  String _currentgrade = '1';
+  final String _currentgrade = '1';
 
   @override
   Widget build(BuildContext context) {
@@ -66,20 +66,20 @@ class _TellUsMoreState extends State<TellUsMore> {
       }
     }
 
-    Widget dropDown(_value, List<String> _list) {
+    Widget dropDown(value, List<String> list) {
       return StatefulBuilder(builder: ((context, setState) {
         return DropdownButton(
-          value: _value,
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          value: value,
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
             icon: const Icon(Icons.arrow_downward_sharp),
           isExpanded: true,
-          items: _list.map((String items) {
+          items: list.map((String items) {
             return DropdownMenuItem(
               value: items,
               child: Text(items),
             );
           }).toList(),
-          onChanged: (newValue) => setState(() => _value = newValue!),
+          onChanged: (newValue) => setState(() => value = newValue!),
         );
       }));
     }
@@ -167,7 +167,7 @@ class _TellUsMoreState extends State<TellUsMore> {
         children: <Widget>[
           const Text("Want to setup later? "),
           InkWell(
-              child: Text("Skip",
+              child: const Text("Skip",
                   style: TextStyle(
                       color: MyColors.textColor,
                       decoration: TextDecoration.underline,

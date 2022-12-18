@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
-import 'package:flutterdemo/models/favourites.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/TabNotifier.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
@@ -19,15 +17,6 @@ class CustomTabBarWidget extends StatefulWidget {
 }
 
 class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
-  //     // context.read<CategoriesProvider>().fetchCategories();
-  //     context.read<ProductsProvider>().fetchProducts();
-  //     context.read<UserProvider>().loadUsers();
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +30,9 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
 
     for (int i = 0; i < products.length; i++) {
       for (int j = 0; j < userProfile.wishListIDs.length; j++) {
-        if (products[i].id == userProfile.wishListIDs[j])
+        if (products[i].id == userProfile.wishListIDs[j]) {
           Favourites.add(products[i]);
+        }
       }
     }
 
@@ -127,7 +117,7 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
         if (fav.isEmpty) {
           return SizedBox(
             height: screenHeight * 0.7,
-            child: Center(child: Text("You haven't liked anything yet.")),
+            child: const Center(child: Text("You haven't liked anything yet.")),
           );
         } else {
           return SizedBox(

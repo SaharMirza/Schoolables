@@ -1,18 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/provider/bidding_provider.dart';
-import 'package:flutterdemo/provider/categories_provider.dart';
-import 'package:flutterdemo/provider/child_provider.dart';
-import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Orders%20Pages/your_orders.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/your_products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/favourites_page.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/home_screen.dart';
 import 'package:flutterdemo/views/Scanning%20Pages/scan_history.dart';
-import 'package:provider/provider.dart';
 // import 'package:flutterdemo/views/Scanning%20Pages/scanlist_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -52,7 +44,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _selectedIndex != 0 ? null : MyAppBar(),
+      appBar: _selectedIndex != 0 ? null : const MyAppBar(),
       body: SingleChildScrollView(
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
