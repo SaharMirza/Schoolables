@@ -67,7 +67,7 @@ class _OrderDetailState extends State<OrderDetail>
               height: 20,
             ),
             const Center(
-              child: ImageSlider(),
+              child: ImageSlider(images: [],),
             ),
             // OrderDetailsCard(isProduct: false),
           ],

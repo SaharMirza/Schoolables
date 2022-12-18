@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/bidding_entity.dart';
 import 'package:flutterdemo/models/product_model.dart';
@@ -767,15 +768,6 @@ class OrderDetailsCard extends StatefulWidget {
 }
 
 class _OrderDetailsCardState extends State<OrderDetailsCard> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
-  //     // context.read<CategoriesProvider>().fetchCategories();
-  //     // context.read<ProductsProvider>().fetchProducts();
-  //     context.read<UserProvider>().loadUsers();
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -984,7 +976,11 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
 }
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({super.key});
+  const ImageSlider({
+    super.key,
+    required this.images,
+  });
+  final List images;
 
   @override
   State<ImageSlider> createState() => _ImageSliderState();
@@ -994,52 +990,41 @@ class _ImageSliderState extends State<ImageSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-      height: 180,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromARGB(50, 0, 0, 0),
-              offset: Offset(
-                5.0,
-                5.0,
-              ),
-              blurRadius: 10.0,
-              spreadRadius: 1.0,
-            ), //BoxShadow
-            BoxShadow(
-              color: Colors.white,
-              offset: Offset(0.0, 0.0),
-              blurRadius: 0.0,
-              spreadRadius: 0.0,
-            ), //BoxShadow
-          ],
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.black12)),
-      child: CarouselSlider(
-        options: CarouselOptions(
-            height: 220,
-            scrollDirection: Axis.horizontal,
-            aspectRatio: 100,
-            viewportFraction: 0.9,
-            enableInfiniteScroll: false,
-            autoPlay: false),
-        items: [
-          Image.network(
-            "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-            fit: BoxFit.cover,
-          ),
-          Image.network(
-            "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-            fit: BoxFit.cover,
-          ),
-          Image.network(
-            "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-            fit: BoxFit.cover,
-          ),
-        ],
-      ),
-    );
+        width: 350,
+        height: 180,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(50, 0, 0, 0),
+                offset: Offset(
+                  5.0,
+                  5.0,
+                ),
+                blurRadius: 10.0,
+                spreadRadius: 1.0,
+              ), //BoxShadow
+              BoxShadow(
+                color: Colors.white,
+                offset: Offset(0.0, 0.0),
+                blurRadius: 0.0,
+                spreadRadius: 0.0,
+              ), //BoxShadow
+            ],
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.black12)),
+        child: CarouselSlider.builder(
+            itemCount: widget.images.length,
+            options: CarouselOptions(
+                height: 220,
+                scrollDirection: Axis.horizontal,
+                aspectRatio: 100,
+                viewportFraction: 0.9,
+                enableInfiniteScroll: false,
+                autoPlay: false),
+            itemBuilder: ((context, index, realIndex) {
+              return Image.network(widget.images[index], fit: BoxFit.cover);
+            }))
+        );
   }
 }
