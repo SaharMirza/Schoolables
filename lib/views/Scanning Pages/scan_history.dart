@@ -57,14 +57,15 @@ class _ScanHistoryState extends State<ScanHistory> {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  itemBuilder: (context, index) =>
-                      scanListTile(scanItem: scannedLists[index]),
-                  itemCount: scannedLists.length,
-                ),
-              ),
+                  child: scannedLists.isNotEmpty
+                      ? ListView.builder(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          itemBuilder: (context, index) =>
+                              scanListTile(scanItem: scannedLists[index]),
+                          itemCount: scannedLists.length,
+                        )
+                      : Text("No Lists Found")),
               Buttons(
                 ButtonName: "Scan New List",
                 functionToComply: () {
@@ -130,7 +131,8 @@ class _scanListTileState extends State<scanListTile> {
           ),
         ),
         trailing: IconButton(
-          icon: const Icon(Icons.arrow_forward_ios, color: MyColors.subtitleColor),
+          icon: const Icon(Icons.arrow_forward_ios,
+              color: MyColors.subtitleColor),
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(

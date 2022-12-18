@@ -29,9 +29,9 @@ class ScannedListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void saveScannedList(List<String> result, String schoolName) async {
+  void saveScannedList(List<String> result, String schoolName, String grade) async {
     results = result;
     notifyListeners();
-    _scannedListRepository.saveScanList(result, schoolName);
+    _scannedListRepository.saveScanList(result, schoolName, grade);
   }
 }
