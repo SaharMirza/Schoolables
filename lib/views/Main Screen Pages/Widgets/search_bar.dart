@@ -16,31 +16,32 @@ class SearchBar extends StatelessWidget {
   final double width;
   final double screenHeight;
 
-
   @override
   Widget build(BuildContext context) {
     final product = context.read<ProductsProvider>().products;
     List<ProductModel> products = [];
     for (int i = 0; i < product.length; i++) {
       products.add(product[i]);
-      }
+    }
 
     return SizedBox(
       width: width,
-      // height: 2 * (screenHeight * 0.04 - width * 0.02),
       height: 50,
       child: TextField(
         autofocus: false,
-        onTap: () {Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => SearchPage(
-              searchList: products,
-            )));},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => SearchPage(
+                    searchList: products,
+                  )));
+        },
         decoration: InputDecoration(
           // labelStyle: TextStyle(fontSize: screenWidth * 0.05),
           prefixIcon: const Icon(Icons.search_outlined),
           filled: true,
           fillColor: const Color.fromRGBO(242, 233, 228, 1.0),
-          labelText: "What are you looking for?",labelStyle: const TextStyle(fontSize: 15),
+          labelText: "What are you looking for?",
+          labelStyle: const TextStyle(fontSize: 15),
           enabledBorder: OutlineInputBorder(
             borderSide:
                 const BorderSide(color: Color.fromRGBO(242, 233, 228, 1.0)),
