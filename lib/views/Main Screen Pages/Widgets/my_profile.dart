@@ -79,11 +79,8 @@ class MyProfileListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: screenHeight * 0.125,
-      // height: screenWidth < 300 ? 70 : 90,
       decoration:
-          BoxDecoration(color: Colors.white, // Your desired background color
-              // borderRadius: BorderRadius.circular(15),
+          BoxDecoration(color: Colors.white,
               boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 5),
           ]),

@@ -9,7 +9,7 @@ import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
 import '../../provider/student_provider.dart';

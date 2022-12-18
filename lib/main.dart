@@ -14,8 +14,6 @@ import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/provider/user_auth_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/bottom_nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/role_screen.dart';
-
-// import 'package:flutterdemo/views/Scanning%20Pages/ScannedBookList_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,8 +21,6 @@ import 'firebase_options.dart';
 import 'provider/location_provider.dart';
 
 void main() async {
-  //final UsersRepository userRepository;
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -66,33 +62,7 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
-  // late GoogleMapController mapController;
-  //
-  // final LatLng _center = const LatLng(45.521563, -122.677433);
-  //
-  // void _onMapCreated(GoogleMapController controller) {
-  //   mapController = controller;
-  }
-
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     home: Scaffold(
-  //       appBar: AppBar(
-  //         title: const Text('Maps Sample App'),
-  //         backgroundColor: Colors.green[700],
-  //       ),
-  //       body: GoogleMap(
-  //         onMapCreated: _onMapCreated,
-  //         initialCameraPosition: CameraPosition(
-  //           target: _center,
-  //           zoom: 11.0,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }0
-
+}
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -107,8 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final userAuth = Provider.of<UserAuth?>(context);
-    // List<String> products = context.read<UserProvider>().user.products;
-    // List<String> bids = context.read<UserProvider>().user.biddingIDs;
     return Scaffold(
         body: StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -135,7 +103,6 @@ class _MyHomePageState extends State<MyHomePage> {
           return const BottomNavBar();
         } else //if the user was logged out
         {
-          print("logged out success");
           return const RoleScreen();
         }
       },

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
@@ -113,8 +112,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                         padding: EdgeInsets.all(4.0),
                         child: Text(
                           "Add Photos",
-                          style:
-                              TextStyle(color: MyColors.buttonTextColor),
+                          style: TextStyle(color: MyColors.buttonTextColor),
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
@@ -209,8 +207,6 @@ class _EnlargedTextFieldState extends State<EnlargedTextField> {
             maxLines: 5,
             minLines: 2,
             decoration: InputDecoration(
-              // contentPadding:
-              //     EdgeInsets.symmetric(vertical: 40.0, horizontal: 20),
               hintText: "Describe what you're selling",
               fillColor: MyColors.textFieldColor,
               border: OutlineInputBorder(
@@ -219,7 +215,8 @@ class _EnlargedTextFieldState extends State<EnlargedTextField> {
                   ),
                   borderRadius: BorderRadius.circular(8)),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
+                borderSide:
+                    const BorderSide(color: MyColors.textColor, width: 1.5),
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
@@ -262,7 +259,7 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                    builder: (context) => const ChooseLocation()));
+                        builder: (context) => const ChooseLocation()));
               },
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -331,8 +328,6 @@ class _AddProductFieldsState extends State<AddProductFields> {
       }
       downloadUrls =
           await context.read<ProductsProvider>().getDownloadUrls(finalImages);
-      // downloadUrls = context.read<ProductsProvider>().downloadUrls;
-      print("LLFLEFLKELF ${downloadUrls.length}");
     }
 
 //Saves the product into firebase.

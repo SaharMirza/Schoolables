@@ -7,18 +7,19 @@ import '../../../constants/fonts.dart';
 import '../Product Pages/product_detail.dart';
 
 class favouritesCard extends StatefulWidget {
-  favouritesCard(
-      {super.key,
-      required this.id,
-      required this.name,
-      required this.price,
-      required this.condition,
-      required this.img,
-      required this.sellerIMG,
-      required this.sellerName,
-      required this.sellerNum,
-      required this.isFav,});
-      final String id;
+  favouritesCard({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.condition,
+    required this.img,
+    required this.sellerIMG,
+    required this.sellerName,
+    required this.sellerNum,
+    required this.isFav,
+  });
+  final String id;
   final String name;
   final String price;
   final String condition;
@@ -34,7 +35,7 @@ class favouritesCard extends StatefulWidget {
 class _favouritesCardState extends State<favouritesCard> {
   @override
   Widget build(BuildContext context) {
-     void addFav(id) {
+    void addFav(id) {
       // Add to users wishlist list
       context.read<UserProvider>().addFavItem(id);
     }
@@ -43,15 +44,14 @@ class _favouritesCardState extends State<favouritesCard> {
       // // Remove from users wishlist list
       context.read<UserProvider>().removeFavItem(id);
     }
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: InkWell(
         onTap: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const ProductDetail(
-                
-              ),
+              builder: (context) => const ProductDetail(),
             ),
           );
         },
@@ -74,117 +74,121 @@ class _favouritesCardState extends State<favouritesCard> {
             elevation: 1,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
-              // side: BorderSide(color: MyColors.borderColor),
             ),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: SizedBox(
                 width: 800,
                 child: Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          // border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: widget.img.isEmpty
-                                ? const NetworkImage(
-                                    "https://static.thenounproject.com/png/3674270-200.png")
-                                : NetworkImage(widget.img),
-                          )),
-                      width: 90,
-                      height: 90,
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                widget.name,
-                                style: GoogleFonts.poppins(
-                                  color: MyColors.textColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 15,
-                                ),
-                                // screenWidth * 0.025 - screenHeight * 0.025),
-                              ),
-                            ),
-                            FavouriteWidget(
-                        isFav: widget.isFav,
-                        onTap: () {
-                          widget.isFav = !widget.isFav;
-                          setState(() {});
-                          widget.isFav
-                              ? addFav(widget.id)
-                              : removeFav(widget.id);
-                          setState(() {});
-                        },
-                      ),
-                          ],
-                        ),
-                        Text("Rs ${widget.price}",
-                            style: MyStyles.googleTextSubtitleListTile(12)),
-                        Text(
-                          "Book Condition : ${widget.condition}/10",
-                          style: MyStyles.googleTextSubtitleListTile(12),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: (20),
-                                  backgroundColor: Colors.white,
-                                  backgroundImage:widget.sellerIMG.isEmpty
-                                ? const NetworkImage(
-                                    "https://static.thenounproject.com/png/3674270-200.png")
-                                : NetworkImage(widget.sellerIMG),                                      
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      widget.sellerName,
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.sellerNum,
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  productImage(),
+                  productDetails(addFav, removeFav),
                 ]),
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget productDetails(void addFav(dynamic id), void removeFav(dynamic id)) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  widget.name,
+                  style: GoogleFonts.poppins(
+                    color: MyColors.textColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                  // screenWidth * 0.025 - screenHeight * 0.025),
+                ),
+              ),
+              FavouriteWidget(
+                isFav: widget.isFav,
+                onTap: () {
+                  widget.isFav = !widget.isFav;
+                  setState(() {});
+                  widget.isFav ? addFav(widget.id) : removeFav(widget.id);
+                  setState(() {});
+                },
+              ),
+            ],
+          ),
+          Text("Rs ${widget.price}",
+              style: MyStyles.googleTextSubtitleListTile(12)),
+          Text(
+            "Book Condition : ${widget.condition}/10",
+            style: MyStyles.googleTextSubtitleListTile(12),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: (20),
+                    backgroundColor: Colors.white,
+                    backgroundImage: widget.sellerIMG.isEmpty
+                        ? const NetworkImage(
+                            "https://static.thenounproject.com/png/3674270-200.png")
+                        : NetworkImage(widget.sellerIMG),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.sellerName,
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        widget.sellerNum,
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget productImage() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: widget.img.isEmpty
+                  ? const NetworkImage(
+                      "https://static.thenounproject.com/png/3674270-200.png")
+                  : NetworkImage(widget.img),
+            )),
+        width: 90,
+        height: 90,
       ),
     );
   }
