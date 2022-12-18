@@ -132,7 +132,7 @@ class HeaderBar extends StatelessWidget {
         // centerTitle: true,
         title: Text(title,
             style: MyStyles.googleSecondTitleText(
-                screenWidth * 0.02 + screenHeight * 0.02)),
+              14.5)),
         actions: [
           IconButton(
             iconSize: 50,

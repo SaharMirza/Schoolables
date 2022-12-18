@@ -152,7 +152,7 @@ class _YourProductCardState extends State<YourProductCard> {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(
-                            widget.sellerProduct.images.toString(),
+                            widget.sellerProduct.images[0],
                           ),
                         )),
                     width: 70,
