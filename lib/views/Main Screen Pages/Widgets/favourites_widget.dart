@@ -47,43 +47,34 @@ class _favouritesCardState extends State<favouritesCard> {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: InkWell(
-        onTap: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const ProductDetail(),
-            ),
-          );
-        },
-        child: Container(
-          height: 150,
-          decoration: const BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: MyColors.startColor,
-                blurRadius: 20.0,
-                spreadRadius: 0,
-                offset: Offset(
-                  10, // Move to right 10  horizontally
-                  8.0, // Move to bottom 10 Vertically
-                ),
+      child: Container(
+        height: 150,
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.startColor,
+              blurRadius: 20.0,
+              spreadRadius: 0,
+              offset: Offset(
+                10, // Move to right 10  horizontally
+                8.0, // Move to bottom 10 Vertically
               ),
-            ],
+            ),
+          ],
+        ),
+        child: Card(
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
           ),
-          child: Card(
-            elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: SizedBox(
-                width: 800,
-                child: Row(children: [
-                  productImage(),
-                  productDetails(addFav, removeFav),
-                ]),
-              ),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: SizedBox(
+              width: 800,
+              child: Row(children: [
+                productImage(),
+                productDetails(addFav, removeFav),
+              ]),
             ),
           ),
         ),

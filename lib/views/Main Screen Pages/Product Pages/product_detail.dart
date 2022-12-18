@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/bidding_model.dart';
 import 'package:flutterdemo/models/product_model.dart';
+import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
 import 'package:flutterdemo/views/Bidding/place_bid_popup.dart';
@@ -46,7 +47,7 @@ class _ProductDetailState extends State<ProductDetail> {
               const SizedBox(
                 height: 20,
               ),
-              const ImageSlider(),
+               ImageSlider(images: widget.product!.images,),
               OrderDetailsCard(
                 isProduct: true,
                 product: widget.product,

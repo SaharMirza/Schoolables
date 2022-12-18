@@ -84,11 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         print('user statue ${userAuth?.id}');
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
+        if (snapshot.hasError) {
           return const Center(
             child: Text("Something went wrong!"),
           );

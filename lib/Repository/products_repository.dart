@@ -4,19 +4,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/models/product_model.dart';
-// import 'package:practice/Models/category_model.dart';
-// import 'package:practice/Models/product_model.dart';
 
 abstract class ProductsRepository {
   Future<List<ProductModel>> fetchProductsList();
+
   addProduct(Product product);
+
   getProduct(String id);
+
+  Future<void> updateProduct(Product product);
+
   Future<List<String>> getDownloadUrls(List<File> finalImages);
   Future<List<ProductModel>> fetchScannedProducts(List<String> scannedList);
 }
 
 class FirebaseProductsRepository implements ProductsRepository {
+
   final db = FirebaseFirestore.instance;
+
   final storageRef = FirebaseStorage.instance.ref();
 
   @override
@@ -85,6 +90,20 @@ class FirebaseProductsRepository implements ProductsRepository {
     // product.id = newRef.id;
 
     return newRef.id;
+  }
+  Future<void> updateProduct(Product product) async {
+    print("save changes repo");
+    await db.collection('products').doc(product.id).update({
+      "category": product.category,
+      "condition": product.condition,
+      "images": product.images,
+      "price": product.price,
+      "sellerID": product.sellerID,
+      "subCategory": product.subCategory,
+      "title": product.title
+    }).then((value) {
+      print("Product updated");
+    }).catchError((error) => print("Failed to updated Task: $error"));
   }
 
 // Fetches the products from firebase according to user scanned list.

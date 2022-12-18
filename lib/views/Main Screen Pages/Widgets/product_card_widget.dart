@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/constants/fonts.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:provider/provider.dart';
@@ -103,8 +104,8 @@ class _ProductCardState extends State<ProductCard> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.name),
-                        Text(widget.price),
+                        Text(widget.name,style: MyStyles.googleSecondTitleText(14),),
+                        Text("Rs. ${widget.price}"),
                       ],
                     ),
                   ],
@@ -133,8 +134,8 @@ class FavouriteWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Icon(
-        Icons.favorite,
-        color: isFav ? Colors.red : Colors.white,
+        Icons.favorite_sharp,
+        color: isFav ? Colors.red : Color.fromARGB(255, 197, 194, 194),
       ),
     );
   }

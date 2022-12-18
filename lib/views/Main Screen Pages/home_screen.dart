@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/parent_entity.dart';
-import 'package:flutterdemo/Entities/student_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/models/product_model.dart';
-import 'package:flutterdemo/provider/categories_provider.dart';
-import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
@@ -24,45 +18,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool categoriesFetched = false;
-  bool productsFetched = false;
 
   @override
   Widget build(BuildContext context) {
-    final products = context.read<ProductsProvider>().products;
+    final products = context.watch<ProductsProvider>().nearbyProducts;
+    final allproducts = context.read<ProductsProvider>().products;
     final userProfile = context.watch<UserProvider>().userProfile;
-    final parentProfile = context.watch<ParentProvider>().parentProfile;
-    final userAuth = Provider.of<UserAuth?>(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    productsFetched = context.watch<ProductsProvider>().isProductsFetching;
-    categoriesFetched =
-        context.watch<CategoriesProvider>().isCategoriesFetching;
 
-    if (productsFetched == true && categoriesFetched == true) {
-      return Column(
-        children: [
-          SizedBox(
-            height: screenHeight,
-            width: screenWidth,
-            child: const Center(child: CircularProgressIndicator()),
-          ),
-        ],
-      );
-    } else {
-      return pageRender(userAuth, userProfile, parentProfile, screenWidth,
-          screenHeight, products);
-    }
-  }
-
-  Padding pageRender(
-      UserAuth? userAuth,
-      UserProfile userProfile,
-      ParentProfile parentProfile,
-      double screenWidth,
-      double screenHeight,
-      List<ProductModel> products) {
-    bool getFav(ID) {
+     bool getFav(ID) {
       bool fav = false;
       for (int i = 0; i < userProfile.wishListIDs.length; i++) {
         if (ID == userProfile.wishListIDs[i]) {
@@ -77,32 +42,43 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          userAuth?.id != null
-              ? Text('Hi ${userProfile.name}',
-                  style: MyStyles.googleTitleText(screenWidth * 0.07))
-              : Text('Hi ${parentProfile.name}',
-                  style: MyStyles.googleTitleText(screenWidth * 0.07)),
+          Text('Hi ${userProfile.name}',
+              style: MyStyles.googleTitleText(screenWidth * 0.07)),
           SizedBox(height: screenHeight * 0.02),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //searchbar
               SearchBar(width: screenWidth * 0.70, screenHeight: screenHeight),
-              //filtericon
-              // const FilterWidget(),
               const MapWidget()
             ],
           ),
           SizedBox(height: screenHeight * 0.04),
           const CategoryContainer(),
           SizedBox(height: screenHeight * 0.02),
-          const SubHeading(
+          SubHeading(
             leading: 'Nearby Products',
             trailing: 'See all',
+            products: products.isEmpty ? allproducts : products,
           ),
           SizedBox(height: screenHeight * 0.01),
-          products.isEmpty
-              ? Container()
+          allproducts.isEmpty
+              ?Container():products.isEmpty? 
+              GridView.count(
+                  physics: const ScrollPhysics(),
+                  childAspectRatio: screenWidth / (screenHeight * 0.8),
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  children: [
+                    for (var i = 0; i < 6; i++)
+                      ProductCard(
+                          pid: allproducts[i].id,
+                          name: allproducts[i].title,
+                          price: allproducts[i].price.toString(),
+                          image: allproducts[i].images[0],
+                          isFav: getFav(allproducts[i].id)),
+                  ],
+                )
               : GridView.count(
                   physics: const ScrollPhysics(),
                   childAspectRatio: screenWidth / (screenHeight * 0.8),
@@ -121,7 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+    
   }
+
 }
 
 class CategoryContainer extends StatelessWidget {
@@ -133,7 +111,11 @@ class CategoryContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SubHeading(leading: "Categories", trailing: ''),
+        const SubHeading(
+          leading: "Categories",
+          trailing: '',
+          products: [],
+        ),
         Container(
             alignment: Alignment.center,
             height: MediaQuery.of(context).size.height * 0.08,

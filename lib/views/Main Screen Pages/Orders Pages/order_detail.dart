@@ -14,8 +14,6 @@ class OrderDetail extends StatefulWidget {
 class _OrderDetailState extends State<OrderDetail>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  // late Animation colorAnimation;
-  // late Animation sizeAnimation;
   late Tween<double> sizeTween;
   late ColorTween colorTween;
 
@@ -67,7 +65,7 @@ class _OrderDetailState extends State<OrderDetail>
               height: 20,
             ),
             const Center(
-              child: ImageSlider(),
+              child: ImageSlider(images: [],),
             ),
             // OrderDetailsCard(isProduct: false),
           ],

@@ -1,13 +1,13 @@
 class Product {
   Product({
     required this.sellerID,
-    // required this.bidingID,
     required this.title,
     required this.price,
     required this.images,
     required this.category,
     required this.subCategory,
     required this.condition,
+    id
   });
 
   String sellerID;
@@ -17,7 +17,6 @@ class Product {
   String condition;
   int price;
   List images;
-  // final List<String> bidingID;
 
-  late final String id;
+  late String id;
 }
