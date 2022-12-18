@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/parent_entity.dart';
+import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/Entities/student_entity.dart';
 import 'package:flutterdemo/Entities/user_auth_entity.dart';
 import 'package:flutterdemo/constants/fonts.dart';
@@ -29,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final products = context.read<ProductsProvider>().products;
+    final products = context.read<ProductsProvider>().nearbyProducts;
+    final allproducts = context.read<ProductsProvider>().products;
     final userProfile = context.watch<UserProvider>().userProfile;
     final parentProfile = context.watch<ParentProvider>().parentProfile;
     final userAuth = Provider.of<UserAuth?>(context);
@@ -51,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else {
       return pageRender(userAuth, userProfile, parentProfile, screenWidth,
-          screenHeight, products);
+          screenHeight, products,allproducts);
     }
   }
 
@@ -61,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ParentProfile parentProfile,
       double screenWidth,
       double screenHeight,
-      List<ProductModel> products) {
+      List<Product> products,
+      List<ProductModel> allproducts) {
     bool getFav(ID) {
       bool fav = false;
       for (int i = 0; i < userProfile.wishListIDs.length; i++) {
@@ -96,13 +99,28 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: screenHeight * 0.04),
           const CategoryContainer(),
           SizedBox(height: screenHeight * 0.02),
-          const SubHeading(
+          SubHeading(
             leading: 'Nearby Products',
             trailing: 'See all',
+            products:products.isEmpty?allproducts: products,
           ),
           SizedBox(height: screenHeight * 0.01),
           products.isEmpty
-              ? Container()
+              ? GridView.count(
+                  physics: const ScrollPhysics(),
+                  childAspectRatio: screenWidth / (screenHeight * 0.8),
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  children: [
+                    for (var i = 0; i < 6; i++)
+                      ProductCard(
+                          pid: allproducts[i].id,
+                          name: allproducts[i].title,
+                          price: allproducts[i].price.toString(),
+                          image: allproducts[i].images[0],
+                          isFav: getFav(allproducts[i].id)),
+                  ],
+                )
               : GridView.count(
                   physics: const ScrollPhysics(),
                   childAspectRatio: screenWidth / (screenHeight * 0.8),
@@ -133,7 +151,7 @@ class CategoryContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SubHeading(leading: "Categories", trailing: ''),
+        const SubHeading(leading: "Categories", trailing: '',products: [],),
         Container(
             alignment: Alignment.center,
             height: MediaQuery.of(context).size.height * 0.08,

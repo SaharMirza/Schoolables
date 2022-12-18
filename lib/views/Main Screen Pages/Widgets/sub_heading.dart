@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/products.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/productsPage.dart';
+// import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/productsPage.dart';
 
 class SubHeading extends StatelessWidget {
   const SubHeading({
     Key? key,
     required this.leading,
     required this.trailing,
+    required this.products
   }) : super(key: key);
 
   final String leading;
   final String trailing;
+  final List products;
   @override
   Widget build(BuildContext context) {
     
@@ -29,7 +32,7 @@ class SubHeading extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => ProductsPage(
-                          title: "Nearby Products",
+                          title: leading,
                           products: products,
                         )),
               );

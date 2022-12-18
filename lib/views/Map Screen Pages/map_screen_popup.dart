@@ -112,7 +112,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                         context: context, // user must tap button!
                         builder: (context) {
                           return AlertDialog(
-                            backgroundColor: const Color(0xff283618),
+                            backgroundColor: Color.fromARGB(255, 71, 39, 67),
                             title: Column(
                               children: const [
                                Text('Area not selected'),
