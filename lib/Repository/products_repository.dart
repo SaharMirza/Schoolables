@@ -4,22 +4,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/models/product_model.dart';
-// import 'package:practice/Models/category_model.dart';
-// import 'package:practice/Models/product_model.dart';
 
 abstract class ProductsRepository {
   Future<List<ProductModel>> fetchProductsList();
+
   addProduct(Product product);
-  // addProduct(String sellerID, String title, int price, List images,
-  //     String category, String subCategory, String condition);
 
   getProduct(String id);
+
+  Future<void> updateProduct(Product product);
 
   Future<List<String>> getDownloadUrls(List<File> finalImages);
 }
 
 class FirebaseProductsRepository implements ProductsRepository {
+
   final db = FirebaseFirestore.instance;
+
   final storageRef = FirebaseStorage.instance.ref();
 
   @override
@@ -67,34 +68,6 @@ class FirebaseProductsRepository implements ProductsRepository {
     });
     return products;
   }
-
-  // @override
-  // Future<String> addProduct(
-  //     String sellerID,
-  //     String title,
-  //     int price,
-  //     List images,
-  //     String category,
-  //     String subCategory,
-  //     String condition) async {
-  //   print("!!!!!!!!!!!!!!!!!!!!!!! "+images[0]);
-  //   var newRef = await db.collection("products").add(
-  //         ProductModel(
-  //                 id: "",
-  //                 sellerID: sellerID,
-  //                 title: title,
-  //                 price: price,
-  //                 images: images,
-  //                 category: category,
-  //                 subCategory: subCategory,
-  //                 condition: condition)
-  //             .toJson(),
-  //       );
-  //   // product.id = newRef.id;
-
-  //   return newRef.id;
-  // }
-
   @override
   Future<String> addProduct(Product product) async {
     var newRef = await db.collection("products").add(
@@ -109,33 +82,21 @@ class FirebaseProductsRepository implements ProductsRepository {
                   condition: product.condition)
               .toJson(),
         );
-    // product.id = newRef.id;
 
     return newRef.id;
   }
-
-  // //add product
-  // @override
-  // addProduct(String title, String sellerID, List<String> images,
-  //     String category, String subCategory, String condition, int price) async {
-  //   final data = ProductModel(
-  //           sellerID: sellerID,
-  //           title: title,
-  //           price: price,
-  //           images: images,
-  //           category: category,
-  //           subCategory: subCategory,
-  //           condition: condition,
-  //           id: '')
-  //       .toJson();
-  //   await db
-  //       .collection("products")
-  //       .add(data)
-  //       .then(
-  //         (_) => print('Added'),
-  //       )
-  //       .catchError(
-  //         (error) => print('Add failed: $error'),
-  //       );
-  // }
+  Future<void> updateProduct(Product product) async {
+    print("save changes repo");
+    await db.collection('products').doc(product.id).update({
+      "category": product.category,
+      "condition": product.condition,
+      "images": product.images,
+      "price": product.price,
+      "sellerID": product.sellerID,
+      "subCategory": product.subCategory,
+      "title": product.title
+    }).then((value) {
+      print("Product updated");
+    }).catchError((error) => print("Failed to updated Task: $error"));
+  }
 }

@@ -14,11 +14,12 @@ class AddProductPage extends StatefulWidget {
 class _AddProductPageState extends State<AddProductPage> {
   List<String> category = [];
   List<String> subCategory = [];
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-  final categories = context.read<CategoriesProvider>().categories;
+    final categories = context.read<CategoriesProvider>().categories;
     for (int i = 0; i < categories.length; i++) {
       if (categories[i].parentID == "0") {
         category.add(categories[i].catName.toString());
@@ -43,12 +44,14 @@ class _AddProductPageState extends State<AddProductPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: UploadPictureCard(
-                            screenWidth: screenWidth, screenHeight: screenHeight),
+                            screenWidth: screenWidth,
+                            screenHeight: screenHeight),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: AddProductFields(
-                            screenWidth: screenWidth, screenHeight: screenHeight),
+                            screenWidth: screenWidth,
+                            screenHeight: screenHeight),
                       ),
                     ],
                   ),

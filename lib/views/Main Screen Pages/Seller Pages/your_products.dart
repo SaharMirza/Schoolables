@@ -4,6 +4,7 @@ import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Seller%20Pages/edit_product.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/add_products_widgets.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,8 +29,10 @@ class _YourProductsPageState extends State<YourProductsPage> {
       context.read<ProductsProvider>().loadUserProducts(products);
     });
   }
-   List<Product> sellerProducts=[];
- bool fetching =false;
+
+  List<Product> sellerProducts = [];
+  bool fetching = false;
+
   @override
   Widget build(BuildContext context) {
     // fetching = context.watch<ProductsProvider>().isProductFetching;
@@ -76,19 +79,19 @@ class _YourProductsPageState extends State<YourProductsPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      sellerProducts.isEmpty?const CircularProgressIndicator():
-                      ListView.builder(
-                          physics: const ScrollPhysics(),
-                          shrinkWrap: true,
-                          // scrollDirection: Axis.horizontal,
-                          itemCount: sellerProducts.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return YourProductCard(
-                                name: sellerProducts[index].title,
-                                price: sellerProducts[index].price.toString(),
-                                image: sellerProducts[index].images[0],
-                                condition: sellerProducts[index].condition);
-                          }),
+                      sellerProducts.isEmpty
+                          ? const CircularProgressIndicator()
+                          : context.read<ProductsProvider>().isProductsFetching
+                              ? CircularProgressIndicator()
+                              : ListView.builder(
+                                  physics: const ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: sellerProducts.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return YourProductCard(
+                                        sellerProduct: sellerProducts[index]);
+                                  }),
                       const SizedBox(
                         height: 20,
                       ),
@@ -106,20 +109,13 @@ class _YourProductsPageState extends State<YourProductsPage> {
 }
 
 class YourProductCard extends StatefulWidget {
-  const YourProductCard(
-      {Key? key,
-      // required this.pid,
-      required this.name,
-      required this.price,
-      required this.image,
-      required this.condition})
-      : super(key: key);
+  YourProductCard({
+    Key? key,
+    required this.sellerProduct,
+  }) : super(key: key);
 
-  final String name;
-  final String condition;
-  final String price;
-  final String image;
   // bool isFav;
+  Product sellerProduct;
 
   @override
   State<YourProductCard> createState() => _YourProductCardState();
@@ -128,9 +124,6 @@ class YourProductCard extends StatefulWidget {
 class _YourProductCardState extends State<YourProductCard> {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
@@ -168,7 +161,7 @@ class _YourProductCardState extends State<YourProductCard> {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(
-                            widget.image.toString(),
+                            widget.sellerProduct.images.toString(),
                           ),
                         )),
                     width: 70,
@@ -184,7 +177,7 @@ class _YourProductCardState extends State<YourProductCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.name,
+                            widget.sellerProduct.title,
                             style: GoogleFonts.poppins(
                               color: MyColors.textColor,
                               fontWeight: FontWeight.w600,
@@ -192,20 +185,29 @@ class _YourProductCardState extends State<YourProductCard> {
                             ),
                             // screenWidth * 0.025 - screenHeight * 0.025),
                           ),
-                          Text(
-                            "Edit",
-                            style: GoogleFonts.poppins(
-                              color: MyColors.textColor,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                          InkWell(
+                              child: const CircleAvatar(
+                                radius: 15,
+                                child: Icon(
+                                  Icons.edit,
+                                  color: MyColors.textColor,
+                                  size: 15,
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EditProductPage(
+                                            sellerProduct:
+                                                widget.sellerProduct)));
+                              })
                         ],
                       ),
-                      Text("Rs.${widget.price}",
+                      Text("Rs.${widget.sellerProduct.price}",
                           style: MyStyles.googleTextSubtitleListTile(12)),
                       Text(
-                        "Book Condition : ${widget.condition}/10",
+                        "Condition : ${widget.sellerProduct.condition}/10",
                         style: MyStyles.googleTextSubtitleListTile(12),
                       ),
                     ],

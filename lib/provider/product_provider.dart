@@ -13,15 +13,6 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductModel> products = [];
   List<Product> userProducts = [];
-  // Product product = Product(
-  //   sellerID: "",
-  //   title: "",
-  //   price: 0,
-  //   images: [],
-  //   category: "",
-  //   subCategory: "",
-  //   condition: "",
-  // );
   String psellerID = "";
   List<String> downloadUrls = [];
 
@@ -45,8 +36,7 @@ class ProductsProvider with ChangeNotifier {
         subCategory: productModel.subCategory,
         condition: productModel.condition);
     return product;
-    // psellerID = productModel.sellerID;
-    // return psellerID;
+
   }
 
   void loadUserProducts(List<String> products) async {
@@ -78,31 +68,17 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<String> addProduct(Product product) async {
-    // print("/////// ////////// " + images[0]);
-    // String productid = await _productsRepository.addProduct(product);
     String productid = await _productsRepository.addProduct(product);
     product.id = productid;
     userProducts.add(product);
     notifyListeners();
     return productid;
   }
-}
-  // Future<String> addProduct(
-  //     String sellerID,
-  //     String title,
-  //     int price,
-  //     List images,
-  //     String category,
-  //     String subCategory,
-  //     String condition) async {
-  //   print("/////// ////////// " + images[0]);
-  //   // String productid = await _productsRepository.addProduct(product);
-  //   String productid = await _productsRepository.addProduct(
-  //       sellerID, title, price, images, category, subCategory, condition);
 
-  //   product.id = productid;
-  //   userProducts.add(product);
-  //   notifyListeners();
-  //   return productid;
-  // }
+  Future<void> updateProduct(Product product) async {
+    await _productsRepository.updateProduct(product);
+    fetchProducts();
+  }
+}
+
 

@@ -20,6 +20,7 @@ List<XFile> acceptedImages = [];
 class UploadPictureCard extends StatefulWidget {
   const UploadPictureCard(
       {super.key, required this.screenWidth, required this.screenHeight});
+
   final double screenWidth;
   final double screenHeight;
 
@@ -187,6 +188,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
 
 class EnlargedTextField extends StatefulWidget {
   const EnlargedTextField({super.key, required this.screenWidth});
+
   final double screenWidth;
 
   @override
@@ -229,6 +231,7 @@ class _EnlargedTextFieldState extends State<EnlargedTextField> {
 
 class LocationTextFieldNBtn extends StatefulWidget {
   const LocationTextFieldNBtn({super.key, required this.screenWidth});
+
   final double screenWidth;
 
   @override
@@ -256,10 +259,6 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
             ),
             OutlinedButton(
               onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //     builder: (context) => const ChooseLocation()));
               },
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -286,8 +285,10 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
 class AddProductFields extends StatefulWidget {
   const AddProductFields(
       {super.key, required this.screenWidth, required this.screenHeight});
+
   final double screenWidth;
   final double screenHeight;
+
   @override
   State<AddProductFields> createState() => _AddProductFieldsState();
 }
