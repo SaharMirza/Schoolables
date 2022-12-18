@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/provider/student_provider.dart';
 import 'package:flutterdemo/utils.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/search_bar.dart';
 import 'package:provider/provider.dart';
 

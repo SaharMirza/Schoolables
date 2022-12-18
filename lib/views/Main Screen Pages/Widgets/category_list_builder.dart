@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/categories_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/productsPage.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Product%20Pages/productsPage.dart';
 import 'package:provider/provider.dart';
 
 class CatergoryListBuilder extends StatefulWidget {

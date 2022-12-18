@@ -3,10 +3,9 @@ import 'package:flutterdemo/models/bidding_model.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/orders_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/place_bid_popup.dart';
+import 'package:flutterdemo/views/Bidding/place_bid_popup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants/colors.dart';
 
 class ProductDetail extends StatefulWidget {
