@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/Entities/user_auth_entity.dart';
+import 'package:flutterdemo/Services/auth.dart';
+import 'package:flutterdemo/utils.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/Bottom_Nav_bar.dart';
 import 'package:flutterdemo/views/OnBoarding%20Pages/continue_with_email.dart';
+import 'package:flutterdemo/views/success_screen.dart';
 
 class MainLoginScreen extends StatelessWidget {
   const MainLoginScreen({Key? key, required this.role}) : super(key: key);
@@ -14,32 +19,6 @@ class MainLoginScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     Padding(
-              //       padding: const EdgeInsets.only(top: 20.0),
-              //       child: IconButton(
-              //         icon: const Icon(Icons.close_outlined),
-              //         onPressed: (() {
-              //           if (role == "Parent") {
-              //             Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                   builder: (context) => CreateChildrenProfile()),
-              //             );
-              //           } else {
-              //             Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                   builder: (context) => const BottomNavBar()),
-              //             );
-              //           }
-              //         }),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               Continer1(role: role),
               const Text(
                 "If you continue, you are accepting Schoolables Terms and Conditions and Privacy Policy",
@@ -130,6 +109,7 @@ class LoginChoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth = AuthService();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
@@ -138,7 +118,24 @@ class LoginChoiceButton extends StatelessWidget {
               minimumSize: const Size(120, 50),
               side: const BorderSide(width: 2)),
           onPressed: () async {
-            if (choice == "Google") {}
+            if (choice == "Google") { 
+          // Google Signup
+          // Anonymous Signin
+          // dynamic res = await _auth.signInAnon();
+          // Google Signin
+          dynamic res = await _auth.signInWithGoogle();
+          // Check if result is of type UserProfile
+          if (res is UserAuth) {
+            // Navigate to Home Page
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const SuccessScreen(nextPage: BottomNavBar()),
+            ));
+          } else {
+            // Show error message
+            dialogs.errorToast(
+                error: TextFormatter.firebaseError(res.toString()));
+          
+        }}
             if (choice == "Email") {
               Navigator.push(
                 context,

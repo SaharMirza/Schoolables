@@ -9,7 +9,7 @@ import 'package:flutterdemo/provider/parent_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_builder.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/map_widget.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card.dart';
+import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/product_card_widget.dart';
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
 import '../../provider/student_provider.dart';
@@ -24,17 +24,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
   bool categoriesFetched = false;
   bool productsFetched = false;
-//  bool categoriesFetched=false;
-
 
   @override
   Widget build(BuildContext context) {
     final products = context.read<ProductsProvider>().products;
     final userProfile = context.watch<UserProvider>().userProfile;
-    // print("DOB"+userProfile.dob);
     final parentProfile = context.watch<ParentProvider>().parentProfile;
     final userAuth = Provider.of<UserAuth?>(context);
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -42,12 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
     productsFetched = context.watch<ProductsProvider>().isProductsFetching;
     categoriesFetched =
         context.watch<CategoriesProvider>().isCategoriesFetching;
-
-    // List<String> images = ["URL 1", "URL 2"];
-    // List<String> bidingIDs = ["BID 1", "BID 2"];
-
-    print(userProfile.name);
-    print('user statue ${userAuth?.id}');
 
     if (productsFetched == true && categoriesFetched == true) {
       return Column(
@@ -72,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       double screenWidth,
       double screenHeight,
       List<ProductModel> products) {
-      bool getFav(ID) {
+    bool getFav(ID) {
       bool fav = false;
       for (int i = 0; i < userProfile.wishListIDs.length; i++) {
         if (ID == userProfile.wishListIDs[i]) {
@@ -114,20 +104,20 @@ class _HomeScreenState extends State<HomeScreen> {
           products.isEmpty
               ? Container()
               : GridView.count(
-                physics: const ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   childAspectRatio: screenWidth / (screenHeight * 0.8),
                   shrinkWrap: true,
                   crossAxisCount: 2,
                   children: [
-                      for (var i = 0; i < 6; i++)
-                        ProductCard(
-                            pid:   products[i].id,
-                            name:  products[i].title,
-                            price: products[i].price.toString(),
-                            image: products[i].images[0],
-                            isFav: getFav(products[i].id)),
+                    for (var i = 0; i < 6; i++)
+                      ProductCard(
+                          pid: products[i].id,
+                          name: products[i].title,
+                          price: products[i].price.toString(),
+                          image: products[i].images[0],
+                          isFav: getFav(products[i].id)),
                   ],
-          ),
+                ),
         ],
       ),
     );

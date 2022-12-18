@@ -24,8 +24,8 @@ class _MapDemoState extends State<MapDemo> with AutomaticKeepAliveClientMixin {
           markerId: MarkerId(office.id),
           position: LatLng(office.coords.lat, office.coords.lng),
           infoWindow: InfoWindow(
-            title: office.id,
-            snippet: office.name,
+            title: office.name,
+            //snippet: office.id,
           ),
         );
         _markers[office.id] = marker;

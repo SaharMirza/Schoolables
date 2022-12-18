@@ -9,15 +9,14 @@ import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/category_list_bu
 import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/favourites_widget.dart';
 import 'package:provider/provider.dart';
 
-class CustomTabBarWidget extends StatefulWidget {
-  const CustomTabBarWidget({Key? key}) : super(key: key);
+class FavouritesPage extends StatefulWidget {
+  const FavouritesPage({Key? key}) : super(key: key);
 
   @override
-  State<CustomTabBarWidget> createState() => _CustomTabBarWidgetState();
+  State<FavouritesPage> createState() => _FavouritesPageState();
 }
 
-class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
-
+class _FavouritesPageState extends State<FavouritesPage> {
   @override
   Widget build(BuildContext context) {
     final products = context.read<ProductsProvider>().products;
@@ -25,7 +24,7 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     final userProfile = context.watch<UserProvider>().userProfile;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    
+
     List<ProductModel> Favourites = [];
 
     for (int i = 0; i < products.length; i++) {
@@ -36,17 +35,16 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
       }
     }
 
-
-    getSeller(sellerID){
-      for(int i=0;i<Users.length;i++){
-        if(Users[i].id==sellerID)return Users[i];
+    getSeller(sellerID) {
+      for (int i = 0; i < Users.length; i++) {
+        if (Users[i].id == sellerID) return Users[i];
       }
     }
 
     List<Categories> Category = [
       Categories(name: "Books", image: "assets/images/book.gif"),
       Categories(name: "Stationary", image: "assets/images/stationary.gif"),
-      Categories(name: "bags", image: "assets/images/bag.gif"),
+      Categories(name: "Bags", image: "assets/images/bag.gif"),
     ];
 
     List<ProductModel> fav = [];
@@ -54,14 +52,15 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
     TabNotifier tabNotifier({required bool renderUI}) =>
         Provider.of<TabNotifier>(context, listen: renderUI);
     bool getFav(ID) {
-      bool fav=false;
+      bool fav = false;
       for (int i = 0; i < userProfile.wishListIDs.length; i++) {
         if (ID == userProfile.wishListIDs[i]) {
-          fav= true;
-        } 
+          fav = true;
+        }
       }
       return fav;
     }
+
     Widget tabHolder() {
       return Container(
         alignment: Alignment.center,
@@ -126,15 +125,23 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
                 shrinkWrap: true,
                 children: fav
                     .map((products) => favouritesCard(
-                      id:products.id,
-                        name: products.title,
-                        price: products.price.toString(),
-                        condition: products.condition,
-                        isFav: getFav(products.id),
-                        img: products.images.isEmpty?"":products.images[0],
-                        sellerIMG: Users.isEmpty?"":getSeller(products.sellerID)!.display,
-                        sellerName:Users.isEmpty?"SellerName":getSeller(products.sellerID)!.name,
-                        sellerNum: Users.isEmpty?"SellerPhone":getSeller(products.sellerID)!.phone,))
+                          id: products.id,
+                          name: products.title,
+                          price: products.price.toString(),
+                          condition: products.condition,
+                          isFav: getFav(products.id),
+                          img:
+                              products.images.isEmpty ? "" : products.images[0],
+                          sellerIMG: Users.isEmpty
+                              ? ""
+                              : getSeller(products.sellerID)!.display,
+                          sellerName: Users.isEmpty
+                              ? "SellerName"
+                              : getSeller(products.sellerID)!.name,
+                          sellerNum: Users.isEmpty
+                              ? "SellerPhone"
+                              : getSeller(products.sellerID)!.phone,
+                        ))
                     .toList()),
           );
         }
@@ -146,7 +153,6 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
             fav.add(Favourites[i]);
           }
         }
-        print(fav);
         return subWidget(fav: fav);
       }
       if (kIndex == 1) {
@@ -155,15 +161,13 @@ class _CustomTabBarWidgetState extends State<CustomTabBarWidget> {
             fav.add(Favourites[i]);
           }
         }
-        print(fav);
         return subWidget(fav: fav);
       }
       for (int i = 0; i < Favourites.length; i++) {
-        if (Favourites[i].category == "bags") {
+        if (Favourites[i].category == "Bags") {
           fav.add(Favourites[i]);
         }
       }
-      print(fav);
       return subWidget(fav: fav);
     }
 

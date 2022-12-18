@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/Entities/bidding_entity.dart';
-import 'package:flutterdemo/models/buying_orders.dart';
 import 'package:flutterdemo/models/product_model.dart';
 import 'package:flutterdemo/models/student_model.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
@@ -14,7 +13,6 @@ import 'package:provider/provider.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 // import '../../../models/buying_orders.dart';
-import '../../../models/selling_orders.dart';
 import 'map_widget.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
@@ -87,7 +85,6 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
             Container(
               height: 10,
               width: 50,
-              // margin: EdgeInsets.all(300.0),
               decoration: const BoxDecoration(
                 color: MyColors.textFieldColor,
                 borderRadius: BorderRadius.all(
@@ -98,14 +95,12 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
             Container(
               height: 20,
               width: 20,
-              // margin: EdgeInsets.all(300.0),
               decoration: const BoxDecoration(
                   color: MyColors.textFieldColor, shape: BoxShape.circle),
             ),
             Container(
               height: 10,
               width: 50,
-              // margin: EdgeInsets.all(300.0),
               decoration: const BoxDecoration(
                 color: MyColors.textFieldColor,
                 borderRadius: BorderRadius.all(
@@ -116,7 +111,6 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
             Container(
               height: 20,
               width: 20,
-              // margin: EdgeInsets.all(300.0),
               decoration: const BoxDecoration(
                   color: MyColors.textFieldColor, shape: BoxShape.circle),
             ),
@@ -127,159 +121,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
   }
 }
 
-checkProgress(
-  int selectedIndex,
-  bool isSell,
-  List filteredItems0,
-  List filteredItems1,
-  List filteredItems2,
-  List filteredItems3,
-) {
-  return isSell == true
-      ? (selectedIndex == -1 || selectedIndex == 0
-          ? sellingOrders
-              .map(
-                (book) => SellingOrdersCard(
-                  name: book.name,
-                  price: book.price,
-                  condition: book.condition,
-                  progress: book.progress,
-                  img: book.image,
-                  sellerIMG: "",
-                  sellerName: "",
-                  sellerNum: "",
-                  isSell: true,
-                ),
-              )
-              .toList()
-          : selectedIndex == 1
-              ? filteredItems0
-                  .map(
-                    (book) => SellingOrdersCard(
-                      name: book.name,
-                      price: book.price,
-                      condition: book.condition,
-                      progress: book.progress,
-                      img: book.image,
-                      sellerIMG: "",
-                      sellerName: "",
-                      sellerNum: "",
-                      isSell: true,
-                    ),
-                  )
-                  .toList()
-              : selectedIndex == 2
-                  ? filteredItems1
-                      .map(
-                        (book) => SellingOrdersCard(
-                          name: book.name,
-                          price: book.price,
-                          condition: book.condition,
-                          progress: book.progress,
-                          img: book.image,
-                          sellerIMG: "",
-                          sellerName: "",
-                          sellerNum: "",
-                          isSell: true,
-                        ),
-                      )
-                      .toList()
-                  : filteredItems2
-                      .map(
-                        (book) => SellingOrdersCard(
-                          name: book.name,
-                          price: book.price,
-                          condition: book.condition,
-                          progress: book.progress,
-                          img: book.image,
-                          sellerIMG: "",
-                          sellerName: "",
-                          sellerNum: "",
-                          isSell: true,
-                        ),
-                      )
-                      .toList())
-      : (selectedIndex == 0 || selectedIndex == -1
-          ? buyingOrders
-              .map(
-                (book) => SellingOrdersCard(
-                  name: book.name,
-                  price: book.price,
-                  condition: book.condition,
-                  progress: book.progress,
-                  img: book.image,
-                  sellerIMG: book.sellerImg,
-                  sellerName: book.sellerName,
-                  sellerNum: book.sellerNum,
-                  isSell: false,
-                ),
-              )
-              .toList()
-          : selectedIndex == 1
-              ? filteredItems0
-                  .map(
-                    (book) => SellingOrdersCard(
-                      name: book.name,
-                      price: book.price,
-                      condition: book.condition,
-                      progress: book.progress,
-                      img: book.image,
-                      sellerIMG: book.sellerImg,
-                      sellerName: book.sellerName,
-                      sellerNum: book.sellerNum,
-                      isSell: false,
-                    ),
-                  )
-                  .toList()
-              : selectedIndex == 2
-                  ? filteredItems1
-                      .map(
-                        (book) => SellingOrdersCard(
-                          name: book.name,
-                          price: book.price,
-                          condition: book.condition,
-                          progress: book.progress,
-                          img: book.image,
-                          sellerIMG: book.sellerImg,
-                          sellerName: book.sellerName,
-                          sellerNum: book.sellerNum,
-                          isSell: false,
-                        ),
-                      )
-                      .toList()
-                  : selectedIndex == 3
-                      ? filteredItems2
-                          .map(
-                            (book) => SellingOrdersCard(
-                              name: book.name,
-                              price: book.price,
-                              condition: book.condition,
-                              progress: book.progress,
-                              img: book.image,
-                              sellerIMG: book.sellerImg,
-                              sellerName: book.sellerName,
-                              sellerNum: book.sellerNum,
-                              isSell: false,
-                            ),
-                          )
-                          .toList()
-                      : filteredItems3
-                          .map(
-                            (book) => SellingOrdersCard(
-                              name: book.name,
-                              price: book.price,
-                              condition: book.condition,
-                              progress: book.progress,
-                              img: book.image,
-                              sellerIMG: book.sellerImg,
-                              sellerName: book.sellerName,
-                              sellerNum: book.sellerNum,
-                              isSell: false,
-                            ),
-                          )
-                          .toList());
-}
-
+//////////////////////////////////Buying Orders Widgets\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class BuyingOrdersWidget extends StatefulWidget {
   const BuyingOrdersWidget({
     super.key,
@@ -297,9 +139,7 @@ class BuyingOrdersWidget extends StatefulWidget {
 class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = -1;
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -322,119 +162,16 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
           elevation: 1,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
-            // side: BorderSide(color: MyColors.borderColor),
           ),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: SizedBox(
               width: 800,
               child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        // border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: widget.product!.images.isEmpty
-                              ? const NetworkImage(
-                                  "https://static.thenounproject.com/png/3674270-200.png")
-                              : NetworkImage(widget.product!.images[0]),
-                        )),
-                    width: 90,
-                    height: 90,
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              widget.product!.title,
-                              style: GoogleFonts.poppins(
-                                color: MyColors.textColor,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
-                              ),
-                              // screenWidth * 0.025 - screenHeight * 0.025),
-                            ),
-                          ),
-                          Text(
-                            widget.progresstype,
-                            style: GoogleFonts.poppins(
-                              fontSize: screenWidth < 400 ? 10 : null,
-                              color: widget.progresstype == "In Progress"
-                                  ? const Color.fromARGB(255, 201, 182, 18)
-                                  : widget.progresstype == "Cancelled"
-                                      ? Colors.red
-                                      : widget.progresstype == "Completed"
-                                          ? Colors.green
-                                          : Colors.lightBlue,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                          widget.progresstype == "In Progress" ||
-                                  widget.progresstype == "Completed"
-                              ? "Accepted Bid Rs. ${widget.product!.price}"
-                              : "Your Bid Rs. ${widget.product!.price}",
-                          style: MyStyles.googleTextSubtitleListTile(12)),
-                      Text(
-                        "Book Condition : ${widget.product!.condition}/10",
-                        style: MyStyles.googleTextSubtitleListTile(12),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: (20),
-                                backgroundColor: Colors.white,
-                                backgroundImage: widget.seller!.display.isEmpty
-                                    ? const NetworkImage(
-                                        "https://static.thenounproject.com/png/3674270-200.png")
-                                    : NetworkImage(widget.seller!.display),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    widget.seller!.name,
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.seller!.phone,
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                OrderCardImage(imageURL: widget.product!.images),
+                OrderCardColumn2(
+                  widget: widget,
+                  screenWidth: screenWidth,
                 ),
               ]),
             ),
@@ -445,6 +182,178 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
   }
 }
 
+class OrderCardColumn2 extends StatelessWidget {
+  const OrderCardColumn2({
+    Key? key,
+    required this.widget,
+    required this.screenWidth,
+  }) : super(key: key);
+
+  final BuyingOrdersWidget widget;
+  final double screenWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          productTitleOrderProgress(
+            product: widget.product,
+            screenWidth: screenWidth,
+            progresstype: widget.progresstype,
+          ),
+          Text(
+              widget.progresstype == "In Progress" ||
+                      widget.progresstype == "Completed"
+                  ? "Accepted Bid Rs. ${widget.product!.price}"
+                  : "Your Bid Rs. ${widget.product!.price}",
+              style: MyStyles.googleTextSubtitleListTile(12)),
+          Text(
+            "Book Condition : ${widget.product!.condition}/10",
+            style: MyStyles.googleTextSubtitleListTile(12),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SellerDetails(
+            widget: widget,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SellerDetails extends StatelessWidget {
+  const SellerDetails({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final BuyingOrdersWidget widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            CircleAvatar(
+              radius: (20),
+              backgroundColor: Colors.white,
+              backgroundImage: widget.seller!.display.isEmpty
+                  ? const NetworkImage(
+                      "https://static.thenounproject.com/png/3674270-200.png")
+                  : NetworkImage(widget.seller!.display),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.seller!.name,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  widget.seller!.phone,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class productTitleOrderProgress extends StatelessWidget {
+  const productTitleOrderProgress({
+    super.key,
+    required this.product,
+    required this.progresstype,
+    required this.screenWidth,
+  });
+  final ProductModel? product;
+  final String progresstype;
+
+  final double screenWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            product!.title,
+            style: GoogleFonts.poppins(
+              color: MyColors.textColor,
+              fontWeight: FontWeight.w700,
+              fontSize: 15,
+            ),
+          ),
+        ),
+        Text(
+          progresstype,
+          style: GoogleFonts.poppins(
+            fontSize: screenWidth < 400 ? 10 : null,
+            color: progresstype == "In Progress"
+                ? const Color.fromARGB(255, 201, 182, 18)
+                : progresstype == "Cancelled"
+                    ? Colors.red
+                    : progresstype == "Completed"
+                        ? Colors.green
+                        : Colors.lightBlue,
+            decoration: TextDecoration.underline,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class OrderCardImage extends StatelessWidget {
+  OrderCardImage({
+    Key? key,
+    required this.imageURL,
+  }) : super(key: key);
+
+  List imageURL;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: imageURL.isEmpty
+                  ? const NetworkImage(
+                      "https://static.thenounproject.com/png/3674270-200.png")
+                  : NetworkImage(imageURL[0]),
+            )),
+        width: 90,
+        height: 90,
+      ),
+    );
+  }
+}
+
+//////////////////////////////////Selling Orders Widgets\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class SellingOrdersWidget extends StatefulWidget {
   const SellingOrdersWidget({
     super.key,
@@ -462,9 +371,7 @@ class SellingOrdersWidget extends StatefulWidget {
 class _SellingOrdersWidget extends State<SellingOrdersWidget> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = -1;
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -494,96 +401,10 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
             child: SizedBox(
               width: 800,
               child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        // border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: widget.product!.images.isEmpty
-                              ? const NetworkImage(
-                                  "https://static.thenounproject.com/png/3674270-200.png")
-                              : NetworkImage(widget.product!.images[0]),
-                        )),
-                    width: 90,
-                    height: 90,
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              widget.product!.title,
-                              style: GoogleFonts.poppins(
-                                color: MyColors.textColor,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
-                              ),
-                              // screenWidth * 0.025 - screenHeight * 0.025),
-                            ),
-                          ),
-                          Text(
-                            widget.progresstype,
-                            style: GoogleFonts.poppins(
-                              fontSize: screenWidth < 400 ? 10 : null,
-                              color: widget.progresstype == "In Progress"
-                                  ? const Color.fromARGB(255, 201, 182, 18)
-                                  : widget.progresstype == "Cancelled"
-                                      ? Colors.red
-                                      : widget.progresstype == "Completed"
-                                          ? Colors.green
-                                          : Colors.lightBlue,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                          widget.progresstype == "In Progress" ||
-                                  widget.progresstype == "Completed"
-                              ? "Accepted Bid Rs. ${widget.product!.price}"
-                              : "Your Bid Rs. ${widget.product!.price}",
-                          style: MyStyles.googleTextSubtitleListTile(12)),
-                      Text(
-                        "Book Condition : ${widget.product!.condition}/10",
-                        style: MyStyles.googleTextSubtitleListTile(12),
-                      ),
-                      widget.progresstype == "Completed"||
-                                  widget.progresstype == "Pending"||
-                                  widget.progresstype == "Cancelled"?Container():ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<UserProvider>()
-                                .addSellerOrder(widget.bid.id);
-                            context.read<UserProvider>().saveChanges();
-                            context.read<UserProvider>().updateSellerOrders(
-                                widget.bid.buyerID, widget.bid.id);
-                            context
-                                .read<UserProvider>()
-                                .removeBid(widget.bid.id);
-                            List<String> bids = context
-                                .read<UserProvider>()
-                                .user
-                                .sellingbiddingIDs;
-                            context.read<BiddingProvider>().loadUserBids(bids);
-                            List<String> sellerbids =
-                                context.read<UserProvider>().user.orderSeller;
-                            context
-                                .read<BiddingProvider>()
-                                .loadSellerOrders(sellerbids);
-                          },
-                          child: const Text("Update"))
-                    ],
-                  ),
+                OrderCardImage(imageURL: widget.product!.images),
+                SellingOrderCardColumn2(
+                  widget: widget,
+                  screenWidth: screenWidth,
                 ),
               ]),
             ),
@@ -591,6 +412,78 @@ class _SellingOrdersWidget extends State<SellingOrdersWidget> {
         ),
       ),
     );
+  }
+}
+
+class SellingOrderCardColumn2 extends StatelessWidget {
+  const SellingOrderCardColumn2({
+    Key? key,
+    required this.widget,
+    required this.screenWidth,
+  }) : super(key: key);
+
+  final SellingOrdersWidget widget;
+  final double screenWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          productTitleOrderProgress(
+            product: widget.product,
+            screenWidth: screenWidth,
+            progresstype: widget.progresstype,
+          ),
+          Text(
+              widget.progresstype == "In Progress" ||
+                      widget.progresstype == "Completed"
+                  ? "Accepted Bid Rs. ${widget.product!.price}"
+                  : "Your Bid Rs. ${widget.product!.price}",
+              style: MyStyles.googleTextSubtitleListTile(12)),
+          Text(
+            "Book Condition : ${widget.product!.condition}/10",
+            style: MyStyles.googleTextSubtitleListTile(12),
+          ),
+          widget.progresstype == "Completed" ||
+                  widget.progresstype == "Pending" ||
+                  widget.progresstype == "Cancelled"
+              ? Container()
+              : CompleteOrderButton(widget: widget)
+        ],
+      ),
+    );
+  }
+}
+
+class CompleteOrderButton extends StatelessWidget {
+  const CompleteOrderButton({
+    Key? key,
+    required this.widget,
+  }) : super(key: key);
+
+  final SellingOrdersWidget widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          context.read<UserProvider>().addSellerOrder(widget.bid.id);
+          context.read<UserProvider>().saveChanges();
+          context
+              .read<UserProvider>()
+              .updateSellerOrders(widget.bid.buyerID, widget.bid.id);
+          context.read<UserProvider>().removeBid(widget.bid.id);
+          List<String> bids =
+              context.read<UserProvider>().user.sellingbiddingIDs;
+          context.read<BiddingProvider>().loadUserBids(bids);
+          List<String> sellerbids =
+              context.read<UserProvider>().user.orderSeller;
+          context.read<BiddingProvider>().loadSellerOrders(sellerbids);
+        },
+        child: const Text("Order Completed"));
   }
 }
 
@@ -1017,7 +910,8 @@ class _OrderDetailsCardState extends State<OrderDetailsCard> {
                       widget.isProduct == true
                           ? Row(
                               children: [
-                                const Icon(Icons.star_rounded, color: Colors.amber),
+                                const Icon(Icons.star_rounded,
+                                    color: Colors.amber),
                                 Text(
                                   "4.0",
                                   style: GoogleFonts.poppins(

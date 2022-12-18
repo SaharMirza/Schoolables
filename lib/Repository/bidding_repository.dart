@@ -6,8 +6,6 @@ import 'package:flutterdemo/models/bidding_model.dart';
 
 abstract class BiddingRepository {
   Future<List<BiddingModel>> fetchBidsList();
-  // addBid(String buyerid, String pid, String buyerName, int bid, bool isAccepted,
-  //     bool isRejected);
   addBid(Bidding Bid);
   getBid(String id);
   updateBid(bool isAccepted, bool isRejected, String ID);
@@ -39,7 +37,6 @@ class FirebaseBiddingRepository implements BiddingRepository {
             isAccepted: bid.isAccepted,
             isRejected: bid.isRejected)
         .toJson());
-    // product.id = newRef.id;
 
     return newRef.id;
   }
@@ -61,30 +58,7 @@ class FirebaseBiddingRepository implements BiddingRepository {
     return bid;
   }
 
-  // //add product
-  // @override
-  // addBid(
-  //     String buyerid,
-  //     String pid,
-  //     String buyerName,
-  //     int bid,
-  //     bool isAccepted,
-  //     bool isRejected) async {
-  //   final data =
-  //       BiddingModel(bid: bid, buyerID: buyerid, productID: pid,buyerName: buyerName, id: '', isAccepted: isAccepted, isRejected: isRejected, )
-  //           .toJson();
-  //   await db
-  //       .collection("bidding")
-  //       .add(data)
-  //       .then(
-  //         (_) => print('Added'),
-  //       )
-  //       .catchError(
-  //         (error) => print('Add failed: $error'),
-  //       );
-  // }
-
-  //updateProduct
+  //updateBid
   @override
   updateBid(bool isAccepted, bool isRejected, String ID) async {
     await db
