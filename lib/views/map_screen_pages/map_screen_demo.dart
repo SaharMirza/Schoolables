@@ -41,7 +41,7 @@ class _MapDemoState extends State<MapDemo> with AutomaticKeepAliveClientMixin {
 
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            HeaderBar(title: "Products nearby ${widget.selectedLocation.areaName}",
+            HeaderBar(title: "${widget.selectedLocation.areaName} Products",
             ),
             Expanded(
               child: GoogleMap(
