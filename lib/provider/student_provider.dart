@@ -137,15 +137,15 @@ class UserProvider extends ChangeNotifier {
     // print("${user.email} saved in Firebase");
   }
 
-    void updateSellerOrders(sid, bid) async {
+  void updateSellerOrders(sid, bid) async {
     List<String> bidIDs = [];
-    List<String> biddingIDs=[];
+    List<String> biddingIDs = [];
     await firebaseUser.doc(sid).get().then((doc) {
       // Load User from Firebase to User Provider
       UserProfileModel userModel =
           UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
       bidIDs = userModel.orderBuyer;
-      biddingIDs=userModel.biddingIDs;
+      biddingIDs = userModel.biddingIDs;
     });
     bidIDs.add(bid);
     biddingIDs.remove(bid);
@@ -153,7 +153,7 @@ class UserProvider extends ChangeNotifier {
     // Update User Profile in Firebase
     await firebaseUser
         .doc(sid)
-        .update({"orderBuyer": bidIDs,"biddingIDs":biddingIDs})
+        .update({"orderBuyer": bidIDs, "biddingIDs": biddingIDs})
         .then((value) => print("Bid Updated"))
         .catchError((error) => print("Failed to update: $error"));
     // print("${user.email} saved in Firebase");
@@ -250,13 +250,14 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
- void removeBid(bidid) {
-   var ids = user.sellingbiddingIDs;
+  void removeBid(bidid) {
+    var ids = user.sellingbiddingIDs;
     ids.remove(bidid);
     user.sellingbiddingIDs = ids;
     saveChanges();
     notifyListeners();
   }
+
   void addSellerOrder(bidid) {
     List<String> ids = [];
     for (var id in user.orderSeller) {
@@ -281,5 +282,18 @@ class UserProvider extends ChangeNotifier {
     user.orderBuyer = ids;
     print("added new Buyer Order $bidid");
     notifyListeners();
+  }
+
+  void EditUser(String userName, String dOB, String phoneNumber, String email,
+      String img) {
+    firebaseUser.doc(user.id).update(
+      {
+        "name": userName,
+        "dob": dOB,
+        "phone": phoneNumber,
+        "email": email,
+        "display": img
+      },
+    );
   }
 }

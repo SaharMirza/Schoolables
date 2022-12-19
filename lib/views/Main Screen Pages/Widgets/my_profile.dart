@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colors.dart';
+import 'package:image_picker/image_picker.dart';
 
 class MyProfileListView extends StatelessWidget {
   const MyProfileListView({
@@ -288,10 +289,11 @@ class EditProfileCard extends StatelessWidget {
   const EditProfileCard({
     Key? key,
     required this.screenHeight,
-    required this.screenWidth,
+    required this.screenWidth, required this.onValueChanged,
   }) : super(key: key);
   final double screenHeight;
   final double screenWidth;
+  final Function(String) onValueChanged;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -310,15 +312,20 @@ class EditProfileCard extends StatelessWidget {
 // Change Profile picture widget
 class EditProfileIcon extends StatefulWidget {
   const EditProfileIcon(
-      {super.key, required this.screenHeight, required this.screenWidth});
+      {super.key, required this.screenHeight, required this.screenWidth, required this.onValueChanged});
   final double screenHeight;
   final double screenWidth;
+  final Function(String) onValueChanged;
 
   @override
   State<EditProfileIcon> createState() => _EditProfileIconState();
 }
 
 class _EditProfileIconState extends State<EditProfileIcon> {
+    final ImagePicker _picker = ImagePicker();
+
+    
+
   @override
   Widget build(BuildContext context) {
     final userProfile = context.watch<UserProvider>().userProfile;

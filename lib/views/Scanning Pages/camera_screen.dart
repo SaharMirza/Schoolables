@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdemo/constants/colors.dart';
@@ -26,6 +23,7 @@ class _CameraScreenState extends State<CameraScreen> {
   late CameraController cameraController;
   late List<String> result = [];
   late XFile? pickedFile;
+  bool initial = false;
 
   @override
   void initState() {
@@ -116,8 +114,6 @@ class _CameraScreenState extends State<CameraScreen> {
     cameraController.dispose();
     super.dispose();
   }
-
-  bool initial = false;
 
   @override
   Widget build(BuildContext context) {

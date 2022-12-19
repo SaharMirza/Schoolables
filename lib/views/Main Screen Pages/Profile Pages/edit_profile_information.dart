@@ -9,10 +9,14 @@ class EditProfileInformation extends StatefulWidget {
 }
 
 class _EditProfileInformationState extends State<EditProfileInformation> {
+  String userName = '';
+  String dob = '';
+  String phoneNumber = '';
+  String email = '';
+  String img = '';
+
   @override
   Widget build(BuildContext context) {
-    
-    
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
@@ -27,11 +31,13 @@ class _EditProfileInformationState extends State<EditProfileInformation> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // includes Title, Upload profile picture and save button.
+              // includes Title, and save button.
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: EditProfileCard(
-                    screenHeight: screenHeight, screenWidth: screenWidth),
+                    screenHeight: screenHeight, screenWidth: screenWidth, onValueChanged: (value){
+                        
+                    },),
               ),
               //Edit Profile Picture Section
               Padding(
