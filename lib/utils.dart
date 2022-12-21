@@ -92,14 +92,16 @@ class _MyAppBarState extends State<MyAppBar> {
                   ),
                 );
               },
-              icon: Image(
-                image: NetworkImage(userProfile.display.isEmpty
-                    ? "https://img.icons8.com/bubbles/50/000000/user.png"
-                    : userProfile.display),
+              icon: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Image(
+                  width: 50,
+                  height: 50,
+                  image: NetworkImage(userProfile.display.isEmpty
+                      ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
+                      : userProfile.display),
+                ),
               )
-              //Image.asset("assets/images/girlavatar.png"),
-              // const Icon(Icons.account_circle_outlined,
-              //     size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
               ),
         )
       ],
@@ -117,14 +119,11 @@ class HeaderBar extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
    final userProfile = context.watch<UserProvider>().userProfile;
     return SizedBox(
       child: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        // centerTitle: true,
         title: Text(title,
             style: MyStyles.googleSecondTitleText(
               20)),
@@ -140,12 +139,9 @@ class HeaderBar extends StatelessWidget {
             },
             icon: Image(
                 image: NetworkImage(userProfile.display.isEmpty
-                    ? "https://img.icons8.com/bubbles/50/000000/user.png"
+                    ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
                     : userProfile.display),
               )
-            //Image.asset("assets/images/girlavatar.png"),
-            // const Icon(Icons.account_circle_outlined,
-            //   size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
           ),
         ],
       ),

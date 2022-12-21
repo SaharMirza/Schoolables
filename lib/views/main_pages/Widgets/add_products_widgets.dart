@@ -1,6 +1,3 @@
-
-
-
 import '../../../imports.dart';
 
 List<XFile> acceptedImages = [];
@@ -20,6 +17,7 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
   XFile? _image;
   bool _loading = false;
   List<dynamic>? _outputs;
+  bool wrong = false;
   final ImagePicker picker = ImagePicker();
 
   loadModel() async {
@@ -46,7 +44,14 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
     });
     print(_outputs);
     if (output?[0]["label"] != "4 Misc") {
+      setState(() {
+        wrong = false;
+      });
       acceptedImages.add(image);
+    } else {
+      setState(() {
+        wrong = true;
+      });
     }
   }
 
@@ -167,7 +172,13 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
                       ),
                     ),
             ],
-          )
+          ),
+          wrong
+              ? Text(
+                  "Upload Books/Stationary/Bag's Images",
+                  style: TextStyle(color: Colors.red),
+                )
+              : Text("")
         ],
       ),
     );
@@ -246,8 +257,7 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
               ),
             ),
             OutlinedButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
@@ -282,13 +292,24 @@ class AddProductFields extends StatefulWidget {
 }
 
 class _AddProductFieldsState extends State<AddProductFields> {
-  List<String> category = ["Books", "Stationary", "Calculator"];
-  List<String> subCategory = ["English", "Math"];
+  List<String> category = ["Books", "Stationary", "Bags"];
+  List<String> subCategory = [
+    "English",
+    "Math",
+    "Urdu",
+    "Science",
+    "Computer",
+    "Pen",
+    "Leather Bag",
+    "Calculator",
+    "Parachute Bag"
+  ];
   List<String> condition = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   final titleController = TextEditingController();
   final priceController = TextEditingController();
   bool isEmpty = false;
   var downloadUrls = [];
+  bool isAdd = false;
 
   String _currentCategory = "Books";
   String _currentConditon = '1';
@@ -306,7 +327,6 @@ class _AddProductFieldsState extends State<AddProductFields> {
   @override
   Widget build(BuildContext context) {
     final userProfile = context.read<UserProvider>().userProfile;
-    final categories = context.watch<CategoriesProvider>().categories;
     final isLoading = context.watch<UserProvider>().isLoading;
 
 //function which stores images uploaded by the user in firebase storages and returns their download urls.
@@ -336,13 +356,11 @@ class _AddProductFieldsState extends State<AddProductFields> {
         context.read<UserProvider>().addNewProduct(productid);
         context.read<UserProvider>().saveChanges();
 
-        isLoading == true
-            ? const CircularProgressIndicator()
-            : await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const BottomNavBar(),
-                ),
-              );
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const BottomNavBar(),
+          ),
+        );
 
         titleController.clear();
         priceController.clear();
@@ -350,102 +368,99 @@ class _AddProductFieldsState extends State<AddProductFields> {
       }
     }
 
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: FormTextField(
-              FieldLabel: "Title",
-              hintText: "Title",
-              controller: titleController,
-              isEmpty: false,
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: FormTextField(
+            FieldLabel: "Title",
+            hintText: "Title",
+            controller: titleController,
+            isEmpty: false,
           ),
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Category", style: MyStyles.googleTextFieldLabelStyle),
-                  dropdownCategory()
-                ],
-              )),
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Sub Category",
-                      style: MyStyles.googleTextFieldLabelStyle),
-                  dropDownSubCategory()
-                ],
-              )),
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Condition", style: MyStyles.googleTextFieldLabelStyle),
-                  dropdownCondition()
-                ],
-              )),
-          Padding(
+        ),
+        Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: FormTextField(
-              FieldLabel: "Price",
-              hintText: "Price",
-              controller: priceController,
-              isEmpty: false,
-            ),
-          ),
-          Padding(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Category", style: MyStyles.googleTextFieldLabelStyle),
+                dropdownCategory()
+              ],
+            )),
+        Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: LocationTextFieldNBtn(screenWidth: widget.screenWidth),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Sub Category", style: MyStyles.googleTextFieldLabelStyle),
+                dropDownSubCategory()
+              ],
+            )),
+        Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Condition", style: MyStyles.googleTextFieldLabelStyle),
+                dropdownCondition()
+              ],
+            )),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: FormTextField(
+            FieldLabel: "Price",
+            hintText: "Price",
+            controller: priceController,
+            isEmpty: false,
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            height: widget.screenHeight * 0.15 - widget.screenWidth * 0.02,
-            decoration: BoxDecoration(
-                border: Border.all(color: MyColors.textColor),
-                color: MyColors.startColor),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(children: [
-                const Icon(Icons.info_outlined),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "Pickup point helps the buyer to locate where your book is located. You an change the location and mark it near your college as to reach more number of potential buyers.",
-                    style: MyStyles.googleTitleText(widget.screenWidth * 0.03),
-                  ),
-                )
-              ]),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                  await storeImagesinStorage(acceptedImages);
-                  saveMyProduct();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: MyColors.buttonColor,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: LocationTextFieldNBtn(screenWidth: widget.screenWidth),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          height: widget.screenHeight * 0.15 - widget.screenWidth * 0.02,
+          decoration: BoxDecoration(
+              border: Border.all(color: MyColors.textColor),
+              color: MyColors.startColor),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: [
+              const Icon(Icons.info_outlined),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "Pickup point helps the buyer to locate where your book is located. You an change the location and mark it near your college as to reach more number of potential buyers.",
+                  style: MyStyles.googleTitleText(widget.screenWidth * 0.03),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("Add Product",
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ))
-        ],
-      ),
+              )
+            ]),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                await storeImagesinStorage(acceptedImages);
+                saveMyProduct();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: MyColors.buttonColor,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child:
+                    Text("Add Product", style: TextStyle(color: Colors.white)),
+              ),
+            ))
+      ],
     );
   }
 

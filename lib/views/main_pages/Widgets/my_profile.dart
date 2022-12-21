@@ -1,6 +1,3 @@
-
-
-
 import 'package:intl/intl.dart';
 
 import '../../../imports.dart';
@@ -19,19 +16,6 @@ class MyProfileListView extends StatelessWidget {
       child: Column(
         //Can add ListView here to make the list tiles scrollable
         children: [
-          MyProfileListTile(
-              icon: Icons.wallet,
-              title: "My Orders and Products",
-              subtitle: "Your Products, Orders, billing and invoices",
-              screenHeight: screenHeight,
-              screenWidth: screenHeight),
-          MyProfileListTile(
-            icon: Icons.settings,
-            title: "Settings",
-            subtitle: "Privacy and manage accounts",
-            screenHeight: screenHeight,
-            screenWidth: screenHeight,
-          ),
           MyProfileListTile(
               screenHeight: screenHeight,
               screenWidth: screenHeight,
@@ -70,11 +54,9 @@ class MyProfileListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          BoxDecoration(color: Colors.white,
-              boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 5),
-          ]),
+      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+        BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 5),
+      ]),
       child: Padding(
         padding: const EdgeInsets.only(top: 8, bottom: 8),
         child: Center(
@@ -405,7 +387,8 @@ class BasicInformationSection extends StatelessWidget {
           child: FormTextField(
             FieldLabel: "User Name",
             hintText: userProfile.name,
-            controller: nameController, isEmpty: false,
+            controller: nameController,
+            isEmpty: false,
           ),
         ),
         const Padding(
@@ -453,7 +436,8 @@ class _FormTextFieldState extends State<FormTextField> {
                   ),
                   borderRadius: BorderRadius.circular(8)),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
+                borderSide:
+                    const BorderSide(color: MyColors.textColor, width: 1.5),
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
@@ -592,7 +576,8 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
                 ),
                 borderRadius: BorderRadius.circular(8)),
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: MyColors.textColor, width: 1.5),
+              borderSide:
+                  const BorderSide(color: MyColors.textColor, width: 1.5),
               borderRadius: BorderRadius.circular(25.0),
             ),
             suffixIcon: const Padding(
@@ -623,7 +608,8 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
                     ),
                     textButtonTheme: TextButtonThemeData(
                       style: TextButton.styleFrom(
-                        foregroundColor: MyColors.textColor, // button text color
+                        foregroundColor:
+                            MyColors.textColor, // button text color
                       ),
                     ),
                   ),
@@ -672,7 +658,7 @@ class _ProfileIconState extends State<ProfileIcon> {
       backgroundColor: Colors.white,
       child: Image(
         image: NetworkImage(widget.userProfile.display.isEmpty
-            ? "https://img.icons8.com/bubbles/50/000000/user.png"
+            ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
             : widget.userProfile.display),
       ),
     );

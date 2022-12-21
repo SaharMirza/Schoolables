@@ -12,11 +12,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // context.read<CategoriesProvider>().fetchCategories();
+      context.read<ProductsProvider>().fetchProducts();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final products = context.watch<ProductsProvider>().nearbyProducts;
-    final allproducts = context.read<ProductsProvider>().products;
+    final allproducts = context.watch<ProductsProvider>().products;
     final userProfile = context.watch<UserProvider>().userProfile;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;

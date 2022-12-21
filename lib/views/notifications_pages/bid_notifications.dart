@@ -42,25 +42,7 @@ class _BidNotificationState extends State<BidNotification> {
                     child: const Text("You Have no Notifications Yet."),
                   ))
                 : notifcationList(userProducts),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Card(
-            //     elevation: 10,
-            //     child: Column(
-            //       children: [
-            //         ListTile(
-            //             leading: const CircleAvatar(
-            //               backgroundColor: Colors.blueGrey,
-            //             ),
-            //             title: Text(
-            //               "Qiblatain",
-            //               style: MyStyles.googleTextSubtitleListTile(18),
-            //             ),
-            //             subtitle: AcceptedBidSubtitle()),
-            //       ],
-            //     ),
-            //   ),
-            // )
+           
           ],
         ),
       ),
