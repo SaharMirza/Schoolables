@@ -1,3 +1,5 @@
+import 'package:geolocator/geolocator.dart';
+
 import '../../../imports.dart';
 
 List<XFile> acceptedImages = [];
@@ -238,8 +240,28 @@ class LocationTextFieldNBtn extends StatefulWidget {
 }
 
 class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
+  String _locationcontroller = "Your Current Location";
   @override
   Widget build(BuildContext context) {
+    late String lat;
+    late String long;
+
+    Future<Position> _getCurrentLocation() async {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        return Future.error("Location services are disabled");
+      }
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return Future.error(
+              "Location permissions are denied, we cannot request permission");
+        }
+      }
+      return await Geolocator.getCurrentPosition();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -250,14 +272,18 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
           children: [
             SizedBox(
               width: widget.screenWidth * 0.5,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  hintText: "Type location or choose",
-                ),
-              ),
+              child: Text(_locationcontroller),
             ),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                _getCurrentLocation().then((value) {
+                  lat = '${value.latitude}';
+                  long = '${value.longitude}';
+                  setState(() {
+                    _locationcontroller = 'Latitude : $lat, Longitude : $long';
+                  });
+                });
+              },
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
@@ -269,8 +295,8 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
               ),
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
-                child:
-                    Text("Choose", style: TextStyle(color: MyColors.textColor)),
+                child: Text("Get Location",
+                    style: TextStyle(color: MyColors.textColor)),
               ),
             ),
           ],
