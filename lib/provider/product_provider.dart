@@ -1,10 +1,5 @@
 import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutterdemo/Entities/products_entity.dart';
-import 'package:flutterdemo/Repository/products_repository.dart';
-import 'package:flutterdemo/models/product_model.dart';
+import "../imports.dart";
 // import 'package:practice/Models/product_model.dart';
 // import 'package:practice/Repository/products_repository.dart';
 
@@ -13,7 +8,7 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductModel> products = [];
   List<Product> userProducts = [];
-  List<Product> nearbyProducts=[];
+  List<Product> nearbyProducts = [];
   String psellerID = "";
   List<String> downloadUrls = [];
 
@@ -23,8 +18,8 @@ class ProductsProvider with ChangeNotifier {
   bool isProductFetching = false;
   bool isAddingProduct =false;
 
-  void loadNearbyProducts(List<String> products)async{
-   isProductFetching = true;
+  void loadNearbyProducts(List<String> products) async {
+    isProductFetching = true;
     notifyListeners();
     nearbyProducts = [];
     for (var id in products) {
@@ -53,7 +48,6 @@ class ProductsProvider with ChangeNotifier {
         subCategory: productModel.subCategory,
         condition: productModel.condition);
     return product;
-
   }
 
   void loadUserProducts(List<String> products) async {
@@ -99,5 +93,3 @@ class ProductsProvider with ChangeNotifier {
     fetchProducts();
   }
 }
-
-

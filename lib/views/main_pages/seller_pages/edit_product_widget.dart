@@ -50,7 +50,7 @@ class _EditProductFieldsState extends State<EditProductFields> {
               FieldLabel: "Title",
               hintText: widget.sellerProduct.title,
               controller: titleController,
-              isEmpty: false,
+              isEmpty: false, onValueChanged: (String ) {  },
             ),
           ),
           Padding(
@@ -87,7 +87,7 @@ class _EditProductFieldsState extends State<EditProductFields> {
               FieldLabel: "Price",
               hintText: widget.sellerProduct.price.toString(),
               controller: priceController,
-              isEmpty: false,
+              isEmpty: false, onValueChanged: (String ) {  },
             ),
           ),
           Padding(

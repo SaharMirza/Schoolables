@@ -1,7 +1,5 @@
 export 'package:flutter/material.dart';
-
 export 'package:provider/provider.dart';
-
 export 'package:google_fonts/google_fonts.dart';
 export 'firebase_options.dart';
 export 'main.dart';
@@ -95,12 +93,23 @@ export 'views/scanning_pages/Loading_screen.dart';
 export 'views/scanning_pages/scan_history.dart';
 export 'package:flutterdemo/Entities/bidding_entity.dart';
 export 'dart:io';
-
+export 'package:firebase_storage/firebase_storage.dart';
 export 'package:flutter_tflite/flutter_tflite.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:animated_splash_screen/animated_splash_screen.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'firebase_options.dart';
-
+export 'package:fluttertoast/fluttertoast.dart';
+export 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 export 'package:badges/badges.dart';
+export 'package:flutter/material.dart';
+export 'dart:io';
+export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:flutter/material.dart';
+export 'package:flutterdemo/Entities/student_entity.dart';
+export 'package:flutterdemo/Entities/user_auth_entity.dart';
+export 'package:flutterdemo/models/student_model.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:flutterdemo/Entities/products_entity.dart';
+export 'package:flutterdemo/models/product_model.dart';

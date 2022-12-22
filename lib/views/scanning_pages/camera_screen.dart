@@ -1,8 +1,5 @@
-
 import 'package:camera/camera.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
-
 import '../../imports.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -16,7 +13,8 @@ class _CameraScreenState extends State<CameraScreen> {
   late List<CameraDescription> cameras;
   late CameraController cameraController;
   late List<String> result = [];
-  late XFile? pickedFile;
+  late XFile? pickedImage;
+  bool initial = false;
 
   @override
   void initState() {
@@ -85,30 +83,11 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-// picks image from gallery and calls image to text function
-  pickImageFromGallery() async {
-    final picker = ImagePicker();
-    InputImage inputImage;
-    pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        pickedFile = pickedFile;
-      } else {
-        dialogs.errorToast(
-          error: TextFormatter.firebaseError("Please pick an image to upload"),
-        );
-      }
-    });
-    return pickedFile;
-  }
-
   @override
   void dispose() {
     cameraController.dispose();
     super.dispose();
   }
-
-  bool initial = false;
 
   @override
   Widget build(BuildContext context) {
@@ -135,10 +114,18 @@ class _CameraScreenState extends State<CameraScreen> {
         children: [
           ElevatedButton(
             onPressed: () {
-              imageToText(pickedFile);
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const LoadingScreen()),
-              );
+              if (pickedImage != null) {
+                dialogs.errorToast(
+                  error: TextFormatter.firebaseError(
+                      "Please upload or capture an image first in order to scan"),
+                );
+              } else {
+                imageToText(pickedImage);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => const LoadingScreen()),
+                );
+              }
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: MyColors.subtitleColor,
@@ -150,7 +137,7 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
           GestureDetector(
               onTap: () {
-                imageToText(pickedFile);
+                imageToText(pickedImage);
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 10.0),
@@ -159,6 +146,9 @@ class _CameraScreenState extends State<CameraScreen> {
           GestureDetector(
             onTap: () async {
               XFile? pickedFile = await pickImageFromGallery();
+              setState(() {
+                pickedImage = pickedFile;
+              });
             },
             child: const Text(
               "UPLOAD",

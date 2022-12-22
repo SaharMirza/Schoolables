@@ -107,7 +107,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                         context: context, // user must tap button!
                         builder: (context) {
                           return AlertDialog(
-                            backgroundColor: Color.fromARGB(255, 71, 39, 67),
+                            backgroundColor: const Color.fromARGB(255, 71, 39, 67),
                             title: Column(
                               children: const [
                                Text('Area not selected'),
@@ -183,7 +183,7 @@ class DropDown extends StatefulWidget {
 class _DropDownState extends State<DropDown> {
   @override
   Widget build(BuildContext context) {
-    return DropDown(
+    return const DropDown(
 
     );
   }

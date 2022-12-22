@@ -104,7 +104,7 @@ class LoginChoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthService _auth = AuthService();
+    final AuthService auth = AuthService();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
@@ -118,7 +118,7 @@ class LoginChoiceButton extends StatelessWidget {
           // Anonymous Signin
           // dynamic res = await _auth.signInAnon();
           // Google Signin
-          dynamic res = await _auth.signInWithGoogle();
+          dynamic res = await auth.signInWithGoogle();
           // Check if result is of type UserProfile
           if (res is UserAuth) {
             // Navigate to Home Page

@@ -32,13 +32,15 @@ class _SyllabusListState extends State<SyllabusList> {
             ),
             Expanded(
               child: ListView.builder(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                itemBuilder: (context, index) => syllabusListTile(
-                    syllabusItem:
-                        context.read<ScannedListProvider>().results[index]),
-                itemCount: context.read<ScannedListProvider>().results.length,
-              ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  itemBuilder: (context, index) => syllabusListTile(
+                      syllabusItem: widget.scannedList.scannedItems[index]
+                      // context.read<ScannedListProvider>().results[index]
+                      ),
+                  itemCount: widget.scannedList.scannedItems.length
+                  // context.read<ScannedListProvider>().results.length,
+                  ),
             ),
           ],
         ),
@@ -65,7 +67,7 @@ class _syllabusListTileState extends State<syllabusListTile> {
 
     List<ProductModel> allproducts;
     allproducts = context.read<ProductsProvider>().products;
-    print("All products:" + allproducts.length.toString());
+    print("All products:${allproducts.length}");
     List<ProductModel> searchList = [];
 
     for (ProductModel product in allproducts) {

@@ -11,10 +11,11 @@ class ScanHistory extends StatefulWidget {
 }
 
 class _ScanHistoryState extends State<ScanHistory> {
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       String schoolName = context.read<UserProvider>().userProfile.schoolName;
       context
           .read<ScannedListProvider>()
@@ -54,7 +55,7 @@ class _ScanHistoryState extends State<ScanHistory> {
                               scanListTile(scanItem: scannedLists[index]),
                           itemCount: scannedLists.length,
                         )
-                      : Text("No Lists Found")),
+                      : const Text("No Lists Found")),
               Buttons(
                 ButtonName: "Scan New List",
                 functionToComply: () {

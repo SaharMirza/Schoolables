@@ -1,7 +1,3 @@
-
-
-import 'package:fluttertoast/fluttertoast.dart';
-
 import 'imports.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -9,29 +5,29 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   State<MyAppBar> createState() => _MyAppBarState();
-  
+
   @override
   // TODO: implement preferredSize
-  Size get preferredSize =>  const Size.fromHeight(60);
+  Size get preferredSize => const Size.fromHeight(60);
 }
 
 class _MyAppBarState extends State<MyAppBar> {
-    @override
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-       List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
-       context.read<BiddingProvider>().loadUserBids(bids);
+      List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
+      context.read<BiddingProvider>().loadUserBids(bids);
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     int counter = 0;
     final bids = context.watch<BiddingProvider>().userBids;
 
-    for(int i=0; i<bids.length;i++){
-      if(bids[i].isAccepted == false && bids[i].isRejected == false){
+    for (int i = 0; i < bids.length; i++) {
+      if (bids[i].isAccepted == false && bids[i].isRejected == false) {
         counter++;
       }
     }
@@ -48,7 +44,8 @@ class _MyAppBarState extends State<MyAppBar> {
               onTap: (() {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const BidNotification()),
+                  MaterialPageRoute(
+                      builder: (context) => const BidNotification()),
                 );
               }),
               child: Stack(
@@ -67,17 +64,16 @@ class _MyAppBarState extends State<MyAppBar> {
                 ],
               ),
             ),
-          )
-          ),
+          )),
       centerTitle: true,
       title: Row(
         mainAxisSize: MainAxisSize.min,
-        children:  [
+        children: const [
           Icon(
             Icons.location_on,
             color: Color.fromRGBO(74, 78, 105, 1.0),
           ),
-         AreaSeletorPopup()
+          AreaSeletorPopup()
         ],
       ),
       actions: <Widget>[
@@ -124,20 +120,21 @@ class HeaderBar extends StatelessWidget {
       child: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+        // centerTitle: true,
         title: Text(title,
             style: MyStyles.googleSecondTitleText(
               20)),
         actions: [
           IconButton(
-            iconSize: 50,
-            onPressed: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const EditDetailsPage(),
-                ),
-              );
-            },
-            icon: Image(
+              iconSize: 50,
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const EditDetailsPage(),
+                  ),
+                );
+              },
+              icon: Image(
                 image: NetworkImage(userProfile.display.isEmpty
                     ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
                     : userProfile.display),
@@ -239,4 +236,21 @@ class TextFormatter {
     }).join(" ");
     return name;
   }
+}
+
+// picks image from gallery and calls image to text function
+pickImageFromGallery() async {
+  final picker = ImagePicker();
+  XFile? img;
+  InputImage inputImage;
+  img = await picker.pickImage(source: ImageSource.gallery);
+  if (img != null) {
+    img = img;
+  } else {
+    dialogs.errorToast(
+      error: TextFormatter.firebaseError("Please pick an image to upload"),
+    );
+  }
+
+  return img;
 }

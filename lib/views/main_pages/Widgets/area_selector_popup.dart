@@ -67,7 +67,7 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20.0)),
                       icon: const Icon(Icons.arrow_downward_sharp),
-                      underline: DecoratedBox(
+                      underline: const DecoratedBox(
                         decoration: BoxDecoration(color: Color(0xffDADBC6)),
                       ),
                       items: areaList.map((String items) {
@@ -108,7 +108,7 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
                         context: context, // user must tap button!
                         builder: (context) {
                           return AlertDialog(
-                            backgroundColor: Color.fromARGB(255, 71, 39, 67),
+                            backgroundColor: const Color.fromARGB(255, 71, 39, 67),
                             title: Column(
                               children: const [
                                 Text('Area not selected'),
@@ -178,7 +178,7 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
       },
       child: Text(
         " $dropdownValue , Karachi",
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 10,
           color: Color.fromRGBO(74, 78, 105, 1.0),

@@ -16,7 +16,6 @@ class UploadPictureCard extends StatefulWidget {
 }
 
 class _UploadPictureCardState extends State<UploadPictureCard> {
-  XFile? _image;
   bool _loading = false;
   List<dynamic>? _outputs;
   bool wrong = false;
@@ -57,12 +56,9 @@ class _UploadPictureCardState extends State<UploadPictureCard> {
     }
   }
 
-  Future pickImageFromGallery() async {
-    var piture = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = piture;
-    });
-    classifyImage(piture);
+  Future classifyImageFromGallery() async {
+    XFile? picture = pickImageFromGallery();
+    classifyImage(picture);
   }
 
   @override
@@ -402,7 +398,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             FieldLabel: "Title",
             hintText: "Title",
             controller: titleController,
-            isEmpty: false,
+            isEmpty: false, onValueChanged: (String ) {  },
           ),
         ),
         Padding(
@@ -438,7 +434,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             FieldLabel: "Price",
             hintText: "Price",
             controller: priceController,
-            isEmpty: false,
+            isEmpty: false, onValueChanged: (String ) {  },
           ),
         ),
         Padding(

@@ -1,5 +1,3 @@
-
-
 import '../../../imports.dart';
 
 class ProductCard extends StatefulWidget {
@@ -23,10 +21,9 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
- 
   @override
   Widget build(BuildContext context) {
-     final products = context.watch<ProductsProvider>().products;
+    final products = context.watch<ProductsProvider>().products;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
@@ -40,18 +37,22 @@ class _ProductCardState extends State<ProductCard> {
       context.read<UserProvider>().removeFavItem(id);
     }
 
-    getProduct(pID){
-      for(int i=0;i<products.length;i++){
-        if(products[i].id==pID)return products[i];
+    getProduct(pID) {
+      for (int i = 0; i < products.length; i++) {
+        if (products[i].id == pID) return products[i];
       }
     }
+
+    print(widget.image);
 
     return InkWell(
       onTap: (() async {
         ProductModel? product = getProduct(widget.pid);
         await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetail(product: product,),
+            builder: (context) => ProductDetail(
+              product: product,
+            ),
           ),
         );
       }),
@@ -71,8 +72,15 @@ class _ProductCardState extends State<ProductCard> {
                     width: screenWidth,
                     color: const Color.fromARGB(255, 179, 150, 180),
                     child: widget.image.isEmpty
-                        ? Image.network('https://static.thenounproject.com/png/3674270-200.png')
-                        : Image.network(widget.image),
+                        ? Image.network(
+                            'https://static.thenounproject.com/png/3674270-200.png')
+                        : Image.network(
+                            widget.image,
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
+                              return const Icon(Icons.image_not_supported);
+                            },
+                          ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

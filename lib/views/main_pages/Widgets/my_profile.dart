@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-
 import '../../../imports.dart';
 
 class MyProfileListView extends StatelessWidget {
@@ -199,7 +198,10 @@ class MyProfileNameCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 5),
             child: ProfileIcon(
-                userProfile: userProfile, radius: screenWidth * 0.15),
+              userProfile: userProfile,
+              radius: screenWidth * 0.15,
+              img: null,
+            ),
           ),
           SizedBox(
             // height: screenHeight * 0.165,
@@ -263,8 +265,10 @@ class EditProfileCard extends StatelessWidget {
     required this.screenHeight,
     required this.screenWidth,
   }) : super(key: key);
+
   final double screenHeight;
   final double screenWidth;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -274,7 +278,10 @@ class EditProfileCard extends StatelessWidget {
           text: "Edit Profile",
           screenWidth: screenWidth,
         ),
-        SaveBtn(screenHeight: screenHeight, screenWidth: screenWidth),
+        SaveBtn(
+          screenHeight: screenHeight,
+          screenWidth: screenWidth,
+        ),
       ],
     );
   }
@@ -282,8 +289,11 @@ class EditProfileCard extends StatelessWidget {
 
 // Change Profile picture widget
 class EditProfileIcon extends StatefulWidget {
-  const EditProfileIcon(
-      {super.key, required this.screenHeight, required this.screenWidth});
+  const EditProfileIcon({
+    super.key,
+    required this.screenHeight,
+    required this.screenWidth,
+  });
   final double screenHeight;
   final double screenWidth;
 
@@ -292,18 +302,35 @@ class EditProfileIcon extends StatefulWidget {
 }
 
 class _EditProfileIconState extends State<EditProfileIcon> {
+  late XFile? profilePic = XFile("");
+  // saveImageInFirebase() {
+  //   var fileProfilePic = File(profilePic!.path);
+  //   Provider.of<UserProvider>(context, listen: false)
+  //       .updateProfilePic(fileProfilePic);
+  // }
+
   @override
   Widget build(BuildContext context) {
     final userProfile = context.watch<UserProvider>().userProfile;
     return Center(
       child: Badge(
-        badgeContent: Icon(
-          Icons.add_a_photo_outlined,
-          size: widget.screenWidth * 0.06,
+        badgeContent: GestureDetector(
+          onTap: () async {
+            XFile? img = await pickImageFromGallery();
+            setState(() {
+              context.read<UserProvider>().setUserProfilePic(img);
+              profilePic = img;
+            });
+          },
+          child: Icon(
+            Icons.add_a_photo_outlined,
+            size: widget.screenWidth * 0.06,
+          ),
         ),
         badgeColor: MyColors.startColor,
         position: BadgePosition.bottomEnd(bottom: 3, end: 6),
         child: ProfileIcon(
+            img: profilePic,
             userProfile: userProfile,
             radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
       ),
@@ -320,6 +347,7 @@ class ContactInformationSection extends StatelessWidget {
   }) : super(key: key);
   final double screenHeight;
   final double screenWidth;
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController numberController = TextEditingController();
@@ -338,6 +366,9 @@ class ContactInformationSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: FormTextField(
+            onValueChanged: ((num) {
+              context.read<UserProvider>().setUserNumber(num);
+            }),
             FieldLabel: "Phone Number",
             hintText: userProfile.phone,
             controller: numberController,
@@ -347,6 +378,9 @@ class ContactInformationSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: FormTextField(
+            onValueChanged: ((email) {
+              context.read<UserProvider>().setUserEmail(email);
+            }),
             FieldLabel: "Email",
             hintText: userProfile.email,
             controller: emailController,
@@ -371,8 +405,11 @@ class BasicInformationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController nameController = TextEditingController();
     final userProfile = context.watch<UserProvider>().userProfile;
+    String dob = "";
     // final TextEditingController _priceController = TextEditingController();
-
+    // if (nameController.text.isNotEmpty || dob.isNotEmpty) {
+    //   onValueChanged(nameController.text, dob);
+    // }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -385,15 +422,22 @@ class BasicInformationSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: FormTextField(
+            onValueChanged: ((name) {
+              context.read<UserProvider>().setUserName(name);
+            }),
             FieldLabel: "User Name",
             hintText: userProfile.name,
             controller: nameController,
             isEmpty: false,
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(bottom: 8.0),
-          child: DatePickerTextField(),
+          child: DatePickerTextField(
+            onValueChanged: (String) {
+              context.read<UserProvider>().setUserDOB(String);
+            },
+          ),
         ),
       ],
     );
@@ -408,10 +452,12 @@ class FormTextField extends StatefulWidget {
     required this.hintText,
     required this.controller,
     required this.isEmpty,
+    required this.onValueChanged,
   });
   final bool isEmpty;
   final String FieldLabel;
   final TextEditingController controller;
+  final Function(String) onValueChanged;
   final String hintText;
   @override
   State<FormTextField> createState() => _FormTextFieldState();
@@ -426,6 +472,9 @@ class _FormTextFieldState extends State<FormTextField> {
         children: [
           TextFieldLabel(text: widget.FieldLabel),
           TextField(
+            onSubmitted: ((value) {
+              widget.onValueChanged(widget.controller.text);
+            }),
             controller: widget.controller,
             decoration: InputDecoration(
               hintText: widget.hintText,
@@ -519,8 +568,11 @@ class _DropDownState extends State<DropDown> {
 
 // Save button
 class SaveBtn extends StatefulWidget {
-  const SaveBtn(
-      {super.key, required this.screenHeight, required this.screenWidth});
+  const SaveBtn({
+    super.key,
+    required this.screenHeight,
+    required this.screenWidth,
+  });
   final double screenHeight;
   final double screenWidth;
   @override
@@ -531,8 +583,29 @@ class _SaveBtnState extends State<SaveBtn> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).pop();
+      onTap: () async {
+        // print("print Edit User: " +
+        //     widget.userName +
+        //     " " +
+        //     widget.dob +
+        //     " " +
+        //     " " +
+        //     widget.phoneNumber +
+        //     " " +
+        //     widget.email +
+        //     " " +
+        //     widget.img!.path.toString() +
+        //     " ");
+        context.read<UserProvider>().EditUser();
+
+        // String downloadUrl =
+        //     await context.read<UserProvider>().updateProfilePic(
+        //           File(widget.img!.path),
+        //         );
+        // context.read<UserProvider>().EditUser(widget.userName, widget.dob,
+        //     widget.phoneNumber, widget.email, downloadUrl);
+
+        // Navigator.of(context).pop();
       },
       child: Text("Save",
           style: MyStyles.underlinedGreyText(widget.screenWidth * 0.05)),
@@ -542,7 +615,8 @@ class _SaveBtnState extends State<SaveBtn> {
 
 // Custom DatePicker
 class DatePickerTextField extends StatefulWidget {
-  const DatePickerTextField({super.key});
+  const DatePickerTextField({super.key, required this.onValueChanged});
+  final Function(String) onValueChanged;
 
   @override
   State<DatePickerTextField> createState() => _DatePickerTextFieldState();
@@ -626,6 +700,7 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
               print(
                   formattedDate); //formatted date output using intl package =>  2021-03-16
               //you can implement different kind of Date Format here according to your requirement
+              widget.onValueChanged(formattedDate);
 
               setState(() {
                 dateinput.text =
@@ -643,24 +718,33 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
 
 class ProfileIcon extends StatefulWidget {
   const ProfileIcon(
-      {super.key, required this.userProfile, required this.radius});
+      {super.key,
+      required this.userProfile,
+      required this.radius,
+      required this.img});
   final UserProfile userProfile;
   final double radius;
+  final XFile? img;
   @override
   State<ProfileIcon> createState() => _ProfileIconState();
 }
 
 class _ProfileIconState extends State<ProfileIcon> {
+  // late File profilePic = File(widget.img!.path);
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: widget.radius,
       backgroundColor: Colors.white,
-      child: Image(
-        image: NetworkImage(widget.userProfile.display.isEmpty
-            ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
-            : widget.userProfile.display),
-      ),
+      child: widget.img == null
+          ? Image(
+              image: NetworkImage(
+                widget.userProfile.display.isEmpty
+                    ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
+                    : widget.userProfile.display,
+              ),
+            )
+          : Image.file(File(widget.img!.path)),
     );
   }
 }

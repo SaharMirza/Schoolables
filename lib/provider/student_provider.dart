@@ -1,10 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/student_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/models/student_model.dart';
+import "../imports.dart";
 
 // Provider for User Collection
 class UserProvider extends ChangeNotifier {
@@ -15,6 +11,8 @@ class UserProvider extends ChangeNotifier {
       FirebaseFirestore.instance.collection('users');
   UserProfile get userProfile => user;
   bool isLoading = false;
+  final storageRef = FirebaseStorage.instance.ref();
+  late XFile? image;
 
   Future<void> loadUsers() async {
     await firebaseUser.get().then((QuerySnapshot querySnapshot) {
@@ -137,15 +135,15 @@ class UserProvider extends ChangeNotifier {
     // print("${user.email} saved in Firebase");
   }
 
-    void updateSellerOrders(sid, bid) async {
+  void updateSellerOrders(sid, bid) async {
     List<String> bidIDs = [];
-    List<String> biddingIDs=[];
+    List<String> biddingIDs = [];
     await firebaseUser.doc(sid).get().then((doc) {
       // Load User from Firebase to User Provider
       UserProfileModel userModel =
           UserProfileModel.fromJson(doc.data() as Map<String, dynamic>);
       bidIDs = userModel.orderBuyer;
-      biddingIDs=userModel.biddingIDs;
+      biddingIDs = userModel.biddingIDs;
     });
     bidIDs.add(bid);
     biddingIDs.remove(bid);
@@ -153,7 +151,7 @@ class UserProvider extends ChangeNotifier {
     // Update User Profile in Firebase
     await firebaseUser
         .doc(sid)
-        .update({"orderBuyer": bidIDs,"biddingIDs":biddingIDs})
+        .update({"orderBuyer": bidIDs, "biddingIDs": biddingIDs})
         .then((value) => print("Bid Updated"))
         .catchError((error) => print("Failed to update: $error"));
     // print("${user.email} saved in Firebase");
@@ -250,13 +248,14 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
- void removeBid(bidid) {
-   var ids = user.sellingbiddingIDs;
+  void removeBid(bidid) {
+    var ids = user.sellingbiddingIDs;
     ids.remove(bidid);
     user.sellingbiddingIDs = ids;
     saveChanges();
     notifyListeners();
   }
+
   void addSellerOrder(bidid) {
     List<String> ids = [];
     for (var id in user.orderSeller) {
@@ -281,5 +280,68 @@ class UserProvider extends ChangeNotifier {
     user.orderBuyer = ids;
     print("added new Buyer Order $bidid");
     notifyListeners();
+  }
+
+  void EditUser() async {
+    // print("print Edit User: " +
+    //     userName +
+    //     " " +
+    //     dOB +
+    //     " " +
+    //     " " +
+    //     phoneNumber +
+    //     " " +
+    //     email +
+    //     " " +
+    //     img +
+    //     " ");
+    user.display = await updateProfilePic(File(image!.path));
+    notifyListeners();
+    saveChanges();
+    notifyListeners();
+    // firebaseUser.doc(user.id).update(
+    //   {
+    //     userName.isNotEmpty ? "name" : userName: null,
+    //     dOB.isNotEmpty ? "dob" : dOB: null,
+    //     phoneNumber.isNotEmpty ? "phone" : phoneNumber: null,
+    //     email.isNotEmpty ? "email" : email: null,
+    //     img.isNotEmpty ? "display" : img: null,
+    //   },
+    // ).then((value) => print("Edit User Updated"));
+  }
+
+  void setUserEmail(String email) {
+    user.email = email;
+    notifyListeners();
+  }
+
+  void setUserNumber(String num) {
+    user.phone = num;
+    notifyListeners();
+  }
+
+  void setUserName(String name) {
+    user.name;
+    notifyListeners();
+  }
+
+  void setUserProfilePic(XFile? img) {
+    image = img;
+    notifyListeners();
+  }
+
+  void setUserDOB(String DOB) {
+    user.dob = DOB;
+    notifyListeners();
+  }
+
+  Future<String> updateProfilePic(File profilePic) async {
+    String downloadURL = "";
+    final folderRef = storageRef.child("userProfile/${profilePic.path}");
+    final uploadTask = await folderRef.putFile(profilePic);
+    downloadURL = await folderRef.getDownloadURL();
+    user.display = downloadURL;
+    notifyListeners();
+    return downloadURL;
   }
 }

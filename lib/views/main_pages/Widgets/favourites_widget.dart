@@ -77,7 +77,7 @@ class _favouritesCardState extends State<favouritesCard> {
     );
   }
 
-  Widget productDetails(void addFav(dynamic id), void removeFav(dynamic id)) {
+  Widget productDetails(void Function(dynamic id) addFav, void Function(dynamic id) removeFav) {
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
