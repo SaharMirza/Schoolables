@@ -19,9 +19,7 @@ abstract class ProductsRepository {
 }
 
 class FirebaseProductsRepository implements ProductsRepository {
-
   final db = FirebaseFirestore.instance;
-
   final storageRef = FirebaseStorage.instance.ref();
 
   @override
@@ -37,9 +35,6 @@ class FirebaseProductsRepository implements ProductsRepository {
     } on FirebaseException catch (e) {
       print(e);
     }
-
-    print(downloadUrls);
-
     return downloadUrls;
   }
 
@@ -91,6 +86,7 @@ class FirebaseProductsRepository implements ProductsRepository {
 
     return newRef.id;
   }
+  @override
   Future<void> updateProduct(Product product) async {
     print("save changes repo");
     await db.collection('products').doc(product.id).update({

@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutterdemo/models/scanned_List.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
 
-import '../Entities/products_entity.dart';
 import '../models/product_model.dart';
-import '../provider/student_provider.dart';
 
 abstract class ScannedListRepository {
   Future<List<ScannedList>> fetchScannedListAccordingToSchoolName(

@@ -1,42 +1,33 @@
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Widgets/area_selector_popup.dart';
-import 'package:flutterdemo/constants/fonts.dart';
-import 'package:flutterdemo/provider/bidding_provider.dart';
-import 'package:flutterdemo/provider/student_provider.dart';
-import 'package:flutterdemo/views/Main%20Screen%20Pages/Profile%20Pages/edit_details.dart';
-import 'package:flutterdemo/views/Notifications%20Pages/bid_notifications.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'imports.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 
   @override
   State<MyAppBar> createState() => _MyAppBarState();
-  
+
   @override
   // TODO: implement preferredSize
-  Size get preferredSize =>  const Size.fromHeight(60);
+  Size get preferredSize => const Size.fromHeight(60);
 }
 
 class _MyAppBarState extends State<MyAppBar> {
-    @override
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-       List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
-       context.read<BiddingProvider>().loadUserBids(bids);
+      List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
+      context.read<BiddingProvider>().loadUserBids(bids);
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     int counter = 0;
     final bids = context.watch<BiddingProvider>().userBids;
 
-    for(int i=0; i<bids.length;i++){
-      if(bids[i].isAccepted == false && bids[i].isRejected == false){
+    for (int i = 0; i < bids.length; i++) {
+      if (bids[i].isAccepted == false && bids[i].isRejected == false) {
         counter++;
       }
     }
@@ -53,7 +44,8 @@ class _MyAppBarState extends State<MyAppBar> {
               onTap: (() {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const BidNotification()),
+                  MaterialPageRoute(
+                      builder: (context) => const BidNotification()),
                 );
               }),
               child: Stack(
@@ -72,17 +64,16 @@ class _MyAppBarState extends State<MyAppBar> {
                 ],
               ),
             ),
-          )
-          ),
+          )),
       centerTitle: true,
       title: Row(
         mainAxisSize: MainAxisSize.min,
-        children:  [
+        children: const [
           Icon(
             Icons.location_on,
             color: Color.fromRGBO(74, 78, 105, 1.0),
           ),
-         AreaSeletorPopup()
+          AreaSeletorPopup()
         ],
       ),
       actions: <Widget>[
@@ -124,34 +115,32 @@ class HeaderBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-   final userProfile = context.watch<UserProvider>().userProfile;
+    final userProfile = context.watch<UserProvider>().userProfile;
     return SizedBox(
       child: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         // centerTitle: true,
-        title: Text(title,
-            style: MyStyles.googleSecondTitleText(
-                screenWidth * 0.02 + screenHeight * 0.02)),
+        title: Text(title, style: MyStyles.googleSecondTitleText(20)),
         actions: [
           IconButton(
-            iconSize: 50,
-            onPressed: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const EditDetailsPage(),
-                ),
-              );
-            },
-            icon: Image(
+              iconSize: 50,
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const EditDetailsPage(),
+                  ),
+                );
+              },
+              icon: Image(
                 image: NetworkImage(userProfile.display.isEmpty
                     ? "https://img.icons8.com/bubbles/50/000000/user.png"
                     : userProfile.display),
               )
-            //Image.asset("assets/images/girlavatar.png"),
-            // const Icon(Icons.account_circle_outlined,
-            //   size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
-          ),
+              //Image.asset("assets/images/girlavatar.png"),
+              // const Icon(Icons.account_circle_outlined,
+              //   size: 30, color: const Color.fromRGBO(74, 78, 105, 1.0)),
+              ),
         ],
       ),
     );
@@ -248,4 +237,21 @@ class TextFormatter {
     }).join(" ");
     return name;
   }
+}
+
+// picks image from gallery and calls image to text function
+pickImageFromGallery() async {
+  final picker = ImagePicker();
+  XFile? img;
+  InputImage inputImage;
+  img = await picker.pickImage(source: ImageSource.gallery);
+  if (img != null) {
+    img = img;
+  } else {
+    dialogs.errorToast(
+      error: TextFormatter.firebaseError("Please pick an image to upload"),
+    );
+  }
+
+  return img;
 }

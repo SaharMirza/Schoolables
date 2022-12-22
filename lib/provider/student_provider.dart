@@ -1,10 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutterdemo/Entities/student_entity.dart';
-import 'package:flutterdemo/Entities/user_auth_entity.dart';
-import 'package:flutterdemo/models/student_model.dart';
+import "../imports.dart";
 
 // Provider for User Collection
 class UserProvider extends ChangeNotifier {
@@ -15,6 +11,7 @@ class UserProvider extends ChangeNotifier {
       FirebaseFirestore.instance.collection('users');
   UserProfile get userProfile => user;
   bool isLoading = false;
+  final storageRef = FirebaseStorage.instance.ref();
 
   Future<void> loadUsers() async {
     await firebaseUser.get().then((QuerySnapshot querySnapshot) {
@@ -286,14 +283,36 @@ class UserProvider extends ChangeNotifier {
 
   void EditUser(String userName, String dOB, String phoneNumber, String email,
       String img) {
+    print("print Edit User: " +
+        userName +
+        " " +
+        dOB +
+        " " +
+        " " +
+        phoneNumber +
+        " " +
+        email +
+        " " +
+        img +
+        " ");
     firebaseUser.doc(user.id).update(
       {
-        "name": userName,
-        "dob": dOB,
-        "phone": phoneNumber,
-        "email": email,
-        "display": img
+        userName.isNotEmpty ? "name" : userName: null,
+        dOB.isNotEmpty ? "dob" : dOB: null,
+        phoneNumber.isNotEmpty ? "phone" : phoneNumber: null,
+        email.isNotEmpty ? "email" : email: null,
+        img.isNotEmpty ? "display" : img: null,
       },
-    );
+    ).then((value) => print("Edit User Updated"));
+  }
+
+  Future<String> updateProfilePic(File profilePic) async {
+    String downloadURL = "";
+    final folderRef = storageRef.child("userProfile/${profilePic.path}");
+    final uploadTask = await folderRef.putFile(profilePic);
+    downloadURL = await folderRef.getDownloadURL();
+    user.display = downloadURL;
+    notifyListeners();
+    return downloadURL;
   }
 }

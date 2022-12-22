@@ -11,20 +11,21 @@ class ScannedList {
     id,
   });
 
-  static ScannedList fromJson(Map<String, dynamic> json, String _id) {
+  static ScannedList fromJson(Map<String, dynamic> json, String id) {
     var firebaseData = [];
     firebaseData = json['scannedItems'] ?? [];
     List<String> productNames = [];
-    for (var id in firebaseData)
+    for (var id in firebaseData) {
       productNames.add(
         id.toString().trim(),
       );
+    }
 
     return ScannedList(
       scannedItems: productNames,
       schoolName: json['school_name'],
       grade: json['grade'],
-      id: _id,
+      id: id,
     );
   }
 
