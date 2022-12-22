@@ -12,7 +12,6 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _MyAppBarState extends State<MyAppBar> {
-
   @override
   Widget build(BuildContext context) {
     int counter = 0;
@@ -82,15 +81,13 @@ class _MyAppBarState extends State<MyAppBar> {
               },
               icon: Padding(
                 padding: const EdgeInsets.all(3.0),
-                child: Image(
-                  width: 50,
-                  height: 50,
-                  image: NetworkImage(userProfile.display.isEmpty
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(userProfile.display.isEmpty
                       ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
                       : userProfile.display),
                 ),
-              )
-              ),
+              )),
         )
       ],
     );
@@ -107,30 +104,40 @@ class HeaderBar extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-   final userProfile = context.watch<UserProvider>().userProfile;
+    final userProfile = context.watch<UserProvider>().user;
     return SizedBox(
       child: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         // centerTitle: true,
-        title: Text(title,
-            style: MyStyles.googleSecondTitleText(
-              20)),
+        title: Text(title, style: MyStyles.googleSecondTitleText(20)),
+        leading: title == "BookList"
+            ? GestureDetector(
+                onTap: () {
+                  context
+                      .read<ScannedListProvider>()
+                      .fetchScannedListAccordingToSchoolName(
+                          userProfile.schoolName);
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                },
+                child: Icon(Icons.close))
+            : null,
         actions: [
           IconButton(
-              iconSize: 50,
-              onPressed: () async {
-                await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const EditDetailsPage(),
-                  ),
-                );
-              },
-              icon: Image(
-                image: NetworkImage(userProfile.display.isEmpty
-                    ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
-                    : userProfile.display),
-              )
+            iconSize: 50,
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const EditDetailsPage(),
+                ),
+              );
+            },
+            icon: CircleAvatar(
+              radius: 100,
+              backgroundImage: NetworkImage(userProfile.display.isEmpty
+                  ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
+                  : userProfile.display),
+            ),
           ),
         ],
       ),

@@ -1,4 +1,3 @@
-
 import 'package:flutterdemo/views/scanning_pages/syllabus_list.dart';
 
 import '../../imports.dart';
@@ -38,24 +37,27 @@ class _ScanHistoryState extends State<ScanHistory> {
           child: Column(
             children: [
               const HeaderBar(title: "Scanned Lists"),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, bottom: 0, left: 10, right: 10),
-                child: SearchBar(
-                  width: screenWidth * 0.9,
-                  screenHeight: screenHeight,
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       top: 20, bottom: 0, left: 10, right: 10),
+              //   child: SearchBar(
+              //     width: screenWidth * 0.9,
+              //     screenHeight: screenHeight,
+              //   ),
+              // ),
               Expanded(
-                  child: scannedLists.isNotEmpty
-                      ? ListView.builder(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 20),
-                          itemBuilder: (context, index) =>
-                              scanListTile(scanItem: scannedLists[index]),
-                          itemCount: scannedLists.length,
-                        )
-                      : const Text("No Lists Found")),
+                child: scannedLists.isNotEmpty
+                    ? ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        itemBuilder: (context, index) =>
+                            scanListTile(scanItem: scannedLists[index]),
+                        itemCount: scannedLists.length,
+                      )
+                    : Center(
+                        child: const Text("No Lists Found"),
+                      ),
+              ),
               Buttons(
                 ButtonName: "Scan New List",
                 functionToComply: () {

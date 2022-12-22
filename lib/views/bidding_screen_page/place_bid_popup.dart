@@ -17,13 +17,14 @@ class PlaceBidPopUp extends StatefulWidget {
 }
 
 class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
-   @override
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       context.read<BiddingProvider>().fetchBids();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final userAuth = Provider.of<UserAuth?>(context);
@@ -77,9 +78,12 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
             child: ElevatedButton(
               onPressed: () {
                 saveMyBid(user);
-                 Navigator.push(
+                Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>ProductDetail(product: widget.product,)),
+                  MaterialPageRoute(
+                      builder: (context) => ProductDetail(
+                            product: widget.product,
+                          )),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -103,12 +107,12 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                color: Colors.grey,
+                color: MyColors.startColor,
                 height: 200,
                 width: 200,
                 child: Image.network(
-                  "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-                  fit: BoxFit.cover,
+                  widget.product.images[0],
+                  fit: BoxFit.fitHeight,
                 ),
               ),
               Padding(

@@ -1,5 +1,3 @@
-
-
 import '../../../imports.dart';
 
 class AreaSeletorPopup extends StatefulWidget {
@@ -42,6 +40,27 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    bool initial = false;
+
+    showLoaderDialog(BuildContext context) {
+      AlertDialog alert = AlertDialog(
+        content: new Row(
+          children: [
+            CircularProgressIndicator(),
+            Container(
+                margin: EdgeInsets.only(left: 7), child: Text("Loading...")),
+          ],
+        ),
+      );
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
     Widget popup() {
       return AlertDialog(
         backgroundColor: MyColors.startColor,
@@ -101,14 +120,15 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
                       backgroundColor: const Color(0xffBBBD88)),
                   child:
                       const Text('OK', style: TextStyle(color: Colors.black)),
-                  onPressed: () {
+                  onPressed: () async {
                     if (selectedIndex == 0) {
                       showDialog(
                         barrierDismissible: false,
                         context: context, // user must tap button!
                         builder: (context) {
                           return AlertDialog(
-                            backgroundColor: const Color.fromARGB(255, 71, 39, 67),
+                            backgroundColor:
+                                const Color.fromARGB(255, 71, 39, 67),
                             title: Column(
                               children: const [
                                 Text('Area not selected'),
@@ -148,15 +168,25 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
                       dropdownValue = locationList[selectedIndex - 1].areaName;
                       setState(() {});
                       //fetch product id in areas of selected area name
-                      List<Area> areas=locationList[selectedIndex - 1].areas;
-                      List<String> pids =[];
-                      for(Area area in areas){
+                      List<Area> areas = locationList[selectedIndex - 1].areas;
+                      List<String> pids = [];
+                      for (Area area in areas) {
                         pids.add(area.id);
                       }
                       //provider for updating product ids of nearby product
-                      context.read<ProductsProvider>().loadNearbyProducts(pids);
-                      Navigator.pop(context);
-
+                      // Future.delayed(
+                      //   const Duration(seconds: 1),
+                      //   () {
+                      //     initial = true;
+                      //     setState(() {});
+                      //   },
+                      // );
+                      initial = await context
+                          .read<ProductsProvider>()
+                          .loadNearbyProducts(pids);
+                      if (initial == true) {
+                        Navigator.pop(context);
+                      }
                     }
                   },
                 ),

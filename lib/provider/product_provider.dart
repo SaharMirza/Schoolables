@@ -16,9 +16,9 @@ class ProductsProvider with ChangeNotifier {
 
   bool isProductsFetching = false;
   bool isProductFetching = false;
-  bool isAddingProduct =false;
+  bool isAddingProduct = false;
 
-  void loadNearbyProducts(List<String> products) async {
+  loadNearbyProducts(List<String> products) async {
     isProductFetching = true;
     notifyListeners();
     nearbyProducts = [];
@@ -31,6 +31,8 @@ class ProductsProvider with ChangeNotifier {
     }
     isProductFetching = false;
     notifyListeners();
+
+    return true;
   }
 
   Future<Product> getProductByID(id) async {
@@ -79,12 +81,12 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<String> addProduct(Product product) async {
-    isAddingProduct =true;
+    isAddingProduct = true;
     String productid = await _productsRepository.addProduct(product);
     product.id = productid;
     userProducts.add(product);
     notifyListeners();
-    isAddingProduct=false;
+    isAddingProduct = false;
     return productid;
   }
 

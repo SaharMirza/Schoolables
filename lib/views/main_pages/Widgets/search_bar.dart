@@ -1,4 +1,3 @@
-
 import '../../../imports.dart';
 
 class SearchBar extends StatelessWidget {
@@ -7,7 +6,6 @@ class SearchBar extends StatelessWidget {
     required this.width,
     required this.screenHeight,
   }) : super(key: key);
-
   final double width;
   final double screenHeight;
 
