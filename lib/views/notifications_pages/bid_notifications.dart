@@ -3,6 +3,7 @@ import 'package:flutterdemo/Entities/bidding_entity.dart';
 import 'package:flutterdemo/Entities/products_entity.dart';
 import 'package:flutterdemo/constants/colors.dart';
 import 'package:flutterdemo/constants/fonts.dart';
+import 'package:flutterdemo/imports.dart';
 import 'package:flutterdemo/provider/bidding_provider.dart';
 import 'package:flutterdemo/provider/product_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,8 +17,20 @@ class BidNotification extends StatefulWidget {
 }
 
 class _BidNotificationState extends State<BidNotification> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      List<String> products = context.read<UserProvider>().user.products;
+      context.read<ProductsProvider>().loadUserProducts(products);
+      List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
+      context.read<BiddingProvider>().loadUserBids(bids);
+    });
+  }
+
   bool productsFetched = false;
   List<Bidding> bids = [];
+  bool isfetching=false;
 
   int i = 0;
   @override
@@ -25,6 +38,7 @@ class _BidNotificationState extends State<BidNotification> {
     final List<Product> userProducts =
         context.watch<ProductsProvider>().userProducts;
     bids = context.watch<BiddingProvider>().userBids;
+    isfetching = context.watch<BiddingProvider>().isBidsFetching;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,13 +50,13 @@ class _BidNotificationState extends State<BidNotification> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            isfetching?Center(child: CircularProgressIndicator()):
             bids.isEmpty
                 ? Center(
                     child: Container(
                     child: const Text("You Have no Notifications Yet."),
                   ))
                 : notifcationList(userProducts),
-           
           ],
         ),
       ),
@@ -157,8 +171,7 @@ class _BidNotificationState extends State<BidNotification> {
               style: const TextStyle(
                   fontWeight: FontWeight.bold, color: MyColors.buttonColor)),
           TextSpan(
-              text:
-                  'Original Price: Rs. ${getProductDetails().price}',
+              text: 'Original Price: Rs. ${getProductDetails().price}',
               style: const TextStyle(color: Colors.black)),
         ],
       ),

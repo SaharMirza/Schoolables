@@ -1,4 +1,4 @@
-
+import 'dart:math';
 
 import '../../../imports.dart';
 
@@ -14,18 +14,33 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<BiddingProvider>().fetchBids();
+    });
+  }
+
+  int maxbid = 0;
 
   @override
   Widget build(BuildContext context) {
     final bids = context.watch<BiddingProvider>().bids;
     List<BiddingModel> bid = [];
+    List<int> bidprice = [];
 
-    getbids() {
-      for (int i = 0; i < bids.length; i++) {
-        if (bids[i].productID == widget.product!.id) {
-          bid.add(bids[i]);
-        }
+    // getbids() {
+    for (int i = 0; i < bids.length; i++) {
+      if (bids[i].productID == widget.product!.id) {
+        bid.add(bids[i]);
+        bidprice.add(bids[i].bid);
       }
+    }
+    if (bidprice.isNotEmpty) {
+      bidprice.sort();
+      maxbid = bidprice[bidprice.length - 1];
+      setState(() {});
     }
 
     return Center(
@@ -40,7 +55,9 @@ class _ProductDetailState extends State<ProductDetail> {
               const SizedBox(
                 height: 20,
               ),
-               ImageSlider(images: widget.product!.images,),
+              ImageSlider(
+                images: widget.product!.images,
+              ),
               OrderDetailsCard(
                 isProduct: true,
                 product: widget.product,
@@ -69,7 +86,9 @@ class _ProductDetailState extends State<ProductDetail> {
                                   ),
                                 ),
                                 Text(
-                                  "Rs. 500",
+                                  maxbid == 0
+                                      ? "No Bid Yet."
+                                      : "Rs. ${maxbid.toString()}",
                                   style: GoogleFonts.inconsolata(
                                       color: Colors.white, fontSize: 30),
                                 ),
@@ -95,11 +114,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                   ),
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      getbids();
                                       showDialog(
                                         context: context,
                                         builder: (context) {
                                           return PlaceBidPopUp(
+                                            product: widget.product!,
                                             pid: widget.product!.id,
                                             bid: bid,
                                           );

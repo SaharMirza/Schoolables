@@ -3,10 +3,12 @@ import '../../imports.dart';
 class PlaceBidPopUp extends StatefulWidget {
   const PlaceBidPopUp({
     Key? key,
+    required this.product,
     required this.pid,
     required this.bid,
   }) : super(key: key);
 
+  final ProductModel product;
   final String pid;
   final List<BiddingModel> bid;
 
@@ -68,6 +70,10 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
             child: ElevatedButton(
               onPressed: () {
                 saveMyBid(user);
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>ProductDetail(product: widget.product,)),
+                );
               },
               style: ElevatedButton.styleFrom(
                   elevation: 10,
@@ -99,7 +105,7 @@ class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Container(
                   decoration: BoxDecoration(boxShadow: const [
                     BoxShadow(

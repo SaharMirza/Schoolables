@@ -38,6 +38,7 @@ class BiddingProvider with ChangeNotifier {
   }
 
   void loadUserBids(List<String> bids) async {
+    isBidsFetching = true;
     userBids = [];
     for (var id in bids) {
       print("bidID$id");
@@ -47,6 +48,7 @@ class BiddingProvider with ChangeNotifier {
       userBids.add(bid);
     }
     notifyListeners();
+    isBidsFetching = false;
   }
 
   void loadUserBuyingBids(List<String> bids) async {
