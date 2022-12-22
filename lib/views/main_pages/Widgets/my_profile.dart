@@ -302,12 +302,7 @@ class EditProfileIcon extends StatefulWidget {
 }
 
 class _EditProfileIconState extends State<EditProfileIcon> {
-  late XFile? profilePic = XFile("");
-  // saveImageInFirebase() {
-  //   var fileProfilePic = File(profilePic!.path);
-  //   Provider.of<UserProvider>(context, listen: false)
-  //       .updateProfilePic(fileProfilePic);
-  // }
+  late var profilePic;
 
   @override
   Widget build(BuildContext context) {
@@ -319,8 +314,10 @@ class _EditProfileIconState extends State<EditProfileIcon> {
             XFile? img = await pickImageFromGallery();
             setState(
               () {
-                context.read<UserProvider>().setUserProfilePic(img);
-                profilePic = img;
+                if (img != null) {
+                  context.read<UserProvider>().setUserProfilePic(img);
+                  profilePic = img;
+                }
               },
             );
           },
@@ -332,7 +329,7 @@ class _EditProfileIconState extends State<EditProfileIcon> {
         badgeColor: MyColors.startColor,
         position: BadgePosition.bottomEnd(bottom: 3, end: 6),
         child: ProfileIcon(
-            img: profilePic,
+            img: "",
             userProfile: userProfile,
             radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
       ),
@@ -476,7 +473,7 @@ class _FormTextFieldState extends State<FormTextField> {
         children: [
           TextFieldLabel(text: widget.FieldLabel),
           TextField(
-            onChanged: ((value) {
+            onSubmitted: ((value) {
               widget.onValueChanged(textController.text);
             }),
             controller: textController,
@@ -701,34 +698,35 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
 }
 
 class ProfileIcon extends StatefulWidget {
-  const ProfileIcon(
-      {super.key,
-      required this.userProfile,
-      required this.radius,
-      required this.img});
+  const ProfileIcon({
+    super.key,
+    required this.userProfile,
+    required this.radius,
+    this.img,
+  });
   final UserProfile userProfile;
   final double radius;
-  final XFile? img;
+  final img;
   @override
   State<ProfileIcon> createState() => _ProfileIconState();
 }
 
 class _ProfileIconState extends State<ProfileIcon> {
-  // late File profilePic = File(widget.img!.path);
   @override
   Widget build(BuildContext context) {
+    // print(widget.img!.path);
     return CircleAvatar(
       radius: widget.radius,
       backgroundColor: Colors.white,
-      child: widget.img == null
-          ? Image(
-              image: NetworkImage(
-                widget.userProfile.display.isEmpty
-                    ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
-                    : widget.userProfile.display,
-              ),
-            )
-          : Image.file(File(widget.img!.path)),
+      backgroundImage: context.read<UserProvider>().image!.path.isEmpty
+          ? NetworkImage(
+              widget.userProfile.display.isEmpty
+                  ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
+                  : widget.userProfile.display,
+            ) as ImageProvider
+          : FileImage(
+              File(context.read<UserProvider>().image!.path),
+            ),
     );
   }
 }
