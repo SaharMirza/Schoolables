@@ -12,7 +12,7 @@ class UserProvider extends ChangeNotifier {
   UserProfile get userProfile => user;
   bool isLoading = false;
   final storageRef = FirebaseStorage.instance.ref();
-  late XFile? image;
+  late XFile? image = XFile("");
 
   Future<void> loadUsers() async {
     await firebaseUser.get().then((QuerySnapshot querySnapshot) {
@@ -283,31 +283,22 @@ class UserProvider extends ChangeNotifier {
   }
 
   void EditUser() async {
-    // print("print Edit User: " +
-    //     userName +
-    //     " " +
-    //     dOB +
-    //     " " +
-    //     " " +
-    //     phoneNumber +
-    //     " " +
-    //     email +
-    //     " " +
-    //     img +
-    //     " ");
+    print("print Edit User: " +
+        user.email +
+        " " +
+        user.name +
+        " " +
+        " " +
+        user.phone +
+        " " +
+        user.dob +
+        " " +
+        " " +
+        " ");
     user.display = await updateProfilePic(File(image!.path));
     notifyListeners();
     saveChanges();
     notifyListeners();
-    // firebaseUser.doc(user.id).update(
-    //   {
-    //     userName.isNotEmpty ? "name" : userName: null,
-    //     dOB.isNotEmpty ? "dob" : dOB: null,
-    //     phoneNumber.isNotEmpty ? "phone" : phoneNumber: null,
-    //     email.isNotEmpty ? "email" : email: null,
-    //     img.isNotEmpty ? "display" : img: null,
-    //   },
-    // ).then((value) => print("Edit User Updated"));
   }
 
   void setUserEmail(String email) {
@@ -321,7 +312,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   void setUserName(String name) {
-    user.name;
+    user.name = name;
     notifyListeners();
   }
 

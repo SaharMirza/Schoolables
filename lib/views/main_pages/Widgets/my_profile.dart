@@ -317,10 +317,12 @@ class _EditProfileIconState extends State<EditProfileIcon> {
         badgeContent: GestureDetector(
           onTap: () async {
             XFile? img = await pickImageFromGallery();
-            setState(() {
-              context.read<UserProvider>().setUserProfilePic(img);
-              profilePic = img;
-            });
+            setState(
+              () {
+                context.read<UserProvider>().setUserProfilePic(img);
+                profilePic = img;
+              },
+            );
           },
           child: Icon(
             Icons.add_a_photo_outlined,
@@ -422,6 +424,7 @@ class BasicInformationSection extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8),
           child: FormTextField(
             onValueChanged: ((name) {
+              print(name);
               context.read<UserProvider>().setUserName(name);
             }),
             FieldLabel: "User Name",
@@ -463,6 +466,8 @@ class FormTextField extends StatefulWidget {
 }
 
 class _FormTextFieldState extends State<FormTextField> {
+  TextEditingController textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -471,10 +476,10 @@ class _FormTextFieldState extends State<FormTextField> {
         children: [
           TextFieldLabel(text: widget.FieldLabel),
           TextField(
-            onSubmitted: ((value) {
-              widget.onValueChanged(widget.controller.text);
+            onChanged: ((value) {
+              widget.onValueChanged(textController.text);
             }),
-            controller: widget.controller,
+            controller: textController,
             decoration: InputDecoration(
               hintText: widget.hintText,
               fillColor: MyColors.textFieldColor,
@@ -583,28 +588,8 @@ class _SaveBtnState extends State<SaveBtn> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        // print("print Edit User: " +
-        //     widget.userName +
-        //     " " +
-        //     widget.dob +
-        //     " " +
-        //     " " +
-        //     widget.phoneNumber +
-        //     " " +
-        //     widget.email +
-        //     " " +
-        //     widget.img!.path.toString() +
-        //     " ");
         context.read<UserProvider>().EditUser();
-
-        // String downloadUrl =
-        //     await context.read<UserProvider>().updateProfilePic(
-        //           File(widget.img!.path),
-        //         );
-        // context.read<UserProvider>().EditUser(widget.userName, widget.dob,
-        //     widget.phoneNumber, widget.email, downloadUrl);
-
-        // Navigator.of(context).pop();
+        Navigator.of(context).pop();
       },
       child: Text("Save",
           style: MyStyles.underlinedGreyText(widget.screenWidth * 0.05)),
