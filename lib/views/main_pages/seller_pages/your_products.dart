@@ -1,4 +1,3 @@
-
 import '../../../imports.dart';
 
 class YourProductsPage extends StatefulWidget {
@@ -26,6 +25,7 @@ class _YourProductsPageState extends State<YourProductsPage> {
     sellerProducts = context.watch<ProductsProvider>().userProducts;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    fetching = context.watch<ProductsProvider>().isProductFetching;
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -60,10 +60,10 @@ class _YourProductsPageState extends State<YourProductsPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      sellerProducts.isEmpty
+                      fetching
                           ? const CircularProgressIndicator()
-                          : context.read<ProductsProvider>().isProductsFetching
-                              ? const CircularProgressIndicator()
+                          : sellerProducts.isEmpty
+                              ? const Text("You dont have any Products.")
                               : ListView.builder(
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,

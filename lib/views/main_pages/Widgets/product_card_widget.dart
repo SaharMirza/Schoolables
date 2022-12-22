@@ -85,17 +85,17 @@ class _ProductCardState extends State<ProductCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      FavouriteWidget(
-                        isFav: widget.isFav,
-                        onTap: () {
-                          widget.isFav = !widget.isFav;
-                          setState(() {});
-                          widget.isFav
-                              ? addFav(widget.pid)
-                              : removeFav(widget.pid);
-                          setState(() {});
-                        },
-                      ),
+                      // FavouriteWidget(
+                      //   isFav: widget.isFav,
+                      //   onTap: () {
+                      //     widget.isFav = !widget.isFav;
+                      //     setState(() {});
+                      //     widget.isFav
+                      //         ? addFav(widget.pid)
+                      //         : removeFav(widget.pid);
+                      //     setState(() {});
+                      //   },
+                      // ),
                     ],
                   ),
                 ],
@@ -105,15 +105,30 @@ class _ProductCardState extends State<ProductCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.name,
-                          style: MyStyles.googleSecondTitleText(14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.name,style: MyStyles.googleSecondTitleText(14),),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Rs. ${widget.price}"),
+                              FavouriteWidget(
+                          isFav: widget.isFav,
+                          onTap: () {
+                            widget.isFav = !widget.isFav;
+                            setState(() {});
+                            widget.isFav
+                                ? addFav(widget.pid)
+                                : removeFav(widget.pid);
+                            setState(() {});
+                          },
                         ),
-                        Text("Rs. ${widget.price}"),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -141,8 +156,8 @@ class FavouriteWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Icon(
-        Icons.favorite_sharp,
-        color: isFav ? Colors.red : const Color.fromARGB(255, 197, 194, 194),
+        Icons.favorite_rounded,
+        color: isFav ? Color.fromARGB(255, 202, 14, 1) : Color.fromARGB(255, 197, 194, 194),
       ),
     );
   }

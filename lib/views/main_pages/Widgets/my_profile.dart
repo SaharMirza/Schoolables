@@ -16,19 +16,6 @@ class MyProfileListView extends StatelessWidget {
         //Can add ListView here to make the list tiles scrollable
         children: [
           MyProfileListTile(
-              icon: Icons.wallet,
-              title: "My Orders and Products",
-              subtitle: "Your Products, Orders, billing and invoices",
-              screenHeight: screenHeight,
-              screenWidth: screenHeight),
-          MyProfileListTile(
-            icon: Icons.settings,
-            title: "Settings",
-            subtitle: "Privacy and manage accounts",
-            screenHeight: screenHeight,
-            screenWidth: screenHeight,
-          ),
-          MyProfileListTile(
               screenHeight: screenHeight,
               screenWidth: screenHeight,
               icon: Icons.help,
@@ -759,7 +746,7 @@ class _ProfileIconState extends State<ProfileIcon> {
       backgroundColor: Colors.white,
       child: Image(
         image: NetworkImage(widget.userProfile.display.isEmpty
-            ? "https://img.icons8.com/bubbles/50/000000/user.png"
+            ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
             : widget.userProfile.display),
       ),
     );

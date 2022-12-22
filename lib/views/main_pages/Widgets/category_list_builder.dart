@@ -12,23 +12,23 @@ class CatergoryListBuilder extends StatefulWidget {
 }
 
 class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
-  //     context.read<CategoriesProvider>().fetchCategories();
-  //     // context.read<ProductsProvider>().fetchProducts();
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // context.read<CategoriesProvider>().fetchCategories();
+      context.read<ProductsProvider>().fetchProducts();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final categories = context.watch<CategoriesProvider>().categories;
-    final product = context.read<ProductsProvider>().products;
+    final product = context.watch<ProductsProvider>().products;
     List<ProductModel> booksList = [];
-    List<ProductModel> bagsList = [];
+    List<ProductModel> BagsList = [];
     List<ProductModel> stationaryList = [];
 
     for (int i = 0; i < product.length; i++) {
@@ -36,9 +36,9 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
       if (product[i].category == "Books") {
         booksList.add(product[i]);
       }
-      //if product cat name = bags
-      else if (product[i].category == "bags") {
-        bagsList.add(product[i]);
+      //if product cat name = Bags
+      else if (product[i].category == "Bags") {
+        BagsList.add(product[i]);
       }
       //if product cat name = stationary
       else if (product[i].category == "Stationary") {
@@ -51,7 +51,7 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
    List<Categories> Category = [
       Categories(name: "Books", image: "assets/images/book.gif"),
       Categories(name: "Stationary", image: "assets/images/stationary.gif"),
-      Categories(name: "bags", image: "assets/images/bag.gif"),
+      Categories(name: "Bags", image: "assets/images/bag.gif"),
     ];
 
     void booklist(index) {
@@ -76,13 +76,13 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
       );
     }
 
-    void bags(index) {
+    void Bags(index) {
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => ProductsPage(
                   title: Category[index].name,
-                  products: bagsList,
+                  products: BagsList,
                 )),
       );
     }
@@ -111,9 +111,9 @@ class _CatergoryListBuilderState extends State<CatergoryListBuilder> {
                             print("wait");
                           }
                         }
-                        if (categories[index].catName == "bags") {
+                        if (categories[index].catName == "Bags") {
                           if (product.isNotEmpty) {
-                            bags(index);
+                            Bags(index);
                           } else {
                             print("wait");
                           }
