@@ -41,111 +41,109 @@ class _EditProductFieldsState extends State<EditProductFields> {
     priceController.text=widget.sellerProduct.price.toString();
     titleController.text=widget.sellerProduct.title;
 
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: FormTextField(
-              FieldLabel: "Title",
-              hintText: widget.sellerProduct.title,
-              controller: titleController,
-              isEmpty: false, onValueChanged: (String ) {  },
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: FormTextField(
+            FieldLabel: "Title",
+            hintText: widget.sellerProduct.title,
+            controller: titleController,
+            isEmpty: false, onValueChanged: (String ) {  },
           ),
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Category", style: MyStyles.googleTextFieldLabelStyle),
-                  dropdownCategory()
-                ],
-              )),
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Sub Category",
-                      style: MyStyles.googleTextFieldLabelStyle),
-                  dropDownSubCategory()
-                ],
-              )),
-          Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Condition", style: MyStyles.googleTextFieldLabelStyle),
-                  dropdownCondition()
-                ],
-              )),
-          Padding(
+        ),
+        Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: FormTextField(
-              FieldLabel: "Price",
-              hintText: widget.sellerProduct.price.toString(),
-              controller: priceController,
-              isEmpty: false, onValueChanged: (String ) {  },
-            ),
-          ),
-          Padding(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Category", style: MyStyles.googleTextFieldLabelStyle),
+                dropdownCategory()
+              ],
+            )),
+        Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: LocationTextFieldNBtn(screenWidth: screenWidth),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Sub Category",
+                    style: MyStyles.googleTextFieldLabelStyle),
+                dropDownSubCategory()
+              ],
+            )),
+        Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Condition", style: MyStyles.googleTextFieldLabelStyle),
+                dropdownCondition()
+              ],
+            )),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: FormTextField(
+            FieldLabel: "Price",
+            hintText: widget.sellerProduct.price.toString(),
+            controller: priceController,
+            isEmpty: false, onValueChanged: (String ) {  },
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            height: screenHeight * 0.15 - screenWidth * 0.02,
-            decoration: BoxDecoration(
-                border: Border.all(color: MyColors.textColor),
-                color: MyColors.startColor),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(children: [
-                const Icon(Icons.info_outlined),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "Pickup point helps the buyer to locate where your book is located. You an change the location and mark it near your college as to reach more number of potential buyers.",
-                    style: MyStyles.googleTitleText(screenWidth * 0.03),
-                  ),
-                )
-              ]),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                      Product product = Product(
-                      id:widget.sellerProduct.id,
-                      sellerID: userProfile.id,
-                      title: titleController.text,
-                      price: int.parse(priceController.text),
-                      images: widget.sellerProduct.images,
-                      category: _currentCategory,
-                      subCategory: _currentSubCategory,
-                      condition: _currentCondition);
-                      context.read<ProductsProvider>().updateProduct(product);
-                   Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: MyColors.buttonColor,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: LocationTextFieldNBtn(screenWidth: screenWidth),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          height: screenHeight * 0.15 - screenWidth * 0.02,
+          decoration: BoxDecoration(
+              border: Border.all(color: MyColors.textColor),
+              color: MyColors.startColor),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: [
+              const Icon(Icons.info_outlined),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "Pickup point helps the buyer to locate where your book is located. You an change the location and mark it near your college as to reach more number of potential buyers.",
+                  style: MyStyles.googleTitleText(screenWidth * 0.03),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("Save Changes",
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ))
-        ],
-      ),
+              )
+            ]),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                    Product product = Product(
+                    id:widget.sellerProduct.id,
+                    sellerID: userProfile.id,
+                    title: titleController.text,
+                    price: int.parse(priceController.text),
+                    images: widget.sellerProduct.images,
+                    category: _currentCategory,
+                    subCategory: _currentSubCategory,
+                    condition: _currentCondition);
+                    context.read<ProductsProvider>().updateProduct(product);
+                 Navigator.of(context).pop();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: MyColors.buttonColor,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Save Changes",
+                    style: TextStyle(color: Colors.white)),
+              ),
+            ))
+      ],
     );
   }
 
@@ -241,7 +239,7 @@ class _EditProductFieldsState extends State<EditProductFields> {
               padding: const EdgeInsets.only(left: 10, right: 2),
               child: DropdownButton(
                 value: currentCategory,
-                hint: Text(currentCategory),
+                hint: Text("currentCategory"),
                 isExpanded: true,
                 underline: Container(),
                 focusColor: Colors.white,

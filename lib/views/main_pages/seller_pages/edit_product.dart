@@ -10,21 +10,11 @@ class EditProductPage extends StatefulWidget {
 }
 
 class _EditProductPageState extends State<EditProductPage> {
-  List<String> category = [];
-  List<String> subCategory = [];
-  @override
+@override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    final categories = context.read<CategoriesProvider>().categories;
-    for (int i = 0; i < categories.length; i++) {
-      if (categories[i].parentID == "0") {
-        category.add(categories[i].catName.toString());
-      } else {
-        subCategory.add(categories[i].catName.toString());
-      }
-    }
     return Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(10.0),

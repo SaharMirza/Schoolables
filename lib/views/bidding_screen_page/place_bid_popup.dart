@@ -17,6 +17,13 @@ class PlaceBidPopUp extends StatefulWidget {
 }
 
 class _PlaceBidPopUpState extends State<PlaceBidPopUp> {
+   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<BiddingProvider>().fetchBids();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final userAuth = Provider.of<UserAuth?>(context);

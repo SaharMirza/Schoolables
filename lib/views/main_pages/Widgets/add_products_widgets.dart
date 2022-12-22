@@ -289,11 +289,8 @@ class _LocationTextFieldNBtnState extends State<LocationTextFieldNBtn> {
                   width: 2,
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Get Location",
-                    style: TextStyle(color: MyColors.textColor)),
-              ),
+              child: Text("Get Location",
+                  style: TextStyle(color: MyColors.textColor)),
             ),
           ],
         ),

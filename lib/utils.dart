@@ -12,14 +12,6 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _MyAppBarState extends State<MyAppBar> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      List<String> bids = context.read<UserProvider>().user.sellingbiddingIDs;
-      context.read<BiddingProvider>().loadUserBids(bids);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
