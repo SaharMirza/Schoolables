@@ -340,18 +340,17 @@ class _EditProfileIconState extends State<EditProfileIcon> {
 
 // Text Fields section for User's contact information
 class ContactInformationSection extends StatelessWidget {
-  const ContactInformationSection({
+  ContactInformationSection({
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
   }) : super(key: key);
   final double screenHeight;
   final double screenWidth;
-
+  TextEditingController numberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController numberController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
     final userProfile = context.watch<UserProvider>().userProfile;
 
     return Column(
@@ -394,7 +393,7 @@ class ContactInformationSection extends StatelessWidget {
 
 // TextField section for Basic Information section
 class BasicInformationSection extends StatelessWidget {
-  const BasicInformationSection({
+  BasicInformationSection({
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
@@ -402,8 +401,8 @@ class BasicInformationSection extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
   @override
+  TextEditingController nameController = TextEditingController();
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
     final userProfile = context.watch<UserProvider>().userProfile;
     String dob = "";
     // final TextEditingController _priceController = TextEditingController();
