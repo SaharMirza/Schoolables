@@ -12,6 +12,7 @@ class UserProvider extends ChangeNotifier {
   UserProfile get userProfile => user;
   bool isLoading = false;
   final storageRef = FirebaseStorage.instance.ref();
+  late XFile? image;
 
   Future<void> loadUsers() async {
     await firebaseUser.get().then((QuerySnapshot querySnapshot) {
@@ -281,29 +282,57 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void EditUser(String userName, String dOB, String phoneNumber, String email,
-      String img) {
-    print("print Edit User: " +
-        userName +
-        " " +
-        dOB +
-        " " +
-        " " +
-        phoneNumber +
-        " " +
-        email +
-        " " +
-        img +
-        " ");
-    firebaseUser.doc(user.id).update(
-      {
-        userName.isNotEmpty ? "name" : userName: null,
-        dOB.isNotEmpty ? "dob" : dOB: null,
-        phoneNumber.isNotEmpty ? "phone" : phoneNumber: null,
-        email.isNotEmpty ? "email" : email: null,
-        img.isNotEmpty ? "display" : img: null,
-      },
-    ).then((value) => print("Edit User Updated"));
+  void EditUser() async {
+    // print("print Edit User: " +
+    //     userName +
+    //     " " +
+    //     dOB +
+    //     " " +
+    //     " " +
+    //     phoneNumber +
+    //     " " +
+    //     email +
+    //     " " +
+    //     img +
+    //     " ");
+    user.display = await updateProfilePic(File(image!.path));
+    notifyListeners();
+    saveChanges();
+    notifyListeners();
+    // firebaseUser.doc(user.id).update(
+    //   {
+    //     userName.isNotEmpty ? "name" : userName: null,
+    //     dOB.isNotEmpty ? "dob" : dOB: null,
+    //     phoneNumber.isNotEmpty ? "phone" : phoneNumber: null,
+    //     email.isNotEmpty ? "email" : email: null,
+    //     img.isNotEmpty ? "display" : img: null,
+    //   },
+    // ).then((value) => print("Edit User Updated"));
+  }
+
+  void setUserEmail(String email) {
+    user.email = email;
+    notifyListeners();
+  }
+
+  void setUserNumber(String num) {
+    user.phone = num;
+    notifyListeners();
+  }
+
+  void setUserName(String name) {
+    user.name;
+    notifyListeners();
+  }
+
+  void setUserProfilePic(XFile? img) {
+    image = img;
+    notifyListeners();
+  }
+
+  void setUserDOB(String DOB) {
+    user.dob = DOB;
+    notifyListeners();
   }
 
   Future<String> updateProfilePic(File profilePic) async {

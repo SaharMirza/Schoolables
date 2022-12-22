@@ -36,12 +36,6 @@ class _EditProfileInformationState extends State<EditProfileInformation> {
                 child: EditProfileCard(
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,
-                  userName: userName,
-                  email: email,
-                  dob: dob,
-                  img: img,
-                  phoneNumber: phoneNumber,
-                  onValueChanged: (String) {},
                 ),
               ),
               //Edit Profile Picture Section
@@ -50,38 +44,23 @@ class _EditProfileInformationState extends State<EditProfileInformation> {
                 child: EditProfileIcon(
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,
-                  onValueChanged: (value) {
-                    setState(() {
-                      img = value;
-                    });
-                  },
                 ),
               ),
               // Basic Information Fields Section
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: BasicInformationSection(
-                    screenHeight: screenHeight,
-                    screenWidth: screenWidth,
-                    onValueChanged: (name, dob) {
-                      setState(() {
-                        name = name;
-                        dob = dob;
-                      });
-                    }),
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                ),
               ),
               // Contact Information Fields Section
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ContactInformationSection(
-                    screenHeight: screenHeight,
-                    screenWidth: screenWidth,
-                    onValueChanged: (number, _email) {
-                      setState(() {
-                        phoneNumber = number;
-                        email = _email;
-                      });
-                    }),
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                ),
               ),
             ],
           ),

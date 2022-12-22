@@ -198,7 +198,10 @@ class MyProfileNameCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 5),
             child: ProfileIcon(
-                userProfile: userProfile, radius: screenWidth * 0.15),
+              userProfile: userProfile,
+              radius: screenWidth * 0.15,
+              img: null,
+            ),
           ),
           SizedBox(
             // height: screenHeight * 0.165,
@@ -261,22 +264,11 @@ class EditProfileCard extends StatelessWidget {
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
-    required this.onValueChanged,
-    required this.img,
-    required this.userName,
-    required this.dob,
-    required this.phoneNumber,
-    required this.email,
   }) : super(key: key);
 
   final double screenHeight;
   final double screenWidth;
-  final String userName;
-  final String dob;
-  final String phoneNumber;
-  final String email;
-  final XFile? img;
-  final Function(String) onValueChanged;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -287,13 +279,9 @@ class EditProfileCard extends StatelessWidget {
           screenWidth: screenWidth,
         ),
         SaveBtn(
-            screenHeight: screenHeight,
-            screenWidth: screenWidth,
-            dob: dob,
-            email: email,
-            phoneNumber: phoneNumber,
-            userName: userName,
-            img: img),
+          screenHeight: screenHeight,
+          screenWidth: screenWidth,
+        ),
       ],
     );
   }
@@ -301,27 +289,25 @@ class EditProfileCard extends StatelessWidget {
 
 // Change Profile picture widget
 class EditProfileIcon extends StatefulWidget {
-  const EditProfileIcon(
-      {super.key,
-      required this.screenHeight,
-      required this.screenWidth,
-      required this.onValueChanged});
+  const EditProfileIcon({
+    super.key,
+    required this.screenHeight,
+    required this.screenWidth,
+  });
   final double screenHeight;
   final double screenWidth;
-  final Function(XFile?) onValueChanged;
 
   @override
   State<EditProfileIcon> createState() => _EditProfileIconState();
 }
 
 class _EditProfileIconState extends State<EditProfileIcon> {
-  late XFile? profilePic;
-
-  saveImageInFirebase() {
-    var fileProfilePic = File(profilePic!.path);
-    Provider.of<UserProvider>(context, listen: false)
-        .updateProfilePic(fileProfilePic);
-  }
+  late XFile? profilePic = XFile("");
+  // saveImageInFirebase() {
+  //   var fileProfilePic = File(profilePic!.path);
+  //   Provider.of<UserProvider>(context, listen: false)
+  //       .updateProfilePic(fileProfilePic);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -329,11 +315,12 @@ class _EditProfileIconState extends State<EditProfileIcon> {
     return Center(
       child: Badge(
         badgeContent: GestureDetector(
-          onTap: () {
+          onTap: () async {
+            XFile? img = await pickImageFromGallery();
             setState(() {
-              profilePic = pickImageFromGallery();
+              context.read<UserProvider>().setUserProfilePic(img);
+              profilePic = img;
             });
-            widget.onValueChanged(profilePic);
           },
           child: Icon(
             Icons.add_a_photo_outlined,
@@ -343,6 +330,7 @@ class _EditProfileIconState extends State<EditProfileIcon> {
         badgeColor: MyColors.startColor,
         position: BadgePosition.bottomEnd(bottom: 3, end: 6),
         child: ProfileIcon(
+            img: profilePic,
             userProfile: userProfile,
             radius: widget.screenWidth * 0.2 - widget.screenHeight * 0.009),
       ),
@@ -356,20 +344,16 @@ class ContactInformationSection extends StatelessWidget {
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
-    required this.onValueChanged,
   }) : super(key: key);
   final double screenHeight;
   final double screenWidth;
-  final Function(String, String) onValueChanged;
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController numberController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
     final userProfile = context.watch<UserProvider>().userProfile;
 
-    if (numberController.text.isNotEmpty || emailController.text.isNotEmpty) {
-      onValueChanged(numberController.text, emailController.text);
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -382,6 +366,9 @@ class ContactInformationSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: FormTextField(
+            onValueChanged: ((num) {
+              context.read<UserProvider>().setUserNumber(num);
+            }),
             FieldLabel: "Phone Number",
             hintText: userProfile.phone,
             controller: numberController,
@@ -391,6 +378,9 @@ class ContactInformationSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: FormTextField(
+            onValueChanged: ((email) {
+              context.read<UserProvider>().setUserEmail(email);
+            }),
             FieldLabel: "Email",
             hintText: userProfile.email,
             controller: emailController,
@@ -408,20 +398,18 @@ class BasicInformationSection extends StatelessWidget {
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
-    required this.onValueChanged,
   }) : super(key: key);
   final double screenHeight;
   final double screenWidth;
-  final Function(String, String) onValueChanged;
   @override
   Widget build(BuildContext context) {
     final TextEditingController nameController = TextEditingController();
     final userProfile = context.watch<UserProvider>().userProfile;
     String dob = "";
     // final TextEditingController _priceController = TextEditingController();
-    if (nameController.text.isNotEmpty || dob.isNotEmpty) {
-      onValueChanged(nameController.text, dob);
-    }
+    // if (nameController.text.isNotEmpty || dob.isNotEmpty) {
+    //   onValueChanged(nameController.text, dob);
+    // }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -434,6 +422,9 @@ class BasicInformationSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: FormTextField(
+            onValueChanged: ((name) {
+              context.read<UserProvider>().setUserName(name);
+            }),
             FieldLabel: "User Name",
             hintText: userProfile.name,
             controller: nameController,
@@ -444,7 +435,7 @@ class BasicInformationSection extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 8.0),
           child: DatePickerTextField(
             onValueChanged: (String) {
-              dob = String;
+              context.read<UserProvider>().setUserDOB(String);
             },
           ),
         ),
@@ -461,10 +452,12 @@ class FormTextField extends StatefulWidget {
     required this.hintText,
     required this.controller,
     required this.isEmpty,
+    required this.onValueChanged,
   });
   final bool isEmpty;
   final String FieldLabel;
   final TextEditingController controller;
+  final Function(String) onValueChanged;
   final String hintText;
   @override
   State<FormTextField> createState() => _FormTextFieldState();
@@ -479,6 +472,9 @@ class _FormTextFieldState extends State<FormTextField> {
         children: [
           TextFieldLabel(text: widget.FieldLabel),
           TextField(
+            onSubmitted: ((value) {
+              widget.onValueChanged(widget.controller.text);
+            }),
             controller: widget.controller,
             decoration: InputDecoration(
               hintText: widget.hintText,
@@ -572,22 +568,13 @@ class _DropDownState extends State<DropDown> {
 
 // Save button
 class SaveBtn extends StatefulWidget {
-  const SaveBtn(
-      {super.key,
-      required this.screenHeight,
-      required this.screenWidth,
-      required this.userName,
-      required this.dob,
-      required this.phoneNumber,
-      required this.email,
-      required this.img});
+  const SaveBtn({
+    super.key,
+    required this.screenHeight,
+    required this.screenWidth,
+  });
   final double screenHeight;
   final double screenWidth;
-  final String userName;
-  final String dob;
-  final String phoneNumber;
-  final String email;
-  final XFile? img;
   @override
   State<SaveBtn> createState() => _SaveBtnState();
 }
@@ -597,20 +584,20 @@ class _SaveBtnState extends State<SaveBtn> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        print("print Edit User: " +
-            widget.userName +
-            " " +
-            widget.dob +
-            " " +
-            " " +
-            widget.phoneNumber +
-            " " +
-            widget.email +
-            " " +
-            widget.img!.path.toString() +
-            " ");
+        // print("print Edit User: " +
+        //     widget.userName +
+        //     " " +
+        //     widget.dob +
+        //     " " +
+        //     " " +
+        //     widget.phoneNumber +
+        //     " " +
+        //     widget.email +
+        //     " " +
+        //     widget.img!.path.toString() +
+        //     " ");
+        context.read<UserProvider>().EditUser();
 
-            
         // String downloadUrl =
         //     await context.read<UserProvider>().updateProfilePic(
         //           File(widget.img!.path),
@@ -731,24 +718,33 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
 
 class ProfileIcon extends StatefulWidget {
   const ProfileIcon(
-      {super.key, required this.userProfile, required this.radius});
+      {super.key,
+      required this.userProfile,
+      required this.radius,
+      required this.img});
   final UserProfile userProfile;
   final double radius;
+  final XFile? img;
   @override
   State<ProfileIcon> createState() => _ProfileIconState();
 }
 
 class _ProfileIconState extends State<ProfileIcon> {
+  // late File profilePic = File(widget.img!.path);
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: widget.radius,
       backgroundColor: Colors.white,
-      child: Image(
-        image: NetworkImage(widget.userProfile.display.isEmpty
-            ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
-            : widget.userProfile.display),
-      ),
+      child: widget.img == null
+          ? Image(
+              image: NetworkImage(
+                widget.userProfile.display.isEmpty
+                    ? "https://static.vecteezy.com/system/resources/previews/007/033/146/original/profile-icon-login-head-icon-vector.jpg"
+                    : widget.userProfile.display,
+              ),
+            )
+          : Image.file(File(widget.img!.path)),
     );
   }
 }

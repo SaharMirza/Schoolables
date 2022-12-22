@@ -398,7 +398,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             FieldLabel: "Title",
             hintText: "Title",
             controller: titleController,
-            isEmpty: false,
+            isEmpty: false, onValueChanged: (String ) {  },
           ),
         ),
         Padding(
@@ -434,7 +434,7 @@ class _AddProductFieldsState extends State<AddProductFields> {
             FieldLabel: "Price",
             hintText: "Price",
             controller: priceController,
-            isEmpty: false,
+            isEmpty: false, onValueChanged: (String ) {  },
           ),
         ),
         Padding(
