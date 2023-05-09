@@ -1,0 +1,120 @@
+[
+  {
+    "area_name": "Gulshan",
+    "coords": {
+      "lat": 24.92684068728161,
+      "lng": 67.09632302273683
+    },
+    "areas": [
+      {
+        "coords": {
+          "lat": 24.929404668567617,
+          "lng": 67.09328436363701
+        },
+        "id": "derm-md",
+        "name": "Derm MD Care",
+        "address": "A/297, Block 3 Gulshan-e-Iqbal, Karachi, Karachi City, Sindh 75300, Pakistan",
+        "phone": "02134963376"
+      },
+      {
+        "coords": {
+          "lat": 24.9267412543149,
+          "lng": 67.09255847891315
+        },
+        "id": "dermlex",
+        "name": "Dermlax Skincare Clinic",
+        "address": "House no.FL-1, 14, Block 3 Gulshan-e-Iqbal, Karachi, Karachi City, Sindh 75300, Pakistan",
+        "phone": "03330235820"
+      },
+      {
+        "coords": {
+          "lat": 24.899540741559747,
+          "lng": 67.07881040638816
+        },
+        "id": "skinthetic",
+        "name": "SkinThetic by Dr.Sadaf Farooque",
+        "address": "ST 2/A, 24, near National Stadium, KDA Scheme #1 Block 17 Gulshan-e-Iqbal, Karachi, 75300, Pakistan",
+        "phone": "03334476888"
+      },
+      {
+        "coords": {
+          "lat": 24.920204698879786,
+          "lng": 67.1302450545640724
+        },
+        "id": "skinlaserclinic",
+        "name": "Dr Hina Sohail Skin and Laser Clinic",
+        "address": "Shumail Heaven, New Rd Service Ln, Block 16 Gulistan-e-Johar, Karachi, Karachi City, Sindh, Pakistan",
+        "phone": "03008212753"
+      },
+      {
+        "coords": {
+          "lat": 24.921632370999532,
+          "lng": 67.11926577110933
+        },
+        "id": "skinspecialist",
+        "name": "Dr Farina Zameer - Skin Specialist",
+        "address": "ZAIBUNNISA CLINIC, Shumail Heaven, A-008, Block 16 Gulistan-e-Johar, Karachi, Karachi City, Sindh 75290, Pakistan",
+        "phone": "03142217924"
+      }
+    ]
+  },
+  {
+    "area_name": "Defence",
+    "coords": {
+      "lat": 24.81035940772831,
+      "lng": 67.05361192479758
+    },
+    "defence": [
+      {
+        "coords": {
+          "lat": 24.800801871466813,
+          "lng": 67.05704585719393
+        },
+        "id": "skinlaseraesthetic",
+        "name": "Skin And Laser Aesthtic Clinic",
+        "address": "Q3X4+WQ6, beside Pro Stationers, D.H.A Phase 6 Nishat Commercial Area Phase 6 Defence Housing Authority, Karachi, Karachi City, Sindh 75500, Pakistan",
+        "phone": "02134963376"
+      },
+      {
+        "coords": {
+          "lat": 24.809245635480476,
+          "lng": 67.03827418476938
+        },
+        "id": "ageless",
+        "name": "Ageless Skin Clinic",
+        "address": "35C 25th St, Phase V Tauheed Commercial Area Defence V Defence Housing Authority, Karachi, Karachi City, Sindh 75500, Pakistan",
+        "phone": "03312400071"
+      },
+      {
+        "coords": {
+          "lat": 24.799592523464188,
+          "lng": 67.0415462359754
+        },
+        "id": "skinspecialist",
+        "name": "Skin Specialist",
+        "address": "Shop # B 16, Phase V Defence V Defence Housing Authority, Karachi, Karachi City, Sindh 75500, Pakistan",
+        "phone": "03322163028"
+      },
+      {
+        "coords": {
+          "lat": 24.799824578242525,
+          "lng": 67.06992105502755
+        },
+        "id": "dermabeauty",
+        "name": "Dr Rabb Derma Beauty & Weight loss Clinic",
+        "address": "DHA Clinics Street 10th, Khabane Rahat, D.H.A Phase 6 Phase 6 Defence Housing Authority, Karachi, Karachi City, Sindh 75600, Pakistan",
+        "phone": "03320827125"
+      },
+      {
+        "coords": {
+          "lat": 24.811194730346013,
+          "lng": 67.06997218082762
+        },
+        "id": "sahaskin",
+        "name": "Saha Skin and Laser Clinic",
+        "address": "R36C+536, Popular Ave, D.H.A Phase 6 Rahat Commercial Area Phase 6 Defence Housing Authority, Karachi, Karachi City, Sindh 75500, Pakistan",
+        "phone": "03142217924"
+      }
+    ]
+  }
+]
