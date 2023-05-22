@@ -2,6 +2,7 @@
 import 'package:flutterdemo/views/main_pages/Widgets/textfield.dart';
 
 import '../../imports.dart';
+import '../../text_validator.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key, required this.role}) : super(key: key);
@@ -76,22 +77,47 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Widget registerInputs() {
+    String _validate(String value) {
+    if (_emailController.text.startsWith(RegExp(r'[a-zA-Z]'))) {
+      return TextValidator.email(value);
+    }  else {
+      return '';
+    }
+  }
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.5,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SchoolablesTextField(
-              FieldLabel: "Email Address",
-              hintText: "user.name@mail.com",
-              control: _emailController,
-              textType: TextInputType.emailAddress),
-          SchoolablesTextField(
-            FieldLabel: "Password",
-            hintText: "Password",
-            control: _passwordController,
-            pswd: true,
+           SchoolablesTextField(
+            // FieldLabel: "Email Address",
+            // hintText: "user.name@mail.com",
+            // control: _emailController,
+            textType: TextInputType.emailAddress, 
+            controller: _emailController,
+            label: 'Email Address',
+            validatorFunction: _validate,
+            
           ),
+          SchoolablesTextField(
+            label: "Password",
+            // extType: TextInputType., 
+            
+            // hintText: "Password",
+            controller: _passwordController,
+            password: true,
+          ),
+          // SchoolablesTextField(
+          //     label: "Email Address",
+          //     hintText: "user.name@mail.com",
+          //     control: _emailController,
+          //     textType: TextInputType.emailAddress),
+          // SchoolablesTextField(
+          //   FieldLabel: "Password",
+          //   hintText: "Password",
+          //   control: _passwordController,
+          //   pswd: true,
+          // ),
           // SchoolablesTextField(
           //     FieldLabel: "Confirm Password",
           //     hintText: "Password",

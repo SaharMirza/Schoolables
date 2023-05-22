@@ -1,5 +1,4 @@
-
-
+import 'package:flutterdemo/text_validator.dart';
 
 import '../../imports.dart';
 import '../main_pages/Widgets/textfield.dart';
@@ -66,7 +65,7 @@ class _TellUsMoreState extends State<TellUsMore> {
         return DropdownButton(
           value: value,
           borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-            icon: const Icon(Icons.arrow_downward_sharp),
+          icon: const Icon(Icons.arrow_downward_sharp),
           isExpanded: true,
           items: list.map((String items) {
             return DropdownMenuItem(
@@ -87,17 +86,17 @@ class _TellUsMoreState extends State<TellUsMore> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                // Name TextField
                 SchoolablesTextField(
-                    FieldLabel: "User Name",
-                    hintText: "Name",
-                    control: _nameController),
+                    label: "User Name",
+                    // hintText: "Name",
+                    controller: _nameController),
                 // Phone Number TextField
                 SchoolablesTextField(
-                  FieldLabel: "Phone Number",
-                  hintText: "Phone Number",
-                  control: _phoneController,
+                  label: "Phone Number",
+                  // hintText: "Phone Number",
+                  controller: _phoneController,
                   textType: TextInputType.number,
+                  validatorFunction: TextValidator.phoneNumber,
                 ),
                 //Schoolname dropdown
                 Column(
@@ -107,7 +106,7 @@ class _TellUsMoreState extends State<TellUsMore> {
                     dropDown(_currentschoolName, schoolName),
                   ],
                 ),
-                
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -115,8 +114,6 @@ class _TellUsMoreState extends State<TellUsMore> {
                     dropDown(_currentgrade, grade),
                   ],
                 ),
-                
-                //grade dropdown
               ]),
         ),
       );

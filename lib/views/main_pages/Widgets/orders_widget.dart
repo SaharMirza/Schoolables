@@ -128,11 +128,12 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
-        height: 150,
+        height: screenHeight * 0.2,
         decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -154,7 +155,7 @@ class _BuyingOrdersWidget extends State<BuyingOrdersWidget> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: SizedBox(
-              width: 800,
+              width:screenHeight * 0.4,
               child: Row(children: [
                 OrderCardImage(imageURL: widget.product!.images),
                 OrderCardColumn2(

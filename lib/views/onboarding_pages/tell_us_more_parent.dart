@@ -79,14 +79,14 @@ class _TellUsMoreParentState extends State<TellUsMoreParent> {
             children: <Widget>[
               // Name TextField
               SchoolablesTextField(
-                  FieldLabel: "User Name",
-                  hintText: "Name",
-                  control: _nameController),
+                  label: "User Name",
+                  // hintText: "Name",
+                  controller: _nameController),
               // Phone Number TextField
               SchoolablesTextField(
-                FieldLabel: "Phone Number",
-                hintText: "Phone Number",
-                control: _phoneController,
+                label: "Phone Number",
+                // hintText: "Phone Number",
+                controller: _phoneController,
                 textType: TextInputType.number,
               ),
             ]),

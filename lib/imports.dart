@@ -102,7 +102,7 @@ export 'package:firebase_core/firebase_core.dart';
 export 'firebase_options.dart';
 export 'package:fluttertoast/fluttertoast.dart';
 export 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-export 'package:badges/badges.dart';
+// export 'package:badges/badges.dart';
 export 'package:flutter/material.dart';
 export 'dart:io';
 export 'package:cloud_firestore/cloud_firestore.dart';

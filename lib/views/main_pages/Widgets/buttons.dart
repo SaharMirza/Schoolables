@@ -19,58 +19,7 @@ class _ButtonsState extends State<Buttons> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: widget.functionToComply,
-    
-        // onPressed: () {
-        //   if (widget.ButtonName == "Login") {
-        //     if (widget.role == "Parent") {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //             builder: (context) => ChildernProfileScreen()),
-        //       );
-        //     } else {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => const BottomNavBar()),
-        //       );
-        //     }
-        //   }
-        //   if (widget.ButtonName == "Register") {
-        //     if (widget.role == "Parent") {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => TellUsMoreParent()),
-        //       );
-        //     } else {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => TellUsMore()),
-        //       );
-        //     }
-        //   }
-        //   if (widget.ButtonName == "Next") {
-        //     if (widget.role == "Parent") {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => ChildernProfileScreen()),
-        //       );
-        //     } else {
-        //       Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => BottomNavBar()),
-            
-        //       );
-        //     }
-            
-        //   }
-        //   if (widget.ButtonName == "Scan New List") {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => CameraScreen()),
-        //     );
-        //   }
-        // },
-        style: ElevatedButton.styleFrom(
+            style: ElevatedButton.styleFrom(
             elevation: 20,
             minimumSize: const Size(180, 50),
             backgroundColor: MyColors.buttonColor,

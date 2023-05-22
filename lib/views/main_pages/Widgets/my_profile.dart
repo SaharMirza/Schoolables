@@ -1,5 +1,7 @@
+import 'package:flutterdemo/views/main_pages/Widgets/logout_popup.dart';
 import 'package:intl/intl.dart';
 import '../../../imports.dart';
+import 'package:badges/badges.dart' as badges;
 
 class MyProfileListView extends StatelessWidget {
   const MyProfileListView({
@@ -130,15 +132,25 @@ class _LogoutBtnWidgetState extends State<LogoutBtnWidget> {
   @override
   Widget build(BuildContext context) {
     final userAuth = Provider.of<UserAuth?>(context);
-    // final _auth = AuthService();
+
+    onYesPressed() {
+      // logout
+      FirebaseAuth.instance.signOut();
+      print("Logged out");
+      setState(() {});
+      // pop until login page
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
+
     return ElevatedButton(
       onPressed: () async {
-        // logout
-        FirebaseAuth.instance.signOut();
-        print("Logged out");
-        setState(() {});
-        // pop until login page
-        Navigator.popUntil(context, (route) => route.isFirst);
+        return showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return LogoutPopup(
+                onYesPressed: onYesPressed,
+              );
+            });
       },
       style: ElevatedButton.styleFrom(
           backgroundColor: MyColors.buttonColor, shadowColor: Colors.grey),
@@ -154,30 +166,6 @@ class _LogoutBtnWidgetState extends State<LogoutBtnWidget> {
     );
   }
 }
-// class LogoutBtnWidget extends StatelessWidget {
-//   const LogoutBtnWidget({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final _auth = AuthService();
-//     return ElevatedButton(
-//       onPressed: () async {
-//         // logout
-//         await _auth.signOut();
-//         // pop until login page
-//         Navigator.popUntil(context, (route) => route.isFirst);
-//       },
-//       child: Text(
-//         "Logout",
-//         style: MyStyles.btnTextStyle,
-//       ),
-//       style: ElevatedButton.styleFrom(
-//           backgroundColor: MyColors.buttonColor, shadowColor: Colors.grey),
-//     );
-//   }
-// }
 
 class MyProfileNameCard extends StatelessWidget {
   const MyProfileNameCard({
@@ -308,7 +296,7 @@ class _EditProfileIconState extends State<EditProfileIcon> {
   Widget build(BuildContext context) {
     final userProfile = context.watch<UserProvider>().userProfile;
     return Center(
-      child: Badge(
+      child: badges.Badge(
         badgeContent: GestureDetector(
           onTap: () async {
             XFile? img = await pickImageFromGallery();
@@ -326,8 +314,10 @@ class _EditProfileIconState extends State<EditProfileIcon> {
             size: widget.screenWidth * 0.06,
           ),
         ),
-        badgeColor: MyColors.startColor,
-        position: BadgePosition.bottomEnd(bottom: 3, end: 6),
+        badgeStyle: const badges.BadgeStyle(
+          badgeColor: MyColors.startColor,
+        ),
+        position: badges.BadgePosition.bottomEnd(bottom: 3, end: 6),
         child: ProfileIcon(
             img: "",
             userProfile: userProfile,

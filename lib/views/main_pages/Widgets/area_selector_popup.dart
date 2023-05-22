@@ -71,7 +71,7 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                color: Color(0xffDADBC6),
+                color:  const Color.fromRGBO(242, 233, 228, 1.0),
               ),
               width: screenWidth * 0.75,
               child: ButtonTheme(
@@ -81,13 +81,13 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
                     return DropdownButton(
                       menuMaxHeight: screenHeight * 0.2,
                       isExpanded: true,
-                      dropdownColor: const Color(0xffDADBC6),
+                      dropdownColor:  const Color.fromRGBO(242, 233, 228, 1.0),
                       value: dropdownValue,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20.0)),
                       icon: const Icon(Icons.arrow_downward_sharp),
                       underline: const DecoratedBox(
-                        decoration: BoxDecoration(color: Color(0xffDADBC6)),
+                        decoration: BoxDecoration(color: const Color.fromRGBO(242, 233, 228, 1.0)),
                       ),
                       items: areaList.map((String items) {
                         return DropdownMenuItem(
@@ -117,9 +117,9 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
               children: [
                 TextButton(
                   style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xffBBBD88)),
+                      backgroundColor: MyColors.buttonColor),
                   child:
-                      const Text('OK', style: TextStyle(color: Colors.black)),
+                      const Text('OK', style: TextStyle(color: MyColors.buttonTextColor)),
                   onPressed: () async {
                     if (selectedIndex == 0) {
                       showDialog(
@@ -128,7 +128,7 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
                         builder: (context) {
                           return AlertDialog(
                             backgroundColor:
-                                const Color.fromARGB(255, 71, 39, 67),
+                                MyColors.startColor,
                             title: Column(
                               children: const [
                                 Text('Area not selected'),
@@ -144,14 +144,15 @@ class _AreaSeletorPopupState extends State<AreaSeletorPopup> {
                                     TextButton(
                                       style: TextButton.styleFrom(
                                           backgroundColor:
-                                              const Color(0xffFFFDF4)),
+                                              MyColors.buttonColor),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 18.0),
                                         child: Text('OK',
                                             style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize: screenHeight * 0.03)),
+                                                color: MyColors.buttonTextColor,
+                                                // fontSize: screenHeight * 0.03
+                                                )),
                                       ),
                                       onPressed: () {
                                         Navigator.pop(context);

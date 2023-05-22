@@ -1,7 +1,7 @@
-
 import 'package:flutterdemo/views/main_pages/Widgets/textfield.dart';
 
 import '../../imports.dart';
+import '../../text_validator.dart';
 
 class ContinueWithEmail extends StatefulWidget {
   const ContinueWithEmail({Key? key, required this.role}) : super(key: key);
@@ -24,11 +24,12 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
       dynamic result = await auth.signInWithEmailAndPassword(
           _emailController.text.trim(), _passwordController.text.trim());
       // Check if result is of type UserProfile
-      if (result!=null && result is UserAuth) {
+      if (result != null && result is UserAuth) {
         if (widget.role == "Parent") {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ChildernProfileScreen()),
+            MaterialPageRoute(
+                builder: (context) => const ChildernProfileScreen()),
           );
         } else {
           Navigator.push(
@@ -121,21 +122,35 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
   }
 
   Widget loginInputs() {
+    String _validate(String value) {
+    if (_emailController.text.startsWith(RegExp(r'[a-zA-Z]'))) {
+      return TextValidator.email(value);
+    }  else {
+      return '';
+    }
+  }
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SchoolablesTextField(
-              FieldLabel: "Email Address",
-              hintText: "user.name@mail.com",
-              control: _emailController,
-              textType: TextInputType.emailAddress),
+            // FieldLabel: "Email Address",
+            // hintText: "user.name@mail.com",
+            // control: _emailController,
+            textType: TextInputType.emailAddress, 
+            controller: _emailController,
+            label: 'Email Address',
+            validatorFunction: _validate,
+            
+          ),
           SchoolablesTextField(
-            FieldLabel: "Password",
-            hintText: "Password",
-            control: _passwordController,
-            pswd: true,
+            label: "Password",
+            // extType: TextInputType., 
+            
+            // hintText: "Password",
+            controller: _passwordController,
+            password: true,
           ),
           forgetPassword()
         ],

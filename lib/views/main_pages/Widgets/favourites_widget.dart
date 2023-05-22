@@ -30,6 +30,8 @@ class favouritesCard extends StatefulWidget {
 class _favouritesCardState extends State<favouritesCard> {
   @override
   Widget build(BuildContext context) {
+     final double screenHeight = MediaQuery.of(context).size.height;
+
     void addFav(id) {
       // Add to users wishlist list
       context.read<UserProvider>().addFavItem(id);
@@ -43,7 +45,7 @@ class _favouritesCardState extends State<favouritesCard> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
-        height: 150,
+        height:screenHeight * 0.2,
         decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -65,7 +67,7 @@ class _favouritesCardState extends State<favouritesCard> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: SizedBox(
-              width: 800,
+              width: screenHeight * 0.4,
               child: Row(children: [
                 productImage(),
                 productDetails(addFav, removeFav),

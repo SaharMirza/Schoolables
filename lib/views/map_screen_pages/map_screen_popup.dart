@@ -54,7 +54,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
             child: Container(
               decoration:const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                color: Color(0xffDADBC6),
+                color: const Color.fromRGBO(242, 233, 228, 1.0),
               ),
               width: screenWidth * 0.75,
               child: ButtonTheme(
@@ -63,12 +63,12 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                   return DropdownButton(
                     menuMaxHeight: screenHeight * 0.2,
                     isExpanded: true,
-                    dropdownColor: const Color(0xffDADBC6),
+                    dropdownColor: const Color.fromRGBO(242, 233, 228, 1.0),
                     value: dropdownValue,
                     borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                     icon: const Icon(Icons.arrow_downward_sharp),
                     underline: const DecoratedBox(
-                      decoration: BoxDecoration(color: Color(0xffDADBC6)),
+                      decoration: BoxDecoration(color: const Color.fromRGBO(242, 233, 228, 1.0)),
                     ),
                     items: areaList.map((String items) {
                       return DropdownMenuItem(
@@ -98,8 +98,8 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
               children: [
                 TextButton(
                   style:
-                  TextButton.styleFrom(backgroundColor: const Color(0xffBBBD88)),
-                  child: const Text('Continue', style: TextStyle(color: Colors.black)),
+                  TextButton.styleFrom(backgroundColor: MyColors.buttonColor),
+                  child: const Text('Continue', style: TextStyle(color: MyColors.buttonTextColor)),
                   onPressed: () {
                     if (selectedIndex == 0) {
                       showDialog(
@@ -107,7 +107,7 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                         context: context, // user must tap button!
                         builder: (context) {
                           return AlertDialog(
-                            backgroundColor: const Color.fromARGB(255, 71, 39, 67),
+                            backgroundColor: MyColors.startColor,
                             title: Column(
                               children: const [
                                Text('Area not selected'),
@@ -122,16 +122,14 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                                   children: [
                                     TextButton(
                                       style: TextButton.styleFrom(
-                                          backgroundColor: const Color(0xffFFFDF4)),
+                                          backgroundColor: MyColors.buttonColor),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 18.0),
                                         child: Text('OK',
                                             style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize:
-                                                screenHeight *
-                                                    0.03)),
+                                                color: MyColors.buttonTextColor,
+                                                )),
                                       ),
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -158,8 +156,8 @@ class _MapScreenPopUpState extends State<MapScreenPopUp> {
                 ),
                 TextButton(
                   style:
-                  TextButton.styleFrom(backgroundColor: const Color(0xffBBBD88)),
-                  child: const Text('Cancel', style: TextStyle(color: Colors.black)),
+                  TextButton.styleFrom(backgroundColor: MyColors.buttonColor),
+                  child: const Text('Cancel', style: TextStyle(color: MyColors.buttonTextColor)),
                   onPressed: () {
                     Navigator.pop(context);
                   },

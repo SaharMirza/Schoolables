@@ -34,14 +34,14 @@ class _YourProductsPageState extends State<YourProductsPage> {
           const HeaderBar(title: "Seller"),
           Column(
             children: [
-              const SizedBox(
-                height: 10,
-              ),
-              SearchfilterMapWidget(
-                  screenWidth: screenWidth, screenHeight: screenHeight),
-              const SizedBox(
-                height: 20,
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // SearchfilterMapWidget(
+              //     screenWidth: screenWidth, screenHeight: screenHeight),
+              // const SizedBox(
+              //   height: 20,
+              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
