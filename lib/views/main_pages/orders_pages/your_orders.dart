@@ -1,5 +1,3 @@
-
-
 import '../../../imports.dart';
 
 class YourOrdersPage extends StatefulWidget {
@@ -17,7 +15,6 @@ class _YourOrdersPageState extends State<YourOrdersPage> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -28,18 +25,24 @@ class _YourOrdersPageState extends State<YourOrdersPage> {
             ListView(
               shrinkWrap: true,
               children: [
-                MyProfileListTile(
-                    icon: Icons.shopping_bag_outlined,
-                    title: "Selling Orders",
-                    subtitle: "See your active or archived buying orders",
-                    screenHeight: screenHeight,
-                    screenWidth: screenWidth),
-                MyProfileListTile(
-                    icon: Icons.shopping_bag_outlined,
-                    title: "Buying Orders",
-                    subtitle: "See your active or archived buying orders",
-                    screenHeight: screenHeight,
-                    screenWidth: screenWidth)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MyProfileListTile(
+                      icon: Icons.shopping_bag_outlined,
+                      title: "Selling Orders",
+                      subtitle: "See your active or archived buying orders",
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MyProfileListTile(
+                      icon: Icons.shopping_bag_outlined,
+                      title: "Buying Orders",
+                      subtitle: "See your active or archived buying orders",
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth),
+                )
               ],
             ),
           ]),

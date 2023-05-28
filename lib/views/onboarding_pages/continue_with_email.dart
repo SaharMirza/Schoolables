@@ -69,7 +69,9 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
                   role: widget.role,
                   functionToComply: signin,
                 ),
-                signUpRedirect(widget.role),
+                Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: signUpRedirect(widget.role)),
               ],
             ),
           ),
@@ -123,12 +125,13 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
 
   Widget loginInputs() {
     String _validate(String value) {
-    if (_emailController.text.startsWith(RegExp(r'[a-zA-Z]'))) {
-      return TextValidator.email(value);
-    }  else {
-      return '';
+      if (_emailController.text.startsWith(RegExp(r'[a-zA-Z]'))) {
+        return TextValidator.email(value);
+      } else {
+        return '';
+      }
     }
-  }
+
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
@@ -138,16 +141,15 @@ class _ContinueWithEmailState extends State<ContinueWithEmail> {
             // FieldLabel: "Email Address",
             // hintText: "user.name@mail.com",
             // control: _emailController,
-            textType: TextInputType.emailAddress, 
+            textType: TextInputType.emailAddress,
             controller: _emailController,
             label: 'Email Address',
             validatorFunction: _validate,
-            
           ),
           SchoolablesTextField(
             label: "Password",
-            // extType: TextInputType., 
-            
+            // extType: TextInputType.,
+
             // hintText: "Password",
             controller: _passwordController,
             password: true,

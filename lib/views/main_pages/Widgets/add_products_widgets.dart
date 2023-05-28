@@ -359,27 +359,22 @@ class _AddProductFieldsState extends State<AddProductFields> {
     }
 
 //Saves the product into firebase.
-    void saveMyProduct() async {
+    Future<void> saveMyProduct() async {
       var product = Product(
           sellerID: userProfile.id,
           title: titleController.text,
-          price: int.parse(priceController.text),
+          price: 500,
           images: downloadUrls,
           category: _currentCategory,
           subCategory: _currentSubCategory,
           condition: _currentConditon);
+      print(downloadUrls.length);
 
       if (downloadUrls.isNotEmpty) {
         var productid =
             await context.read<ProductsProvider>().addProduct(product);
         context.read<UserProvider>().addNewProduct(productid);
         context.read<UserProvider>().saveChanges();
-
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const BottomNavBar(),
-          ),
-        );
 
         titleController.clear();
         priceController.clear();
@@ -395,7 +390,8 @@ class _AddProductFieldsState extends State<AddProductFields> {
             FieldLabel: "Title",
             hintText: "Title",
             controller: titleController,
-            isEmpty: false, onValueChanged: (String ) {  },
+            isEmpty: false,
+            onValueChanged: (String) {},
           ),
         ),
         Padding(
@@ -431,7 +427,8 @@ class _AddProductFieldsState extends State<AddProductFields> {
             FieldLabel: "Price",
             hintText: "Price",
             controller: priceController,
-            isEmpty: false, onValueChanged: (String ) {  },
+            isEmpty: false,
+            onValueChanged: (String) {},
           ),
         ),
         Padding(
@@ -468,7 +465,12 @@ class _AddProductFieldsState extends State<AddProductFields> {
             child: ElevatedButton(
               onPressed: () async {
                 await storeImagesinStorage(acceptedImages);
-                saveMyProduct();
+                await saveMyProduct();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const BottomNavBar(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: MyColors.buttonColor,

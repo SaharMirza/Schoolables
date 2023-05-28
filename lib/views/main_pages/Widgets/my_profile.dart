@@ -15,20 +15,27 @@ class MyProfileListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         //Can add ListView here to make the list tiles scrollable
         children: [
-          MyProfileListTile(
-              screenHeight: screenHeight,
-              screenWidth: screenHeight,
-              icon: Icons.help,
-              title: "Help and Support",
-              subtitle: "Help Center and Legal Terms "),
-          MyProfileListTile(
-              screenHeight: screenHeight,
-              screenWidth: screenHeight,
-              icon: Icons.person,
-              title: "Switch Accounts",
-              subtitle: "Switch between profiles"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: MyProfileListTile(
+                screenHeight: screenHeight,
+                screenWidth: screenHeight,
+                icon: Icons.help,
+                title: "Help and Support",
+                subtitle: "Help Center and Legal Terms "),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: MyProfileListTile(
+                screenHeight: screenHeight,
+                screenWidth: screenHeight,
+                icon: Icons.person,
+                title: "Switch Accounts",
+                subtitle: "Switch between profiles"),
+          ),
         ],
       ),
     );

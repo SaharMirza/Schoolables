@@ -17,12 +17,12 @@ class LogoutPopup extends StatelessWidget {
       child: Column(children: [
         const Text('Are you sure you want to logout?'),
         const SizedBox(height: 20),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           ElevatedButton(
             onPressed: onYesPressed,
             style: ElevatedButton.styleFrom(
                 elevation: 10,
-                minimumSize: const Size(120, 40),
+                minimumSize: const Size(100, 40),
                 backgroundColor: MyColors.startColor,
                 textStyle: GoogleFonts.poppins(),
                 foregroundColor: MyColors.buttonTextColor,
@@ -35,7 +35,7 @@ class LogoutPopup extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                   elevation: 10,
-                  minimumSize: const Size(120, 40),
+                  minimumSize: const Size(100, 40),
                   backgroundColor: MyColors.buttonColor,
                   textStyle: GoogleFonts.poppins(),
                   foregroundColor: MyColors.buttonTextColor,
